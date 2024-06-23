@@ -1,0 +1,16 @@
+{
+  "name": "studdy-buddy",
+  "version": "1.0.0",
+  "description": "A university project that aims to help reservists in their studies",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
