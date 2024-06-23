@@ -22,8 +22,9 @@ html, body {
   display: grid;
   grid-template-rows: repeat(4, auto);
   border-radius: 1.5%;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-  padding-bottom: 600px;
+  box-shadow:0 20px 40px rgba(5, 5, 5, 0.418);
+  padding-bottom: 750px;
+  text-align: center;
 }
 
 .banner img {
@@ -48,60 +49,41 @@ html, body {
   border: #fff 5px solid;
 }
 
-.content {
+.form-content {
   position: absolute;
   font-size: 16px;
   text-align: right;
   margin-left: auto;
   margin-right: auto;
-  top: 35%;
-  
+  top: 40%;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.top-of-form input[type=radio] {
+  display: inline;
+  width: auto;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.top-of-form {
+  position: absolute;
+  z-index: 1;
+  top: 30%;
+  text-align: center;
+}
+
+.form-content input[type=radio]:not(:first-of-type) {
+  margin-right: 1rem;
 }
 
 input[type="text"],textarea {
   justify-items: center;
-  width: 500px;
+  width: 600px;
   display: block;
   height: 30px;
 }
-
-.give_help {
-  position: absolute;
-  display: inline-block;
-  cursor: pointer;
-  margin: 20px;
-  border-radius: 5px;
-  top: 25%;
-  right: 35%;
-  z-index: 1;
-  margin-right: auto;
-  padding: 10px 20px;
-  background-color: navy;
-  color: white;
-  border: none;
-  transition: background-color 0.3s;
-  font-size: 14px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.need_help {
-  position: absolute;
-  display: inline-block;
-  cursor: pointer;
-  margin: 20px;
-  border-radius: 5px;
-  top: 25%;
-  left: 35%;
-  z-index: 1;
-  margin-left: auto;
-  padding: 10px 20px;
-  background-color: navy;
-  color: white;
-  border: none;
-  transition: background-color 0.3s;
-  font-size: 14px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} 
 
 .finish {
   position: relative;
@@ -117,20 +99,13 @@ input[type="text"],textarea {
   color: white;
   border: none;
   transition: background-color 0.3s;
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   justify-content: center;
 }
 
-.need_help:hover,
-.give_help:hover,
 .finish:hover {
   background-color: rgb(95, 95, 143);
-}
-
-.need_help:active,
-.give_help:active { 
-  background-color: beige;
 }
 
 .navbar {
@@ -165,37 +140,4 @@ input[type="text"],textarea {
     width: 25px;
     height: 3px;
     background-color: #333;
-}
-
-#myInput {
-  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
-  background-position: 10px 12px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 100%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
-  padding: 12px 20px 12px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-#myUL {
-  /* Remove default list styling */
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-#myUL li a {
-  border: 1px solid #ddd; /* Add a border to all links */
-  margin-top: -1px; /* Prevent double borders */
-  background-color: #f6f6f6; /* Grey background color */
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove default text underline */
-  font-size: 18px; /* Increase the font-size */
-  color: black; /* Add a black text color */
-  display: block; /* Make it into a block element to fill the whole list */
-}
-
-#myUL li a:hover:not(.header) {
-  background-color: #eee; /* Add a hover effect to all links, except for headers */
 }

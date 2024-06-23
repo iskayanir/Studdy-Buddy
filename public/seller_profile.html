@@ -3,23 +3,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Profile</title>
-    <link rel="stylesheet" href="css/profile_style.css">
-      <style>
-      </style>
+    <link rel="stylesheet" href="../css/profile_style.css">
   </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-links">
-            <a href="search_page.html">חיפוש</a>
-            <a href="buyer.html">הצעת עזרה</a>
-            <a href="#link3">LINK 3</a>
-        </div>
-        <div class="hamburger-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+  <nav class="navbar">
+    <div class="nav-links">
+      <a href="pages/search_page.html">חיפוש</a>
+      <a href="pages/buyer.html">הצעת עזרה</a>
+      <a href="#link3">LINK 3</a>
+    </div>
+    <div class="hamburger-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
   <article class="container">
     <figure class="banner">
       <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQBDgMBIgACEQEDEQH/xAAaAAADAQEBAQAAAAAAAAAAAAABAgMABAYF/8QAIRABAQEBAQABBAMBAAAAAAAAAAERAhJSIVFhkUFxgTH/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAQIDBf/EABYRAQEBAAAAAAAAAAAAAAAAAAABEf/aAAwDAQACEQMRAD8A8fOr8r+x9X71LTSvfeOrOvtaPq/zalKaURWdX+LTer8r+0tHRmxWdfe006v3v7SlNKqKzo/r81GU0ozYrOhnX9pym0RSdfkfX9/4no6If1fvR9X+ya2iH9N6LraBvTevzSa3oMP6+1C9X+b+iaFoDevzSXr83/AtJb9BuRuuvzU+uvp/2t1UrRuDer8r+yXq/K/sOqnajeDer8r+0+ur8q1qfVG4N6vyv7T66vyv7C0to3A66vypL1flRpLRrH0dNqUptHHFNNKlKbRMV0ZUpTSqisppUpTSiWKymlSlNKMWKym1OUdExSUdT00olh9bSa2hh9bSa3oMPoaTW0MP6Lei6W0MNaTqhaTqjUgdVO1rSdUdJAtJa1pLUbkbqp2jaS0bwKS0bSUakC0trWlo3I7pTTpKdDKOWLSmlSlPKM4pKMqcNKM2KSnlTgy/VWVYaVOU2iKSinKbRmqSjqcraIfW0mt6A+tpPQaCmhpNbQP6LpbfoGi4NpOq1qdo1jW/RPqj1U7RuRuk7R6pKjca0la0vVGw6pNGktGpA6pLRtJaNOyU0qM6PKMWLSnlR5p5RixWU0qXNPKMqymlSlNKrNisoyp6PqDOKSjqc6g+gxT03pP0OiYf02k0NDFNjano6GH9N6JraGGtDS6Foo9UnVa9EtFwOqS0bSWo3A6pbWpLRoLS2taW0bC0lo2k6o0FpLWtLajUjolUlc8p5VSrzo86c86POhjF9NOkZ0PoZx0TofSE6P6GcV9H1D0adCYtKPpH03pUxb0OoyjoYrranK3oMPraT02hh9bSem0MPrWk0LQwbS2haS1FwbSWhaS0akG1O1rSWjpINpLQtJaNSDaS0LS2o1jWltC0lqtOiU0qE6NOhLF5TTpCdG0ZxedG9ITrDToZxedGnSE6NOhMW9HlQlNOhLFfRpUfQzoZxbR1OdN6ExTW1OUdDFNb0nraGKem9J62hinoLSaFoYe0lpbS2iyN1S2h1SWjcg2p2haW1G5BtJa1pNGpBtJa1pbRQtLa1pLVaxSU8qRpRMUlNOktNKJivo06S0ZRMWnRpUJTSiYtOjTpGdGlGcWnQ6lKadCYrKPpKdDomKem9VPW9Binqt6T9N6ExX03pLW9Bil6DSaF6DD3ol6Lei2i4a9fRO9BaS1G5DXotpbS2jcG0oWh6FxrS2jaS0WRrS6JVaNKMpIMBSUdThoIpOh1MZRMUlNKlKaUZUlNqUppQVnQ+k5R0RSdDOk9GUTFPTek9D0JinpvSetoYp6b0nraJil6C9E0tqLh70W9aW0LRZBtLaFpbVaa0L0W0BqQ1oaW1rRprSsCAhrFoGEoxVNBlKMENowsEQ0NKnDwSmNpWGT6JB0DyjpJW0Q1usXQ0DtpNbQPoaXW1A2haGhaDa1ChaqtS1tAakYtGlGmoMwMDVhQtBmAwsyDDGYQ0YWEYWYBGMwzRFmEaDJosDZAxmANFmAA/wBZgagzChWzf+sytBZgCwFKzCg38swNQBhQAWB//9k=" alt="banner" class="banner">
@@ -28,83 +26,54 @@
         <img id="profilePicture" src="data:image/png;base64,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" alt="profile picture" class="profile_picture">
     </figure>
   </article>
-  <article class="need_give_help">
-    <a href="seller_profile.html">
-      <button class="give_help" onclick="button1Clicked()" href="">אני רוצה לעזור</button>
-    </a>
-    <a href="buyer_profile.html">
-      <button class="need_help" onclick="button2Clicked()">אני מחפש עזרה</button>
-    </a>
-  </article>
-  <section class="content">
-    <form>
-      <label for="name">שם</label>
-      <input type="text" id="name" name="name" placeholder="שם"><br>
-      <label for="degree">תואר</label>
-      <input type="text" id="degree" name="degree" placeholder="תואר"><br>
 
-      <label for="year">שנה בתואר</label>
-      <select id="year" name="year">
-        <option value="option1">א</option>
-        <option value="option2">ב</option>
-        <option value="option3">ג</option>
-        <option value="option3">ד</option>
-        <option value="option3">בוגר</option>
-      </select><br><br>
-
-      <label for="experience">נסיון/רקע אקדמי</label>
-      <textarea id="experience" name="experience" placeholder="נסיון/רקע אקדמי"></textarea><br>
-      
-    <div class="courses">
-      <label for="courses">הקורסים שלי</label>
-      <select id="courses1" name="courses">
-        <option value="option1">קורס 1</option>
-        <option value="option2">קורס 2</option>
-        <option value="option3">קורס 3</option>
-      </select>
-      <select id="courses2" name="courses">
-        <option value="option1">קורס 1</option>
-        <option value="option2">קורס 2</option>
-        <option value="option3">קורס 3</option>
-      </select>
-      <select id="courses3" name="courses">
-        <option value="option1">קורס 1</option>
-        <option value="option2">קורס 2</option>
-        <option value="option3">קורס 3</option>
-      </select>
-        <select id="courses4" name="courses">
-        <option value="option1">קורס 1</option>
-        <option value="option2">קורס 2</option>
-        <option value="option3">קורס 3</option>
-      </select>
-      <select id="courses5" name="courses">
-        <option value="option1">קורס 1</option>
-        <option value="option2">קורס 2</option>
-        <option value="option3">קורס 3</option>
-      </select>
-      <select id="courses6" name="courses">
-        <option value="option1">קורס 1</option>
-        <option value="option2">קורס 2</option>
-        <option value="option3">קורס 3</option>
-      </select>
+  <article class="top-of-form">
+    <h1 title="title">יצירת משתמש חדש</h1><br>
+    <div class="user-type">
+      <input id="user-buyer" name="user" type="radio" value="Buyer" onclick="window.location.href = 'buyer_profile.html'";> אני מחפש עזרה
+      <input id="user-seller" name="user" type="radio" value="Seller" checked onclick="window.location.href = 'seller_profile.html'";> אני רוצה לעזור <br>
     </div><br>
+  </article>
 
-    <label for="aboutme">קצת עלי...</label>
-    <textarea id="aboutme" name="aboutme" placeholder="קצת עליי.."></textarea><br>
+  <section class="form-content">  
+    <form></form>
+      <h3>פרטים אישיים</h3><br>
+      <div class="input-group">
+        <label for="name">שם מלא</label>
+        <input type="text" id="name" name="name" placeholder="שם מלא"><br>
+        <label for="degree">תואר</label>
+        <input type="text" id="degree" name="degree" placeholder="תואר"><br>
 
-    <label for="hobbies"> התחביבים שלי</label>
-    <textarea id="hobbies" name="hobbies" placeholder="התחביבים שלי"></textarea><br>
+        <label for="year">שנה בתואר</label>
+        <select id="year" name="year">
+          <option value="option1">א</option>
+          <option value="option2">ב</option>
+          <option value="option3">ג</option>
+          <option value="option3">ד</option>
+          <option value="option3">בוגר</option>
+        </select><br><br>
 
-    <div class="contact">
-      <br><h3>פרטי התקשרות</h3>
-      <form>
-        <label for="number">מספר טלפון</label>
-        <input type="text" id="number" name="number" placeholder="מספר טלפון"><br>
+        <label for="experience">נסיון/רקע אקדמי</label>
+        <textarea id="experience" name="experience" placeholder="נסיון/רקע אקדמי"></textarea><br>
+        
+        <label for="courses">הקורסים שלי</label>
+        <textarea id="course-search" name="course-search" placeholder="חיפוש קורסים"></textarea><br>
 
-        <label for="email">מייל</label>
-        <input type="text" id="email" name="email" placeholder="מייל"><br>
-      </form>
-    </div>
+        <label for="aboutme">קצת עלי...</label>
+        <textarea id="aboutme" name="aboutme" placeholder="קצת עליי.."></textarea><br>
+
+        <label for="hobbies"> התחביבים שלי</label>
+        <textarea id="hobbies" name="hobbies" placeholder="התחביבים שלי"></textarea><br>
+
+        <div class="contact">
+          <br><h3>פרטי התקשרות</h3><br>
+            <label for="number">מספר טלפון</label>
+            <input type="text" id="number" name="number" placeholder="מספר טלפון"><br>
+
+            <label for="email">מייל</label>
+            <input type="text" id="email" name="email" placeholder="מייל"><br>
+        </div>
+      </div>
     </form>
     <article class="finish">
       <a href="seller.html">
@@ -112,6 +81,9 @@
       </a>
     </article>
   </section>
+
+  
   <script>
   </script>
+  
 </body>
