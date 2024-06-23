@@ -1,0 +1,82 @@
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page Study Buddy</title>
+    <link rel="stylesheet" href="root/css/login_style.css">
+       <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            const data = jwt_decode(response.credential);
+            console.log(data);
+            alert('Logged in as ' + data.name);
+            window.location.href = 'root/pages/login.html'; // הפנה את המשתמש לדף הבית
+        }
+
+        function initGoogleSignIn() {
+            google.accounts.id.initialize({
+                client_id: '1085756530979-gs6lh3igb62qi666c1v3uk4p6kopc83e.apps.googleusercontent.com',
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("g_id_signin"),
+                { theme: "outline", size: "large" }
+            );
+        }
+
+        window.onload = initGoogleSignIn;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+  </head>
+  <body>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBca6BVRgwMO3XJ_gVIn2DK3uHxj7bnHms",
+    authDomain: "study-buddy-d457d.firebaseapp.com",
+    projectId: "study-buddy-d457d",
+    storageBucket: "study-buddy-d457d.appspot.com",
+    messagingSenderId: "254149753908",
+    appId: "1:254149753908:web:04ccb86462b3ee2d815e61",
+    measurementId: "G-G9L8WVHF1X"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="root/pages/buyer_profile.html">פרופיל קונה</a></li>
+                <li><a href="root/pages/seller_profile.html">פרופיל מוכר</a></li>
+                <li><a href="root/pages/buyer_profile.html">הבקשות שלי</a></li>
+                <li><a href="root/pages/search_page.html">חיפוש</a></li>
+                <li><a href="root/pages/seller.html">מוכר</a></li>
+                <li><a href="root/pages/buyer.html">קונה</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+      <h1>ברוכים הבאים ל- Study Buddy!</h1>
+      <h3>האתר שיעזור לכם, אנשי המילואים, להצליח גם בלימודים</h3>
+      <div class="login-container">
+          <form action="login_process.php" method="POST">
+              <button type="button" class="google-button">התחבר עם Google</button>
+              <div id="g_id_signin"></div>
+          </form>
+            <button type="button" class="continue">יש לי כבר משתמש</button>
+          </div>
+    </main>
+    <footer>
+      <p>לכל שאלה או בקשה ליצירת קשר, שלחו לנו מייל ל: <a href="mailto:info@studybuddy.com">info@studybuddy.com</a></p>
+    </footer>
+  </body>
+</html>
