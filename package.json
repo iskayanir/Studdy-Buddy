@@ -13,6 +13,8 @@
   "dependencies": {
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "firebase": "^10.12.2",
+    "fs": "^0.0.1-security",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0"
   }
