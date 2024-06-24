@@ -173,7 +173,7 @@ const { initializeApp } = require("firebase/app");
 const { getDatabase, ref, get, child } = require("firebase/database");
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3000;
 
 // Firebase configuration
 const firebaseConfig = {
@@ -198,7 +198,7 @@ module.exports = { database };
 passport.use(new GoogleStrategy({
     clientID: '1085756530979-gs6lh3igb62qi666c1v3uk4p6kopc83e.apps.googleusercontent.com',
     clientSecret: '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',
-    callbackURL: 'http://localhost:3002/auth/google/callback'
+    callbackURL: 'http://localhost:3000/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, done) {
       // כאן ניתן לשמור את פרטי המשתמש למסד נתונים
@@ -282,8 +282,4 @@ app.get('/test', (req, res) => {
     }).catch((error) => {
       res.status(500).send('Failed to read data: ' + error);
     });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
 });
