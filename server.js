@@ -263,23 +263,60 @@ app.get('/seller_profile', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Serving on port ${PORT}`);
-});
+
+
 
 
 
 
 // Test route to read data from Firebase
 app.get('/test', (req, res) => {
-    const dbRef = ref(database);
-    get(child(dbRef, `test`)).then((snapshot) => {
-      if (snapshot.exists()) {
-        res.send(snapshot.val());
-      } else {
-        res.send('No data available');
-      }
-    }).catch((error) => {
-      res.status(500).send('Failed to read data: ' + error);
-    });
+  const dbRef = ref(database);
+  get(child(dbRef, test)).then((snapshot) => {
+    if (snapshot.exists()) {
+      res.send(snapshot.val());
+    } else {
+      res.send('No data available');
+    }
+  }).catch((error) => {
+    res.status(500).send('Failed to read data: ' + error);
+  });
 });
+
+
+
+app.get('/api/students', async (req, res) => {
+  try {
+    const studentsReceivingHelpRef = ref(database, 'studentsReceivingHelp');
+    const studentsProvidingHelpRef = ref(database, 'studentsProvidingHelp');
+    
+    const [receivingSnapshot, providingSnapshot] = await Promise.all([
+      get(studentsReceivingHelpRef),
+      get(studentsProvidingHelpRef)
+    ]);
+
+    if (receivingSnapshot.exists() && providingSnapshot.exists()) {
+      const studentsReceivingHelp = receivingSnapshot.val();
+      const studentsProvidingHelp = providingSnapshot.val();
+      
+      console.log("Students Receiving Help:", studentsReceivingHelp); // לוגים לבדיקת הנתונים
+      console.log("Students Providing Help:", studentsProvidingHelp); // לוגים לבדיקת הנתונים
+      
+      res.json({
+        studentsReceivingHelp,
+        studentsProvidingHelp
+      });
+    } else {
+      res.status(404).json({ error: "No data available" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching data" });
+  }
+});
+
+
+
+app.listen(PORT, () => {
+  console.log(`Serving on port ${PORT}`);
+});
+
