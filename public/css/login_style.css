@@ -57,35 +57,30 @@ header {
 
 /* Login container styles */
 .login-container {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     border: 0px solid #ccc;
     border-radius: 30px;
     display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Distribute items with space between them */
+    justify-content: center; /* Center the button */
     align-items: center; /* Center items vertically */
     margin-top: 50px; /* Adjust top margin as needed */
 }
 
-.login-container button {
-    padding: 10px 20px; /* Adjust padding for more space around text */
-    width: 180px;
-    background-color: #f0f0f0;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+#g_id_signin {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Make the button take full width */
+    max-width: 300px; /* Limit the max width */
 }
 
 .google-button {
-    order: 1; /* Ensure the "google-button" remains to the right */
-}
-
-.continue {
-    order: 2; /* Move the "continue" button to the left */
-    margin-right: 10px; /* Increase space between buttons */
+    width: 100%;
+    max-width: 300px;
+    height: 60px; /* Adjust height as needed */
+    font-size: 18px; /* Adjust font size as needed */
 }
 
 .login-container button:hover {
@@ -99,7 +94,6 @@ h1 {
     margin-left: 1%; /* Adjust as needed to move the h1 up */
     margin-bottom: 0;
 }
-
 
 /* Footer styles */
 footer {
