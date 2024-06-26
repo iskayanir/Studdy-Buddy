@@ -119,7 +119,7 @@ h1 {
 
 /* Footer styles */
 footer {
-    background-color: #3F357B; /* Background color for the footer */
+    background-color: #0c0053; /* Background color for the footer */
     color: white; /* Text color */
     text-align: center;
     padding: 10px 0; /* Padding for footer */
@@ -145,7 +145,7 @@ footer a:hover {
 }
 
 .logo {
-    width: 100px; /* Adjust the width as needed */
+    width: 200px; /* Adjust the width as needed */
     height: auto; /* Maintain aspect ratio */
     margin-bottom: 20px; /* Space between logo and heading */
 }
