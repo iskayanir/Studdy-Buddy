@@ -32,12 +32,13 @@
             </div>
             <h3>במה תוכל לעזור?</h3>
             <div class="buttons">
-                <button id="sicom">סיכום</button>
-                <button id="hashlama" onclick="toggleSearchField()">השלמת נושא</button>
-                <button id="ezra">עזרה בתרגיל בית</button>
+                <button id="sicom" onclick="toggleSearchField('sicom')">סיכום</button>
+                <button id="hashlama" onclick="toggleSearchField('hashlama')">השלמת נושא</button>
+                <button id="ezra" onclick="toggleSearchField('ezra')">עזרה בתרגיל בית</button>
             </div>
             <!-- אלמנט זה יתמלא בעת הוספת שדה חיפוש -->
             <div id="additionalFields"></div>
+            <div id="additionalFields1"></div>
 
             <div id="searchFieldSummary">
                 <input type="text" id="summarySearchInput" placeholder="הגדר נושא סיכום...">
