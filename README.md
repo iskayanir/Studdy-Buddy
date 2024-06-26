@@ -10,5 +10,5 @@ to save updates:
 2. git status
 3. git add .
 4. git commit -m "here some notes about the changes"
-5. git push origin main
+5. git push origin
 
