@@ -2,23 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Buddy</title>
-    <style>
-        .student {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px 0;
-        }
-    </style>
+    <title>Student Help Network</title>
 </head>
 <body>
     <h1>Students Receiving Help</h1>
-    <div id="receiving-help"></div>
+    <div id="studentsReceivingHelp"></div>
 
     <h1>Students Providing Help</h1>
-    <div id="providing-help"></div>
+    <div id="studentsProvidingHelp"></div>
+    <script>
+        // פונקציה שמבצעת fetch לנתונים מהשרת
+        function fetchData() {
+            fetch('https://ideal-space-carnival-rqgwjxp659qhppwg-3000.app.github.dev/data')
+            .then(response => response.json())
+            .then(data => {
+                const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+                data.forEach(student => {
+                    receivingHelpDiv.innerHTML += `<p>Name: ${student.name}, Year: ${student.year}</p>`;
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+        }
 
-    <script src="js/script.js" type="module"></script>
+        // מפעיל את הפונקציה לאחר טעינת הדף
+        window.onload = fetchData;
+    </script>
+    <!-- <script src="js/firebase-app.js"></script> -->
 </body>
 </html>
