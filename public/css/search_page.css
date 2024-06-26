@@ -183,3 +183,14 @@ ul li {
     border-radius: 5px;
     display: grid
 }
+
+footer {
+    background-color: #3F357B; /* Background color for the footer */
+    color: white; /* Text color */
+    text-align: center;
+    padding: 10px 0; /* Padding for footer */
+    width: 100%; /* Ensure footer spans full width */
+    position: relative;
+    bottom: 0;
+    position: fixed;
+}
