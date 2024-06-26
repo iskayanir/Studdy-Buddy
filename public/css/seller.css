@@ -13,7 +13,7 @@ body {
     padding: 10px;
     border-radius: 8px;
     width: 30%;
-    background-color: #f0f0f0; /* הוספת צבע רקע ל-div */
+    background-color: #F0F4F7; /* הוספת צבע רקע ל-div */
 }
 
 h2 {
@@ -22,7 +22,7 @@ h2 {
 }
 
 .course {
-    background-color: #f9f9f9;
+    background-color: #F0F4F7;
     padding: 30px;
     border-radius: 15px;
     text-align: right;
@@ -298,4 +298,10 @@ html, body {
     width: 100%; /* שנה את הגודל בהתאם לצורך */
     height: auto;
     display: block;
+}
+
+/* הוספת מרווחים לכותרות והכפתורים */
+#section5 h3 {
+    margin-top: 50px; /* הוספת מרווח מעל כותרת "במה תוכל לעזור?" */
+    margin-bottom: 50px; /* הוספת מרווח מתחת לכותרת "במה תוכל לעזור?" */
 }
