@@ -4,6 +4,7 @@ html, body {
     direction: rtl; 
     text-align: right; 
     display: grid; 
+    background-color: #FBFDFF;
 }
 
 .container {
@@ -110,6 +111,7 @@ html, body {
     padding: 10px;
     background-color: #f9f9f9;
     text-align: center;
+    background-color:#F0F4F7;
     
 }
 
