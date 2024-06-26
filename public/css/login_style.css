@@ -8,7 +8,7 @@
 
 /* Background styles */
 html, body {
-    background: linear-gradient(to bottom, #c0e0f4, #77d3f8);
+    background: linear-gradient(to bottom right, #d0eaff, #f0f4f7);
     width: 100%;
     height: 100%;
     display: grid;
@@ -19,7 +19,7 @@ html, body {
 
 /* Header styles */
 header {
-    background-color: #77d3f8; /* Example background color for the navbar */
+    background-color: #3F357B; /* Example background color for the navbar */
     padding: 0.5% 38.2%; /* Adjust padding as needed */
     align-self: flex-start;
     margin-top: 1%; /* Adjust top margin */
@@ -27,11 +27,15 @@ header {
 }
 
 .navbar {
+    display:flex;
     text-align: right; /* Right-aligns the menu items */
 }
 
 .navbar ul {
     list-style-type: none; /* Remove default list styles */
+    display:flex;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */    
 }
 
 .navbar ul li {
@@ -40,7 +44,7 @@ header {
 }
 
 .navbar ul li:first-child {
-    margin-left: 0; /* No margin for the first menu item */
+    margin-left: 20px; /* No margin for the first menu item */
 }
 
 .navbar ul li a {
@@ -49,6 +53,7 @@ header {
     padding: 8px 15px; /* Adjust padding for link text */
     border-radius: 5px; /* Rounded corners for links */
     transition: background-color 0.3s; /* Smooth transition for hover effect */
+    margin-left: 20px;
 }
 
 .navbar ul li a:hover {
@@ -88,6 +93,14 @@ header {
     color: #ffffff; /* Example hover text color */
 }
 
+/* Main content styles */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    padding: 20px;
+}
+
 /* Adjusting h1 margin to move it up */
 h1 {
     margin-top: 5%; /* Adjust as needed to move the h1 up */
@@ -103,12 +116,12 @@ footer {
 }
 
 footer p {
-    color: #ffffff; /* Text color for footer */
+    color: black; /* Text color for footer */
     font-size: 14px;
 }
 
 footer a {
-    color: #ffffff; /* Link color for footer */
+    color: black; /* Link color for footer */
     text-decoration: none;
     font-weight: bold;
 }
@@ -117,19 +130,10 @@ footer a:hover {
     text-decoration: underline; /* Underline on hover for link */
 }
 
-.logo-container {
-    text-align: center; /* Center the logo horizontally */
-    margin-top: 20px; /* Adjust spacing as needed */
-}
-
 .logo {
-    display: inline-block; /* Ensures the logo behaves like an inline block */
-    /* Add more styling as per your design */
-}
-
-.logo img {
-    height: 80px; /* Adjust the height of the logo */
-    /* Add more image-specific styles if necessary */
+    width: 100px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space between logo and heading */
 }
 
 /* Adjust other styles like .google-button, .continue, etc. as needed */
