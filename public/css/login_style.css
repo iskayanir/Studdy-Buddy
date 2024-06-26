@@ -15,15 +15,22 @@ html, body {
     grid-template-columns: 1fr;
     align-items: center;
     justify-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 /* Header styles */
 header {
-    background-color: #3F357B; /* Example background color for the navbar */
+    background-color: #ffffff; /* Example background color for the navbar */
     padding: 0.5% 38.2%; /* Adjust padding as needed */
     align-self: flex-start;
-    margin-top: 1%; /* Adjust top margin */
+    margin-top: 0%; /* Adjust top margin */
     margin-right: 0.05%; /* Adjust right margin */
+    box-shadow: 0px 4px 2px -2px gray; /* Shadow for header */
+    z-index: 1000; /* Ensure header is above other content */
+    height: 40px; /* Fixed height for header */
+    top: 0;
+    position: fixed;
 }
 
 .navbar {
@@ -49,7 +56,7 @@ header {
 
 .navbar ul li a {
     text-decoration: none;
-    color: #ffffff; /* Link text color */
+    color: black; /* Link text color */
     padding: 8px 15px; /* Adjust padding for link text */
     border-radius: 5px; /* Rounded corners for links */
     transition: background-color 0.3s; /* Smooth transition for hover effect */
@@ -96,9 +103,11 @@ header {
 /* Main content styles */
 main {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center; /* Center content horizontally */
-    padding: 20px;
+    padding: 80px 20px;
+    margin-top: 0;
 }
 
 /* Adjusting h1 margin to move it up */
@@ -110,18 +119,23 @@ h1 {
 
 /* Footer styles */
 footer {
-    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #3F357B; /* Background color for the footer */
+    color: white; /* Text color */
     text-align: center;
-    margin-top: 20px; /* Adjust top margin */
+    padding: 10px 0; /* Padding for footer */
+    width: 100%; /* Ensure footer spans full width */
+    position: relative;
+    bottom: 0;
+    position: fixed;
 }
 
 footer p {
-    color: black; /* Text color for footer */
+    color: white; /* Text color for footer */
     font-size: 14px;
 }
 
 footer a {
-    color: black; /* Link color for footer */
+    color: white; /* Link color for footer */
     text-decoration: none;
     font-weight: bold;
 }
