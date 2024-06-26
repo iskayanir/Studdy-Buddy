@@ -126,8 +126,13 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ccc;
+    background-color: #3F357B;
     padding: 10px 20px;
+    /* width: 1328px; */
+    height: 100px;
+    /* background-image: url('data:image/svg+xml;utf8,<svg width="1328" height="352" viewBox="0 0 1328 352" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="1328" height="352" rx="6" fill="#3F357B"/></svg>');
+    background-size: cover; 
+    background-repeat: no-repeat; */
 }
 
 .nav-links {
@@ -137,8 +142,8 @@ html, body {
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
-    font-size: 16px;
+    color: #FFFFFF;
+    font-size: 24px;
 }
 
 .hamburger-menu {
@@ -150,9 +155,9 @@ html, body {
 
 .hamburger-menu span {
     display: block;
-    width: 25px;
+    width: 35px;
     height: 3px;
-    background-color: #333;
+    background-color: #FFFFFF;
 }
 
 .search-container {
@@ -271,3 +276,11 @@ html, body {
 .black {
     color: black;
 }
+
+ /* .nav-logo {
+    width: 1328px;
+    height: 352px;
+    background-image: url('data:image/svg+xml;utf8,<svg width="1328" height="352" viewBox="0 0 1328 352" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="1328" height="352" rx="6" fill="#3F357B"/></svg>');
+    background-size: cover; מתאים את גודל התמונה למידות המיכל
+    background-repeat: no-repeat; /* מבטל חזרות של התמונה */
+/* }  */ 
