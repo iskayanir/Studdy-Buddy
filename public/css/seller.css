@@ -13,6 +13,7 @@ body {
     padding: 10px;
     border-radius: 8px;
     width: 30%;
+    background-color: #f0f0f0; /* הוספת צבע רקע ל-div */
 }
 
 h2 {
@@ -284,3 +285,17 @@ html, body {
     background-size: cover; מתאים את גודל התמונה למידות המיכל
     background-repeat: no-repeat; /* מבטל חזרות של התמונה */
 /* }  */ 
+
+
+#hashlama {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#hashlama img {
+    width: 100%; /* שנה את הגודל בהתאם לצורך */
+    height: auto;
+    display: block;
+}
