@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Page</title>
-    <link rel="stylesheet" href="css/seller.css">
+    <title>Buyer</title>
+    <link rel="stylesheet" href="../css/seller.css">
 </head>
 <body>
-      <nav class="navbar">
+    <nav class="navbar">
+        <div class="nav-logo">
+            <!-- Example SVG Logo -->
+            <!-- <svg width="1328" height="352" viewBox="0 0 1328 352" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="1328" height="352" rx="6" fill="#3F357B"/>
+            </svg> -->
+                
+        </div>
         <div class="nav-links">
             <a href="search_page.html">חיפוש</a>
-            <a href="buyer.html">הצעת עזרה</a>
-            <a href="#link3">LINK 3</a>
+            <a href="buyer.html">סטטוס בקשות</a>
+            <a href="profile.html">פרופיל</a>
         </div>
         <div class="hamburger-menu">
             <span></span>
@@ -19,53 +26,86 @@
             <span></span>
         </div>
     </nav>
-
     <div class="container">
 
         <div class="section" id="section5">
-                <h1>סטטוס בקשות</h1>
-                  <div class="search-container">
-        <input type="text" placeholder="חפש..." class="search-input">
-        <button class="search-button">
-            <span class="search-icon">&#x1F50D;</span>
-        </button>
-    </div>
-    <div class="buttons">
-        <button>סיכום</button>
-        <button>השלמת נושא</button>
-        <button>עזרה בתרגיל בית</button>
-    </div>
+            <h1>קורס 1</h1>
+            <!-- <div class="search-container">
+                <input type="text" placeholder="חפש..." class="search-input">
+                <button class="search-button">
+                    <span class="search-icon">&#x1F50D;</span>
+                </button>
+            </div> -->
+            <h3>במה תרצה עזרה?</h3>
+            <div class="buttons">
+                <button id="hashlama" onclick="toggleSearchField('sicom')">
+                    <img src="images/סיכום.svg" alt="סיכום">
+                </button>
+                <button id="hashlama" onclick="toggleSearchField('hashlama')">
+                    <img src="images/השלמת נושא.svg" alt="השלמת נושא">
+                </button>
+                <button id="hashlama" onclick="toggleSearchField('ezra')">
+                    <img src="images/עזרה בתרגיל בית.svg" alt="עזרה בתרגיל בית">
+                </button>
+            </div>
+            <!-- אלמנט זה יתמלא בעת הוספת שדה חיפוש -->
+            <div id="additionalFields"></div>
+            <div id="additionalFields1"></div>
+
+            <div id="searchFieldSummary">
+                <input type="text" id="summarySearchInput" placeholder="הגדר נושא סיכום...">
+                <button onclick="submitSummary()">חיפוש</button>
+            </div>
+            
             <div class="course" id="course1">
-                <h2>קורס 1</h2>
                 <div class="course-content">
                     <div class="item">
                         <span>סיכום</span>
                         <span>1/6</span>
                     </div>
+                    <div class="additional-item">
+                      <div class="icon">👤</div>
+                      <div class="text-content">השלמת נושא - שם הנושא</div>                      
+                      <div class="status">
+                          <div class="status-icon">✔</div>
+                          <div class="remove-icon">x</div>
+                      </div>
+                    </div>
+                    <div class="additional-item">
+                      <div class="icon">👤</div>
+                      <div class="text-content">השלמת נושא - שם הנושא</div>                      
+                      <div class="status">
+                          <div class="status-icon">✔</div>
+                          <div class="remove-icon">x</div>
+                      </div>
+                    </div>
+
                     <div class="item">
                         <span>סיכום</span>
                         <span>4/6</span>
                     </div>
+                    <div class="additional-item">
+                      <div class="icon">👤</div>
+                      <div class="text-content">השלמת נושא - שם הנושא</div>                      
+                      <div class="status">
+                          <div class="status-icon">✔</div>
+                          <div class="remove-icon">x</div>
+                      </div>
+                    </div>
                     <div class="item">
                         <span>סיכום</span>
                         <span>7/6</span>
-                    </div>
-                    <div class="completion">
-                        <span>השלמת נושא - שם הנושא</span>
-                        <span class="completed">✔</span>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
         <div class="section" id="section6">
-            <h2>קורסים
-
-            </h2>
+            <h2>קורסים</h2>
             <ul>
-                <li>קורס 1</li>
-                <li>קורס 2</li>
-                <li>קורס 3</li>
-                <li>קורס 4</li>
+                <button id="course1" class="blue" onclick="changeColor()">קורס 1</button>
+                <button id="course2" class="black" onclick="changeColor()">קורס 2</button>
+                <button id="course3" class="black" onclick="changeColor()">קורס 3</button>
+                <button id="course4" class="black" onclick="changeColor()">קורס 4</button>
             </ul>
         </div>
         <!-- <div class="section" id="section9">
@@ -74,6 +114,6 @@
             <button>הוסף לרשימת הקורסים</button>
         </div> -->
     </div>
-    <script src="js/scripts.js"></script>
+    <script src="js/buyer.js"></script>
 </body>
 </html>

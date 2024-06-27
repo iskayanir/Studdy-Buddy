@@ -141,6 +141,43 @@ server.get('/seller_profile', (req, res) => {
 
 
 
+
+
+// const fs = require('fs');
+// const bodyParser = require('body-parser'); // יש להתקין אם אינו מותקן: npm install body-parser
+
+// server.use(bodyParser.json()); // עבור פרסינג של JSON מבקשות POST
+
+// server.post('/save-profile', (req, res) => {
+//   const userData = req.body; // מקבל את הנתונים מהצד לקוח
+
+//   // קריאה מקובץ ה-JSON
+//   fs.readFile('./students.json', 'utf8', (err, data) => {
+//       if (err) {
+//           console.error(err);
+//           res.status(500).send("Error reading file.");
+//           return;
+//       }
+
+//       const students = JSON.parse(data);
+//       // הוספת משתמש חדש - יש להגדיר מפתח ייחודי
+//       students.students[`student_${Object.keys(students.students).length + 1}`] = userData;
+
+//       // כתיבה חזרה לקובץ
+//       fs.writeFile('./students.json', JSON.stringify(students, null, 2), 'utf8', (err) => {
+//           if (err) {
+//               console.error(err);
+//               res.status(500).send("Error writing file.");
+//               return;
+//           }
+//           res.send("Profile saved successfully.");
+//       });
+//   });
+// });
+
+
+
+
 // // Initialize Firebase
 // const firebaseApp = initializeApp(firebaseConfig);
 // const database = getDatabase(firebaseApp);
