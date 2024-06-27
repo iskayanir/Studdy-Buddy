@@ -38,16 +38,16 @@
             </div> -->
             <h3>במה תוכל לעזור?</h3>
             <div class="buttons">
-                <button id="hashlama" onclick="toggleDisplayData('sicom')">
-                    <img src="images/סיכום.svg" alt="סיכום">
-                </button>
-                <button id="hashlama" onclick="toggleDisplayData('hashlama')">
-                    <img src="images/השלמת נושא.svg" alt="השלמת נושא">
-                </button>
-                <button id="hashlama" onclick="toggleDisplayData('ezra')">
-                    <img src="images/עזרה בתרגיל בית.svg" alt="עזרה בתרגיל בית">
-                </button>
+                
+                <button id="buttonSummary" onclick="toggleDisplayData('lessonSummaries')">
+                    <img src="images/סיכום.svg" alt="סיכום"></button>
+                <button id="buttonTopicCompletion" onclick="toggleDisplayData('requestedHelpTopics')">
+                    <img src="images/השלמת נושא.svg" alt="השלמת נושא"></button>
+                <button id="buttonHomeworkHelp" onclick="toggleDisplayData('homeworkAssignments')">
+                    <img src="images/עזרה בתרגיל בית.svg" alt="עזרה בתרגיל בית"> </button>
+                    
             </div>
+            <div id="additionalFields"></div>
             <!-- אלמנט זה יתמלא בעת הוספת שדה חיפוש
             <div id="additionalFields"></div>
             <div id="additionalFields1"></div>
@@ -112,7 +112,7 @@
             <button>הוסף לרשימת הקורסים</button>
         </div> -->
     </div>
-    <script src="js/seller.js"></script>
+    <script type="module" src="js/seller.js"></script>
 </body>
 </html>
 

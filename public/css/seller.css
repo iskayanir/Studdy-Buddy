@@ -30,6 +30,8 @@ h2 {
 
 }
 
+
+
 .course-content .item {
     display: flex;
     justify-content: space-between;
@@ -289,18 +291,47 @@ html, body {
 /* }  */ 
 
 
-#hashlama {
+#buttonSummary {
     padding: 0;
     border: none;
     background: none;
     cursor: pointer;
 }
 
-#hashlama img {
+#buttonSummary img {
     width: 100%; /* שנה את הגודל בהתאם לצורך */
     height: auto;
     display: block;
 }
+
+#buttonTopicCompletion {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#buttonTopicCompletion img {
+    width: 100%; /* שנה את הגודל בהתאם לצורך */
+    height: auto;
+    display: block;
+}
+
+#buttonHomeworkHelp {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#buttonHomeworkHelp img {
+    width: 100%; /* שנה את הגודל בהתאם לצורך */
+    height: auto;
+    display: block;
+}
+
+
+
 
 /* הוספת מרווחים לכותרות והכפתורים */
 #section5 h3 {
@@ -308,6 +339,7 @@ html, body {
     margin-bottom: 50px; /* הוספת מרווח מתחת לכותרת "במה תוכל לעזור?" */
 }
 
+<<<<<<< HEAD
 .course-content .item {
     display: flex;
     justify-content: space-between;
@@ -319,4 +351,9 @@ html, body {
 .course-content .status {
     display: flex;
     align-items: center;
+=======
+
+#additionalFields {
+    margin-top: 50px; /* הוספת רווח עליון של 20 פיקסלים */
+>>>>>>> ba6827c403bc9acc09a7e2c3206dc49675880a9c
 }
