@@ -1,11 +1,21 @@
 
 html, body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
     direction: rtl; 
     text-align: right; 
-    display: grid; 
+    display: flex; 
     background-color: #FBFDFF;
+    height: 100%; 
+    flex-direction: column;
 }
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
 
 .container {
     display: flex;
@@ -95,12 +105,13 @@ header .logo {
 
 .search-container {
     display: flex;
+    justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color:  #F0F4F7;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 5px;
-    width: 500px;
+    width: 300px;
     
 }
 
@@ -110,25 +121,8 @@ header .logo {
     outline: none;
     padding: 10px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 1px;
 }
-
-.search-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 20px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.search-icon {
-    font-size: 24px;
-    color: black ;
-}
-
 
 .buttons {
     display: table-row;
@@ -154,19 +148,34 @@ header .logo {
 
 /* Grid item styling */
 .grid-item {
+    display: grid; /* Nested grid for each grid-item */
+    grid-template-areas:
+        "h2"
+        "icon"
+        "ul"
+        "button";
+    gap: 3px;
+    position: relative;
     border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #f9f9f9;
+    padding: 5px;
     text-align: center;
     background-color:#F0F4F7;
     
 }
 
-/* Icon styling */
+.h2{
+    grid-area: h2; 
+    margin: 0;
+}
+
 .icon {
-    font-size: 38px;
+    font-size: 45px;
     display: block;
-    margin: 10px 0;
+    margin: 0px 0;
+    position: relative;
+    grid-area: icon;
+    
+    
 }
 
 /* Unordered list styling */
@@ -175,10 +184,23 @@ ul {
     padding: 0;
     text-align: right;
     direction: rtl;
+    grid-area: ul;
 }
 
 ul li {
     margin: 5px 0;
+}
+
+.add {
+    background-color: #3F357B;
+    color: #f0f0f0;
+    padding: 15px ;
+    border-radius: 12px;
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    cursor: pointer;
+    
 }
 
 .dropdown {
@@ -235,25 +257,8 @@ footer {
     background-color: #0c0053; /* Background color for the footer */
     color: white; /* Text color */
     text-align: center;
-    padding: 10px 0; /* Padding for footer */
+    padding: 5px 0; /* Padding for footer */
     width: 100%; /* Ensure footer spans full width */
     position: relative;
-    bottom: 0;
     position: fixed;
-    left: 0;
-}
-
-footer p {
-    color: white; /* Text color for footer */
-    font-size: 14px;
-}
-
-footer a {
-    color: white; /* Link color for footer */
-    text-decoration: none;
-    font-weight: bold;
-}
-
-footer a:hover {
-    text-decoration: underline; /* Underline on hover for link */
 }
