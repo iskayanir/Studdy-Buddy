@@ -23,12 +23,59 @@ body{
     padding: 20px;
 }
 
-.navbar {
+/* Header styles */
+header {
+    background-color: #ffffff;
+    padding: 0.5%, 38.2%; /* Adjust padding as needed */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Align items to the left and right */
     align-items: center;
-    background-color: #ccc;
-    padding: 10px 20px;
+    box-shadow: 0px 4px 2px -2px gray;
+    z-index: 1000;
+    height: 60px; /* Fixed height for header */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+header .logo {
+    width: 50px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.navbar {
+    display:flex;
+    text-align: right; /* Right-aligns the menu items */
+}
+
+.navbar ul {
+    list-style-type: none; /* Remove default list styles */
+    display:flex;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */    
+}
+
+.navbar ul li {
+    display: inline-block; /* Display menu items horizontally */
+    margin-left: 20px; /* Adjust margin between menu items */
+}
+
+.navbar ul li:first-child {
+    margin-left: 20px; /* No margin for the first menu item */
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: black; /* Link text color */
+    padding: 8px 15px; /* Adjust padding for link text */
+    border-radius: 5px; /* Rounded corners for links */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    margin-left: 20px;
+}
+
+.navbar ul li a:hover {
+    background-color: #5bafe2; /* Background color on hover */
 }
 
 .nav-links {
@@ -207,15 +254,11 @@ ul li {
 }
 
 footer {
-    background-color: #3F357B; /* Background color for the footer */
+    background-color: #0c0053; /* Background color for the footer */
     color: white; /* Text color */
     text-align: center;
     padding: 5px 0; /* Padding for footer */
     width: 100%; /* Ensure footer spans full width */
     position: relative;
     position: fixed;
-    bottom: 0;
-    text-align: center;
-    padding: 10px 0; /* Padding for footer */
-    width: 100%; /* Ensure footer spans full width */
 }

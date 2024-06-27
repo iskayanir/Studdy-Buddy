@@ -1,15 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
-    fetch('/api/students')
-      .then(response => response.json())
-      .then(data => {
-        if (data.error) {
-          console.error(data.error);
-        } else {
-          displayStudents(data.studentsReceivingHelp, data.studentsProvidingHelp);
-        }
-      })
-      .catch(error => console.error("Error fetching data:", error));
-  });
+// document.addEventListener("DOMContentLoaded", () => {
+//     fetch('/api/students')
+//       .then(response => response.json())
+//       .then(data => {
+//         if (data.error) {
+//           console.error(data.error);
+//         } else {
+//           displayStudents(data.studentsReceivingHelp, data.studentsProvidingHelp);
+//         }
+//       })
+//       .catch(error => console.error("Error fetching data:", error));
+//   });
   
   function displayStudents(receivingHelp, providingHelp) {
     const receivingContainer = document.getElementById('receiving-help');
