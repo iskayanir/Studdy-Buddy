@@ -81,37 +81,32 @@
 // readUserData('1');
 
 
-
 const express = require('express');
-const database = require('./firebase-app');
-const { ref, get } = require("firebase/database");
-
+const database = require('./public/js/firebase-app'); // ודא שהנתיב נכון
+const path = require('path');
 const server = express();
 const port = 3000;
 
 server.get('/data', async (req, res) => {
-  const dbRef = ref(database, 'students/studentsReceivingHelp');
+  const dbRef = database.ref('students/studentsReceivingHelp');
   try {
-      const snapshot = await get(dbRef);
-      if (snapshot.exists()) {
-          res.json(snapshot.val());  // שינוי ל-res.json
-      } else {
-          res.status(404).json({error: "No data available"});  // גם כאן שימוש ב-json
-          
-      }
+    const snapshot = await dbRef.get();
+    if (snapshot.exists()) {
+      res.json(snapshot.val());
+    } else {
+      res.status(404).json({error: "No data available"});
+    }
   } catch (error) {
-      res.status(500).json({error: error.message});  // וגם כאן
+    res.status(500).json({error: error.message});
   }
 });
-
 
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-
-// בפסקה זו, הקוד מגדיר את תיקיית 'public' לשמש כתיקיית משאבים סטטיים
 server.use(express.static(path.join(__dirname, 'public')));
+
 
 
 
@@ -142,6 +137,43 @@ server.get('/buyer_profile', (req, res) => {
 server.get('/seller_profile', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
 });
+
+
+
+
+
+
+// const fs = require('fs');
+// const bodyParser = require('body-parser'); // יש להתקין אם אינו מותקן: npm install body-parser
+
+// server.use(bodyParser.json()); // עבור פרסינג של JSON מבקשות POST
+
+// server.post('/save-profile', (req, res) => {
+//   const userData = req.body; // מקבל את הנתונים מהצד לקוח
+
+//   // קריאה מקובץ ה-JSON
+//   fs.readFile('./students.json', 'utf8', (err, data) => {
+//       if (err) {
+//           console.error(err);
+//           res.status(500).send("Error reading file.");
+//           return;
+//       }
+
+//       const students = JSON.parse(data);
+//       // הוספת משתמש חדש - יש להגדיר מפתח ייחודי
+//       students.students[`student_${Object.keys(students.students).length + 1}`] = userData;
+
+//       // כתיבה חזרה לקובץ
+//       fs.writeFile('./students.json', JSON.stringify(students, null, 2), 'utf8', (err) => {
+//           if (err) {
+//               console.error(err);
+//               res.status(500).send("Error writing file.");
+//               return;
+//           }
+//           res.send("Profile saved successfully.");
+//       });
+//   });
+// });
 
 
 

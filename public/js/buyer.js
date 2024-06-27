@@ -12,8 +12,9 @@ function toggleSearchField(typehelp) {
     var existingSearchField = document.getElementById('toggleSearchField');
     var existingSearchField1 = document.getElementById('toggleSearchField1');
 
-    //הסרת שדה חיפוש אם קיים
+    //בדיקה אם מדובר בסיכום
     if (typehelp === "sicom") {
+        //הסרת שדה חיפוש אם קיים
         if (existingSearchField) {
             additionalFieldsDiv.removeChild(existingSearchField);
             if (existingSearchField1) {
@@ -34,13 +35,55 @@ function toggleSearchField(typehelp) {
             searchField1.className = 'search-input';
             searchField1.id = 'toggleSearchField1'; // קביעה ID לשדה החיפוש
 
-            // יצירת כפתור חיפוש חדש
+            // יצירת כפתור שמור
             var searchButton = document.createElement('button');
             searchButton.textContent = 'שמור';
             searchButton.className = 'search-button';
             searchButton.onclick = function() {
-                helptype = "";
-                topic = "";
+                if (searchField) {
+                    topic = searchField.value;
+                    date =searchField1.value
+                    // Create new item element
+                    var newItem = document.createElement('div');
+                    newItem.className = 'item';
+                    
+                    var summarySpan = document.createElement('span');
+                    summarySpan.textContent = 'סיכום - ';
+
+                    var dateSpan = document.createElement('span');
+                    dateSpan.textContent = date;
+        
+                    var fractionSpan = document.createElement('span');
+                    fractionSpan.textContent = topic;
+        
+                    var statusDiv = document.createElement('div');
+                    statusDiv.className = 'status';
+                    
+                    var statusIconDiv = document.createElement('div');
+                    statusIconDiv.className = 'status-icon';
+                    statusIconDiv.textContent = '✔';
+        
+                    // Append the status icon to the status div
+                    statusDiv.appendChild(statusIconDiv);
+        
+                    // Append spans and status div to the new item
+                    newItem.appendChild(summarySpan);
+                    newItem.appendChild(fractionSpan);
+                    newItem.appendChild(dateSpan);
+                    newItem.appendChild(statusDiv);
+        
+                    // Append the new item to course-content
+                    var courseContent = document.querySelector('.course-content');
+                    courseContent.appendChild(newItem);
+        
+                    // Optionally remove the search fields if needed
+                    // additionalFieldsDiv.removeChild(existingSearchField);
+                    // additionalFieldsDiv1.removeChild(existingSearchField1);
+                } else {
+                    alert("Search field not found");
+                }
+                additionalFieldsDiv.removeChild(existingSearchField);
+                additionalFieldsDiv1.removeChild(existingSearchField1);
             };
 
             // יצירת <div> כדי להחזיק את שדה החיפוש ואת כפתור החיפוש
@@ -72,14 +115,61 @@ function toggleSearchField(typehelp) {
             searchField.className = 'search-input';
             searchField.id = 'toggleSearchField'; // קביעה ID לשדה החיפוש
 
-            // יצירת כפתור חיפוש חדש
+            // יצירת כפתור שמור
             var searchButton = document.createElement('button');
             searchButton.textContent = 'שמור';
             searchButton.className = 'search-button';
             searchButton.onclick = function() {
-                helptype = "";
-                topic = "";
-            };
+                if (searchField) {
+                topic = searchField.value;
+                    
+                // Create new item element
+                var newItem = document.createElement('div');
+                newItem.className = 'item';
+                
+                if (typehelp === 'hashlama'){
+                    var summarySpan = document.createElement('span');
+                    summarySpan.textContent = 'השלמת נושא - ';
+                }else{
+                    var summarySpan = document.createElement('span');
+                    summarySpan.textContent = 'עזרה בתרגיל בית - ';
+                }
+                
+    
+                var fractionSpan = document.createElement('span');
+                fractionSpan.textContent = topic;
+    
+                var statusDiv = document.createElement('div');
+                statusDiv.className = 'status';
+                
+                var statusIconDiv = document.createElement('div');
+                statusIconDiv.className = 'status-icon';
+                statusIconDiv.textContent = '✔';
+    
+                // Append the status icon to the status div
+                statusDiv.appendChild(statusIconDiv);
+    
+                // Append spans and status div to the new item
+                newItem.appendChild(summarySpan);
+                newItem.appendChild(fractionSpan);
+                newItem.appendChild(statusDiv);
+                
+    
+                // Append the new item to course-content
+                var courseContent = document.querySelector('.course-content');
+                courseContent.appendChild(newItem);
+    
+                // Optionally remove the search fields if needed
+                // additionalFieldsDiv.removeChild(existingSearchField);
+                // additionalFieldsDiv1.removeChild(existingSearchField1);
+            
+            } else {
+                alert("Search field not found");
+            }
+            additionalFieldsDiv.removeChild(existingSearchField);
+            additionalFieldsDiv1.removeChild(existingSearchField1);
+        };
+
 
             // יצירת <div> כדי להחזיק את שדה החיפוש ואת כפתור החיפוש
             var searchContainer = document.createElement('div');
@@ -91,4 +181,5 @@ function toggleSearchField(typehelp) {
             additionalFieldsDiv.appendChild(searchContainer);
         }
     }
+
 }
