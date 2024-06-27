@@ -86,5 +86,10 @@
     document.getElementById('displayName').textContent = localStorage.getItem('name');
     document.getElementById('displayDegree').textContent = localStorage.getItem('degree');
     document.getElementById('displayYear').textContent = localStorage.getItem('year');
+    document.getElementById('displayCourses').textContent = localStorage.getItem('courses');
+    document.getElementById('displayAboutMe').textContent = localStorage.getItem('aboutMe');
+    document.getElementById('displayHobbies').textContent = localStorage.getItem('hobbies');
+    document.getElementById('displayPhoneNumber').textContent = localStorage.getItem('phoneNumber');
+    document.getElementById('displayEmail').textContent = localStorage.getItem('email');
     // טען והצג נתונים נוספים בדומה לדוגמאות שלעיל
 };
