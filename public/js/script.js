@@ -57,3 +57,39 @@
     }
   }
   
+
+
+  function saveProfileData() {
+    const name = document.getElementById('name').value;
+    const degree = document.getElementById('degree').value;
+    const year = document.getElementById('year').value;
+    const courses = document.getElementById('course-search').value;
+    const aboutMe = document.getElementById('aboutme').value;
+    const hobbies = document.getElementById('hobbies').value;
+    const phoneNumber = document.getElementById('number').value;
+    const email = document.getElementById('email').value;
+  
+    // Save data to localStorage
+    localStorage.setItem('name', name);
+    localStorage.setItem('degree', degree);
+    localStorage.setItem('year', year);
+    localStorage.setItem('courses', courses);
+    localStorage.setItem('aboutMe', aboutMe);
+    localStorage.setItem('hobbies', hobbies);
+    localStorage.setItem('phoneNumber', phoneNumber);
+    localStorage.setItem('email', email);
+  }
+
+
+
+  window.onload = function() {
+    document.getElementById('displayName').textContent = localStorage.getItem('name');
+    document.getElementById('displayDegree').textContent = localStorage.getItem('degree');
+    document.getElementById('displayYear').textContent = localStorage.getItem('year');
+    document.getElementById('displayCourses').textContent = localStorage.getItem('courses');
+    document.getElementById('displayAboutMe').textContent = localStorage.getItem('aboutMe');
+    document.getElementById('displayHobbies').textContent = localStorage.getItem('hobbies');
+    document.getElementById('displayPhoneNumber').textContent = localStorage.getItem('phoneNumber');
+    document.getElementById('displayEmail').textContent = localStorage.getItem('email');
+    // טען והצג נתונים נוספים בדומה לדוגמאות שלעיל
+};
