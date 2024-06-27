@@ -24,15 +24,9 @@
   
       <h1>חיפוש</h1>
       <div class="search-container">    
-        
-          <input type="text" placeholder="חפש..." class="search-input">
-          <button class="search-button">
-              <span class="search-icon">&#x1F50D;</span>
-          </button>
-        
+          <input type="text" placeholder="חפש..." class="search-input" id="searchInput">
       </div>  
-
-      
+         
       <div class="buttons">  
          <div class="dropdown">
           <button class="filter-button" onclick="toggleDropdown()">
@@ -55,51 +49,48 @@
           <button>מדעי המחשב</button>   
         </div>
  
-<script>
-  function toggleDropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-    if (!event.target.matches('.dropdown button')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
-        }
-    }
-}
-
-</script>
-    <div class=grid-container>
+    <div class=grid-container id="gridContainer">
       <div class="grid-item">
             <h2>קורס 1</h2>
-            <span class="icon">&#128214;</span>
+            
             <ul>
-                <li>פקולטה:</li>
-                <li>מרצה:</li>
+                <li class="faculty">פקולטה:</li>
+                <li class="teacer">מרצה:</li>
             </ul>
+            <button class="add" onclick="addCourse()">הוסף קורס</button>
       </div>
 
       <div class="grid-item">
-            <h2>קורס 2</h2>
-            <span class="icon">&#128214;</span>
-            <ul>
-                <li>פקולטה:</li>
-                <li>מרצה:</li>
-            </ul>
+        <h2>קורס 2</h2>
+        <span class="icon">&#128214;</span>
+        <ul>
+            <li>פקולטה:</li>
+            <li>מרצה:</li>
+        </ul>
+        <button class="add" onclick="addCourse()">הוסף קורס</button>
       </div>
+
       <div class="grid-item">
-            <h2>קורס 3</h2>
-            <span class="icon">&#128214;</span>
-            <ul>
-                <li>פקולטה:</li>
-                <li>מרצה:</li>
-            </ul>
-      </div>
+        <h2>קורס 3</h2>
+        <span class="icon">&#128214;</span>
+        <ul>
+            <li>פקולטה:</li>
+            <li>מרצה:</li>
+        </ul>
+        <button class="add" onclick="addCourse()">הוסף קורס</button>
+    </div>
+
+    <div class="grid-item">
+      <h2>קורס 4</h2>
+      <span class="icon">&#128214;</span>
+      <ul>
+        <li>פקולטה:</li>
+        <li>מרצה:</li>
+      </ul>
+      <button class="add" onclick="addCourse()">הוסף קורס</button>
+    </div>
+
 <div class="grid-item">
             <h2>קורס 1</h2>
             <span class="icon">&#128214;</span>
@@ -107,30 +98,44 @@ window.onclick = function(event) {
                 <li>פקולטה:</li>
                 <li>מרצה:</li>
             </ul>
+            <button class="add" onclick="addCourse()">הוסף קורס</button>
       </div>
 
       <div class="grid-item">
-            <h2>קורס 2</h2>
-            <span class="icon">&#128214;</span>
-            <ul>
-                <li>פקולטה:</li>
-                <li>מרצה:</li>
-            </ul>
-      </div>
-      <div class="grid-item">
-            <h2>קורס 3</h2>
-            <span class="icon">&#128214;</span>
-            <ul>
-                <li>פקולטה:</li>
-                <li>מרצה:</li>
-            </ul>
-      </div>
+        <h2>קורס 2</h2>
+        <span class="icon">&#128214;</span>
+        <ul>
+            <li>פקולטה:</li>
+            <li>מרצה:</li>
+        </ul>
+        <button class="add" onclick="addCourse()">הוסף קורס</button>
+  </div>
+  <div class="grid-item">
+    <h2>קורס 3</h2>
+    <span class="icon">&#128214;</span>
+    <ul>
+        <li>פקולטה:</li>
+        <li>מרצה:</li>
+    </ul>
+    <button class="add" onclick="addCourse()">הוסף קורס</button>
+</div>
 
-    </div>
+<div class="grid-item">
+<h2>קורס 4</h2>
+<span class="icon">&#128214;</span>
+<ul>
+    <li>פקולטה:</li>
+    <li>מרצה:</li>
+</ul>
+<button class="add" onclick="addCourse()">הוסף קורס</button>
+</div>
+
     
     
 
-    
+    <footer>
+      <p>לכל שאלה או בקשה ליצירת קשר, שלחו לנו מייל ל: <a href="mailto:info@studybuddy.com">info@studybuddy.com</a></p>
+    </footer>
   
-    
+    <script src="js/search_page.js"></script>
   </body>
