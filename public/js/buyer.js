@@ -82,6 +82,8 @@ function toggleSearchField(typehelp) {
                 } else {
                     alert("Search field not found");
                 }
+                existingSearchField = document.getElementById('toggleSearchField')
+                existingSearchField1 = document.getElementById('toggleSearchField1');
                 additionalFieldsDiv.removeChild(existingSearchField);
                 additionalFieldsDiv1.removeChild(existingSearchField1);
             };
@@ -166,6 +168,8 @@ function toggleSearchField(typehelp) {
             } else {
                 alert("Search field not found");
             }
+            existingSearchField = document.getElementById('toggleSearchField')
+            existingSearchField1 = document.getElementById('toggleSearchField1');
             additionalFieldsDiv.removeChild(existingSearchField);
             additionalFieldsDiv1.removeChild(existingSearchField1);
         };
