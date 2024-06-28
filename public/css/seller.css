@@ -339,6 +339,45 @@ html, body {
     margin-bottom: 50px; /* הוספת מרווח מתחת לכותרת "במה תוכל לעזור?" */
 }
 
+/* Hide the default checkbox */
+.status-checkbox {
+    display: none;
+}
+
+/* Create a custom checkbox */
+.custom-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: gray;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Checkmark (hidden by default) */
+.custom-checkbox::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* Show the checkmark when checked */
+.status-checkbox:checked + .custom-checkbox::after {
+    content: '✔';
+    opacity: 1;
+}
 <<<<<<< HEAD
 .course-content .item {
     display: flex;
@@ -357,3 +396,4 @@ html, body {
     margin-top: 50px; /* הוספת רווח עליון של 20 פיקסלים */
 >>>>>>> ba6827c403bc9acc09a7e2c3206dc49675880a9c
 }
+

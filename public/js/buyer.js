@@ -162,11 +162,23 @@ function toggleSearchField(typehelp) {
                     
                     var statusIconDiv = document.createElement('div');
                     statusIconDiv.className = 'status-icon';
-                    statusIconDiv.textContent = '✔';
-        
+                    
+                    // Create the checkbox and custom styles
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'status-checkbox';
+                    checkbox.id = 'statusCheckbox';
+                    
+                    var customCheckbox = document.createElement('label');
+                    customCheckbox.className = 'custom-checkbox';
+                    customCheckbox.htmlFor = 'statusCheckbox';
+
+                    statusIconDiv.appendChild(checkbox);
+                    statusIconDiv.appendChild(customCheckbox);
+
                     // Append the status icon to the status div
                     statusDiv.appendChild(statusIconDiv);
-        
+                    
                     // Append spans and status div to the new item
                     newItem.appendChild(summarySpan);
                     newItem.appendChild(fractionSpan);
@@ -249,7 +261,19 @@ function toggleSearchField(typehelp) {
             
             var statusIconDiv = document.createElement('div');
             statusIconDiv.className = 'status-icon';
-            statusIconDiv.textContent = '✔';
+            
+            // Create the checkbox and custom styles
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'status-checkbox';
+            checkbox.id = 'statusCheckbox';
+            
+            var customCheckbox = document.createElement('label');
+            customCheckbox.className = 'custom-checkbox';
+            customCheckbox.htmlFor = 'statusCheckbox';
+
+            statusIconDiv.appendChild(checkbox);
+            statusIconDiv.appendChild(customCheckbox);
 
             // Append the status icon to the status div
             statusDiv.appendChild(statusIconDiv);
