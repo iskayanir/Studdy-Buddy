@@ -27,11 +27,13 @@ function toggleSearchField(typehelp) {
     var existingSearchField = document.getElementById('toggleSearchField');
     var existingSearchField1 = document.getElementById('toggleSearchField1');
 
+    var inpu = document.getElementById("datefield")
+
     //בדיקה אם מדובר בסיכום
     if (typehelp === "sicom") {
         //הסרת שדה חיפוש אם קיים
         if (existingSearchField1) {
-            if (inp){
+            if (inpu){ 
                 additionalFieldsDiv.removeChild(existingSearchField);
                 additionalFieldsDiv1.removeChild(existingSearchField1);
             }else{
@@ -202,7 +204,7 @@ function toggleSearchField(typehelp) {
             additionalFieldsDiv.appendChild(searchContainer);
             additionalFieldsDiv1.appendChild(searchContainer1);
 
-        }    
+        }        
                
     } else {
         if (existingSearchField1) {
