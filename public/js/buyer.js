@@ -30,26 +30,25 @@ function toggleSearchField(typehelp) {
     //בדיקה אם מדובר בסיכום
     if (typehelp === "sicom") {
         //הסרת שדה חיפוש אם קיים
-        if (existingSearchField) {
+        if (existingSearchField1) {
             additionalFieldsDiv.removeChild(existingSearchField);
-            if (existingSearchField1) {
-                additionalFieldsDiv1.removeChild(existingSearchField1);
-            }
+            additionalFieldsDiv1.removeChild(existingSearchField1);
+            
         } else {
-            // יצירת שדה חיפוש חדש
+            if (existingSearchField){
+                additionalFieldsDiv.removeChild(existingSearchField);}
+             // יצירת שדה חיפוש חדש
             var searchField = document.createElement('input');
             searchField.type = 'text';
             searchField.placeholder = 'נושא...';
             searchField.className = 'search-input';
             searchField.id = 'toggleSearchField'; // קביעה ID לשדה החיפוש
-
             // יצירת שדה חיפוש חדש תאריך
             var searchField1 = document.createElement('input');
             searchField1.type = 'text';
             searchField1.placeholder = 'תאריך...';
             searchField1.className = 'search-input';
             searchField1.id = 'toggleSearchField1'; // קביעה ID לשדה החיפוש
-
             // יצירת כפתור שמור
             var searchButton = document.createElement('button');
             searchButton.textContent = 'שמור';
@@ -117,7 +116,13 @@ function toggleSearchField(typehelp) {
             // הוספת <div> המכיל את שדה החיפוש והכפתור ל-div המקורי
             additionalFieldsDiv.appendChild(searchContainer);
             additionalFieldsDiv1.appendChild(searchContainer1);
-        }
+        
+
+            }
+            
+            
+            
+            
     } else {
         if (existingSearchField) {
             additionalFieldsDiv.removeChild(existingSearchField);
