@@ -4,6 +4,21 @@ var topic = "";
 var date = "";
 
 function toggleSearchField(typehelp) {
+    var buttons = [
+        { id: 'sicom', white: 'images/sicomwhite.svg', purple: 'images/sicompurple.svg' },
+        { id: 'hashlama', white: 'images/hashlamawhite.svg', purple: 'images/hashlamapurple.svg' },
+        { id: 'ezra', white: 'images/targilwhite.svg', purple: 'images/targilpurple.svg' }
+    ];
+
+    buttons.forEach(function(button) {
+        var img = document.getElementById(button.id).querySelector('img');
+        if (button.id === typehelp) {
+            img.src = button.purple;
+        } else {
+            img.src = button.white;
+        }
+    }); 
+
     // מציאת אלמנט ה-<div> שבו נרצה להוסיף את שדה החיפוש
     var additionalFieldsDiv = document.getElementById('additionalFields');
     var additionalFieldsDiv1 = document.getElementById('additionalFields1');
