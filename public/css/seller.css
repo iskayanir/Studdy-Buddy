@@ -1,14 +1,97 @@
-body {
-    font-family: Arial, sans-serif;
+
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl; 
+    text-align: right; 
+    display: flex; 
+    background-color: #FBFDFF;
+    height: 100%; 
+    flex-direction: column;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Header styles */
+header {
+    background-color: #ffffff;
+    padding: 0.5%, 38.2%; /* Adjust padding as needed */
+    display: flex;
+    justify-content: center; /* Center the navbar horizontally */
+    align-items: center;
+    box-shadow: 0px 4px 2px -2px gray;
+    z-index: 1000;
+    height: 60px; /* Fixed height for header */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    position: absolute; /* Position logo absolutely */
+    right: 20px; /* Adjust the right position as needed */
+}
+
+.navbar {
+    display:flex;
+    text-align: right; /* Right-aligns the menu items */
+}
+
+.navbar ul {
+    list-style-type: none; /* Remove default list styles */
+    display:flex;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */    
+}
+
+.navbar ul li {
+    display: inline-block; /* Display menu items horizontally */
+    margin-left: 20px; /* Adjust margin between menu items */
+}
+
+.navbar ul li:first-child {
+    margin-left: 20px; /* No margin for the first menu item */
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: black; /* Link text color */
+    padding: 8px 15px; /* Adjust padding for link text */
+    border-radius: 5px; /* Rounded corners for links */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    margin-left: 20px;
+}
+
+.navbar ul li a:hover {
+    background-color: #5bafe2; /* Background color on hover */
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    }
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
 }
 
 .container {
     display: flex;
     gap: 20px;
     padding: 20px;
+    margin-top: 50px; /* Adjust the value as needed to create the desired space */
 }
 
 .section {
+    flex: 1
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 8px;
@@ -111,44 +194,24 @@ h2 {
     cursor: pointer;
 }
 
+#section6 {
+    border: 1px solid #ccc;
+    padding: 100px;
+    border-radius: 10px;
+    width: 20%;
+    height: 100%;
+    
+
+}
+
 #section5 {
     border: 1px solid #ccc;
     padding: 100px;
     border-radius: 10px;
-    width: 100%;
+    width: 80%;
     height: 100%;
-    flex: 3
+    
 
-}
-
-html, body {
-    font-family: Arial, sans-serif;
-    direction: rtl; /* Set the text direction to right-to-left for the whole page */
-    text-align: right; /* Align all text to the right */
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #3F357B;
-    padding: 10px 20px;
-    /* width: 1328px; */
-    height: 100px;
-    /* background-image: url('data:image/svg+xml;utf8,<svg width="1328" height="352" viewBox="0 0 1328 352" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="1328" height="352" rx="6" fill="#3F357B"/></svg>');
-    background-size: cover; 
-    background-repeat: no-repeat; */
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #FFFFFF;
-    font-size: 24px;
 }
 
 .hamburger-menu {
