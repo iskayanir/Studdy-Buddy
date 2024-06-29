@@ -59,38 +59,64 @@ function toggleSearchField(typehelp) {
                     if (searchField) {
                         topic = searchField.value;
                         date =searchField1.value
-                        // Create new item element
-                        var newItem = document.createElement('div');
-                        newItem.className = 'item';
-                        
-                        var summarySpan = document.createElement('span');
-                        summarySpan.textContent = 'סיכום - ';
+                    // Create new item element
+                    var newItem = document.createElement('div');
+                    newItem.className = 'item';
+                    
+                    var summarySpan = document.createElement('span');
+                    summarySpan.textContent = 'סיכום - ';
+    
+                    var dateSpan = document.createElement('span');
+                    dateSpan.textContent = date;
+        
+                    var fractionSpan = document.createElement('span');
+                    fractionSpan.textContent = topic;
+        
+                    var statusDiv = document.createElement('div');
+                    statusDiv.className = 'status';
+                    
+                    var statusIconDiv = document.createElement('div');
+                    statusIconDiv.className = 'status-icon';
+                    
+                    // Create the checkbox and custom styles
+                    var checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'status-checkbox';
 
-                        var dateSpan = document.createElement('span');
-                        dateSpan.textContent = date;
-            
-                        var fractionSpan = document.createElement('span');
-                        fractionSpan.textContent = topic;
-            
-                        var statusDiv = document.createElement('div');
-                        statusDiv.className = 'status';
-                        
-                        var statusIconDiv = document.createElement('div');
-                        statusIconDiv.className = 'status-icon';
-                        statusIconDiv.textContent = '✔';
-            
-                        // Append the status icon to the status div
-                        statusDiv.appendChild(statusIconDiv);
-            
-                        // Append spans and status div to the new item
-                        newItem.appendChild(summarySpan);
-                        newItem.appendChild(fractionSpan);
-                        newItem.appendChild(dateSpan);
-                        newItem.appendChild(statusDiv);
-            
-                        // Append the new item to course-content
-                        var courseContent = document.querySelector('.course-content');
-                        courseContent.appendChild(newItem);
+                    // Ensure each checkbox has a unique ID
+                    var uniqueId = 'statusCheckbox_' + Date.now();
+                    checkbox.id = uniqueId;
+
+                    var customCheckbox = document.createElement('label');
+                    customCheckbox.className = 'custom-checkbox';
+                    customCheckbox.htmlFor = uniqueId;
+
+                    var deleteIcon = document.createElement('img');
+                    deleteIcon.src = 'images/garbage.svg';
+                    deleteIcon.alt = 'Delete';
+                    deleteIcon.className = 'delete-icon';
+
+                    // Attach click event listener to delete the item
+                    deleteIcon.addEventListener('click', function() {
+                        courseContent.removeChild(newItem);
+                    });
+
+                    statusIconDiv.appendChild(checkbox);
+                    statusIconDiv.appendChild(customCheckbox);
+
+                    // Append the status icon to the status div
+                    statusDiv.appendChild(statusIconDiv);
+                    
+                    // Append spans and status div to the new item
+                    newItem.appendChild(summarySpan);
+                    newItem.appendChild(fractionSpan);
+                    newItem.appendChild(dateSpan);
+                    newItem.appendChild(statusDiv);
+                    newItem.appendChild(deleteIcon);
+        
+                    // Append the new item to course-content
+                    var courseContent = document.querySelector('.course-content');
+                    courseContent.appendChild(newItem);
             
                         // Optionally remove the search fields if needed
                         // additionalFieldsDiv.removeChild(existingSearchField);
@@ -167,11 +193,24 @@ function toggleSearchField(typehelp) {
                     var checkbox = document.createElement('input');
                     checkbox.type = 'checkbox';
                     checkbox.className = 'status-checkbox';
-                    checkbox.id = 'statusCheckbox';
-                    
+
+                    // Ensure each checkbox has a unique ID
+                    var uniqueId = 'statusCheckbox_' + Date.now();
+                    checkbox.id = uniqueId;
+
                     var customCheckbox = document.createElement('label');
                     customCheckbox.className = 'custom-checkbox';
-                    customCheckbox.htmlFor = 'statusCheckbox';
+                    customCheckbox.htmlFor = uniqueId;
+
+                    var deleteIcon = document.createElement('img');
+                    deleteIcon.src = 'images/garbage.svg';
+                    deleteIcon.alt = 'Delete';
+                    deleteIcon.className = 'delete-icon';
+
+                    // Attach click event listener to delete the item
+                    deleteIcon.addEventListener('click', function() {
+                        courseContent.removeChild(newItem);
+                    });
 
                     statusIconDiv.appendChild(checkbox);
                     statusIconDiv.appendChild(customCheckbox);
@@ -184,6 +223,7 @@ function toggleSearchField(typehelp) {
                     newItem.appendChild(fractionSpan);
                     newItem.appendChild(dateSpan);
                     newItem.appendChild(statusDiv);
+                    newItem.appendChild(deleteIcon);
         
                     // Append the new item to course-content
                     var courseContent = document.querySelector('.course-content');
@@ -262,15 +302,27 @@ function toggleSearchField(typehelp) {
             var statusIconDiv = document.createElement('div');
             statusIconDiv.className = 'status-icon';
             
-            // Create the checkbox and custom styles
             var checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.className = 'status-checkbox';
-            checkbox.id = 'statusCheckbox';
-            
+
+            // Ensure each checkbox has a unique ID
+            var uniqueId = 'statusCheckbox_' + Date.now();
+            checkbox.id = uniqueId;
+
             var customCheckbox = document.createElement('label');
             customCheckbox.className = 'custom-checkbox';
-            customCheckbox.htmlFor = 'statusCheckbox';
+            customCheckbox.htmlFor = uniqueId;
+            
+            var deleteIcon = document.createElement('img');
+            deleteIcon.src = 'images/garbage.svg';
+            deleteIcon.alt = 'Delete';
+            deleteIcon.className = 'delete-icon';
+
+            // Attach click event listener to delete the item
+            deleteIcon.addEventListener('click', function() {
+                courseContent.removeChild(newItem);
+            });
 
             statusIconDiv.appendChild(checkbox);
             statusIconDiv.appendChild(customCheckbox);
@@ -282,6 +334,7 @@ function toggleSearchField(typehelp) {
             newItem.appendChild(summarySpan);
             newItem.appendChild(fractionSpan);
             newItem.appendChild(statusDiv);
+            newItem.appendChild(deleteIcon);
             
 
             // Append the new item to course-content

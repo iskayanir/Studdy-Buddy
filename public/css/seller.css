@@ -402,44 +402,36 @@ h2 {
     margin-bottom: 50px; /* הוספת מרווח מתחת לכותרת "במה תוכל לעזור?" */
 }
 
-/* Hide the default checkbox */
+/* Custom styles for the checkbox */
 .status-checkbox {
     display: none;
 }
 
-/* Create a custom checkbox */
 .custom-checkbox {
     display: inline-block;
     width: 20px;
     height: 20px;
     background-color: gray;
     border: 1px solid #ccc;
-    border-radius: 3px;
-    position: relative;
     cursor: pointer;
+    position: relative;
+    border-radius: 3px;
 }
 
-/* Checkmark (hidden by default) */
-.custom-checkbox::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 16px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-/* Show the checkmark when checked */
 .status-checkbox:checked + .custom-checkbox::after {
     content: '✔';
-    opacity: 1;
+    position: absolute;
+    top: -2px; /* Adjust as necessary to position the checkmark correctly */
+    left: 1px; /* Adjust as necessary to position the checkmark correctly */
+    font-size: 18px; /* Adjust as necessary to fit the checkbox */
+    color: rgb(255, 251, 251);
+}
+
+.item .delete-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    width: 20px; /* Adjust the size as needed */
+    height: auto;
 }
 <<<<<<< HEAD
 .course-content .item {
