@@ -18,4 +18,30 @@ document.getElementById('searchInput').addEventListener('input', function() {
     }
 });
 
+function filterAll(){
+    const gridItems = document.querySelectorAll('.grid-item'); 
+    gridItems.forEach(item =>{
+         item.style.display = 'block';
+        })
+}
 
+function filterFaculty(faculty) {
+    // Get all grid items
+    const gridItems = document.querySelectorAll('.grid-item');
+    
+    // Loop through all grid items
+    gridItems.forEach(item => {
+        // Get the faculty text from the grid item
+        const facultyText = item.querySelector('.faculty').textContent;
+        
+        // Check if the faculty text matches the button text
+        if (facultyText.includes(faculty)) {
+            // Show the grid item
+            item.style.display = 'block';
+        
+        } else {
+            // Hide the grid item
+            item.style.display = 'none';
+        }
+    });
+}
