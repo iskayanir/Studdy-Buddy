@@ -196,18 +196,18 @@ h2 {
 }
 
 #section6 {
-    border: 1px solid #ccc;
+    border: none;
     /* padding: 100px;
     border-radius: 10px; */
     /* width: 20%; */
-    height: 100%;
+    height: 136%;
     width: 20%; /* Set width for the course list section */
     flex: none; /* Prevent it from flexing */
 
 }
 
 #section5 {
-    border: 1px solid #ccc;
+    border: none;
     padding: 100px;
     border-radius: 10px;
     width: 80%;
