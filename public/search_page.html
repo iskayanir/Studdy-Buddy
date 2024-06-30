@@ -32,12 +32,13 @@
     </main>
 
       <div class="buttons">  
-          <p> בחר פקולטה: </p>
-          <button>מדעי הרוח</button>
-          <button>מדעי החברה</button>
-          <button>מנהל עסקים</button>
-          <button>רפואה</button>
-          <button>מדעי המחשב</button>
+        <p> בחר פקולטה: </p>
+        <button onclick="filterAll()">הכל</button>
+        <button onclick="filterFaculty('מדעי הרוח')">מדעי הרוח</button>
+        <button onclick="filterFaculty('מדעי החברה')">מדעי החברה</button>
+        <button onclick="filterFaculty('מנהל עסקים')">מנהל עסקים</button>
+        <button onclick="filterFaculty('רפואה')">רפואה</button>
+        <button onclick="filterFaculty('מדעי המחשב')">מדעי המחשב</button>
         </div>
         
         <div class="search-proffesor"> 
@@ -114,8 +115,8 @@
     <h2>מבוא למדעי המחשב</h2>
     <span class="icon">&#128214;</span>
     <ul>
-        <li>פקולטה: מדעי המחשב</li>
-        <li>מרצה: אביב זוהר</li>
+        <li class="faculty">פקולטה: מדעי המחשב</li>
+        <li class="teacher">מרצה: אביב זוהר</li>
     </ul>
     <button class="add" onclick="addCourse()">הוסף קורס</button>
 </div>
@@ -124,8 +125,8 @@
 <h2>רשתות המונים ושווקים</h2>
 <span class="icon">&#128214;</span>
 <ul>
-    <li>פקולטה: מדעי המחשב</li>
-    <li>מרצה: קתרינה ליגת</li>
+    <li class="faculty">פקולטה: מדעי המחשב</li>
+    <li class="teacher">מרצה: קתרינה ליגת</li>
 </ul>
 <button class="add" onclick="addCourse()">הוסף קורס</button>
 </div>
