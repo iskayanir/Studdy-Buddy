@@ -1,14 +1,97 @@
-body {
-    font-family: Arial, sans-serif;
+
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl; 
+    text-align: right; 
+    display: flex; 
+    background-color: #FBFDFF;
+    height: 100%; 
+    flex-direction: column;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Header styles */
+header {
+    background-color: #ffffff;
+    padding: 0.5%, 38.2%; /* Adjust padding as needed */
+    display: flex;
+    justify-content: center; /* Center the navbar horizontally */
+    align-items: center;
+    box-shadow: 0px 4px 2px -2px gray;
+    z-index: 1000;
+    height: 60px; /* Fixed height for header */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    position: absolute; /* Position logo absolutely */
+    right: 20px; /* Adjust the right position as needed */
+}
+
+.navbar {
+    display:flex;
+    text-align: right; /* Right-aligns the menu items */
+}
+
+.navbar ul {
+    list-style-type: none; /* Remove default list styles */
+    display:flex;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */    
+}
+
+.navbar ul li {
+    display: inline-block; /* Display menu items horizontally */
+    margin-left: 20px; /* Adjust margin between menu items */
+}
+
+.navbar ul li:first-child {
+    margin-left: 20px; /* No margin for the first menu item */
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: black; /* Link text color */
+    padding: 8px 15px; /* Adjust padding for link text */
+    border-radius: 5px; /* Rounded corners for links */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    margin-left: 20px;
+}
+
+.navbar ul li a:hover {
+    background-color: #5bafe2; /* Background color on hover */
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    }
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
 }
 
 .container {
     display: flex;
     gap: 20px;
     padding: 20px;
+    margin-top: 50px; /* Adjust the value as needed to create the desired space */
 }
 
 .section {
+    flex: 1
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 8px;
@@ -111,44 +194,24 @@ h2 {
     cursor: pointer;
 }
 
+#section6 {
+    border: 1px solid #ccc;
+    padding: 100px;
+    border-radius: 10px;
+    width: 20%;
+    height: 100%;
+    
+
+}
+
 #section5 {
     border: 1px solid #ccc;
     padding: 100px;
     border-radius: 10px;
-    width: 100%;
+    width: 80%;
     height: 100%;
-    flex: 3
+    
 
-}
-
-html, body {
-    font-family: Arial, sans-serif;
-    direction: rtl; /* Set the text direction to right-to-left for the whole page */
-    text-align: right; /* Align all text to the right */
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #3F357B;
-    padding: 10px 20px;
-    /* width: 1328px; */
-    height: 100px;
-    /* background-image: url('data:image/svg+xml;utf8,<svg width="1328" height="352" viewBox="0 0 1328 352" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="1328" height="352" rx="6" fill="#3F357B"/></svg>');
-    background-size: cover; 
-    background-repeat: no-repeat; */
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #FFFFFF;
-    font-size: 24px;
 }
 
 .hamburger-menu {
@@ -235,13 +298,18 @@ html, body {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #4caf50;
+    background-color: #ccc;
     color: #fff;
     font-size: 14px;
     line-height: 20px;
     text-align: center;
     /* margin-right: 5px; */
 }
+.additional-item .status.active-checkmark {
+    background-color: green;
+    color: white; /* Optional: change text color for visibility */
+}
+
 .additional-item .status .remove-icon {
     display: flex;
     align-items: center;
@@ -339,6 +407,37 @@ html, body {
     margin-bottom: 50px; /* הוספת מרווח מתחת לכותרת "במה תוכל לעזור?" */
 }
 
+/* Custom styles for the checkbox */
+.status-checkbox {
+    display: none;
+}
+
+.custom-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: gray;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    position: relative;
+    border-radius: 3px;
+}
+
+.status-checkbox:checked + .custom-checkbox::after {
+    content: '✔';
+    position: absolute;
+    top: -2px; /* Adjust as necessary to position the checkmark correctly */
+    left: 1px; /* Adjust as necessary to position the checkmark correctly */
+    font-size: 18px; /* Adjust as necessary to fit the checkbox */
+    color: rgb(255, 251, 251);
+}
+
+.item .delete-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    width: 20px; /* Adjust the size as needed */
+    height: auto;
+}
 <<<<<<< HEAD
 .course-content .item {
     display: flex;
@@ -357,3 +456,4 @@ html, body {
     margin-top: 50px; /* הוספת רווח עליון של 20 פיקסלים */
 >>>>>>> ba6827c403bc9acc09a7e2c3206dc49675880a9c
 }
+

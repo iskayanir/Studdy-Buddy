@@ -1,6 +1,6 @@
 
 html, body {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl; 
     text-align: right; 
     display: flex; 
@@ -30,7 +30,7 @@ header {
     background-color: #ffffff;
     padding: 0.5%, 38.2%; /* Adjust padding as needed */
     display: flex;
-    justify-content: space-between; /* Align items to the left and right */
+    justify-content: center; /* Center the navbar horizontally */
     align-items: center;
     box-shadow: 0px 4px 2px -2px gray;
     z-index: 1000;
@@ -42,8 +42,10 @@ header {
 }
 
 header .logo {
-    width: 50px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
+    width: 50px;
+    height: auto;
+    position: absolute; /* Position logo absolutely */
+    right: 20px; /* Adjust the right position as needed */
 }
 
 .navbar {
@@ -136,25 +138,23 @@ header .logo {
 }
 
 .buttons button {
-    padding: 10px 10px;
+    padding: 5px 20px;
     color: #f0f0f0;
     border: 0.5px solid;
     border-radius: 20px;
     margin-left: 10px;
     cursor: pointer;
-    background-color: #3F357B
-    
+    background-color: #261685;
+    font-size: 16px;
 }
-
 
 .buttons p {
     display: inline;
-    font-size: 20px;
 }
 
 .search-proffesor p{
     display: inline;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .search-proffesor .search-container{
@@ -175,6 +175,30 @@ header .logo {
     font-size: 16px;
     border-radius: 20px;
 }
+
+.finish-button {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.finish-button button {
+    padding: 5px 20px;
+    color: #f0f0f0;
+    border: 0.5px solid;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: #261685;
+    font-size: 18px;
+}
+
+.finish-button:hover button {
+    background-color: rgb(19, 6, 92);
+}
+
 
 /* Grid container styling */
 .grid-container {
@@ -232,7 +256,7 @@ ul li {
 }
 
 .add {
-    background-color: #3F357B;
+    background-color: #261685;
     color: #f0f0f0;
     padding: 15px ;
     border-radius: 20px;
@@ -240,7 +264,9 @@ ul li {
     bottom: 10px;
     left: 30px;
     cursor: pointer;
-    
+    border: none;
+    padding: 5px 20px;
+    font-size: 16px;
 }
 
 

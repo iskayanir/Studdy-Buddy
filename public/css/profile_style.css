@@ -23,7 +23,7 @@ html, body {
   grid-template-rows: repeat(4, auto);
   border-radius: 1.5%;
   box-shadow: 0 20px 40px rgba(5, 5, 5, 0.418);
-  padding-bottom: 850px;
+  padding-bottom: 800px;
   text-align: center;
 }
 
@@ -94,25 +94,25 @@ textarea {
 
 /* Button Styling */
 .finish {
-  position: relative;
   display: flex;
-  width: 100px;
-  cursor: pointer;
-  border-radius: 5px;
-  z-index: 1;
+  justify-content: space-around;
+  padding-bottom: 15px;
   margin-right: auto;
   margin-left: auto;
-  padding: 5px 10px;
-  background-color: #261685;
-  color: white;
-  border: none;
-  transition: background-color 0.3s;
-  font-size: 16px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  justify-content: center;
 }
 
-.finish:hover {
+.finish button {
+  padding: 5px 20px;
+  color: #f0f0f0;
+  border: 0.5px solid;
+  border-radius: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: #261685;
+  font-size: 18px;
+}
+
+.finish:hover button {
   background-color: rgb(19, 6, 92);
 }
 
