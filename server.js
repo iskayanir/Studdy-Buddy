@@ -118,8 +118,12 @@ server.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-server.get('/search_page', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'search_page.html'));
+server.get('/buyer_search_page', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'buyer_search_page.html'));
+});
+
+server.get('/seller_search_page', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'seller_search_page.html'));
 });
 
 server.get('/seller', (req, res) => {
