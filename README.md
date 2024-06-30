@@ -16,6 +16,6 @@ A university project that aims to help reservists in their studies
 
 # If you see a message that the remote has been changed, you must do the following:
 
-1. git pull origin main --no-rebase
+1. git pull origin main --no-rebase     or      git pull --rebase origin main
 2. Close the file that opened for you
 3. git push origin main
