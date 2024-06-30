@@ -7,6 +7,7 @@ html, body {
     background-color: #FBFDFF;
     height: 100%; 
     flex-direction: column;
+    /* background: linear-gradient(to bottom right, #d0eaff, #f0f4f7); */
 }
 
 body{
@@ -203,6 +204,7 @@ h2 {
     height: 136%;
     width: 20%; /* Set width for the course list section */
     flex: none; /* Prevent it from flexing */
+    background: linear-gradient(to bottom, #d0eaff, #f0f4f7);
 
 }
 
@@ -212,6 +214,7 @@ h2 {
     border-radius: 10px;
     width: 80%;
     height: 100%;
+    background: linear-gradient(to bottom, #d0eaff, #f0f4f7);
     
 
 }
