@@ -1,4 +1,3 @@
-
 html, body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     direction: rtl; 
@@ -88,15 +87,15 @@ header .logo {
     gap: 20px;
     padding: 20px;
     margin-top: 50px; /* Adjust the value as needed to create the desired space */
-    flex-direction: row;
 }
 
 .section {
-    border: 1px Solid #ccc;
+    flex: 1; 
+    border: 1px solid #ccc;
     padding: 10px;
     border-radius: 8px;
     width: 30%;
-    background-color: #F0F4F7;
+    background-color: #F0F4F7; /* הוספת צבע רקע ל-div */
 }
 
 h2 {
@@ -113,14 +112,13 @@ h2 {
 
 }
 
-
-
 .course-content .item {
     display: flex;
     justify-content: space-between;
     /* margin: 1px 0; */
     padding: 80px;
     font-size: 22px;
+    
 }
 
 .course-content .completion {
@@ -158,7 +156,6 @@ h2 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background-color: transparent;
     /* margin-right: 10px; */
 }
 
@@ -197,12 +194,11 @@ h2 {
 
 #section6 {
     border: 1px solid #ccc;
-    /* padding: 100px;
-    border-radius: 10px; */
-    /* width: 20%; */
+    padding: 100px;
+    border-radius: 10px;
+    width: 20%;
     height: 100%;
-    width: 20%; /* Set width for the course list section */
-    flex: none; /* Prevent it from flexing */
+    
 
 }
 
@@ -264,7 +260,7 @@ h2 {
     font-size: 24px;
 }
 
-.additional-item {
+/* .additional-item {
     display: flex;
     align-items: center;
     background-color: #f0f0f0;
@@ -283,7 +279,7 @@ h2 {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background-color: #fff; /* לבן */
+    background-color: #fff; /* לבן *
     color: #000;
     font-size: 16px;
     line-height: 24px;
@@ -300,19 +296,14 @@ h2 {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #ccc;
+    background-color: #4caf50;
     color: #fff;
     font-size: 14px;
     line-height: 20px;
     text-align: center;
-    /* margin-right: 5px; */
-}
-.additional-item .status.active-checkmark {
-    background-color: green;
-    color: white; /* Optional: change text color for visibility */
-}
-
-.additional-item .status .remove-icon {
+    /* margin-right: 5px; 
+}*/
+/*.additional-item .status .remove-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -328,8 +319,8 @@ h2 {
 }
 .additional-item .text-content {
     flex-grow: 1;
-    text-align: right; /* יישור לימין */
-}
+    text-align: right; /* יישור לימין 
+} */
 
 #searchFieldSummary {
     display: none;
@@ -400,9 +391,6 @@ h2 {
     display: block;
 }
 
-
-
-
 /* הוספת מרווחים לכותרות והכפתורים */
 #section5 h3 {
     margin-top: 50px; /* הוספת מרווח מעל כותרת "במה תוכל לעזור?" */
@@ -434,13 +422,63 @@ h2 {
     color: rgb(255, 251, 251);
 }
 
-
 .item .delete-icon {
     cursor: pointer;
     margin-left: 10px;
     width: 20px; /* Adjust the size as needed */
     height: auto;
 }
+
+.item-container {
+    background-color: #f0f4f7; /* Gray background color */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px; /* Space between items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.status {
+    display: flex;
+    align-items: center;
+}
+
+.status-icon {
+    margin-right: 5px; /* Adjust spacing between status icon and delete icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center; 
+}
+
+.text-container {
+    flex-grow: 1;
+    text-align: right;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    justify-content: space-between;
+    gap: 1px
+}
+
+.delete-icon {
+    cursor: pointer;
+}
+
 
 .course-content .item {
     display: flex;
@@ -453,9 +491,8 @@ h2 {
 .course-content .status {
     display: flex;
     align-items: center;
-}
 
+}
 #additionalFields {
     margin-top: 50px; /* הוספת רווח עליון של 20 פיקסלים */
 }
-
