@@ -1,52 +1,36 @@
-// search for course name in grid-items and leave visible only 
-// courses matching search input
+document.getElementById('searchInput').addEventListener('input', filterItems);
+        document.getElementById('teacherInput').addEventListener('input', filterItems);
 
+        function filterItems() {
+            const courseInput = document.getElementById('searchInput').value.toLowerCase();
+            const teacherInput = document.getElementById('teacherInput').value.toLowerCase();
+            const gridItems = document.querySelectorAll('.grid-item');
 
-document.getElementById('searchInput').addEventListener('input', function() {
-    var input, filter, gridContainer, gridItems, h2, i, txtValue;
-    input = document.getElementById('searchInput');
-    filter = input.value;
-    gridContainer = document.getElementById('gridContainer');
-    gridItems = gridContainer.getElementsByClassName('grid-item');
-    for (i = 0; i < gridItems.length; i++) {
-        h2 = gridItems[i].getElementsByTagName('h2')[0];
-        if (h2) {
-            txtValue = h2.textContent || h2.innerText;
-            if (txtValue.indexOf(filter) > -1 || filter === "") {
-                gridItems[i].style.display = '';
-            } else {
-                gridItems[i].style.display = 'none';
-            }
+            gridItems.forEach(item => {
+                const courseName = item.querySelector('h2').textContent.toLowerCase();
+                const teacherName = item.querySelector('.teacher').textContent.toLowerCase();
+
+                const courseMatch = courseName.includes(courseInput);
+                const teacherMatch = teacherName.includes(teacherInput);
+
+                if (courseMatch && teacherMatch) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
-    }
-});
 
-// on click shows all courses
-function filterAll(){
-    const gridItems = document.querySelectorAll('.grid-item'); 
-    gridItems.forEach(item =>{
-         item.style.display = 'block';
-        })
-}
+        function filterFaculty(faculty) {
+            const gridItems = document.querySelectorAll('.grid-item');
 
-// on click shows only courses from buttons faculty
-function filterFaculty(faculty) {
-    // Get all grid items
-    const gridItems = document.querySelectorAll('.grid-item');
-    
-    // Loop through all grid items
-    gridItems.forEach(item => {
-        // Get the faculty text from the grid item
-        const facultyText = item.querySelector('.faculty').textContent;
-        
-        // Check if the faculty text matches the button text
-        if (facultyText.includes(faculty)) {
-            // Show the grid item
-            item.style.display = 'block';
-        
-        } else {
-            // Hide the grid item
-            item.style.display = 'none';
+            gridItems.forEach(item => {
+                const facultyText = item.querySelector('.faculty').textContent;
+
+                if (facultyText.includes(faculty)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
-    });
-}
