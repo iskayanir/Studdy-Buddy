@@ -10,7 +10,7 @@
             const data = jwt_decode(response.credential);
             console.log(data);
             alert('Logged in as ' + data.name);
-            window.location.href = 'buyer_profile.html';
+            window.location.href = 'buyer_setup_profile.html';
         }
 
         function initGoogleSignIn() {
