@@ -110,7 +110,7 @@ header .logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:  #F0F4F7;
+    
     border: 1px solid #ccc;
     border-radius: 20px;
     padding: 5px;
@@ -161,7 +161,6 @@ header .logo {
     display: inline;
     justify-content: center;
     align-items: center;
-    background-color:  #F0F4F7;
     border: 1px solid #ccc;
     border-radius: 20px;
     padding: 12px;
@@ -180,8 +179,8 @@ header .logo {
 /* Grid container styling */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 4 columns */
-    grid-template-rows: repeat(3, auto);  /* 4 rows */
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-rows: repeat(4, auto);  /* 4 rows */
     gap: 10px;
     padding: 20px;
 }
