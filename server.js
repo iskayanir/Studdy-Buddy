@@ -79,68 +79,109 @@
 // // דוגמאות לשימוש בפונקציות
 // writeUserData('1', 'John Doe', 'john.doe@example.com');
 // readUserData('1');
+const { initializeApp } = require("firebase/app");
+const { getDatabase, ref, onValue } = require("firebase/database");
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBca6BVRgwMO3XJ_gVIn2DK3uHxj7bnHms",
+    authDomain: "study-buddy-d457d.firebaseapp.com",
+    databaseURL: "https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "study-buddy-d457d",
+    storageBucket: "study-buddy-d457d.appspot.com",
+    messagingSenderId: "254149753908",
+    appId: "1:254149753908:web:04ccb86462b3ee2d815e61",
+    measurementId: "G-G9L8WVHF1X",
+  };
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+module.exports = database;
 
 
-const express = require('express');
-const database = require('./public/js/firebase-app'); // ודא שהנתיב נכון
-const path = require('path');
-const server = express();
+
+
+const db = getDatabase();
+// const starCountRef = ref(db, 'studentsReceivingHelp');
+// onValue(starCountRef, (snapshot) => {
+//   const data = snapshot.val();
+//   console.log(data)
+// });
+
 const port = 3000;
+const express = require('express');
+const server = express();
+server.get('getStudents', async (req, res) => {
+  const starCountRef = ref(db, 'studentsReceivingHelp');
+onValue(starCountRef, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data)
+  res.json(data);
 
-server.get('/data', async (req, res) => {
-  const dbRef = database.ref('students/studentsReceivingHelp');
-  try {
-    const snapshot = await dbRef.get();
-    if (snapshot.exists()) {
-      res.json(snapshot.val());
-    } else {
-      res.status(404).json({error: "No data available"});
-    }
-  } catch (error) {
-    res.status(500).json({error: error.message});
-  }
+});
 });
 
-server.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
-server.use(express.static(path.join(__dirname, 'public')));
+// const express = require('express');
+// const database = require('./public/js/firebase-app'); // ודא שהנתיב נכון
+// const path = require('path');
+// const server = express();
+// const port = 3000;
+
+// server.get('/data', async (req, res) => {
+//   const dbRef = database.ref('students/studentsReceivingHelp');
+//   try {
+//     const snapshot = await dbRef.get();
+//     if (snapshot.exists()) {
+//       res.json(snapshot.val());
+//     } else {
+//       res.status(404).json({error: "No data available"});
+//     }
+//   } catch (error) {
+//     res.status(500).json({error: error.message});
+//   }
+// });
+
+// server.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
+
+// server.use(express.static(path.join(__dirname, 'public')));
 
 
 
 
-server.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+// server.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
 
-server.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
+// server.get('/login', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'login.html'));
+// });
 
-server.get('/buyer_search_page', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'buyer_search_page.html'));
-});
+// server.get('/buyer_search_page', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'buyer_search_page.html'));
+// });
 
-server.get('/seller_search_page', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'seller_search_page.html'));
-});
+// server.get('/seller_search_page', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'seller_search_page.html'));
+// });
 
-server.get('/seller', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'seller.html'));
-});
+// server.get('/seller', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'seller.html'));
+// });
 
-server.get('/buyer', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'buyer.html'));
-});
+// server.get('/buyer', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'buyer.html'));
+// });
 
-server.get('/buyer_profile', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'buyer_profile.html'));
-});
+// server.get('/buyer_profile', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'buyer_profile.html'));
+// });
 
-server.get('/seller_profile', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
-});
+// server.get('/seller_profile', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
+// });
 
 
 
@@ -315,4 +356,3 @@ server.get('/seller_profile', (req, res) => {
 // app.listen(PORT, () => {
 //   console.log(`Serving on port ${PORT}`);
 // });
-

@@ -56,21 +56,19 @@
 // document.addEventListener('DOMContentLoaded', displayData);
 
 
-const { initializeApp } = require("firebase/app");
-const { getDatabase } = require("firebase/database");
+function fetchData() {
+  console.log("hello before")
+  fetch('https://redesigned-carnival-4576xrwvxwjfq9q-3000.app.github.dev/getStudents')
+  .then(response => {
+      console.log(response.json())
+      response.json()})
+  .then(data => {
+      const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+      data.forEach(student => {
+          receivingHelpDiv.innerHTML += <p>Name: ${student.name}, Year: ${student.year}</p>;
+      });
+  })
+  .catch(error => console.error('Error fetching data:', error));
+  return(response)
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBca6BVRgwMO3XJ_gVIn2DK3uHxj7bnHms",
-    authDomain: "study-buddy-d457d.firebaseapp.com",
-    databaseURL: "https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "study-buddy-d457d",
-    storageBucket: "study-buddy-d457d.appspot.com",
-    messagingSenderId: "254149753908",
-    appId: "1:254149753908:web:04ccb86462b3ee2d815e61",
-    measurementId: "G-G9L8WVHF1X",
-  };
-
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-
-module.exports = database;
+}
