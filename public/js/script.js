@@ -63,7 +63,7 @@
     const name = document.getElementById('name').value;
     const degree = document.getElementById('degree').value;
     const year = document.getElementById('year').value;
-    const courses = document.getElementById('course-search').value;
+    // const courses = document.getElementById('course-search').value;
     const aboutMe = document.getElementById('aboutme').value;
     const hobbies = document.getElementById('hobbies').value;
     const phoneNumber = document.getElementById('number').value;
@@ -73,23 +73,52 @@
     localStorage.setItem('name', name);
     localStorage.setItem('degree', degree);
     localStorage.setItem('year', year);
-    localStorage.setItem('courses', courses);
+    // localStorage.setItem('courses', courses);
     localStorage.setItem('aboutMe', aboutMe);
     localStorage.setItem('hobbies', hobbies);
     localStorage.setItem('phoneNumber', phoneNumber);
     localStorage.setItem('email', email);
+
+  console.log(name)
   }
 
 
 
-  window.onload = function() {
+//   window.onload = function() {
+//     document.getElementById('displayName').textContent = localStorage.getItem('name');
+//     document.getElementById('displayDegree').textContent = localStorage.getItem('degree');
+//     document.getElementById('displayYear').textContent = localStorage.getItem('year');
+//     document.getElementById('displayCourses').textContent = localStorage.getItem('courses');
+//     document.getElementById('displayAboutMe').textContent = localStorage.getItem('aboutMe');
+//     document.getElementById('displayHobbies').textContent = localStorage.getItem('hobbies');
+//     document.getElementById('displayPhoneNumber').textContent = localStorage.getItem('phoneNumber');
+//     document.getElementById('displayEmail').textContent = localStorage.getItem('email');
+//     // טען והצג נתונים נוספים בדומה לדוגמאות שלעיל
+// };
+
+window.onload = function() {
+  if (document.getElementById('displayName')) {
     document.getElementById('displayName').textContent = localStorage.getItem('name');
+  }
+  if (document.getElementById('displayDegree')) {
     document.getElementById('displayDegree').textContent = localStorage.getItem('degree');
+  }
+  if (document.getElementById('displayYear')) {
     document.getElementById('displayYear').textContent = localStorage.getItem('year');
-    document.getElementById('displayCourses').textContent = localStorage.getItem('courses');
+  }
+  // if (document.getElementById('displayCourses')) {
+  //   document.getElementById('displayCourses').textContent = localStorage.getItem('courses');
+  // }
+  if (document.getElementById('displayAboutMe')) {
     document.getElementById('displayAboutMe').textContent = localStorage.getItem('aboutMe');
+  }
+  if (document.getElementById('displayHobbies')) {
     document.getElementById('displayHobbies').textContent = localStorage.getItem('hobbies');
+  }
+  if (document.getElementById('displayPhoneNumber')) {
     document.getElementById('displayPhoneNumber').textContent = localStorage.getItem('phoneNumber');
+  }
+  if (document.getElementById('displayEmail')) {
     document.getElementById('displayEmail').textContent = localStorage.getItem('email');
-    // טען והצג נתונים נוספים בדומה לדוגמאות שלעיל
+  }
 };

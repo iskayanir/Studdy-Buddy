@@ -182,11 +182,28 @@ function toggleDisplayData(type) {
     });
 }
 
-function handleClick(studentId) {
-    // שינוי צבע ה-✔️
-    event.target.style.color = 'black';
+// function handleClick(studentId) {
+//     // שינוי צבע ה-✔️
+//     event.target.style.color = 'black';
 
-    // שליפת פרטי הקשר של הסטודנט
+//     // שליפת פרטי הקשר של הסטודנט
+//     const student = buyers_students[studentId];
+//     if (student) {
+//         alert(`פרטי הקשר של ${student.name}:\n\nביוגרפיה: ${student.bio}\n\nטלפון: ${student.contact.phone}\nאימייל: ${student.contact.email}`);
+//     } else {
+//         console.error('Student not found:', studentId);
+//     }
+// }
+
+
+function handleClick(studentId) {
+    // Change the background color of the ✔️ to green
+    event.target.style.backgroundColor = 'green';
+
+    // Optionally change the color of the text to white for better visibility
+    event.target.style.color = 'white';
+
+    // Retrieve the student contact details
     const student = buyers_students[studentId];
     if (student) {
         alert(`פרטי הקשר של ${student.name}:\n\nביוגרפיה: ${student.bio}\n\nטלפון: ${student.contact.phone}\nאימייל: ${student.contact.email}`);
@@ -194,6 +211,20 @@ function handleClick(studentId) {
         console.error('Student not found:', studentId);
     }
 }
+
+
+// function handleClick(studentId) {
+//     // Toggle the active checkmark class
+//     event.target.classList.toggle('active-checkmark');
+
+//     // Retrieve the student contact details
+//     const student = buyers_students[studentId];
+//     if (student) {
+//         alert(`פרטי הקשר של ${student.name}:\n\nביוגרפיה: ${student.bio}\n\nטלפון: ${student.contact.phone}\nאימייל: ${student.contact.email}`);
+//     } else {
+//         console.error('Student not found:', studentId);
+//     }
+// }
 
 
 window.toggleDisplayData = toggleDisplayData;
