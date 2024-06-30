@@ -116,7 +116,12 @@ function toggleSearchField(typehelp) {
         
                     // Append the new item to course-content
                     var courseContent = document.querySelector('.course-content');
-                    courseContent.appendChild(newItem);
+                    var firstChild = courseContent.firstChild; // Get the first child element
+                    if (firstChild) {
+                        courseContent.insertBefore(newItem, firstChild); // Insert newItem before the firstChild
+                    } else {
+                        courseContent.appendChild(newItem); // If no children, just append newItem
+                    }
             
                         // Optionally remove the search fields if needed
                         // additionalFieldsDiv.removeChild(existingSearchField);
@@ -227,7 +232,12 @@ function toggleSearchField(typehelp) {
         
                     // Append the new item to course-content
                     var courseContent = document.querySelector('.course-content');
-                    courseContent.appendChild(newItem);
+                    var firstChild = courseContent.firstChild; // Get the first child element
+                    if (firstChild) {
+                        courseContent.insertBefore(newItem, firstChild); // Insert newItem before the firstChild
+                    } else {
+                        courseContent.appendChild(newItem); // If no children, just append newItem
+                    }
         
                     // Optionally remove the search fields if needed
                     // additionalFieldsDiv.removeChild(existingSearchField);
@@ -339,7 +349,12 @@ function toggleSearchField(typehelp) {
 
             // Append the new item to course-content
             var courseContent = document.querySelector('.course-content');
-            courseContent.appendChild(newItem);
+            var firstChild = courseContent.firstChild; // Get the first child element
+            if (firstChild) {
+                courseContent.insertBefore(newItem, firstChild); // Insert newItem before the firstChild
+            } else {
+                courseContent.appendChild(newItem); // If no children, just append newItem
+            }
 
             // Optionally remove the search fields if needed
             // additionalFieldsDiv.removeChild(existingSearchField);

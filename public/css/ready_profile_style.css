@@ -23,7 +23,7 @@
     grid-template-rows: repeat(4, auto);
     border-radius: 1.5%;
     box-shadow: 0 20px 40px rgba(5, 5, 5, 0.418);
-    padding-bottom: 500px;
+    padding-bottom: 525px;
     text-align: center;
   }
   
@@ -94,87 +94,79 @@
 .edit:hover button {
   background-color: rgb(19, 6, 92);
 }
+
+ul.courses {
+  list-style-type: square;
+  margin-right: 15px;
+}
   
-  /* Header Styling */
-  header {
-    background-color: #ffffff;
-    padding: 0.5%, 38.2%; /* Adjust padding as needed */
-    display: flex;
-    justify-content: space-between; /* Align items to the left and right */
-    align-items: center;
-    box-shadow: 0px 4px 2px -2px gray;
-    z-index: 1000;
-    height: 60px; /* Fixed height for header */
-    width: 100%;
-    position: fixed;
-    top: 0;
-    right: 0;
+ /* Header styles */
+header {
+  background-color: #ffffff;
+  padding: 0.5%, 38.2%; /* Adjust padding as needed */
+  display: flex;
+  justify-content: center; /* Center the navbar horizontally */
+  align-items: center;
+  box-shadow: 0px 4px 2px -2px gray;
+  z-index: 1000;
+  height: 60px; /* Fixed height for header */
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+header .logo {
+  width: 50px;
+  height: auto;
+  position: absolute; /* Position logo absolutely */
+  right: 20px; /* Adjust the right position as needed */
+}
+
+.navbar {
+  display:flex;
+  text-align: right; /* Right-aligns the menu items */
+}
+
+.navbar ul {
+  list-style-type: none; /* Remove default list styles */
+  display:flex;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */    
+}
+
+.navbar ul li {
+  display: inline-block; /* Display menu items horizontally */
+  margin-left: 20px; /* Adjust margin between menu items */
+}
+
+.navbar ul li:first-child {
+  margin-left: 20px; /* No margin for the first menu item */
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: black; /* Link text color */
+  padding: 8px 15px; /* Adjust padding for link text */
+  border-radius: 5px; /* Rounded corners for links */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  margin-left: 20px;
+}
+
+.navbar ul li a:hover {
+  background-color: #5bafe2; /* Background color on hover */
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
   }
-  
-  header .logo {
-    width: 50px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-  }
-  
-  /* Navbar Styling */
-  .navbar {
-    display: flex;
-    text-align: right; /* Right-aligns the menu items */
-  }
-  
-  .navbar ul {
-    list-style-type: none; /* Remove default list styles */
-    display: flex;
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */    
-  }
-  
-  .navbar ul li {
-    display: inline-block; /* Display menu items horizontally */
-    margin-left: 20px; /* Adjust margin between menu items */
-  }
-  
-  .navbar ul li:first-child {
-    margin-left: 20px; /* No margin for the first menu item */
-  }
-  
-  .navbar ul li a {
-    text-decoration: none;
-    color: black; /* Link text color */
-    padding: 8px 15px; /* Adjust padding for link text */
-    border-radius: 5px; /* Rounded corners for links */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-    margin-left: 20px;
-  }
-  
-  .navbar ul li a:hover {
-    background-color: #5bafe2; /* Background color on hover */
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-  }
-  
-  .hamburger-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;   
-  }
-  
-  .hamburger-menu span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-  }
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
   
   /* Media Queries for Responsiveness */
   @media (max-width: 768px) {

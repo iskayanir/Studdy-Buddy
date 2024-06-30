@@ -81,11 +81,83 @@ function displayData(dataArray) {
     });
 }
 
+function toggleDisplayData(type, button) {
+    const container = document.getElementById('additionalFields');
+    const currentType = container.getAttribute('data-current-type');
+    
+    // Clear previous content if the same button is pressed again or a different type is selected
+    if (currentType === type) {
+        container.innerHTML = "";
+        container.removeAttribute('data-current-type');
+        resetButtonImages();
+        return;
+    }
+
+    // Clear previous content and set the current type attribute
+    container.innerHTML = "";
+    container.setAttribute('data-current-type', type);
+
+    let dataArray = [];
+    switch (type) {
+        case 'lessonSummaries':
+            dataArray = lessonSummaries;
+            break;
+        case 'requestedHelpTopics':
+            dataArray = requestedHelpTopics;
+            break;
+        case 'homeworkAssignments':
+            dataArray = homeworkAssignments;
+            break;
+        default:
+            console.error('Unknown type:', type);
+            return;
+    }
+
+    dataArray.forEach(item => {
+        let element = document.createElement('div');
+        element.className = "additional-item";
+        element.innerHTML = `
+            <div class="icon">👤</div>
+            <div class="text-content">${item.description || item.title || item.assignment}</div>
+            <div class="status">
+                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
+            </div>`;
+        container.appendChild(element);
+    });
+
+    updateButtonImage(button, type);
+}
+
+function updateButtonImage(button, type) {
+    const images = {
+         'lessonSummaries': 'images/sicompurple.svg',
+         'requestedHelpTopics': 'images/hashlamapurple.svg',
+         'homeworkAssignments': 'images/targilpurple.svg'
+    };
+
+    resetButtonImages();
+    const img = button.querySelector('img');
+    if (img && images[type]) {
+        img.src = images[type];
+    }
+    button.setAttribute('data-active', 'true');
+}
+
+function resetButtonImages() {
+    const buttons = document.querySelectorAll('.buttons button');
+    buttons.forEach(button => {
+        const img = button.querySelector('img');
+        if (img) {
+            if (img.alt === 'סיכום') img.src = 'images/סיכום.svg';
+            if (img.alt === 'השלמת נושא') img.src = 'images/hashlamawhite.svg';
+            if (img.alt === 'עזרה בתרגיל בית') img.src = 'images/עזרה בתרגיל בית.svg';
+        }
+        button.removeAttribute('data-active');
+    });
+}
 
 
-
-
-// function toggleDisplayData(type) {
+// function toggleDisplayData(type, button) {
 //     const container = document.getElementById('additionalFields');
 //     // Check the current data type being displayed
 //     const currentType = container.getAttribute('data-current-type');
@@ -128,72 +200,39 @@ function displayData(dataArray) {
 //             <div class="icon">👤</div>
 //             <div class="text-content">${item.description || item.title || item.assignment}</div>
 //             <div class="status">
-//                 <div class="status-icon">✔</div>
+//                 <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
 //             </div>`;
 //         container.appendChild(element);
 //     });
+//     updateButtonImage(button, type);
 // }
-function toggleDisplayData(type) {
-    const container = document.getElementById('additionalFields');
-    // Check the current data type being displayed
-    const currentType = container.getAttribute('data-current-type');
 
-    // Clear previous content if the same button is pressed again or a different type is selected
-    if (currentType === type || container.children.length > 0) {
-        container.innerHTML = "";
-        // If the same type is clicked, toggle it off and clear the attribute
-        if (currentType === type) {
-            container.removeAttribute('data-current-type');
-            return;
-        }
-    }
 
-    // Set the current type attribute
-    container.setAttribute('data-current-type', type);
 
-    // Determine which data to display based on 'type'
-    let dataArray = [];
-    switch (type) {
-        case 'lessonSummaries':
-            dataArray = lessonSummaries;
-            break;
-        case 'requestedHelpTopics':
-            dataArray = requestedHelpTopics;
-            break;
-        case 'homeworkAssignments':
-            dataArray = homeworkAssignments;
-            break;
-        default:
-            console.error('Unknown type:', type);
-            return;
-    }
 
-    // Populate container with new data
-    dataArray.forEach(item => {
-        let element = document.createElement('div');
-        element.className = "additional-item";
-        element.innerHTML = `
-            <div class="icon">👤</div>
-            <div class="text-content">${item.description || item.title || item.assignment}</div>
-            <div class="status">
-                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
-            </div>`;
-        container.appendChild(element);
-    });
-}
+// function updateButtonImage(button, type) {
+//     const images = {
+//         'lessonSummaries': 'images/sicompurple.svg',
+//         'requestedHelpTopics': 'images/hashlamapurple.svg',
+//         'homeworkAssignments': 'images/targilpurple.svg'
+//     };
 
-// function handleClick(studentId) {
-//     // שינוי צבע ה-✔️
-//     event.target.style.color = 'black';
-
-//     // שליפת פרטי הקשר של הסטודנט
-//     const student = buyers_students[studentId];
-//     if (student) {
-//         alert(`פרטי הקשר של ${student.name}:\n\nביוגרפיה: ${student.bio}\n\nטלפון: ${student.contact.phone}\nאימייל: ${student.contact.email}`);
-//     } else {
-//         console.error('Student not found:', studentId);
+//     resetButtonImages();
+//     const img = button.querySelector('img');
+//     if (img && images[type]) {
+//         img.src = images[type];
 //     }
 // }
+
+// function resetButtonImages() {
+//     const buttons = document.querySelectorAll('.buttons button img');
+//     buttons.forEach(img => {
+//         if (img.alt === 'סיכום') img.src = 'images/סיכום.svg';
+//         if (img.alt === 'השלמת נושא') img.src = 'images/hashlamawhite.svg';
+//         if (img.alt === 'עזרה בתרגיל בית') img.src = 'images/עזרה בתרגיל בית.svg';
+//     });
+// }
+
 
 
 function handleClick(studentId) {
@@ -212,19 +251,6 @@ function handleClick(studentId) {
     }
 }
 
-
-// function handleClick(studentId) {
-//     // Toggle the active checkmark class
-//     event.target.classList.toggle('active-checkmark');
-
-//     // Retrieve the student contact details
-//     const student = buyers_students[studentId];
-//     if (student) {
-//         alert(`פרטי הקשר של ${student.name}:\n\nביוגרפיה: ${student.bio}\n\nטלפון: ${student.contact.phone}\nאימייל: ${student.contact.email}`);
-//     } else {
-//         console.error('Student not found:', studentId);
-//     }
-// }
 
 
 window.toggleDisplayData = toggleDisplayData;
