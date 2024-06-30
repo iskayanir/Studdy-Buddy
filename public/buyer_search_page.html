@@ -1,0 +1,136 @@
+  <!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Buyer Search Page</title>
+      <link rel="stylesheet" href="css/search_page.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  </head>
+  <body>
+    
+    <header>
+      <img src="images/logo3.png" class="logo" alt="Logo">
+      <nav class="navbar">
+          <ul>
+              <li><a href="profile.html">הפרופיל שלי</a></li>
+              <li><a href="seller.html">הקורסים שלי</a></li>
+              <li><a href="buyer.html">קונה</a></li>
+          </ul>
+      </nav>
+    </header>
+  
+    <main class="content">
+      <h1>חיפוש</h1>
+      
+      <div class="search-container">    
+          <input type="text" placeholder="חפש שם קורס..." class="search-input" id="searchInput">
+      </div>  
+    </main>
+
+      <div class="buttons">  
+        <p> בחר פקולטה: </p>
+        <button onclick="filterAll()">הכל</button>
+        <button onclick="filterFaculty('מדעי הרוח')">מדעי הרוח</button>
+        <button onclick="filterFaculty('מדעי החברה')">מדעי החברה</button>
+        <button onclick="filterFaculty('מנהל עסקים')">מנהל עסקים</button>
+        <button onclick="filterFaculty('רפואה')">רפואה</button>
+        <button onclick="filterFaculty('מדעי המחשב')">מדעי המחשב</button>
+        </div>
+        
+        <div class="search-proffesor"> 
+          <p> חפש מרצה: </p>
+          <div class="search-container">    
+            <input type="text" placeholder="חפש שם מרצה..." class="search-input" id="searchInput">
+          </div>     
+        </div>
+ 
+
+
+
+    <div class=grid-container id="gridContainer">
+      <div class="grid-item">
+            <h2>חדוא א</h2>
+            <span class="icon">&#128214;</span>
+            <ul>
+                <li class="faculty">פקולטה: מדעי החברה</li>
+                <li class="teacher">מרצה: יונתן זוארי</li>
+            </ul>
+            <button class="add" onclick="addCourse()">הוסף קורס</button>
+      </div>
+
+      <div class="grid-item">
+        <h2>מבני נתונים ואלגוריתמים</h2>
+        <span class="icon">&#128214;</span>
+        <ul>
+            <li class="faculty">פקולטה: מדעי החברה</li>
+            <li class="teacher">מרצה: גל אלידן</li>
+        </ul>
+        <button class="add" onclick="addCourse()">הוסף קורס</button>
+      </div>
+
+      <div class="grid-item">
+        <h2>תורת המחירים א</h2>
+        <span class="icon">&#128214;</span>
+        <ul>
+            <li class="faculty">פקולטה: מדעי החברה</li>
+            <li class="teacher">מרצה: משה שעיו</li>
+        </ul>
+        <button class="add" onclick="addCourse()">הוסף קורס</button>
+    </div>
+
+    <div class="grid-item">
+      <h2>תורת המחירים ב</h2>
+      <span class="icon">&#128214;</span>
+      <ul>
+        <li class="faculty">פקולטה: מדעי החברה</li>
+        <li class="teacher">מרצה: אסף רום </li>
+      </ul>
+      <button class="add" onclick="addCourse()">הוסף קורס</button>
+    </div>
+
+<div class="grid-item">
+            <h2>סוגיות באתיקה יוונית</h2>
+            <span class="icon">&#128214;</span>
+            <ul>
+                <li class="faculty">פקולטה: מדעי הרוח</li>
+                <li class="teacher">מרצה: נטלי טאלר</li>
+            </ul>
+            <button class="add" onclick="addCourse()">הוסף קורס</button>
+      </div>
+
+      <div class="grid-item">
+        <h2>ספרות המקרא : טקסט וקונטקסט</h2>
+        <span class="icon">&#128214;</span>
+        <ul>
+            <li class="faculty" >פקולטה: מדעי הרוח</li>
+            <li class="teacher">מרצה: יצחק פרלמוטר </li>
+        </ul>
+        <button class="add" onclick="addCourse()">הוסף קורס</button>
+  </div>
+  <div class="grid-item">
+    <h2>מבוא למדעי המחשב</h2>
+    <span class="icon">&#128214;</span>
+    <ul>
+        <li class="faculty">פקולטה: מדעי המחשב</li>
+        <li class="teacher">מרצה: אביב זוהר</li>
+    </ul>
+    <button class="add" onclick="addCourse()">הוסף קורס</button>
+</div>
+
+<div class="grid-item">
+<h2>רשתות המונים ושווקים</h2>
+<span class="icon">&#128214;</span>
+<ul>
+    <li class="faculty">פקולטה: מדעי המחשב</li>
+    <li class="teacher">מרצה: קתרינה ליגת</li>
+</ul>
+<button class="add" onclick="addCourse()">הוסף קורס</button>
+</div>
+
+    
+
+    
+<script src="js/search_page.js"></script>
+    
+  </body>

@@ -1,3 +1,6 @@
+// search for course name in grid-items and leave visible only 
+// courses matching search input
+
 
 document.getElementById('searchInput').addEventListener('input', function() {
     var input, filter, gridContainer, gridItems, h2, i, txtValue;
@@ -18,6 +21,7 @@ document.getElementById('searchInput').addEventListener('input', function() {
     }
 });
 
+// on click shows all courses
 function filterAll(){
     const gridItems = document.querySelectorAll('.grid-item'); 
     gridItems.forEach(item =>{
@@ -25,6 +29,7 @@ function filterAll(){
         })
 }
 
+// on click shows only courses from buttons faculty
 function filterFaculty(faculty) {
     // Get all grid items
     const gridItems = document.querySelectorAll('.grid-item');
