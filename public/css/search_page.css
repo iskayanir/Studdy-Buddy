@@ -223,8 +223,9 @@ header .logo {
     border: 1px solid #ccc;
     padding: 5px;
     text-align: center;
-    background-color:#F0F4F7;
+    background: linear-gradient(to bottom, #d0eaff, #f0f4f7);
     border-radius: 20px;
+    box-shadow: 0 3px 3px rgb(214, 214, 214);
     
 }
 

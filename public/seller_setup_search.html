@@ -18,20 +18,21 @@
     </main>
 
     <div class="buttons">  
-        <p> בחר פקולטה: </p>
-        <button>מדעי הרוח</button>
-        <button>מדעי החברה</button>
-        <button>מנהל עסקים</button>
-        <button>רפואה</button>
-        <button>מדעי המחשב</button>
-    </div>
+      <p> בחר פקולטה: </p>
+      <button onclick="filterAll()">הכל</button>
+      <button onclick="filterFaculty('מדעי הרוח')">מדעי הרוח</button>
+      <button onclick="filterFaculty('מדעי החברה')">מדעי החברה</button>
+      <button onclick="filterFaculty('מנהל עסקים')">מנהל עסקים</button>
+      <button onclick="filterFaculty('רפואה')">רפואה</button>
+      <button onclick="filterFaculty('מדעי המחשב')">מדעי המחשב</button>
+      </div>
         
-    <div class="search-proffesor"> 
+      <div class="search-proffesor"> 
         <p> חפש מרצה: </p>
         <div class="search-container">    
-        <input type="text" placeholder="חפש שם מרצה..." class="search-input" id="searchInput">
+          <input type="text" placeholder="חפש שם מרצה..." class="search-input" id="searchInput">
         </div>     
-    </div>
+      </div>
     
     <div class="finish-button">
         <a href="seller.html">
@@ -41,80 +42,80 @@
 
     <div class=grid-container id="gridContainer">
       <div class="grid-item">
-            <h2>קורס 1</h2>
-            
+            <h2>חדוא א</h2>
+            <span class="icon">&#128214;</span>
             <ul>
-                <li class="faculty">פקולטה:</li>
-                <li class="teacer">מרצה:</li>
+                <li class="faculty">פקולטה: מדעי החברה</li>
+                <li class="teacher">מרצה: יונתן זוארי</li>
             </ul>
             <button class="add" onclick="addCourse()">הוסף קורס</button>
       </div>
 
       <div class="grid-item">
-        <h2>קורס 2</h2>
+        <h2>מבני נתונים ואלגוריתמים</h2>
         <span class="icon">&#128214;</span>
         <ul>
-            <li>פקולטה:</li>
-            <li>מרצה:</li>
+            <li class="faculty">פקולטה: מדעי החברה</li>
+            <li class="teacher">מרצה: גל אלידן</li>
         </ul>
         <button class="add" onclick="addCourse()">הוסף קורס</button>
       </div>
 
       <div class="grid-item">
-        <h2>קורס 3</h2>
+        <h2>תורת המחירים א</h2>
         <span class="icon">&#128214;</span>
         <ul>
-            <li>פקולטה:</li>
-            <li>מרצה:</li>
+            <li class="faculty">פקולטה: מדעי החברה</li>
+            <li class="teacher">מרצה: משה שעיו</li>
         </ul>
         <button class="add" onclick="addCourse()">הוסף קורס</button>
     </div>
 
     <div class="grid-item">
-      <h2>קורס 4</h2>
+      <h2>תורת המחירים ב</h2>
       <span class="icon">&#128214;</span>
       <ul>
-        <li>פקולטה:</li>
-        <li>מרצה:</li>
+        <li class="faculty">פקולטה: מדעי החברה</li>
+        <li class="teacher">מרצה: אסף רום </li>
       </ul>
       <button class="add" onclick="addCourse()">הוסף קורס</button>
     </div>
 
 <div class="grid-item">
-            <h2>קורס 1</h2>
+            <h2>סוגיות באתיקה יוונית</h2>
             <span class="icon">&#128214;</span>
             <ul>
-                <li>פקולטה:</li>
-                <li>מרצה:</li>
+                <li class="faculty">פקולטה: מדעי הרוח</li>
+                <li class="teacher">מרצה: נטלי טאלר</li>
             </ul>
             <button class="add" onclick="addCourse()">הוסף קורס</button>
       </div>
 
       <div class="grid-item">
-        <h2>קורס 2</h2>
+        <h2>ספרות המקרא : טקסט וקונטקסט</h2>
         <span class="icon">&#128214;</span>
         <ul>
-            <li>פקולטה:</li>
-            <li>מרצה:</li>
+            <li class="faculty" >פקולטה: מדעי הרוח</li>
+            <li class="teacher">מרצה: יצחק פרלמוטר </li>
         </ul>
         <button class="add" onclick="addCourse()">הוסף קורס</button>
   </div>
   <div class="grid-item">
-    <h2>קורס 3</h2>
+    <h2>מבוא למדעי המחשב</h2>
     <span class="icon">&#128214;</span>
     <ul>
-        <li>פקולטה:</li>
-        <li>מרצה:</li>
+        <li class="faculty">פקולטה: מדעי המחשב</li>
+        <li class="teacher">מרצה: אביב זוהר</li>
     </ul>
     <button class="add" onclick="addCourse()">הוסף קורס</button>
 </div>
 
 <div class="grid-item">
-<h2>קורס 4</h2>
+<h2>רשתות המונים ושווקים</h2>
 <span class="icon">&#128214;</span>
 <ul>
-    <li>פקולטה:</li>
-    <li>מרצה:</li>
+    <li class="faculty">פקולטה: מדעי המחשב</li>
+    <li class="teacher">מרצה: קתרינה ליגת</li>
 </ul>
 <button class="add" onclick="addCourse()">הוסף קורס</button>
 </div>
