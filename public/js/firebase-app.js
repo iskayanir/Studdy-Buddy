@@ -74,3 +74,32 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 module.exports = database;
+
+
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
+
+// app.get('/login', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'login.html'));
+// });
+
+// app.get('/search_page', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'search_page.html'));
+// });
+
+// app.get('/seller', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'seller.html'));
+// });
+
+// app.get('/buyer', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'buyer.html'));
+// });
+
+// app.get('/buyer_profile', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'buyer_profile.html'));
+// });
+
+// app.get('/seller_profile', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
+// });

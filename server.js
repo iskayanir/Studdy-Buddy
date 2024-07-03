@@ -80,10 +80,10 @@
 // writeUserData('1', 'John Doe', 'john.doe@example.com');
 // readUserData('1');
 
-
+const path = require('path');
 
 const express = require('express');
-const database = require('./firebase');
+const database = require('./public/js/firebase-app');
 const { ref, get } = require("firebase/database");
 
 const server = express();
@@ -109,7 +109,8 @@ server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-
+// בפסקה זו, הקוד מגדיר את תיקיית 'public' לשמש כתיקיית משאבים סטטיים
+server.use(express.static(path.join(__dirname, 'public')));
 
 
 
@@ -162,33 +163,33 @@ server.listen(port, () => {
 
 
 
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-// });
+server.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-// app.get('/login', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'login.html'));
-// });
+server.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
 
-// app.get('/search_page', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'search_page.html'));
-// });
+server.get('/search_page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'search_page.html'));
+});
 
-// app.get('/seller', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'seller.html'));
-// });
+server.get('/seller', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'seller.html'));
+});
 
-// app.get('/buyer', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'buyer.html'));
-// });
+server.get('/buyer', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'buyer.html'));
+});
 
-// app.get('/buyer_profile', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'buyer_profile.html'));
-// });
+server.get('/buyer_profile', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'buyer_profile.html'));
+});
 
-// app.get('/seller_profile', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
-// });
+server.get('/seller_profile', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
+});
 
 
 
