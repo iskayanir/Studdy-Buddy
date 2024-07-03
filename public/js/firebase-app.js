@@ -1,6 +1,8 @@
 // import { initializeApp } from "firebase/app";
 // import { getDatabase, ref, get } from "firebase/database";
 
+// const response  = require("express");
+
 // const firebaseConfig = {
 //     apiKey: "your-api-key",
 //     authDomain: "your-auth-domain",
@@ -56,19 +58,124 @@
 // document.addEventListener('DOMContentLoaded', displayData);
 
 
-function fetchData() {
-  console.log("hello before")
-  fetch('https://redesigned-carnival-4576xrwvxwjfq9q-3000.app.github.dev/getStudents')
-  .then(response => {
-      console.log(response.json())
-      response.json()})
-  .then(data => {
-      const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
-      data.forEach(student => {
-          receivingHelpDiv.innerHTML += <p>Name: ${student.name}, Year: ${student.year}</p>;
-      });
-  })
-  .catch(error => console.error('Error fetching data:', error));
-  return(response)
+// function fetchData() {
+//   console.log("hello before")
+//   fetch('http://localhost:3000/getStudents')
+//   .then(response => {
+//       console.log(response.json())
+//       response.json()})
+//   .then(data => {
+//       const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+//       data.forEach(student => {
+//           receivingHelpDiv.innerHTML += <p>Name: ${student.name}, Year: ${student.year}</p>;
+//       });
+//   })
+//   .catch(error => console.error('Error fetching data:', error));
+//   return(response)
 
+// }
+
+// function fetchData() {
+//     console.log("hello before");
+//     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+//       .then(response => response.json())
+//       console.log(response)
+//       .then(data => {
+//         const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+//         receivingHelpDiv.innerHTML = ''; // ריקון התוכן הקודם
+//         data.forEach(student => {
+//           receivingHelpDiv.innerHTML += `<p>Name: ${student.name}, Year: ${student.year}</p>`;
+//         });
+//       })
+//       .catch(error => console.error('Error fetching data:', error));
+//   }
+  
+//   function fetchData() {
+//     console.log("hello before");
+//     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+//       .then(response => {
+//           console.log(response);
+//           return response.json();
+//       })
+//       .then(data => {
+//         const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+//         receivingHelpDiv.innerHTML = ''; // ריקון התוכן הקודם
+//         data.forEach(student => {
+//           receivingHelpDiv.innerHTML += `<p>Name: ${student.name}, Year: ${student.year}</p>`;
+//         });
+//       })
+//       .catch(error => console.error('Error fetching data:', error));
+// }
+
+function fetchData() {
+    console.log("hello before");
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+      .then(response => response.json())
+      .then(data => {
+        const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+        receivingHelpDiv.innerHTML = ''; // ריקון התוכן הקודם
+
+        if (data.studentsReceivingHelp) {
+          Object.keys(data.studentsReceivingHelp).forEach(key => {
+            const student = data.studentsReceivingHelp[key];
+            receivingHelpDiv.innerHTML += `<p>Name: ${student.name}, Year: ${student.year}</p>`;
+          });
+        } else {
+          console.error('No students receiving help found');
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+}
+
+function updateStudent() {
+    const studentId = document.getElementById('updateStudentId').value;
+    const name = document.getElementById('updateStudentName').value;
+    const year = document.getElementById('updateStudentYear').value;
+
+    const updatedStudent = {
+        name: name,
+        year: parseInt(year)
+    };
+
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedStudent)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        fetchData(); // Refresh the data
+    })
+    .catch(error => {
+        console.error('Error updating student:', error);
+    });
+}
+
+function addStudent() {
+    const name = document.getElementById('studentName').value;
+    const year = document.getElementById('studentYear').value;
+
+    const newStudent = {
+        name: name,
+        year: parseInt(year)
+    };
+
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp.json', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newStudent)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        fetchData(); // Refresh the data
+    })
+    .catch(error => {
+        console.error('Error adding student:', error);
+    });
 }
