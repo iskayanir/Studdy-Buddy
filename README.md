@@ -16,6 +16,8 @@ A university project that aims to help reservists in their studies
 4. git commit -m "here some notes about the changes"
 5. git push origin
 
+
+ignore for now from this part:
 # If you see a message that the remote has been changed, you must do the following:
 
 1. git pull origin main --no-rebase     or      git pull --rebase origin main
