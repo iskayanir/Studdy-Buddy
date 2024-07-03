@@ -10,23 +10,30 @@
 
     <h1>Students Providing Help</h1>
     <div id="studentsProvidingHelp"></div>
+
+<button onclick="fetchData()">לחץ כאן</button>
     <script>
         // פונקציה שמבצעת fetch לנתונים מהשרת
         function fetchData() {
-            fetch('https://ideal-space-carnival-rqgwjxp659qhppwg-3000.app.github.dev/data')
-            .then(response => response.json())
+            console.log("hello before")
+            fetch('https://upgraded-space-cod-6qgwjp456ppf9x5-3000.app.github.dev//getStudents')
+            .then(response => {
+                console.log(response.json())
+                response.json()})
             .then(data => {
                 const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
-                data.forEach(student => {
-                    receivingHelpDiv.innerHTML += `<p>Name: ${student.name}, Year: ${student.year}</p>`;
-                });
+                // data.forEach(student => {
+                //     receivingHelpDiv.innerHTML += <p>Name: ${student.name}, Year: ${student.year}</p>;
+                // });
             })
             .catch(error => console.error('Error fetching data:', error));
+            return(response)
+
         }
 
         // מפעיל את הפונקציה לאחר טעינת הדף
         window.onload = fetchData;
-    </script>
-    <!-- <script src="js/firebase-app.js"></script> -->
+    </script>
+    <script src="js/firebase-app.js"></script>
 </body>
 </html>

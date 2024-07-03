@@ -1,17 +1,36 @@
-function toggleDropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
+document.getElementById('searchInput').addEventListener('input', filterItems);
+        document.getElementById('teacherInput').addEventListener('input', filterItems);
 
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-    if (!event.target.matches('.dropdown button')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
+        function filterItems() {
+            const courseInput = document.getElementById('searchInput').value.toLowerCase();
+            const teacherInput = document.getElementById('teacherInput').value.toLowerCase();
+            const gridItems = document.querySelectorAll('.grid-item');
+
+            gridItems.forEach(item => {
+                const courseName = item.querySelector('h2').textContent.toLowerCase();
+                const teacherName = item.querySelector('.teacher').textContent.toLowerCase();
+
+                const courseMatch = courseName.includes(courseInput);
+                const teacherMatch = teacherName.includes(teacherInput);
+
+                if (courseMatch && teacherMatch) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
-    }
-}
 
+        function filterFaculty(faculty) {
+            const gridItems = document.querySelectorAll('.grid-item');
+
+            gridItems.forEach(item => {
+                const facultyText = item.querySelector('.faculty').textContent;
+
+                if (facultyText.includes(faculty)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }

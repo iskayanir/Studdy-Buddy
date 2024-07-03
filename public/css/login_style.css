@@ -31,6 +31,7 @@ header {
     height: 40px; /* Fixed height for header */
     top: 0;
     position: fixed;
+    align-items: center;
 }
 
 .navbar {
@@ -112,9 +113,13 @@ main {
 
 /* Adjusting h1 margin to move it up */
 h1 {
-    margin-top: 5%; /* Adjust as needed to move the h1 up */
-    margin-left: 1%; /* Adjust as needed to move the h1 up */
-    margin-bottom: 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    white-space: nowrap; /* Prevent line breaks */
+    text-align: center; /* Center text */
+    max-width: 100%; /* Ensure it doesn't overflow */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Footer styles */

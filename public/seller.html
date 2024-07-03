@@ -3,77 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Page</title>
-    <link rel="stylesheet" href="css/seller.css">
+    <title>Seller</title>
+    <link rel="stylesheet" href="../css/seller.css">
 </head>
 <body>
-      <nav class="navbar">
-        <div class="nav-links">
-            <a href="search_page.html">חיפוש</a>
-            <a href="buyer.html">הצעת עזרה</a>
-            <a href="#link3">LINK 3</a>
-        </div>
-        <div class="hamburger-menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
-
+    <header>
+        <img src="images/logo3.png" class="logo" alt="Logo">
+        <nav class="navbar">
+            <ul>
+                <li><a href="seller_profile.html">הפרופיל שלי</a></li>
+                <li><a href="seller.html">דף הבית</a></li>
+                <li><a href="seller_search_page.html">חיפוש</a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
 
         <div class="section" id="section5">
-                <h1>סטטוס בקשות</h1>
-                  <div class="search-container">
-        <input type="text" placeholder="חפש..." class="search-input">
-        <button class="search-button">
-            <span class="search-icon">&#x1F50D;</span>
-        </button>
-    </div>
-    <div class="buttons">
-        <button>סיכום</button>
-        <button>השלמת נושא</button>
-        <button>עזרה בתרגיל בית</button>
-    </div>
-            <div class="course" id="course1">
-                <h2>קורס 1</h2>
-                <div class="course-content">
-                    <div class="item">
-                        <span>סיכום</span>
-                        <span>1/6</span>
-                    </div>
-                    <div class="item">
-                        <span>סיכום</span>
-                        <span>4/6</span>
-                    </div>
-                    <div class="item">
-                        <span>סיכום</span>
-                        <span>7/6</span>
-                    </div>
-                    <div class="completion">
-                        <span>השלמת נושא - שם הנושא</span>
-                        <span class="completed">✔</span>
-                    </div>
-                </div>
+            <h1>קורס 1</h1>
+            <!-- <div class="search-container">
+                <input type="text" placeholder="חפש..." class="search-input">
+                <button class="search-button">
+                    <span class="search-icon">&#x1F50D;</span>
+                </button>
+            </div> -->
+            <h3>במה תוכל לעזור?</h3>
+            <div class="buttons">   
+
+                <button id="buttonSummary" onclick="toggleDisplayData('lessonSummaries', this)">
+                    <img src="images/סיכום.svg" alt="סיכום"></button>
+                <button id="buttonTopicCompletion" onclick="toggleDisplayData('requestedHelpTopics', this)">
+                    <img src="images/hashlamawhite.svg" alt="השלמת נושא"></button>
+                <button id="buttonHomeworkHelp" onclick="toggleDisplayData('homeworkAssignments', this)">
+                    <img src="images/עזרה בתרגיל בית.svg" alt="עזרה בתרגיל בית"> </button>
+                    
             </div>
+            <div id="additionalFields"></div>
         </div>
         <div class="section" id="section6">
-            <h2>קורסים
-
-            </h2>
+            <h2>קורסים</h2>
             <ul>
-                <li>קורס 1</li>
-                <li>קורס 2</li>
-                <li>קורס 3</li>
-                <li>קורס 4</li>
+                <button id="course1" class="blue" onclick="changeColor()">קורס 1</button>
+                <button id="course2" class="black" onclick="changeColor()">קורס 2</button>
+                <button id="course3" class="black" onclick="changeColor()">קורס 3</button>
+                <button id="course4" class="black" onclick="changeColor()">קורס 4</button>
             </ul>
         </div>
-        <!-- <div class="section" id="section9">
-            <h2>Section 9</h2>
-            <p>הרבה אנשים בשילוב שלך לומדים גם</p>
-            <button>הוסף לרשימת הקורסים</button>
-        </div> -->
     </div>
-    <script src="js/scripts.js"></script>
+    <script type="module" src="js/seller.js"></script>
 </body>
 </html>
+
