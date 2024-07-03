@@ -5,32 +5,56 @@
     <title>Student Help Network</title>
 </head>
 <body>
+    <button onclick="fetchData()">לחץ כאן</button>
     <h1>Students Receiving Help</h1>
     <div id="studentsReceivingHelp"></div>
 
     <h1>Students Providing Help</h1>
     <div id="studentsProvidingHelp"></div>
 
+    <h2>Add Student Receiving Help</h2>
+    <form id="addStudentForm">
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" name="studentName" required>
+        <label for="studentYear">Year:</label>
+        <input type="number" id="studentYear" name="studentYear" required>
+        <button type="button" onclick="addStudent()">Add Student</button>
+    </form>
+
+    <h2>Update Student Receiving Help</h2>
+    <form id="updateStudentForm">
+        <label for="updateStudentId">Student ID:</label>
+        <input type="text" id="updateStudentId" name="updateStudentId" required>
+        <label for="updateStudentName">Name:</label>
+        <input type="text" id="updateStudentName" name="updateStudentName" required>
+        <label for="updateStudentYear">Year:</label>
+        <input type="number" id="updateStudentYear" name="updateStudentYear" required>
+        <button type="button" onclick="updateStudent()">Update Student</button>
+    </form>
+
+
 <button onclick="fetchData()">לחץ כאן</button>
     <script>
         // פונקציה שמבצעת fetch לנתונים מהשרת
         function fetchData() {
-            console.log("hello before")
-            fetch('https://upgraded-space-cod-6qgwjp456ppf9x5-3000.app.github.dev//getStudents')
-            .then(response => {
-                console.log(response.json())
-                response.json()})
-            .then(data => {
-                const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
-                // data.forEach(student => {
-                //     receivingHelpDiv.innerHTML += <p>Name: ${student.name}, Year: ${student.year}</p>;
-                // });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-            return(response)
+    console.log("hello before");
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+      .then(response => response.json())
+      .then(data => {
+        const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+        receivingHelpDiv.innerHTML = ''; // ריקון התוכן הקודם
 
+        if (data.studentsReceivingHelp) {
+          Object.keys(data.studentsReceivingHelp).forEach(key => {
+            const student = data.studentsReceivingHelp[key];
+            receivingHelpDiv.innerHTML += `<p>Name: ${student.name}, Year: ${student.year}</p>`;
+          });
+        } else {
+          console.error('No students receiving help found');
         }
-
+      })
+      .catch(error => console.error('Error fetching data:', error));
+}
         // מפעיל את הפונקציה לאחר טעינת הדף
         window.onload = fetchData;
     </script>
