@@ -14,7 +14,7 @@ A university project that aims to help reservists in their studies
 2. (git status)
 3. git add .
 4. git commit -m "here some notes about the changes"
-5. git push origin
+5. git push
 
 
 ignore for now from this part:
