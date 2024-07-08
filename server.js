@@ -285,33 +285,33 @@ server.listen(port, () => {
 
 
 
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-// });
+server.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
-// app.get('/login', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'login.html'));
-// });
+server.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
 
-// app.get('/search_page', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'search_page.html'));
-// });
+server.get('/search_page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'search_page.html'));
+});
 
-// app.get('/seller', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'seller.html'));
-// });
+server.get('/seller', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'seller.html'));
+});
 
-// app.get('/buyer', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'buyer.html'));
-// });
+server.get('/buyer', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'buyer.html'));
+});
 
-// app.get('/buyer_profile', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'buyer_profile.html'));
-// });
+server.get('/buyer_profile', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'buyer_profile.html'));
+});
 
-// app.get('/seller_profile', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
-// });
+server.get('/seller_profile', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
+});
 
 
 
