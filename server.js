@@ -99,8 +99,6 @@ const database = getDatabase(app);
 module.exports = database;
 
 
-
-
 const db = getDatabase();
 // const starCountRef = ref(db, 'studentsReceivingHelp');
 // onValue(starCountRef, (snapshot) => {
@@ -108,9 +106,14 @@ const db = getDatabase();
 //   console.log(data)
 // });
 
+
+
+
 const port = 3000;
 const express = require('express');
 const server = express();
+const path = require('path'); // הוסף את השורה הזו
+
 server.get('getStudents', async (req, res) => {
   const starCountRef = ref(db, 'studentsReceivingHelp');
 onValue(starCountRef, (snapshot) => {
@@ -122,38 +125,26 @@ onValue(starCountRef, (snapshot) => {
 });
 
 
-// const express = require('express');
-// const database = require('./public/js/firebase-app'); // ודא שהנתיב נכון
-// const path = require('path');
-// const server = express();
-// const port = 3000;
-
-// server.get('/data', async (req, res) => {
-//   const dbRef = database.ref('students/studentsReceivingHelp');
-//   try {
-//     const snapshot = await dbRef.get();
-//     if (snapshot.exists()) {
-//       res.json(snapshot.val());
-//     } else {
-//       res.status(404).json({error: "No data available"});
-//     }
-//   } catch (error) {
-//     res.status(500).json({error: error.message});
-//   }
-// });
-
-// server.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
-
-// server.use(express.static(path.join(__dirname, 'public')));
 
 
+ server.use(express.static(path.join(__dirname, 'public')));
 
+ server.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+server.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
 
 // server.get('/', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 // });
+
+//   server.get('/try', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'public', 'try.html'));
+//   });
+
 
 // server.get('/login', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'public', 'login.html'));
@@ -183,8 +174,30 @@ onValue(starCountRef, (snapshot) => {
 //   res.sendFile(path.join(__dirname, 'public', 'seller_profile.html'));
 // });
 
+// server.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+//   });
+  
 
+// const express = require('express');
+// const database = require('./public/js/firebase-app'); // ודא שהנתיב נכון
+// const path = require('path');
+// const server = express();
+// const port = 3000;
 
+// server.get('/data', async (req, res) => {
+//   const dbRef = database.ref('students/studentsReceivingHelp');
+//   try {
+//     const snapshot = await dbRef.get();
+//     if (snapshot.exists()) {
+//       res.json(snapshot.val());
+//     } else {
+//       res.status(404).json({error: "No data available"});
+//     }
+//   } catch (error) {
+//     res.status(500).json({error: error.message});
+//   }
+// });
 
 
 
