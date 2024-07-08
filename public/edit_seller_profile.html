@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buyer Profile</title>
+    <title>Edit Seller Profile</title>
     <link rel="stylesheet" href="css/profile_style.css">
   </head>
 <body>
@@ -16,10 +16,10 @@
   </article>
   
   <article class="top-of-form">
-    <h1 title="title">יצירת משתמש חדש</h1><br>
+    <h1 title="title">עדכון פרטי משתמש</h1><br>
     <div class="user-type">
-      <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="window.location.href = 'buyer_setup_profile.html'";> אני מחפש עזרה
-      <input id="user-seller" name="user" type="radio" value="Seller" onclick="window.location.href = 'seller_setup_profile.html'";> אני רוצה לעזור <br>
+      <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="window.location.href = 'edit_buyer_profile.html'";> אני מחפש עזרה
+      <input id="user-seller" name="user" type="radio" value="Seller" onclick="window.location.href = 'edit_seller_profile.html'";> אני רוצה לעזור <br>
     </div><br>
   </article>
 
@@ -40,6 +40,11 @@
           <option value="ד">ד</option>
         </select><br>
 
+        <label for="aboutme">קצת עליי..</label>
+        <input type="text" id="aboutme" name="aboutme" placeholder="קצת עליי.."><br>
+        <label for="hobbies">תחביבים שלי</label>
+        <input type="text" id="hobbies" name="hobbies" placeholder="תחביבים שלי"><br>
+
         <div class="contact">
           <br><h3>פרטי התקשרות</h3>
             <label for="number">מספר טלפון</label>
@@ -51,7 +56,7 @@
       </div>
     </form>
     <article class="finish">
-      <a href="buyer_setup_search.html">
+      <a href="seller_setup_search.html">
         <button class="finish" onclick="saveProfileData()">לבחירת קורסים</button>
       </a>
     </article>

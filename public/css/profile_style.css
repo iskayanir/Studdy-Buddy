@@ -23,7 +23,7 @@ html, body {
   grid-template-rows: repeat(4, auto);
   border-radius: 1.5%;
   box-shadow: 0 20px 40px rgba(5, 5, 5, 0.418);
-  padding-bottom: 800px;
+  padding-bottom: 600px;
   text-align: center;
 }
 
@@ -67,7 +67,7 @@ textarea {
   font-size: 16px;
   margin-left: auto;
   margin-right: auto;
-  top: 45%;
+  top: 43%;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
   right: 30%;
 }
@@ -83,7 +83,7 @@ textarea {
 .top-of-form {
   position: absolute;
   z-index: 1;
-  top: 35%;
+  top: 30%;
   text-align: center;
   align-items: center;
 }
