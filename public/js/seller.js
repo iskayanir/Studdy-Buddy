@@ -1,7 +1,7 @@
 
 // import buyers_students from './seller-profile.js';
 import { buyers_students, seller_students } from './seller-profile.js';
-const requestedHelpTopics = [
+const course2 = [
     {
       id: 1,
       topic: "אלגברה",
@@ -22,7 +22,7 @@ const requestedHelpTopics = [
     }
 ];
 
-const lessonSummaries = [
+const course1 = [
     {
       id: 1,
       subject: "מתמטיקה",
@@ -39,7 +39,9 @@ const lessonSummaries = [
     }
 ];
 
-const homeworkAssignments = [
+
+
+const course3 = [
     {
       id: 1,
       subject: "ביולוגיה",
@@ -59,6 +61,7 @@ const homeworkAssignments = [
 
 
 function displayData(dataArray) {
+
     const container = document.getElementById('additionalFields');
     // container.innerHTML = ""; // Clear previous content
 
@@ -82,6 +85,12 @@ function displayData(dataArray) {
 }
 
 function toggleDisplayData(type, button) {
+
+    // Reset all button colors and set the clicked button to blue
+    resetButtonColors();
+    button.classList.remove('black');
+    button.classList.add('blue');
+
     const container = document.getElementById('additionalFields');
     const currentType = container.getAttribute('data-current-type');
     
@@ -89,7 +98,6 @@ function toggleDisplayData(type, button) {
     if (currentType === type) {
         container.innerHTML = "";
         container.removeAttribute('data-current-type');
-        resetButtonImages();
         return;
     }
 
@@ -99,14 +107,14 @@ function toggleDisplayData(type, button) {
 
     let dataArray = [];
     switch (type) {
-        case 'lessonSummaries':
-            dataArray = lessonSummaries;
+        case 'course1':
+            dataArray = course1;
             break;
-        case 'requestedHelpTopics':
-            dataArray = requestedHelpTopics;
+        case 'course2':
+            dataArray = course2;
             break;
-        case 'homeworkAssignments':
-            dataArray = homeworkAssignments;
+        case 'course3':
+            dataArray = course3;
             break;
         default:
             console.error('Unknown type:', type);
@@ -124,115 +132,16 @@ function toggleDisplayData(type, button) {
             </div>`;
         container.appendChild(element);
     });
-
-    updateButtonImage(button, type);
+    
 }
 
-function updateButtonImage(button, type) {
-    const images = {
-         'lessonSummaries': 'images/sicompurple.svg',
-         'requestedHelpTopics': 'images/hashlamapurple.svg',
-         'homeworkAssignments': 'images/targilpurple.svg'
-    };
-
-    resetButtonImages();
-    const img = button.querySelector('img');
-    if (img && images[type]) {
-        img.src = images[type];
-    }
-    button.setAttribute('data-active', 'true');
-}
-
-function resetButtonImages() {
-    const buttons = document.querySelectorAll('.buttons button');
+function resetButtonColors() {
+    const buttons = document.querySelectorAll('.section button');
     buttons.forEach(button => {
-        const img = button.querySelector('img');
-        if (img) {
-            if (img.alt === 'סיכום') img.src = 'images/סיכום.svg';
-            if (img.alt === 'השלמת נושא') img.src = 'images/hashlamawhite.svg';
-            if (img.alt === 'עזרה בתרגיל בית') img.src = 'images/עזרה בתרגיל בית.svg';
-        }
-        button.removeAttribute('data-active');
+        button.classList.remove('blue');
+        button.classList.add('black');
     });
 }
-
-
-// function toggleDisplayData(type, button) {
-//     const container = document.getElementById('additionalFields');
-//     // Check the current data type being displayed
-//     const currentType = container.getAttribute('data-current-type');
-
-//     // Clear previous content if the same button is pressed again or a different type is selected
-//     if (currentType === type || container.children.length > 0) {
-//         container.innerHTML = "";
-//         // If the same type is clicked, toggle it off and clear the attribute
-//         if (currentType === type) {
-//             container.removeAttribute('data-current-type');
-//             return;
-//         }
-//     }
-
-//     // Set the current type attribute
-//     container.setAttribute('data-current-type', type);
-
-//     // Determine which data to display based on 'type'
-//     let dataArray = [];
-//     switch (type) {
-//         case 'lessonSummaries':
-//             dataArray = lessonSummaries;
-//             break;
-//         case 'requestedHelpTopics':
-//             dataArray = requestedHelpTopics;
-//             break;
-//         case 'homeworkAssignments':
-//             dataArray = homeworkAssignments;
-//             break;
-//         default:
-//             console.error('Unknown type:', type);
-//             return;
-//     }
-
-//     // Populate container with new data
-//     dataArray.forEach(item => {
-//         let element = document.createElement('div');
-//         element.className = "additional-item";
-//         element.innerHTML = `
-//             <div class="icon">👤</div>
-//             <div class="text-content">${item.description || item.title || item.assignment}</div>
-//             <div class="status">
-//                 <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
-//             </div>`;
-//         container.appendChild(element);
-//     });
-//     updateButtonImage(button, type);
-// }
-
-
-
-
-// function updateButtonImage(button, type) {
-//     const images = {
-//         'lessonSummaries': 'images/sicompurple.svg',
-//         'requestedHelpTopics': 'images/hashlamapurple.svg',
-//         'homeworkAssignments': 'images/targilpurple.svg'
-//     };
-
-//     resetButtonImages();
-//     const img = button.querySelector('img');
-//     if (img && images[type]) {
-//         img.src = images[type];
-//     }
-// }
-
-// function resetButtonImages() {
-//     const buttons = document.querySelectorAll('.buttons button img');
-//     buttons.forEach(img => {
-//         if (img.alt === 'סיכום') img.src = 'images/סיכום.svg';
-//         if (img.alt === 'השלמת נושא') img.src = 'images/hashlamawhite.svg';
-//         if (img.alt === 'עזרה בתרגיל בית') img.src = 'images/עזרה בתרגיל בית.svg';
-//     });
-// }
-
 
 
 function handleClick(studentId) {
@@ -251,59 +160,7 @@ function handleClick(studentId) {
     }
 }
 
-
-
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
 
 
-// let lessonSummaries, helpTopics, homeworkAssignments;
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     console.log('Attempting to load data from data.json');
-//     fetch('data.json')
-//     .then(response => {
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         console.log("Data loaded successfully:", data);
-//         lessonSummaries = data.lessonSummaries;
-//         helpTopics = data.requestedHelpTopics;
-//         homeworkAssignments = data.homeworkAssignments;
-//     })
-//     .catch(error => {
-//         console.error('Failed to load data:', error);
-//     });
-// });
-
-// function toggleDisplayData(type) {
-//     console.log("Toggling display data for type:", type);
-//     switch(type) {
-//         case 'lessonSummaries':
-//             if (!lessonSummaries) {
-//                 console.error("Lesson summaries data is not loaded yet.");
-//                 return;
-//             }
-//             displayData(lessonSummaries);
-//             break;
-//         case 'requestedHelpTopics':
-//             if (!requestedHelpTopics) {
-//                 console.error("Help topics data is not loaded yet.");
-//                 return;
-//             }
-//             displayData(requestedHelpTopics);
-//             break;
-//         case 'homeworkAssignments':
-//             if (!homeworkAssignments) {
-//                 console.error("Homework assignments data is not loaded yet.");
-//                 return;
-//             }
-//             displayData(homeworkAssignments);
-//             break;
-//         default:
-//             console.error('Unknown type:', type);
-//     }
-// }
