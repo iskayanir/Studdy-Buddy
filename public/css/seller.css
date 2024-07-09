@@ -462,3 +462,28 @@ h2 {
     margin-top: 50px; /* הוספת רווח עליון של 20 פיקסלים */
 }
 
+#section5 {
+    position: relative; /* Ensure section5 is positioned relative */
+}
+
+.buttons-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.buttons-container button {
+    border-radius: 10px;
+    background-color: #3F357B;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.buttons-container button:hover {
+    background-color: blue;
+}

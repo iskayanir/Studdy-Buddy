@@ -20,6 +20,10 @@
     <div class="container">
 
         <div class="section" id="section5">
+            <div class="buttons-container">
+                <button id="archiveButton" class="black">ארכיון</button>
+                <button id="requestsButton" class="black">בקשות שהתקבלו</button>
+            </div>
             <h1>קורס 1</h1>
             <!-- <div class="search-container">
                 <input type="text" placeholder="חפש..." class="search-input">
@@ -28,7 +32,7 @@
                 </button>
             </div> -->
             <h3>במה תוכל לעזור?</h3>
-            <div class="buttons">   
+            <!-- <div class="buttons">   
 
                 <button id="buttonSummary" onclick="toggleDisplayData('lessonSummaries', this)">
                     <img src="images/סיכום.svg" alt="סיכום"></button>
@@ -37,16 +41,17 @@
                 <button id="buttonHomeworkHelp" onclick="toggleDisplayData('homeworkAssignments', this)">
                     <img src="images/עזרה בתרגיל בית.svg" alt="עזרה בתרגיל בית"> </button>
                     
-            </div>
+            </div> -->
             <div id="additionalFields"></div>
         </div>
         <div class="section" id="section6">
             <h2>קורסים</h2>
             <ul>
-                <button id="course1" class="blue" onclick="changeColor()">קורס 1</button>
-                <button id="course2" class="black" onclick="changeColor()">קורס 2</button>
-                <button id="course3" class="black" onclick="changeColor()">קורס 3</button>
-                <button id="course4" class="black" onclick="changeColor()">קורס 4</button>
+                <button id="course1" class="blue" onclick="toggleDisplayData('course1', this)">קורס 1</button>
+                <button id="course2" class="black" onclick="toggleDisplayData('course2', this)">קורס 2</button>
+                <button id="course3" class="black" onclick="toggleDisplayData('course3', this)">קורס 3</button>
+                <button id="course4" class="black"  onclick="toggleDisplayData('course4', this)">קורס 4</button>
+                
             </ul>
         </div>
     </div>
