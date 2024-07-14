@@ -1,30 +1,10 @@
 
 // import buyers_students from './seller-profile.js';
 import { buyers_students, seller_students } from './seller-profile.js';
-const course2 = [
-    {
-      id: 1,
-      topic: "אלגברה",
-      description: "עזרה בפתרון משוואות",
-      studentId: 101 // מזהה הסטודנט שביקש את העזרה
-    },
-    {
-      id: 2,
-      topic: "פיזיקה",
-      description: "הבנת חוקי ניוטון",
-      studentId: 102
-    },
-    {
-      id: 3,
-      topic: "כימיה",
-      description: "עזרה בכימיה אורגנית",
-      studentId: 103
-    }
-];
-
 const course1 = [
     {
       id: 1,
+      type: "sicom",
       subject: "מתמטיקה",
       title: "סיכום יחידה 1",
       content: "סיכום של נושאים כולל משוואות ופונקציות.",
@@ -32,33 +12,58 @@ const course1 = [
     },
     {
       id: 2,
+      type: "homework",
       subject: "היסטוריה",
-      title: "תקופת הרנסאנס",
+      title: "תרגיל 5 תקופת הרנסאנס",
       content: "סקירה כללית על התקופה והשפעותיה.",
       studentId: 105
     }
 ];
 
-
+const course2 = [
+    {
+      id: 1,
+      type: "hashlama",
+      topic: "אלגברה",
+      description: "עזרה בפתרון משוואות",
+      studentId: 101 // מזהה הסטודנט שביקש את העזרה
+    },
+    {
+      id: 2,
+      type: "homework",
+      topic: "פיזיקה",
+      description: "תרגיל 2 - הבנת חוקי ניוטון",
+      studentId: 102
+    },
+    {
+      id: 3,
+      type: "sicom",
+      topic: "כימיה",
+      description: "סיכום בכימיה אורגנית",
+      studentId: 103
+    }
+];
 
 const course3 = [
     {
       id: 1,
+      type: "sicom",
       subject: "ביולוגיה",
-      assignment: "כתוב דוח על דפוסי שינה בקרב בעלי חיים",
+      assignment: "סיכום דפוסי שינה בקרב בעלי חיים",
       dueDate: "2024-07-30",
       studentId: 106
     },
     {
       id: 2,
+      type: "hashlama",
       subject: "אנגלית",
-      assignment: "הכנת מצגת על חשיבות השפה האנגלית גלובלית",
+      assignment: "השלמת חומר - חשיבות השפה האנגלית גלובלית",
       dueDate: "2024-08-05",
       studentId: 107
     }
 ];
 
-
+const archive =[]
 
 function displayData(dataArray) {
 
@@ -124,12 +129,42 @@ function toggleDisplayData(type, button) {
     dataArray.forEach(item => {
         let element = document.createElement('div');
         element.className = "additional-item";
-        element.innerHTML = `
+        var typehelp = item.type
+        if(typehelp === "sicom"){
+            element.innerHTML = `
+            <div class="icon-with-image">
             <div class="icon">👤</div>
+            <img src="images/iconsicom.svg" alt="icon" class="icon-image"/>
+            <span class="tooltip-text">סיכום</span>
+            </div>
             <div class="text-content">${item.description || item.title || item.assignment}</div>
             <div class="status">
                 <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
             </div>`;
+        }else if(typehelp === "hashlama"){
+            element.innerHTML = `
+            <div class="icon-with-image">
+            <div class="icon">👤</div>
+            <img src="images/iconhashlama.svg" alt="icon" class="icon-image"/>
+            <span class="tooltip-text">השלמת חומר</span>
+            </div>
+            <div class="text-content">${item.description || item.title || item.assignment}</div>
+            <div class="status">
+                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
+            </div>`;
+        }else{
+            element.innerHTML = `
+            <div class="icon-with-image">
+            <div class="icon">👤</div>
+            <img src="images/iconhomework.svg" alt="icon" class="icon-image"/>
+            <span class="tooltip-text">עזרה בתרגיל</span>
+            </div>
+            <div class="text-content">${item.description || item.title || item.assignment}</div>
+            <div class="status">
+                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
+            </div>`;
+        }
+        
         container.appendChild(element);
     });
     
@@ -162,5 +197,3 @@ function handleClick(studentId) {
 
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
-
-
