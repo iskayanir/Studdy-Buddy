@@ -98,21 +98,24 @@ textarea {
   padding-bottom: 15px;
   margin-right: auto;
   margin-left: auto;
+  text-decoration: none;
 }
 
 .finish button {
   padding: 5px 20px;
-  color: #ffffff;
+  color: #1D2D69;
   border: 0.5px solid;
   border-radius: 20px;
   margin-left: 10px;
   cursor: pointer;
-  background-color: #1D2D69;
+  background-color: #F0F4F7;
   font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px -2px gray;
 }
 
 .finish:hover button {
-  background-color: #1f3ba4;
+  background-color: #c9e3f7;
 }
 
 /* Media Queries for Responsiveness */
@@ -128,4 +131,15 @@ textarea {
     width: 90%; /* Adjust input width for smaller screens */
     max-width: 100%;
   }
+}
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
 }

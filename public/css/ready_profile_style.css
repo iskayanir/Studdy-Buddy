@@ -77,21 +77,24 @@
   padding-bottom: 15px;
   margin-right: auto;
   margin-left: auto;
+  text-decoration: none;
 }
 
 .edit button {
   padding: 5px 20px;
-  color: #ffffff;
+  color: #1D2D69;
   border: 0.5px solid;
   border-radius: 20px;
   margin-left: 10px;
   cursor: pointer;
-  background-color: #1D2D69;
+  background-color: #F0F4F7;
   font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px -2px gray;
 }
 
 .edit:hover button {
-  background-color: #2947b3;
+  background-color: #c9e3f7;
 }
 
 ul.courses {
@@ -146,14 +149,17 @@ header .logo {
 .navbar ul li a {
   text-decoration: none;
   color: black; /* Link text color */
-  padding: 8px 15px; /* Adjust padding for link text */
-  border-radius: 5px; /* Rounded corners for links */
+  padding: 5px 20px;
+  border-radius: 20px; /* Rounded corners for links */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
   margin-left: 20px;
 }
 
 .navbar ul li a:hover {
-  background-color: #5bafe2; /* Background color on hover */
+  color: white;
+  background-color:#1D2D69; /* Background color on hover */
+  padding: 5px 20px;
+  border-radius: 20px;
 }
 
 .nav-links {
@@ -182,3 +188,14 @@ header .logo {
     }
   }
   
+  a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:active {
+    text-decoration: none;
+  }
