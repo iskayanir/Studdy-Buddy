@@ -16,7 +16,7 @@ body{
 }
 
 h1 {
-    color: #333;
+    color: black;
 }
 
 .container {
@@ -112,12 +112,12 @@ header .logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    box-shadow: 0px 2px 4px -2px gray;
     border: 1px solid #ccc;
     border-radius: 20px;
-    padding: 5px;
+    padding: 3px;
     width: 300px;
-    
+    font-size: 11px;
 }
 
 .search-input {
@@ -134,18 +134,16 @@ header .logo {
     justify-content: space-around;
     margin-top: 10px;
     padding-bottom: 15px;
-    
-}
+    }
 
 .buttons button {
     padding: 5px 20px;
-    color: #f0f0f0;
+    color: #1D2D69;
     border: 1px solid;
-    border-color: #333;
     border-radius: 20px;
     margin-left: 10px;
     cursor: pointer;
-    background-color: #261685;
+    background-color: #ffffff;
     font-size: 16px;
 }
 
@@ -187,17 +185,17 @@ header .logo {
 
 .finish-button button {
     padding: 5px 20px;
-    color: #f0f0f0;
-    border: 0.5px solid;
+    color: #1D2D69;
+    border: 1px solid;
     border-radius: 20px;
     margin-left: 10px;
     cursor: pointer;
-    background-color: #261685;
+    background-color: #ffffff;
     font-size: 18px;
 }
 
 .finish-button:hover button {
-    background-color: rgb(19, 6, 92);
+    background-color: #f1f1f1;
 }
 
 
@@ -258,15 +256,15 @@ ul li {
 }
 
 .add {
-    background-color: #261685;
-    color: #f0f0f0;
+    background-color: #ffffff;
+    color: #1D2D69;
     padding: 15px ;
     border-radius: 20px;
     position: absolute;
     bottom: 10px;
     left: 30px;
     cursor: pointer;
-    border: none;
+    border: 1px solid;
     padding: 5px 20px;
     font-size: 16px;
 }
@@ -295,14 +293,4 @@ ul li {
     font-size: 16px;
     border-radius: 5px;
     display: grid
-}
-
-footer {
-    background-color: #0c0053; /* Background color for the footer */
-    color: white; /* Text color */
-    text-align: center;
-    padding: 5px 0; /* Padding for footer */
-    width: 100%; /* Ensure footer spans full width */
-    position: relative;
-    position: fixed;
 }

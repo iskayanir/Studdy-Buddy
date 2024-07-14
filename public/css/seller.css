@@ -114,8 +114,6 @@ h2 {
 
 }
 
-
-
 .course-content .item {
     display: flex;
     justify-content: space-between;
@@ -205,7 +203,7 @@ h2 {
     width: 20%; /* Set width for the course list section */
     flex: none; /* Prevent it from flexing */
     background: linear-gradient(to bottom, #d0eaff, #f0f4f7);
-
+    box-shadow: 0 4px 8px #e0e0e0;
 }
 
 #section5 {
@@ -215,8 +213,7 @@ h2 {
     width: 80%;
     height: 100%;
     background: linear-gradient(to bottom, #d0eaff, #f0f4f7);
-    
-
+    box-shadow: 0 4px 8px #e0e0e0;
 }
 
 .hamburger-menu {
@@ -349,7 +346,7 @@ h2 {
 }
 
 .blue {
-    color: blue;
+    color: #2349d0;
 }
 .black {
     color: black;
@@ -369,6 +366,7 @@ h2 {
     border: none;
     background: none;
     cursor: pointer;
+    
 }
 
 #buttonSummary img {
@@ -404,8 +402,6 @@ h2 {
 }
 
 
-
-
 /* הוספת מרווחים לכותרות והכפתורים */
 #section5 h3 {
     margin-top: 50px; /* הוספת מרווח מעל כותרת "במה תוכל לעזור?" */
@@ -421,8 +417,8 @@ h2 {
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-color: gray;
-    border: 1px solid #ccc;
+    background-color: #ccc;
+    border: 1px solid grey;
     cursor: pointer;
     position: relative;
     border-radius: 3px;
@@ -477,15 +473,17 @@ h2 {
 
 .buttons-container button {
     border-radius: 10px;
-    background-color: #3F357B;
-    color: white;
+    background-color: white;
+    color: #1D2D69;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    box-shadow: 0px 2px 4px -2px gray;
 }
 
 .buttons-container button:hover {
-    background-color: blue;
+    background-color: rgb(222, 222, 222);
+    
 }
 .icon-container {
     display: flex;

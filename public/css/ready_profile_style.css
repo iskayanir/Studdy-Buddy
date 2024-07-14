@@ -28,8 +28,7 @@
   }
   
   .banner {
-    background: #3F357B;
-    background: linear-gradient(90deg, #0C0053 35%, #1901a2 100%);
+    background: linear-gradient(90deg, #81c6ff 35%, #d0eaff 100%);
     width: 100%;
     height: 200px;
     border-top-left-radius: 5px;
@@ -82,17 +81,17 @@
 
 .edit button {
   padding: 5px 20px;
-  color: #f0f0f0;
+  color: #ffffff;
   border: 0.5px solid;
   border-radius: 20px;
   margin-left: 10px;
   cursor: pointer;
-  background-color: #261685;
+  background-color: #1D2D69;
   font-size: 18px;
 }
 
 .edit:hover button {
-  background-color: rgb(19, 6, 92);
+  background-color: #2947b3;
 }
 
 ul.courses {
