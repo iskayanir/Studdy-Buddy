@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
   
   html, body {
-    background-color: #FBFDFF;
+    background-color: #eef6ff;
     width: 100%;
     height: 100%;
     display: grid;
@@ -18,7 +18,7 @@
   
   .container {
     background-color: #F0F4F7;
-    width: 50%;
+    width: 45%;
     display: grid;
     grid-template-rows: repeat(4, auto);
     border-radius: 1.5%;
@@ -28,7 +28,7 @@
   }
   
   .banner {
-    background: linear-gradient(90deg, #81c6ff 35%, #d0eaff 100%);
+    background: linear-gradient(90deg, #334999 35%, #d0eaff 100%);
     width: 100%;
     height: 200px;
     border-top-left-radius: 5px;
@@ -82,19 +82,20 @@
 
 .edit button {
   padding: 5px 20px;
-  color: #1D2D69;
+  color: #000000;
   border: 0.5px solid;
   border-radius: 20px;
   margin-left: 10px;
   cursor: pointer;
   background-color: #F0F4F7;
-  font-size: 18px;
+  font-size: 16px;
   text-decoration: none;
-  box-shadow: 0px 2px 4px -2px gray;
 }
 
 .edit:hover button {
-  background-color: #c9e3f7;
+  background-color: #334999;
+  color: #fff;
+  box-shadow: 0px 2px 4px -2px gray;
 }
 
 ul.courses {
@@ -157,7 +158,7 @@ header .logo {
 
 .navbar ul li a:hover {
   color: white;
-  background-color:#1D2D69; /* Background color on hover */
+  background-color:#334999; /* Background color on hover */
   padding: 5px 20px;
   border-radius: 20px;
 }

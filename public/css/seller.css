@@ -1,16 +1,15 @@
 
 html, body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     direction: rtl; 
     text-align: right; 
     display: flex; 
-    background-color: #FBFDFF;
+    background-color: #eef6ff;
     height: 100%; 
     flex-direction: column;
-    /* background: linear-gradient(to bottom right, #d0eaff, #f0f4f7); */
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -71,7 +70,7 @@ header .logo {
 
 .navbar ul li a:hover {
     color: white;
-    background-color:#1D2D69; /* Background color on hover */
+    background-color:#334999; /* Background color on hover */
     padding: 5px 20px;
     border-radius: 20px;
 }
@@ -105,16 +104,18 @@ header .logo {
 
 h2 {
     text-align: center;
-    font-size: 30px;
+    font-size: 22px;
+}
+
+h1 {
+    font-size: 35px;
 }
 
 .course {
-    
     padding: 30px;
     border-radius: 15px;
     text-align: right;
      width: 100%;
-
 }
 
 .course-content .item {
@@ -147,16 +148,16 @@ h2 {
     border-radius: 4px;
 }
 
-.buttons {
+/*.buttons {
     display: flex;
     justify-content: space-around;
     padding-bottom: 15px;
     margin-right: auto;
     margin-left: auto;
     text-decoration: none;
-}
+}*/
 
-.buttons button {
+/*.buttons button {
     padding: 5px 20px;
     color: #1D2D69;
     border: 0.5px solid;
@@ -166,13 +167,43 @@ h2 {
     background-color: #F0F4F7;
     font-size: 18px;
     text-decoration: none;
+} */
+ 
+.buttons {
+    display: inline;
+    justify-content: space-around;
+    margin-top: 10px;
+    padding-bottom: 15px;
+    }
+
+.buttons button {
+    padding: 5px 20px;
+    color: #334999;
+    border: 1px solid #334999;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+    font-size: 16px;
+    box-shadow: 0px 2px 4px -2px gray;
+    transition: background-color 0.3s, color 0.3s; /* Add smooth transition */
+}
+
+.buttons button:hover {
+    background-color: #334999;
+    color: white;
+}
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    padding-bottom: 15px;
 }
 
 
 #section6 ul {
     list-style-type: none;
     padding: 0;
-
 }
 
 #section6 ul li {
@@ -190,7 +221,6 @@ h2 {
     background-color: transparent; /* Remove default button styling */
     font-size: 16px;
     text-align: right; /* Optional: Align text to the right */
-    
 }
 
 #section9 button {
@@ -207,10 +237,10 @@ h2 {
     /* padding: 100px;
     border-radius: 10px; */
     /* width: 20%; */
-    height: 136%;
+    height: 60%;
     width: 20%; /* Set width for the course list section */
     flex: none; /* Prevent it from flexing */
-    background: linear-gradient(to bottom, #d0eaff, #f0f4f7);
+    background: linear-gradient(to bottom, #b2dcfe 20%, #f0f4f7 20%);
     box-shadow: 0 4px 8px #e0e0e0;
 }
 
@@ -218,9 +248,9 @@ h2 {
     border: none;
     padding: 100px;
     border-radius: 10px;
-    width: 80%;
+    width: 60%;
     height: 100%;
-    background: linear-gradient(to bottom, #d0eaff, #f0f4f7);
+    background: linear-gradient(to bottom, #b2dcfe 30%, #f0f4f7 20%);
     box-shadow: 0 4px 8px #e0e0e0;
 }
 
@@ -411,10 +441,7 @@ h2 {
 
 
 /* הוספת מרווחים לכותרות והכפתורים */
-#section5 h3 {
-    margin-top: 50px; /* הוספת מרווח מעל כותרת "במה תוכל לעזור?" */
-    margin-bottom: 50px; /* הוספת מרווח מתחת לכותרת "במה תוכל לעזור?" */
-}
+
 
 /* Custom styles for the checkbox */
 .status-checkbox {
@@ -462,9 +489,7 @@ h2 {
     align-items: center;
 }
 
-#additionalFields {
-    margin-top: 50px; /* הוספת רווח עליון של 20 פיקסלים */
-}
+
 
 #section5 {
     position: relative; /* Ensure section5 is positioned relative */

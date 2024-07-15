@@ -1,10 +1,10 @@
 
 html, body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     direction: rtl; 
     text-align: right; 
     display: flex; 
-    background-color: #FBFDFF;
+    background-color: #eef6ff;
     height: 100%; 
     flex-direction: column;
 }
@@ -80,7 +80,7 @@ header .logo {
 
 .navbar ul li a:hover {
     color: white;
-    background-color:#1D2D69; /* Background color on hover */
+    background-color:#334999; /* Background color on hover */
     padding: 5px 20px;
     border-radius: 20px;
 }
@@ -111,16 +111,16 @@ header .logo {
 .content h1{
     font-size: 36px;
 }
+
 .search-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 2px 4px -2px gray;
+    background-color: white;
     border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 3px;
+    border-radius: 10px;
     width: 300px;
-    font-size: 11px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-input {
@@ -128,8 +128,8 @@ header .logo {
     border: none;
     outline: none;
     padding: 10px;
-    font-size: 16   px;
-    border-radius: 20px;
+    font-size: 14px;
+    background-color: transparent;
 }
 
 .buttons {
@@ -141,14 +141,20 @@ header .logo {
 
 .buttons button {
     padding: 5px 20px;
-    color: #1D2D69;
-    border: 1px solid;
+    color: #334999;
+    border: 1px solid #334999;
     border-radius: 20px;
     margin-left: 10px;
     cursor: pointer;
     background-color: #ffffff;
     font-size: 16px;
     box-shadow: 0px 2px 4px -2px gray;
+    transition: background-color 0.3s, color 0.3s; /* Add smooth transition */
+}
+
+.buttons button:hover {
+    background-color: #334999;
+    color: white;
 }
 
 .buttons p {
@@ -160,13 +166,13 @@ header .logo {
     font-size: 16px;
 }
 
-.search-proffesor .search-container{
+.search-proffesor .search-container {
     display: inline;
     justify-content: center;
     align-items: center;
     border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 12px;
+    border-radius: 10px;
+    padding: 8px;
     width: 150px;
 }
 
@@ -174,9 +180,8 @@ header .logo {
     flex: 1;
     border: none;
     outline: none;
-    padding: 1px;
-    font-size: 16px;
-    border-radius: 20px;
+    font-size: 18px;
+    border-radius: 10px;
 }
 
 .finish-button {
@@ -189,20 +194,21 @@ header .logo {
 
 .finish-button button {
     padding: 5px 20px;
-    color: #1D2D69;
+    color: #334999;
     border: 1px solid;
     border-radius: 20px;
     margin-left: 10px;
     cursor: pointer;
     background-color: #ffffff;
     font-size: 18px;
-    box-shadow: 0px 2px 4px -2px gray;
+    transition: background-color 0.3s, color 0.3s; /* Add smooth transition */
 }
 
 .finish-button:hover button {
-    background-color: #c9e3f7;
+    background-color: #334999;
+    color: white;
+    box-shadow: 0px 2px 4px -2px gray;
 }
-
 
 /* Grid container styling */
 .grid-container {
@@ -217,64 +223,72 @@ header .logo {
 .grid-item {
     display: grid; /* Nested grid for each grid-item */
     grid-template-areas:
-        "h2"
         "icon"
+        "h2"
         "ul"
         "button";
-    gap: 3px;
     position: relative;
     border: 1px solid #ccc;
     padding: 5px;
     text-align: center;
-    background: linear-gradient(to bottom, #d0eaff, #f0f4f7);
-    border-radius: 20px;
+    background: #ffffff;
     box-shadow: 0 3px 3px rgb(214, 214, 214);
-    
+    align-items: center;
 }
 
-.h2{
+.grid-item:hover {
+    background-color: #334999;
+    color: white;
+}
+
+.h2 {
     grid-area: h2; 
-    margin: 0;
 }
 
 .icon {
-    font-size: 45px;
     display: block;
-    margin: 0px 0;
     position: relative;
     grid-area: icon;
-    
-    
+    font-size: 42px; /* Adjust size as needed */
+    color: #334999; /* Adjust color as needed */
+}
+
+.grid-item:hover .icon {
+    color: white;
+}
+
+.grid-item:hover .add {
+    background-color: #334999;
+    color: #ffffff;
 }
 
 /* Unordered list styling */
 ul {
     list-style-type: none;
     padding: 0;
-    text-align: right;
+    text-align: center;
     direction: rtl;
     grid-area: ul;
 }
 
-ul li {
-    margin: 5px 0;
-}
 
 .add {
     background-color: #ffffff;
-    color: #1D2D69;
+    color: #334999;
     padding: 15px ;
     border-radius: 20px;
     position: absolute;
     bottom: 10px;
-    left: 30px;
     cursor: pointer;
     border: 1px solid;
-    padding: 5px 20px;
-    font-size: 16px;
-    box-shadow: 0px 2px 4px -2px gray;
+    padding: 5px 10px;
+    font-size: 14px;
+    left: 10px;
 }
 
+.add:hover {
+    box-shadow: 0 0px 3px rgb(214, 214, 214);
+}
 
 .show {
     display: block;
