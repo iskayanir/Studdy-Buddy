@@ -123,3 +123,34 @@ window.onload = function() {
     document.getElementById('displayEmail').textContent = localStorage.getItem('email');
   }
 };
+
+function setupProfilePictureUpload() {
+  const profilePicture = document.getElementById('profilePicture');
+  const profilePictureInput = document.getElementById('profilePictureInput');
+  const defaultImageSrc = 'path/to/default-profile-picture.png'; // Set this to your default image path
+
+  profilePicture.addEventListener('click', function() {
+    profilePictureInput.click();
+  });
+
+  profilePictureInput.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        profilePicture.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // If no file is selected (user cancels the upload), revert to default image
+      profilePicture.src = defaultImageSrc;
+    }
+  });
+
+  // Function to reset to default image
+  window.resetProfilePicture = function() {
+    profilePicture.src = defaultImageSrc;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', setupProfilePictureUpload);
