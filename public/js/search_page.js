@@ -34,3 +34,10 @@ document.getElementById('searchInput').addEventListener('input', filterItems);
                 }
             });
         }
+        
+        function filterAll(){
+            const gridItems = document.querySelectorAll('.grid-item');
+            
+            gridItems.forEach(item => {
+                item.style.display = 'block';});
+            }
