@@ -128,7 +128,31 @@
 <button class="add" onclick="addCourse()">הוסף קורס</button>
 </div>
 
-    
+<script>
+  // פונקציה שמבצעת fetch לנתונים מהשרת
+  function fetchData() {
+console.log("hello before");
+fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+.then(response => response.json())
+.then(data => {
+  const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+  receivingHelpDiv.innerHTML = ''; // ריקון התוכן הקודם
+
+  if (data.studentsReceivingHelp) {
+    Object.keys(data.studentsReceivingHelp).forEach(key => {
+      const student = data.studentsReceivingHelp[key];
+      receivingHelpDiv.innerHTML += `<p>Name: ${student.name}, Year: ${student.year}</p>`;
+    });
+  } else {
+    console.error('No students receiving help found');
+  }
+})
+.catch(error => console.error('Error fetching data:', error));
+}
+  // מפעיל את הפונקציה לאחר טעינת הדף
+  window.onload = fetchData;
+    </script>
+
 
     
 <script src="js/search_page.js"></script>

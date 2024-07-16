@@ -41,3 +41,34 @@ document.getElementById('searchInput').addEventListener('input', filterItems);
             gridItems.forEach(item => {
                 item.style.display = 'block';});
             }
+
+
+            function fetchData() {
+                console.log("hello before");
+                fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+                .then(response => response.json())
+                .then(data => {
+                  const gridContainer = document.getElementById('gridContainer');
+                  gridContainer.innerHTML = ''; // Clear previous content
+                  
+                  Object.keys(data.courses).forEach(key => {
+                    const course = data.courses[key];
+            
+                    const gridItem = document.createElement('div');
+                    gridItem.classList.add('grid-item');
+            
+                    gridItem.innerHTML = `
+                      <h2 class="course-name">${course['Course Name']}</h2>
+                      <i class="bi bi-mortarboard icon"></i>
+                      <ul>
+                        <li class="faculty">פקולטה: ${course.Department}</li>
+                        <li class="teacher">מרצה: ${course['Lecture Name']}</li>
+                      </ul>
+                      <button class="add" onclick="ad   dCourse()">הוסף קורס</button>
+                    `;
+            
+                    gridContainer.appendChild(gridItem);
+                  });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+            }
