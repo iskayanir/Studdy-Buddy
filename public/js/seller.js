@@ -65,6 +65,8 @@ const course3 = [
 
 const archive =[]
 
+const approvedrequests = []
+
 function displayData(dataArray) {
 
     const container = document.getElementById('additionalFields');
@@ -121,6 +123,12 @@ function toggleDisplayData(type, button) {
         case 'course3':
             dataArray = course3;
             break;
+        case 'archive':
+            dataArray = archive;
+            break;
+        case 'approvedrequests':
+            dataArray = approvedrequests;
+            break
         default:
             console.error('Unknown type:', type);
             return;
@@ -128,6 +136,8 @@ function toggleDisplayData(type, button) {
 
     dataArray.forEach(item => {
         let element = document.createElement('div');
+        var iditem = Date.now()
+        element.id = iditem
         element.className = "additional-item";
         var typehelp = item.type
         if(typehelp === "sicom"){
