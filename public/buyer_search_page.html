@@ -38,97 +38,76 @@
     <div class="buttons">  
       <p> חפש לפי פקולטה: </p>
       <button onclick="filterAll()">הכל</button>
-      <button onclick="filterFaculty('מדעי הרוח')">מדעי הרוח</button>
-      <button onclick="filterFaculty('מדעי החברה')">מדעי החברה</button>
+      <button onclick="filterFaculty('למדעי החברה')">מדעי החברה</button>
       <button onclick="filterFaculty('מנהל עסקים')">מנהל עסקים</button>
       <button onclick="filterFaculty('רפואה')">רפואה</button>
       <button onclick="filterFaculty('מדעי המחשב')">מדעי המחשב</button>
+      <button onclick="filterFaculty('משפטים')">משפטים</button>
       </div>
  
 
 
 
     <div class=grid-container id="gridContainer">
-      <div class="grid-item">
-            <h2>חדוא א</h2>
-            <i class="bi bi-mortarboard icon"></i>
-            <ul>
-                <li class="faculty">פקולטה: מדעי החברה</li>
-                <li class="teacher">מרצה: יונתן זוארי</li>
-            </ul>
-            <button class="add" onclick="addCourse()">הוסף קורס</button>
-      </div>
-
-      <div class="grid-item">
-        <h2>מבני נתונים ואלגוריתמים</h2>
-        <i class="bi bi-mortarboard icon"></i>
-        <ul>
-            <li class="faculty">פקולטה: מדעי החברה</li>
-            <li class="teacher">מרצה: גל אלידן</li>
-        </ul>
-        <button class="add" onclick="addCourse()">הוסף קורס</button>
-      </div>
-
-      <div class="grid-item">
-        <h2>תורת המחירים א</h2>
-        <i class="bi bi-mortarboard icon"></i>
-        <ul>
-            <li class="faculty">פקולטה: מדעי החברה</li>
-            <li class="teacher">מרצה: משה שעיו</li>
-        </ul>
-        <button class="add" onclick="addCourse()">הוסף קורס</button>
+      
     </div>
+      
 
-    <div class="grid-item">
-      <h2>תורת המחירים ב</h2>
-      <i class="bi bi-mortarboard icon"></i>
-      <ul>
-        <li class="faculty">פקולטה: מדעי החברה</li>
-        <li class="teacher">מרצה: אסף רום </li>
-      </ul>
-      <button class="add" onclick="addCourse()">הוסף קורס</button>
-    </div>
+<script>
+  function filterFaculty(faculty) {
+            const gridItems = document.querySelectorAll('.grid-item');
 
-<div class="grid-item">
-            <h2>סוגיות באתיקה יוונית</h2>
-            <i class="bi bi-mortarboard icon"></i>
-            <ul>
-                <li class="faculty">פקולטה: מדעי הרוח</li>
-                <li class="teacher">מרצה: נטלי טאלר</li>
-            </ul>
-            <button class="add" onclick="addCourse()">הוסף קורס</button>
-      </div>
+            gridItems.forEach(item => {
+                const facultyText = item.querySelector('.faculty').textContent;
 
-      <div class="grid-item">
-        <h2>ספרות המקרא : טקסט וקונטקסט</h2>
-        <i class="bi bi-mortarboard icon"></i>
-        <ul>
-            <li class="faculty" >פקולטה: מדעי הרוח</li>
-            <li class="teacher">מרצה: יצחק פרלמוטר </li>
-        </ul>
-        <button class="add" onclick="addCourse()">הוסף קורס</button>
-  </div>
-  <div class="grid-item">
-    <h2>מבוא למדעי המחשב</h2>
-    <i class="bi bi-mortarboard icon"></i>
-    <ul>
-        <li class="faculty">פקולטה: מדעי המחשב</li>
-        <li class="teacher">מרצה: אביב זוהר</li>
-    </ul>
-    <button class="add" onclick="addCourse()">הוסף קורס</button>
-</div>
+                if (facultyText.includes(faculty)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        function filterAll(){
+            const gridItems = document.querySelectorAll('.grid-item');
+            
+            gridItems.forEach(item => {
+                item.style.display = 'block';});
+            }
 
-<div class="grid-item">
-<h2>רשתות המונים ושווקים</h2>
-<i class="bi bi-mortarboard icon"></i>
-<ul>
-    <li class="faculty">פקולטה: מדעי המחשב</li>
-    <li class="teacher">מרצה: קתרינה ליגת</li>
-</ul>
-<button class="add" onclick="addCourse()">הוסף קורס</button>
-</div>
 
-<button onclick="fetchData()"> press here</button>
+            function fetchData() {
+                console.log("hello before");
+                fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+                .then(response => response.json())
+                .then(data => {
+                  const gridContainer = document.getElementById('gridContainer');
+                  gridContainer.innerHTML = ''
+                                   
+                  Object.keys(data.courses).forEach(key => {
+                    const course = data.courses[key];
+            
+                    const gridItem = document.createElement('div');
+                    gridItem.classList.add('grid-item');
+            
+                    gridItem.innerHTML = `
+                      <h2 class="course-name">${course['Course Name']}</h2>
+                      <i class="bi bi-mortarboard icon"></i>
+                      <ul>
+                        <li class="faculty">פקולטה: ${course.Faculty}</li>
+                        <li class ="department"> חוג: ${course.Department}</li>
+                        <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+                      </ul>
+                      <button class="add" onclick="addCourse()">הוסף קורס</button>
+                    `;
+            
+                    gridContainer.appendChild(gridItem);
+                  });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+            }
+    window.onload = fetchData;
+</script>
     
 
     

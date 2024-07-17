@@ -49,8 +49,8 @@ document.getElementById('searchInput').addEventListener('input', filterItems);
                 .then(response => response.json())
                 .then(data => {
                   const gridContainer = document.getElementById('gridContainer');
-                  gridContainer.innerHTML = ''; // Clear previous content
-                  
+                  gridContainer.innerHTML = ''
+                                   
                   Object.keys(data.courses).forEach(key => {
                     const course = data.courses[key];
             
@@ -61,8 +61,9 @@ document.getElementById('searchInput').addEventListener('input', filterItems);
                       <h2 class="course-name">${course['Course Name']}</h2>
                       <i class="bi bi-mortarboard icon"></i>
                       <ul>
-                        <li class="faculty">פקולטה: ${course.Department}</li>
-                        <li class="teacher">מרצה: ${course['Lecture Name']}</li>
+                        <li class="faculty">פקולטה: ${course.Faculty}</li>
+                        <li class ="department"> חוג: ${course.Department}</li>
+                        <li class="teacher">מרצה: ${course['Lacture Name']}</li>
                       </ul>
                       <button class="add" onclick="ad   dCourse()">הוסף קורס</button>
                     `;
