@@ -24,22 +24,22 @@ const course2 = [
     {
       id: 1,
       type: "hashlama",
-      topic: "אלגברה",
-      description: "עזרה בפתרון משוואות",
+      subject: "אלגברה",
+      title: "עזרה בפתרון משוואות",
       studentId: 101 // מזהה הסטודנט שביקש את העזרה
     },
     {
       id: 2,
       type: "homework",
-      topic: "פיזיקה",
-      description: "תרגיל 2 - הבנת חוקי ניוטון",
+      subject: "פיזיקה",
+      title: "תרגיל 2 - הבנת חוקי ניוטון",
       studentId: 102
     },
     {
       id: 3,
       type: "sicom",
-      topic: "כימיה",
-      description: "סיכום בכימיה אורגנית",
+      subject: "כימיה",
+      title: "סיכום בכימיה אורגנית",
       studentId: 103
     }
 ];
@@ -49,7 +49,7 @@ const course3 = [
       id: 1,
       type: "sicom",
       subject: "ביולוגיה",
-      assignment: "סיכום דפוסי שינה בקרב בעלי חיים",
+      title: "סיכום דפוסי שינה בקרב בעלי חיים",
       dueDate: "2024-07-30",
       studentId: 106
     },
@@ -57,7 +57,7 @@ const course3 = [
       id: 2,
       type: "hashlama",
       subject: "אנגלית",
-      assignment: "השלמת חומר - חשיבות השפה האנגלית גלובלית",
+      title: "השלמת חומר - חשיבות השפה האנגלית גלובלית",
       dueDate: "2024-08-05",
       studentId: 107
     }
@@ -83,7 +83,7 @@ function displayData(dataArray) {
         element.className = "additional-item";
         element.innerHTML = `
             <div class="icon">👤</div>
-            <div class="text-content">${item.description || item.title || item.assignment}</div>
+            <div class="text-content">${item.title}</div>
             <div class="status">
                 <div class="status-icon">✔</div>
             </div>`;
@@ -136,45 +136,45 @@ function toggleDisplayData(type, button) {
 
     dataArray.forEach(item => {
         let element = document.createElement('div');
-        var iditem = Date.now()
-        element.id = iditem
+        var iditem = Date.now();
+        element.id = String(iditem);
         element.className = "additional-item";
-        var typehelp = item.type
-        if(typehelp === "sicom"){
+        var typehelp = item.type;
+        if (typehelp === "sicom") {
             element.innerHTML = `
             <div class="icon-with-image">
             <div class="icon">👤</div>
             <img src="images/iconsicom.svg" alt="icon" class="icon-image"/>
             <span class="tooltip-text">סיכום</span>
             </div>
-            <div class="text-content">${item.description || item.title || item.assignment}</div>
+            <div class="text-content">${item.title}</div>
             <div class="status">
-                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
+                <div class="status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'>✔</div>
             </div>`;
-        }else if(typehelp === "hashlama"){
+        } else if (typehelp === "hashlama") {
             element.innerHTML = `
             <div class="icon-with-image">
             <div class="icon">👤</div>
             <img src="images/iconhashlama.svg" alt="icon" class="icon-image"/>
             <span class="tooltip-text">השלמת חומר</span>
             </div>
-            <div class="text-content">${item.description || item.title || item.assignment}</div>
+            <div class="text-content">${item.title}</div>
             <div class="status">
-                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
+                <div class="status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'>✔</div>
             </div>`;
-        }else{
+        } else {
             element.innerHTML = `
             <div class="icon-with-image">
             <div class="icon">👤</div>
             <img src="images/iconhomework.svg" alt="icon" class="icon-image"/>
             <span class="tooltip-text">עזרה בתרגיל</span>
             </div>
-            <div class="text-content">${item.description || item.title || item.assignment}</div>
+            <div class="text-content">${item.title}</div>
             <div class="status">
-                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
+                <div class="status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'>✔</div>
             </div>`;
         }
-        
+    
         container.appendChild(element);
     });
     
@@ -189,21 +189,91 @@ function resetButtonColors() {
 }
 
 
-function handleClick(studentId) {
+function handleClick(helpitem, elementid, type) {
     // Change the background color of the ✔️ to green
     event.target.style.backgroundColor = 'green';
 
     // Optionally change the color of the text to white for better visibility
     event.target.style.color = 'white';
 
-    // Retrieve the student contact details
-    const student = buyers_students[studentId];
-    if (student) {
-        alert(`פרטי הקשר של ${student.name}:\n\nביוגרפיה: ${student.bio}\n\nטלפון: ${student.contact.phone}\nאימייל: ${student.contact.email}`);
-    } else {
-        console.error('Student not found:', studentId);
+    // Remove the element from the DOM
+    const additionalField = document.getElementById("additionalFields");
+    const deleteElement = document.getElementById(elementid);
+    additionalField.removeChild(deleteElement);
+
+    // Add the item to the approved requests array
+    const approvedItem = {
+        id: helpitem.id,
+        type: helpitem.type,
+        subject: helpitem.subject,
+        title: helpitem.title,
+        content: helpitem.content,
+        studentId: helpitem.studentId
+    };
+    approvedrequests.push(approvedItem);
+
+    // Map the type string to the actual array
+    let courseArray;
+    switch (type) {
+        case 'course1':
+            courseArray = course1;
+            break;
+        case 'course2':
+            courseArray = course2;
+            break;
+        case 'course3':
+            courseArray = course3;
+            break;
+        case 'archive':
+            courseArray = archive;
+            break;
+        case 'approvedrequests':
+            courseArray = approvedrequests;
+            break;
+        default:
+            console.error('Unknown type:', type);
+            return;
     }
+
+    // Filter out the item from the corresponding course array
+    const updatedArray = courseArray.filter(item => item.id !== helpitem.id);
+    
+    // Update the original array
+    switch (type) {
+        case 'course1':
+            course1.length = 0;
+            course1.push(...updatedArray);
+            break;
+        case 'course2':
+            course2.length = 0;
+            course2.push(...updatedArray);
+            break;
+        case 'course3':
+            course3.length = 0;
+            course3.push(...updatedArray);
+            break;
+        case 'archive':
+            archive.length = 0;
+            archive.push(...updatedArray);
+            break;
+        case 'approvedrequests':
+            approvedrequests.length = 0;
+            approvedrequests.push(...updatedArray);
+            break;
+    }
+
+    console.log('Updated array:', updatedArray);
 }
+
+
+    // // Retrieve the student contact details
+    // const student = buyers_students[studentId];
+    // if (student) {
+    //     alert(`פרטי הקשר של ${student.name}:\n\nביוגרפיה: ${student.bio}\n\nטלפון: ${student.contact.phone}\nאימייל: ${student.contact.email}`);
+    // } else {
+    //     console.error('Student not found:', studentId);
+    // }
+
 
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
