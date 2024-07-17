@@ -1,0 +1,605 @@
+
+html, body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    direction: rtl; 
+    text-align: right; 
+    display: flex; 
+    background-color: #eef6ff;
+    height: 100%; 
+    flex-direction: column;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Header styles */
+header {
+    background-color: #ffffff;
+    padding: 0.5%, 38.2%; /* Adjust padding as needed */
+    display: flex;
+    justify-content: center; /* Center the navbar horizontally */
+    align-items: center;
+    box-shadow: 0px 4px 2px -2px gray;
+    z-index: 1000;
+    height: 60px; /* Fixed height for header */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    position: absolute; /* Position logo absolutely */
+    right: 20px; /* Adjust the right position as needed */
+}
+
+.navbar {
+    display:flex;
+    text-align: right; /* Right-aligns the menu items */
+}
+
+.navbar ul {
+    list-style-type: none; /* Remove default list styles */
+    display:flex;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */    
+}
+
+.navbar ul li {
+    display: inline-block; /* Display menu items horizontally */
+    margin-left: 20px; /* Adjust margin between menu items */
+}
+
+.navbar ul li:first-child {
+    margin-left: 20px; /* No margin for the first menu item */
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: black; /* Link text color */
+    padding: 5px 20px;
+    border-radius: 20px; /* Rounded corners for links */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    margin-left: 20px;
+}
+
+.navbar ul li a:hover {
+    color: white;
+    background-color:#334999; /* Background color on hover */
+    padding: 5px 20px;
+    border-radius: 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    }
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.banner {
+    position: absolute;
+    top: -130px; /* Negative of the banner's height */
+    left: -40px;
+    right: -40px;
+    background: #b2dcfe;
+    height: 120px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    object-fit: cover;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: -20px;
+    box-shadow: 0 0px 8px #e0e0e0;
+}
+
+.banner h3 {
+    font-size: 20px;
+    margin: 0;
+    color: #333;
+}
+
+
+.welcome {
+    padding-top: 10px;
+    padding-right: 30px;
+    margin-top: 50px;
+}
+
+#section5 {
+    border: none;
+    padding: 20px;
+    border-radius: 5px;
+    width: calc(100% - 40px); /* Subtract left and right padding */
+    background: #ffffff;
+    box-shadow: 0 4px 8px #e0e0e0;
+    margin-top: 115px;
+    height: 600px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    flex-direction: row;
+}
+
+.section {
+    position: relative;
+    width: 60%;
+    height: 100%;
+}
+
+h2 {
+    text-align: center;
+    font-size: 22px;
+}
+
+h1 {
+    font-size: 35px;
+}
+
+.course {
+    padding: 30px;
+    border-radius: 15px;
+    text-align: right;
+     width: 100%;
+}
+
+.course-content .item {
+    display: flex;
+    justify-content: space-between;
+    /* margin: 1px 0; */
+    padding: 80px;
+    font-size: 22px;
+}
+
+.course-content .completion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 5px;
+    border-radius: 4px;
+    /* margin-top: 10px; */
+}
+
+.course-content .completion .completed {
+    color: green;
+}
+
+.media {
+    /* margin: 10px 0; */
+    text-align: center;
+    background-color: #d9edf7;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the start */
+    gap: 10px; /* Reduce gap between buttons */
+    margin-top: 10px;
+    padding-bottom: 15px;
+    }
+
+.buttons button {
+    padding: 5px 15px; /* Reduce horizontal padding */
+    color: #334999;
+    border: 1px solid #334999;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #ffffff;
+    font-size: 18px; /* Slightly reduce font size if needed */
+    box-shadow: 0px 2px 4px -2px gray;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.buttons button:hover {
+    background-color: #334999;
+    color: white;
+}
+
+
+#section6 ul {
+    list-style-type: none;
+    padding: 0 10px; /* Add some horizontal padding */
+    margin-top: 10px; /* Add some top margin */
+}
+
+#section6 ul li {
+    /* margin: 5px 0; */
+    font-size: 25px;
+    flex: 1
+}
+
+#section6 ul button {
+    display: block;
+    width: 30%;
+    padding: 5px;
+    border: none;
+    background-color: transparent;
+    font-size: 18px;
+    text-align: right;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#section6 ul button:hover {
+    background-color: #334999;
+    color: white;
+}
+
+#section6 {
+    border: none;
+    height: 40%;
+    width: 20%;
+    flex: none;
+    background: #ffffff;
+    box-shadow: 0 4px 8px #e0e0e0;
+    position: relative;
+    padding-top: 80px; /* Adjust based on the small banner height */
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.small-banner {
+    position: absolute;
+    top: -16px;
+    left: -40px;
+    right: -40px;
+    background: #b2dcfe;
+    height: 80px; /* Smaller height for section6 banner */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    object-fit: cover;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 0px 8px #e0e0e0;
+}
+
+.small-banner h2 {
+    margin: 0;
+    color: #333;
+    font-size: 25px; /* Adjust font size as needed */
+    text-align: center;
+    line-height: 60px; /* Center vertically */
+}
+
+.hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 35px;
+    height: 3px;
+    background-color: #FFFFFF;
+}
+
+.searchFieldSummary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.summarySearchInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;
+    background-color: transparent;
+}
+
+.search-button {
+    background-color: transparent;
+    border: 1px;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    font-size: 24px;
+}
+
+.additional-item {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    justify-content: space-between;
+}
+.additional-item span {
+    margin: 0px;
+}
+.additional-item .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #fff; /* לבן */
+    color: #000;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+}
+.additional-item .status {
+    display: flex;
+    align-items: center;
+}
+.additional-item .status .status-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    /* margin-right: 5px; */
+}
+.additional-item .status.active-checkmark {
+    background-color: green;
+    color: white; /* Optional: change text color for visibility */
+}
+
+.additional-item .status .remove-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    color: #000;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    margin-right: 5px;
+}
+.additional-item .text-content {
+    flex-grow: 1;
+    text-align: right; /* יישור לימין */
+}
+
+#searchFieldSummary {
+    display: none;
+    /* margin-top: 10px; */
+}
+
+#summarySearchInput {
+    padding: 5px;
+    /* margin-right: 5px; */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    direction: rtl;
+}
+
+.blue {
+    color: #2349d0;
+}
+.black {
+    color: black;
+}
+
+ /* .nav-logo {
+    width: 1328px;
+    height: 352px;
+    background-image: url('data:image/svg+xml;utf8,<svg width="1328" height="352" viewBox="0 0 1328 352" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="1328" height="352" rx="6" fill="#3F357B"/></svg>');
+    background-size: cover; מתאים את גודל התמונה למידות המיכל
+    background-repeat: no-repeat; /* מבטל חזרות של התמונה */
+/* }  */ 
+
+
+#buttonSummary {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    
+}
+
+#buttonSummary img {
+    width: 100%; /* שנה את הגודל בהתאם לצורך */
+    height: auto;
+    display: block;
+}
+
+#buttonTopicCompletion {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#buttonTopicCompletion img {
+    width: 100%; /* שנה את הגודל בהתאם לצורך */
+    height: auto;
+    display: block;
+}
+
+#buttonHomeworkHelp {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+#buttonHomeworkHelp img {
+    width: 100%; /* שנה את הגודל בהתאם לצורך */
+    height: auto;
+    display: block;
+}
+
+
+/* הוספת מרווחים לכותרות והכפתורים */
+
+
+/* Custom styles for the checkbox */
+.status-checkbox {
+    display: none;
+}
+
+.custom-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    border: 1px solid grey;
+    cursor: pointer;
+    position: relative;
+    border-radius: 3px;
+}
+
+.status-checkbox:checked + .custom-checkbox::after {
+    content: '✔';
+    position: absolute;
+    top: -2px; /* Adjust as necessary to position the checkmark correctly */
+    left: 1px; /* Adjust as necessary to position the checkmark correctly */
+    font-size: 18px; /* Adjust as necessary to fit the checkbox */
+    color: rgb(255, 251, 251);
+}
+
+
+.item .delete-icon {
+    cursor: pointer;
+    margin-left: 10px;
+    width: 20px; /* Adjust the size as needed */
+    height: auto;
+}
+
+.course-content .item {
+    display: flex;
+    justify-content: space-between;
+    /* margin: 1px 0; */
+    padding: 80px;
+    font-size: 22px;
+}
+
+.course-content .status {
+    display: flex;
+    align-items: center;
+}
+
+
+
+#section5 {
+    position: relative; /* Ensure section5 is positioned relative */
+}
+
+.buttons-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.buttons-container button {
+    border-radius: 10px;
+    background-color: white;
+    color: #1D2D69;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px -2px gray;
+    font-size: 16px;
+}
+
+.buttons-container button:hover {
+    background-color: #d0eaff;
+    
+}
+.icon-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f5f5f5; /* Example background color */
+    border-radius: 5px; /* Example border radius */
+    margin-bottom: 10px; /* Space between items */
+}
+
+.icon-with-image {
+    display: flex;
+    align-items: center;
+    position: relative; /* Needed for tooltip positioning */
+    margin-right: 10px; /* Space between icon and text */
+}
+
+.icon-with-image .icon {
+    margin-right: 5px; /* Space between text icon and image */
+}
+
+.icon-with-image img.icon-image {
+    width: 35px; /* Set the desired width */
+    height: 35px; /* Set the desired height */
+}
+
+.text-content {
+    flex-grow: 1; /* Take up remaining space */
+}
+
+.status {
+    display: flex;
+    align-items: center;
+}
+
+.status-icon {
+    cursor: pointer;
+    color: #1D2D69; /* Example color for the status icon */
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 60px; /* Adjust the width as needed */
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the icon */
+    left: 50%;
+    margin-left: -30px; /* Adjust to center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.icon-with-image:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}

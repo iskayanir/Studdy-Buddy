@@ -157,6 +157,11 @@ header .logo {
     color: white;
 }
 
+.buttons button:active {
+    background-color: #334999;
+    color: white;
+}
+
 .buttons p {
     display: inline;
 }

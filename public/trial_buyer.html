@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer</title>
+    <link rel="stylesheet" href="../css/trial.css">
+
+</head>
+<body>
+    <header>
+        <img src="images/logo3.png" class="logo" alt="Logo">
+        <nav class="navbar">
+            <ul>
+                <li><a href="buyer_profile.html">הפרופיל שלי</a></li>
+                <li><a href="buyer.html">הקורסים שלי</a></li>
+                <li><a href="buyer_search_page.html">חיפוש</a></li>
+            </ul>
+        </nav>
+    </header>
+    <article class="welcome">
+        <h1>היי, טל!</h1> <!-- הודעה מותאמת לשם המשתמש -->
+    </article>
+    <div class="container">
+        <!-- current course page -->
+        <div class="section" id="section5">
+            <figure class="banner">
+                <h3>קורס 1 </h3><br> <!-- הודעה מותאמת לשם הקורס -->
+                <h3>איך אפשר לעזור? </h3> 
+            </figure>
+            <div class="buttons">
+                <button id="sicom" onclick="toggleSearchField('sicom')">סיכום</button>
+                <button id="hashlama" onclick="toggleSearchField('hashlama')">השלמת נושא</button>
+                <button id="ezra" onclick="toggleSearchField('ezra')">עזרה בתרגיל בית</button>
+            </div>
+            <!-- אלמנט זה יתמלא בעת הוספת שדה חיפוש -->
+            <div id="additionalFields"></div>
+            <div id="additionalFields1"></div>
+
+            <div id="searchFieldSummary">
+                <input type="text" id="summarySearchInput" placeholder="הגדר נושא סיכום...">
+                <button onclick="submitSummary()">חיפוש</button>
+            </div>
+            <div class="course" id="course1">
+                <div class="course-content"></div>
+            </div>
+        </div>
+
+        <!--list of courses on the left -->
+        <div class="section" id="section6">
+            <figure class="banner small-banner">
+                <h2>הקורסים שלך</h2>
+            </figure>
+            <ul>
+                <button id="course1" class="blue" onclick="changeColor()">קורס 1</button>
+                <button id="course2" class="black" onclick="changeColor()">קורס 2</button>
+                <button id="course3" class="black" onclick="changeColor()">קורס 3</button>
+                <button id="course4" class="black" onclick="changeColor()">קורס 4</button>
+            </ul>
+        </div>
+    </div>
+
+    <script src="js/buyer.js"></script>
+</body>
+</html>
