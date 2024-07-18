@@ -63,9 +63,6 @@ const course3 = [
     }
 ];
 
-const archive =[]
-
-const approvedrequests = []
 
 function displayData(dataArray) {
 
