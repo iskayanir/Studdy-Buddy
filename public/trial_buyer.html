@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buyer</title>
     <link rel="stylesheet" href="../css/trial.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
@@ -29,9 +29,33 @@
                 <h3>איך אפשר לעזור? </h3> 
             </figure>
             <div class="buttons">
-                <button id="sicom" onclick="toggleSearchField('sicom')">סיכום</button>
-                <button id="hashlama" onclick="toggleSearchField('hashlama')">השלמת נושא</button>
-                <button id="ezra" onclick="toggleSearchField('ezra')">עזרה בתרגיל בית</button>
+                <button id="sicom" onclick="toggleSearchField('sicom')">
+                    <div class="title-container">
+                        <i class="bi bi-sticky"></i>
+                        <span class="button-title">סיכום</span>
+                    </div>
+                    <ul>
+                        <li>סיכום של נושא או שיעור שפספסתם</li>
+                    </ul>
+                </button>
+                <button id="hashlama" onclick="toggleSearchField('hashlama')">
+                    <div class="title-container">
+                        <i class="bi bi-journal-text"></i>
+                        <span class="button-title">השלמת נושא</span>
+                    </div>
+                    <ul>
+                        <li>השלמת נושא שלא יושב לכם</li>
+                    </ul>
+                </button>
+                <button id="ezra" onclick="toggleSearchField('ezra')">
+                    <div class="title-container">
+                        <i class="bi bi-journal-check"></i>
+                        <span class="button-title">עזרה בתרגיל בית</span>
+                    </div>
+                    <ul>
+                        <li>עזרה בתרגיל שנתקעתם עליו</li>
+                    </ul>
+                </button>
             </div>
             <!-- אלמנט זה יתמלא בעת הוספת שדה חיפוש -->
             <div id="additionalFields"></div>
