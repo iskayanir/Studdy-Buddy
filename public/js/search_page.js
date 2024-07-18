@@ -1,28 +1,28 @@
-document.getElementById('searchInput').addEventListener('input', filterItems);
-document.getElementById('teacherInput').addEventListener('input', filterItems);
-document.getElementById('departmentInput').addEventListener('input', filterItems);
 
-        function filterItems() {
-            const courseInput = document.getElementById('searchInput').value.toLowerCase();
-            const teacherInput = document.getElementById('teacherInput').value.toLowerCase();
-            const departmentInput = document.getElementById('departmentInput').value.toLowerCase();
-            const gridItems = document.querySelectorAll('.grid-item');
 
-            gridItems.forEach(item => {
-                const courseName = item.querySelector('h2').textContent.toLowerCase();
-                const teacherName = item.querySelector('.teacher').textContent.toLowerCase();
-                const departmentName = item.querySelector('.department').textContent.toLowerCase();
+function filterItems() {
 
-                const courseMatch = courseName.includes(courseInput);
-                const teacherMatch = teacherName.includes(teacherInput);
-                const departmentMatch = departmentName.includes(departmentInput)
+    const gridItems = document.querySelectorAll('.grid-item');
+    const courseInput = document.getElementById('searchInput').value.toLowerCase();
+    const teacherInput = document.getElementById('teacherInput').value.toLowerCase();
+    const departmentInput = document.getElementById('departmentInput').value.toLowerCase();
+    
+    
+    gridItems.forEach(item => {
+        const courseName = item.querySelector('h2').textContent.toLowerCase();
+        const teacherName = item.querySelector('.teacher').textContent.toLowerCase();
+        const departmentName = item.querySelector('.department').textContent.toLowerCase();
 
-                if (courseMatch && teacherMatch&& departmentMatch) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        const courseMatch = courseName.includes(courseInput);
+        const teacherMatch = teacherName.includes(teacherInput);
+        const departmentMatch = departmentName.includes(departmentInput);
+        
+            if (courseMatch && teacherMatch && departmentMatch) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+    });
         }
 
         function filterFaculty(faculty) {

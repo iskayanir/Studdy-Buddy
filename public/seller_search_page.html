@@ -34,6 +34,13 @@
         <input type="text" placeholder="חפש שם מרצה..." class="search-input" id="teacherInput">
       </div>     
     </div><br>
+    
+    <div class="search-proffesor"> 
+      <p> חפש לפי חוג: </p>
+      <div class="search-container">    
+        <input type="text" placeholder="חפש שם חוג..." class="search-input" id="departmentInput">
+      </div>     
+    </div><br>
 
     <div class="buttons">  
       <p> חפש לפי פקולטה: </p>
@@ -44,14 +51,12 @@
       <button onclick="filterFaculty('מדעי המחשב')">מדעי המחשב</button>
       <button onclick="filterFaculty('משפטים')">משפטים</button>
       </div>
- 
-
-
 
     <div class=grid-container id="gridContainer">
       
     </div>
       
+<script src="js/search_page.js"> </script>
 
 <script>
   function fetchData() {
@@ -85,8 +90,12 @@
     .catch(error => console.error('Error fetching data:', error));
 }
     window.onload = fetchData;
+    document.getElementById('searchInput').addEventListener('input', filterItems);
+    document.getElementById('teacherInput').addEventListener('input', filterItems)
+    document.getElementById('departmentInput').addEventListener('input', filterItems)
+    
 </script>
-   
-<script src="js/search_page.js"></script>
+
+
     
   </body>
