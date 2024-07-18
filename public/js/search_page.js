@@ -58,6 +58,7 @@ function fetchData() {
                         
         Object.keys(data.courses).forEach(key => {
         const course = data.courses[key];
+        course.id = key;
 
         const gridItem = document.createElement('div');
         gridItem.classList.add('grid-item');
@@ -70,7 +71,7 @@ function fetchData() {
             <li class ="department"> חוג: ${course.Department}</li>
             <li class="teacher">מרצה: ${course['Lacture Name']}</li>
             </ul>
-            <button class="add" onclick="addCourse()">הוסף קורס</button>
+            <button class="add" id="addd" onclick="addCourse()">הוסף קורס</button>
         `;
 
         gridContainer.appendChild(gridItem);
@@ -82,3 +83,39 @@ function fetchData() {
 function finish() {
     
 }
+
+function addCourse(courseId) {
+    console.log("seemek");
+    const studentId = 'student_3'
+          fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${studentId}.json`)
+          .then(response => response.json())
+          .then(student => {
+              if (!student) {
+                  console.error('Student not found');
+                  return;
+              }
+      
+              student.courses = student.courses || [];
+              if (!student.courses.includes(courseId)) {
+                  student.courses.push(courseId);
+              }           
+      
+              // Update the student data in Firebase
+              fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${studentId}.json`, {
+                  method: 'PUT',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(student)
+              })
+              .then(response => response.json())
+              .then(updatedStudent => {
+                  console.log('Success:', updatedStudent);
+              })
+              .catch(error => {
+                  console.error('Error updating student:', error);
+              });
+          })
+          .catch(error => {
+              console.error('Error fetching student:', error);
+          })};

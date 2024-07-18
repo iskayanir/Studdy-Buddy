@@ -263,8 +263,8 @@ header .logo {
 }
 
 .grid-item:hover .add {
-    background-color: #334999;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #334999;
 }
 
 /* Unordered list styling */
@@ -292,9 +292,13 @@ ul {
 }
 
 .add:hover {
-    box-shadow: 0 0px 3px rgb(214, 214, 214);
+    box-shadow: 0 0px 20px rgb(214, 214, 214);
+
 }
 
+.add:active {
+   background-color: #334999; 
+}
 .show {
     display: block;
 }
