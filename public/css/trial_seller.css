@@ -215,7 +215,7 @@ h1 {
 .buttons-container button {
     color: #334999;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 10px;
     cursor: pointer;
     background-color: #ffffff;
     font-size: 18px;
@@ -274,8 +274,7 @@ h1 {
 
 #section6 ul {
     list-style-type: none;
-    padding: 0 10px; /* Add some horizontal padding */
-    margin-top: 0; /* Add some top margin */
+    padding: 0 15px; /* Add some horizontal padding */
 }
 
 #section6 ul li {
@@ -287,16 +286,17 @@ h1 {
 
 #section6 ul button {
     display: block;
-    width: 30%;
+    width: 100%;
     padding: 5px;
     border: none;
     background-color: transparent;
-    font-size: 18px;
+    font-size: 20px;
     text-align: right;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 5px;
 }
 
 #section6 ul button:hover {
@@ -308,10 +308,9 @@ h1 {
     border: none;
     flex: none;
     background: #d8edff;
-    position: relative;
     border-radius: 5px;
     overflow: hidden;
-    width: 250px; /* Adjust width as needed */
+    width: 300px; /* Adjust width as needed */
     height: 100%;
     position: fixed;
     top: 60px; /* Start below the header */
