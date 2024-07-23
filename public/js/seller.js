@@ -79,15 +79,37 @@ function displayData(dataArray) {
     dataArray.forEach(item => {
         let element = document.createElement('div');
         element.className = "additional-item";
+        
+        let iconClass, tooltipText;
+        switch(item.type) {
+            case "sicom":
+                iconClass = "bi bi-sticky"
+                tooltipText = "סיכום";
+                break;
+            case "hashlama":
+                iconClass = "bi bi-journal-text";
+                tooltipText = "השלמת חומר";
+                break;
+            default:
+                iconClass = "bi bi-journal-check";
+                tooltipText = "עזרה בתרגיל";
+        }
+
         element.innerHTML = `
-            <div class="icon">👤</div>
+            <div class="icon-with-image">
+                <i class="bi ${iconClass}"></i>
+            </div>
             <div class="text-content">${item.description || item.title || item.assignment}</div>
             <div class="status">
-                <div class="status-icon">✔</div>
-            </div>`;
+                <i class="bi bi-check-square" onclick="handleClick(${item.studentId})"></i>
+            </div>
+            <span class="tooltip-text">${tooltipText}</span>`;
+        
         container.appendChild(element);
     });
 }
+
+
 
 function toggleDisplayData(type, button) {
 
@@ -126,44 +148,35 @@ function toggleDisplayData(type, button) {
             return;
     }
 
+
     dataArray.forEach(item => {
         let element = document.createElement('div');
         element.className = "additional-item";
-        var typehelp = item.type
-        if(typehelp === "sicom"){
-            element.innerHTML = `
-            <div class="icon-with-image">
-            <div class="icon">👤</div>
-            <img src="images/iconsicom.svg" alt="icon" class="icon-image"/>
-            <span class="tooltip-text">סיכום</span>
-            </div>
-            <div class="text-content">${item.description || item.title || item.assignment}</div>
-            <div class="status">
-                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
-            </div>`;
-        }else if(typehelp === "hashlama"){
-            element.innerHTML = `
-            <div class="icon-with-image">
-            <div class="icon">👤</div>
-            <img src="images/iconhashlama.svg" alt="icon" class="icon-image"/>
-            <span class="tooltip-text">השלמת חומר</span>
-            </div>
-            <div class="text-content">${item.description || item.title || item.assignment}</div>
-            <div class="status">
-                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
-            </div>`;
-        }else{
-            element.innerHTML = `
-            <div class="icon-with-image">
-            <div class="icon">👤</div>
-            <img src="images/iconhomework.svg" alt="icon" class="icon-image"/>
-            <span class="tooltip-text">עזרה בתרגיל</span>
-            </div>
-            <div class="text-content">${item.description || item.title || item.assignment}</div>
-            <div class="status">
-                <div class="status-icon" onclick="handleClick(${item.studentId})">✔</div>
-            </div>`;
+        
+        let iconClass, tooltipText;
+        switch(item.type) {
+            case "sicom":
+                iconClass = "bi-sticky";
+                tooltipText = "סיכום";
+                break;
+            case "hashlama":
+                iconClass = "bi-journal-text";
+                tooltipText = "השלמת חומר";
+                break;
+            default:
+                iconClass = "bi-journal-check";
+                tooltipText = "עזרה בתרגיל";
         }
+
+        element.innerHTML = `
+            <div class="icon-with-image">
+                <i class="bi ${iconClass}"></i>
+                <span class="tooltip-text">${tooltipText}</span>
+            </div>
+            <div class="text-content">${item.description || item.title || item.assignment}</div>
+            <div class="status">
+                <i class="bi bi-check-square status-icon" onclick="handleClick(${item.studentId}, event)"></i>
+            </div>`;
         
         container.appendChild(element);
     });
@@ -180,11 +193,14 @@ function resetButtonColors() {
 
 
 function handleClick(studentId) {
-    // Change the background color of the ✔️ to green
-    event.target.style.backgroundColor = 'green';
 
-    // Optionally change the color of the text to white for better visibility
-    event.target.style.color = 'white';
+    event.stopPropagation();
+
+    // Change the icon to a filled square and make it green
+    const iconElement = event.target;
+    iconElement.classList.remove('bi-check-square');
+    iconElement.classList.add('bi-check-square-fill');
+    iconElement.style.color = 'green';
 
     // Retrieve the student contact details
     const student = buyers_students[studentId];
@@ -194,6 +210,7 @@ function handleClick(studentId) {
         console.error('Student not found:', studentId);
     }
 }
+
 
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
