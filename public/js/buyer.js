@@ -3,7 +3,8 @@ var helptype = "";
 var topic = "";
 var date = "";
 
-function toggleSearchField(typehelp) {
+function toggleSearchField(typehelp, idcourse, idstudent) {
+    var status = "waiting"
     var buttons = ['sicom', 'hashlama', 'ezra'];
 
     buttons.forEach(function(buttonId) {
@@ -71,6 +72,7 @@ function toggleSearchField(typehelp) {
                     if (searchField) {
                         topic = searchField.value;
                         date =searchField1.value
+                        savefirebase(topic, typehelp, idstudent, idcourse, status)
                     // Create new item element
                     var newItem = document.createElement('div');
                     newItem.className = 'item';
@@ -187,6 +189,7 @@ function toggleSearchField(typehelp) {
                 if (searchField) {
                     topic = searchField.value;
                     date =searchField1.value
+                    savefirebase(topic, typehelp, idstudent, idcourse, status)
                     // Create new item element
                     var newItem = document.createElement('div');
                     newItem.className = 'item';
@@ -301,7 +304,7 @@ function toggleSearchField(typehelp) {
         searchButton.onclick = function() {
             if (searchField) {
             topic = searchField.value;
-                
+            savefirebase(topic, typehelp, idstudent, idcourse, status)
             // Create new item element
             var newItem = document.createElement('div');
             newItem.className = 'item';
@@ -394,3 +397,39 @@ function toggleSearchField(typehelp) {
     }
 
 }
+
+function savefirebase(topic, type, idstudent, idcourse,status, date = null){
+    alert(topic)
+    alert(type)
+    alert(idstudent)
+    alert(status)
+    alert(idcourse)
+   
+    const newrequest = {
+        id_course: idcourse,
+        id_student: idstudent,
+        status_request: status,
+        topic: topic,
+        type: type
+    };
+
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newrequest)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Request saved successfully:', data);
+        //fetchData(); // Optionally refresh the data
+    })
+    .catch(error => {
+        console.error('Error saving request:', error);
+    });
+
+}
+
+
+
