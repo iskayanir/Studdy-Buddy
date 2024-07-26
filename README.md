@@ -25,6 +25,5 @@ changes...
 - git merge "branch_name"
 - git push
 
-then return to branch:
-
+7. then return to branch:
 - git checkout "branch_name"
