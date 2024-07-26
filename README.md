@@ -5,9 +5,12 @@ A university project that aims to help reservists in their studies
 
 1. npm install
 2. npm start
-3. git pull origin main
-4. In the first time: git checkout -b "branch_name", other times: git checkout "branch_name"
+3. git checkout main
+4. git pull
+5. In the first time: git checkout -b "branch_name", other times: git checkout "branch_name"
 if "git checkout" isn't working, maybe u need to do "git fetch" and then "git checkout"
+
+changes...
 
 # to save updates:
 
@@ -16,12 +19,12 @@ if "git checkout" isn't working, maybe u need to do "git fetch" and then "git ch
 3. git add .
 4. git commit -m "here some notes about the changes"
 5. git push (which save only in the branch)
-6. to save in main: git push origin main or git checkout main, then git push and then git checkout "branch_name"
-7. open github and handle pull request
+6. to save in main: 
 
-ignore for now from this part:
-# If you see a message that the remote has been changed, you must do the following:
+git checkout main
+git merge "branch_name"
+git push
 
-1. git pull origin main --no-rebase     or      git pull --rebase origin main
-2. Close the file that opened for you
-3. git push origin main
+then return to branch:
+
+- git checkout "branch_name"
