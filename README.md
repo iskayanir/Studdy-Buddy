@@ -16,7 +16,7 @@ if "git checkout" isn't working, maybe u need to do "git fetch" and then "git ch
 3. git add .
 4. git commit -m "here some notes about the changes"
 5. git push (which save only in the branch)
-6. to save in main: or git push origin main or git checkout main, then git push and then git checkout "branch_name"
+6. to save in main: git push origin main or git checkout main, then git push and then git checkout "branch_name"
 
 ignore for now from this part:
 # If you see a message that the remote has been changed, you must do the following:
