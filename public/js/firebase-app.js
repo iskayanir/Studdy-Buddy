@@ -274,7 +274,7 @@ function handleCredentialResponse(response) {
     // checkStudent('student_1');
     // id_student = searchEmail("adam@example.com")
     // console.log(id_student);
-    searchEmail("adam@example.com").then(result => {
+    searchEmail(data.email).then(result => {
         if (result) {
             console.log(`Student ID: ${result.studentId}, Type: ${result.type}`);
             if (result.type=="providingHelp"){
