@@ -38,7 +38,8 @@
         // פונקציה שמבצעת fetch לנתונים מהשרת
         function fetchData() {
     console.log("hello before");
-    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student.json')
+    
       .then(response => response.json())
       .then(data => {
         const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
