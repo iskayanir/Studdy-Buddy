@@ -271,9 +271,17 @@ function handleCredentialResponse(response) {
     const data = jwt_decode(response.credential);
     console.log(data);
     alert('Logged in as ' + data.name);
-    // checkStudent('student_1');
-    // id_student = searchEmail("adam@example.com")
-    // console.log(id_student);
+
+     // שמירת הנתונים ב-Local Storage
+     const userData = {
+        name: data.name,
+        email: data.email,
+        imageUrl: data.picture
+    };
+    console.log(userData);
+    localStorage.setItem('userData', JSON.stringify(userData));
+
+
     searchEmail(data.email).then(result => {
         if (result) {
             console.log(`Student ID: ${result.studentId}, Type: ${result.type}`);
