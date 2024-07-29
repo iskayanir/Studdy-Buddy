@@ -5,7 +5,7 @@ A university project that aims to help reservists in their studies
 
 1. npm install
 2. npm start
-3. git checkout main
+3. (in new terminal) git checkout main
 4. git pull
 5. In the first time: git checkout -b "branch_name", other times: git checkout "branch_name"
 if "git checkout" isn't working, maybe u need to do "git fetch" and then "git checkout"
