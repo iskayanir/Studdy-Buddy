@@ -179,3 +179,154 @@ function addStudent() {
         console.error('Error adding student:', error);
     });
 }
+
+
+function addNewStudent() {
+    const name = document.getElementById('studentName').value;
+    const year = document.getElementById('studentYear').value;
+
+    const newStudent = {
+        name: name,
+        year: parseInt(year)
+    };
+
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp.json', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newStudent)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        fetchData(); // Refresh the data
+    })
+    .catch(error => {
+        console.error('Error adding student:', error);
+    });
+}
+
+
+
+async function loadUserData(studentId) {
+    const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json`);
+    //https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json
+    const userData = await response.json();
+    if (userData) {
+        if (userData.name) {
+            document.getElementById('name').value = userData.name;
+        }
+        if (userData.email) {
+            document.getElementById('email').value = userData.email;
+        }
+    }
+}
+
+// window.onload = function() {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const userId = urlParams.get('userId');
+//     const type = urlParams.get('type') || 'studentsReceivingHelp';
+//     console.log("enter")
+//     if (userId) {
+//         loadUserData(userId);
+//     }
+// }
+
+
+// async function handleCredentialResponse(response) {
+//     const data = jwt_decode(response.credential);
+//     console.log(data);
+//     alert('Logged in as ' + data.name);
+
+//     // בדיקה אם המשתמש קיים בשרת
+//     const studentId = data.email;
+//     const { exists, } = await fetch(`https://study-userIdbuddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json`)
+//         .then(response => response.json());
+
+//     if (exists) {
+//       console.log("exist")
+//         // המשתמש קיים, נשלח לעמוד הפרופיל שלו
+//         window.location.href = `buyer_profile.html?userId=${studentId}&type=${type}`;
+//     } else {
+//       console.log("not exist")
+//         // המשתמש לא קיים, נשמור אותו ונשלח לעמוד ה-setup
+//         const type = 'studentsReceivingHelp'; // או 'studentsProvidingHelp' בהתאם לצורך
+//         await fetch('/saveUser', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 studentId: studentId,
+//                 name: data.name,
+//                 email: data.email,
+//                 type: type
+//             })
+//         });
+//         window.location.href = `buyer_setup_profile.html?userId=${studentId}`;
+//     }
+// }
+function handleCredentialResponse(response) {
+    const data = jwt_decode(response.credential);
+    console.log(data);
+    alert('Logged in as ' + data.name);
+    checkStudent('student_1');
+    searchEmail("adam@example.com")
+    window.location.href = 'buyer_setup_profile.html';
+}
+
+
+  function initGoogleSignIn() {
+      google.accounts.id.initialize({
+          client_id: '254149753908-es200ngb1pk62tf2pikbufl0kkckeaeb.apps.googleusercontent.com',
+          callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+          document.getElementById("g_id_signin"),
+          { theme: "outline", size: "large" }
+      );
+  }
+
+
+//   function checkStudentExists(studentId) {
+//     const studentRef = firebase.database().ref(`student/studentsReceivingHelp/${studentId}`);
+  
+//     studentRef.once('value', (snapshot) => {
+//       if (snapshot.exists()) {
+//         console.log(`${studentId} is present in the database.`);
+//       } else {
+//         console.log(`${studentId} is not found in the database.`);
+//       }
+//     }).catch((error) => {
+//       console.error("Error reading data: ", error);
+//     });
+//   }
+
+  async function checkStudent(studentId) {
+    console.log(studentId);
+    const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json`);
+    const result = await response.json();
+    if (result !== null) {
+        alert(`Student ${studentId} exists: ${JSON.stringify(result)}`);
+      } else {
+        alert(`Student ${studentId} does not exist.`);
+      }
+    }
+  
+
+
+async function searchEmail(email) {
+    console.log(email);
+    const response = await fetch(`/searchEmail/${email}`);
+    if (!response.ok) {
+        console.error('Failed to fetch');
+        return;
+    }
+    const result = await response.json();
+    if (result.exists) {
+        alert(`Email ${email} exists: ${JSON.stringify(result.data)}`);
+    } else {
+        alert(`Email ${email} does not exist.`);
+    }
+}
