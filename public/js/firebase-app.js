@@ -109,7 +109,7 @@
 
 function fetchData() {
     console.log("hello before");
-    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student.json')
       .then(response => response.json())
       .then(data => {
         const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
@@ -137,7 +137,7 @@ function updateStudent() {
         year: parseInt(year)
     };
 
-    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json`, {
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsReceivingHelp/${studentId}.json`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -163,7 +163,7 @@ function addStudent() {
         year: parseInt(year)
     };
 
-    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp.json', {
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsReceivingHelp.json', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -190,7 +190,7 @@ function addNewStudent() {
         year: parseInt(year)
     };
 
-    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp.json', {
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsReceivingHelp.json', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -210,7 +210,7 @@ function addNewStudent() {
 
 
 async function loadUserData(studentId) {
-    const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json`);
+    const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsReceivingHelp/${studentId}.json`);
     //https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json
     const userData = await response.json();
     if (userData) {
@@ -271,9 +271,25 @@ function handleCredentialResponse(response) {
     const data = jwt_decode(response.credential);
     console.log(data);
     alert('Logged in as ' + data.name);
-    checkStudent('student_1');
-    searchEmail("adam@example.com")
-    window.location.href = 'buyer_setup_profile.html';
+    // checkStudent('student_1');
+    // id_student = searchEmail("adam@example.com")
+    // console.log(id_student);
+    searchEmail("adam@example.com").then(result => {
+        if (result) {
+            console.log(`Student ID: ${result.studentId}, Type: ${result.type}`);
+            if (result.type=="providingHelp"){
+                window.location.href = 'seller_profile.html'
+            }
+            else {
+                window.location.href = 'buyer_profile.html'
+            }
+            
+        } else {
+            console.log('Email not found.');
+            window.location.href = 'buyer_setup_profile.html'
+        }
+    });
+    // window.location.href = 'buyer_setup_profile.html';
 }
 
 
@@ -305,7 +321,7 @@ function handleCredentialResponse(response) {
 
   async function checkStudent(studentId) {
     console.log(studentId);
-    const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json`);
+    const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsReceivingHelp/${studentId}.json`);
     const result = await response.json();
     if (result !== null) {
         alert(`Student ${studentId} exists: ${JSON.stringify(result)}`);
@@ -316,17 +332,83 @@ function handleCredentialResponse(response) {
   
 
 
-async function searchEmail(email) {
+// async function searchEmail(email) {
+//     console.log(email);
+//     const response = await fetch(`/searchEmail/${email}`);
+//     if (!response.ok) {
+//         console.log(response);
+//         console.error('Failed to fetch');
+//         return;
+//     }
+//     const result = await response.json();
+//     if (result.exists) {
+//         alert(`Email ${email} exists: ${JSON.stringify(result.data)}`);
+//     } else {
+//         alert(`Email ${email} does not exist.`);
+//     }
+// }
+
+
+// function searchEmail(email) {
+//     console.log(email);
+//     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student.json')
+//       .then(response => response.json())
+//       .then(data => {
+//         console.log(data);
+    //   .then(data => {
+    //     const receivingHelpDiv = document.getElementById('studentsReceivingHelp');
+    //     receivingHelpDiv.innerHTML = ''; // ריקון התוכן הקודם
+
+    //     if (data.studentsReceivingHelp) {
+    //       Object.keys(data.studentsReceivingHelp).forEach(key => {
+    //         const student = data.studentsReceivingHelp[key];
+    //         receivingHelpDiv.innerHTML += `<p>Name: ${student.name}, Year: ${student.year}</p>`;
+    //       });
+    //     } else {
+    //       console.error('No students receiving help found');
+    //     }
+    //   })
+    //   .catch(error => console.error('Error fetching data:', error));
+// }
+
+function searchEmail(email) {
     console.log(email);
-    const response = await fetch(`/searchEmail/${email}`);
-    if (!response.ok) {
-        console.error('Failed to fetch');
-        return;
-    }
-    const result = await response.json();
-    if (result.exists) {
-        alert(`Email ${email} exists: ${JSON.stringify(result.data)}`);
-    } else {
-        alert(`Email ${email} does not exist.`);
-    }
+    return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student.json')
+        .then(response => response.json())
+        .then(data => {
+            let result = null;
+
+            // בדיקה בתוך סטודנטים המקבלים עזרה
+            if (data.studentsReceivingHelp) {
+                for (let key in data.studentsReceivingHelp) {
+                    const student = data.studentsReceivingHelp[key];
+                    if (student.contact && student.contact.email === email) {
+                        result = { studentId: key, type: 'receivingHelp' };
+                        console.log(`Email found in students receiving help: ${student.name}, ${student.contact.email}`);
+                        return result; // החזרה מיידית כשנמצא
+                    }
+                }
+            }
+
+            // בדיקה בתוך סטודנטים המעניקים עזרה
+            if (!result && data.studentsProvidingHelp) {
+                for (let key in data.studentsProvidingHelp) {
+                    const student = data.studentsProvidingHelp[key];
+                    if (student.contact && student.contact.email === email) {
+                        result = { studentId: key, type: 'providingHelp' };
+                        console.log(`Email found in students providing help: ${student.name}, ${student.contact.email}`);
+                        return result; // החזרה מיידית כשנמצא
+                    }
+                }
+            }
+
+            if (!result) {
+                console.log('Email not found in any students');
+                return null;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            return null;
+        });
 }

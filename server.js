@@ -41,7 +41,7 @@ const server = express();
 const path = require('path'); // הוסף את השורה הזו
 
 server.get('getStudents', async (req, res) => {
-  const starCountRef = ref(db, 'studentsReceivingHelp');
+  const starCountRef = ref(db, 'student/studentsReceivingHelp');
 onValue(starCountRef, (snapshot) => {
   const data = snapshot.val();
   console.log(data)
@@ -76,35 +76,96 @@ server.use((req, res, next) => {
 //   });
 
 // פונקציה לחיפוש כתובת מייל בדאטאבייס
-server.get('/searchEmail/:email', async (req, res) => {
-    const email = req.params.email;
+// server.get('/searchEmail/:email', async (req, res) => {
+//     console.log("jnjkk")
+//     const email = req.params.email;
   
-    // חיפוש ברשימת מקבלי העזרה
-    const receivingHelpRef = ref(db, 'student/studentsReceivingHelp');
-    const receivingHelpQuery = query(receivingHelpRef, orderByChild('contact/email'), equalTo(email));
+//     // חיפוש ברשימת מקבלי העזרה
+//     const receivingHelpRef = ref(db, 'student/studentsReceivingHelp');
+//     const receivingHelpQuery = query(receivingHelpRef, orderByChild('contact/email'), equalTo(email));
   
-    // חיפוש ברשימת נותני העזרה
-    const providingHelpRef = ref(db, 'student/studentsProvidingHelp');
-    const providingHelpQuery = query(providingHelpRef, orderByChild('contact/email'), equalTo(email));
+//     // חיפוש ברשימת נותני העזרה
+//     const providingHelpRef = ref(db, 'student/studentsProvidingHelp');
+//     const providingHelpQuery = query(providingHelpRef, orderByChild('contact/email'), equalTo(email));
   
-    try {
-      const receivingHelpSnapshot = await get(receivingHelpQuery);
-      const providingHelpSnapshot = await get(providingHelpQuery);
+//     try {
+//       const receivingHelpSnapshot = await get(receivingHelpQuery);
+//       const providingHelpSnapshot = await get(providingHelpQuery);
   
-      if (receivingHelpSnapshot.exists()) {
-        const data = receivingHelpSnapshot.val();
-        res.json({ exists: true, data, type: 'receivingHelp' });
-      } else if (providingHelpSnapshot.exists()) {
-        const data = providingHelpSnapshot.val();
-        res.json({ exists: true, data, type: 'providingHelp' });
-      } else {
-        res.json({ exists: false });
-      }
-    } catch (error) {
-      console.error("Error reading data: ", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  });
+//       if (receivingHelpSnapshot.exists()) {
+//         const data = receivingHelpSnapshot.val();
+//         res.json({ exists: true, data, type: 'receivingHelp' });
+//       } else if (providingHelpSnapshot.exists()) {
+//         const data = providingHelpSnapshot.val();
+//         res.json({ exists: true, data, type: 'providingHelp' });
+//       } else {
+//         res.json({ exists: false });
+//       }
+//     } catch (error) {
+//       console.error("Error reading data: ", error);
+//       res.status(500).json({ error: "Internal server error" });
+//     }
+//   });
+
+server.get('/searchEmail/:email', (req, res) => {
+    console.log("Search email route hit with email:", req.params.email);
+    
+    res.send("This is a simple text response.");
+});
+
+
+
+
+//   server.get('/searchEmail/:email', async (req, res) => {
+//     console.log("Search email route hit with email:", req.params.email);
+//     const email = req.params.email;
+
+//     try {
+//         // חיפוש ברשימת מקבלי העזרה
+//         const receivingHelpRef = ref(db, 'student/studentsReceivingHelp');
+//         const providingHelpRef = ref(db, 'student/studentsProvidingHelp');
+
+//         const receivingHelpSnapshot = await get(receivingHelpRef);
+//         const providingHelpSnapshot = await get(providingHelpRef);
+
+//         let data = null;
+//         let type = null;
+
+//         // חיפוש ברשימת מקבלי העזרה
+//         if (receivingHelpSnapshot.exists()) {
+//             const students = receivingHelpSnapshot.val();
+//             for (const key in students) {
+//                 if (students[key].contact.email === email) {
+//                     data = students[key];
+//                     type = 'receivingHelp';
+//                     break;
+//                 }
+//             }
+//         }
+
+//         // חיפוש ברשימת נותני העזרה אם לא נמצא ב-ReceivingHelp
+//         if (!data && providingHelpSnapshot.exists()) {
+//             const students = providingHelpSnapshot.val();
+//             for (const key in students) {
+//                 if (students[key].contact.email === email) {
+//                     data = students[key];
+//                     type = 'providingHelp';
+//                     break;
+//                 }
+//             }
+//         }
+
+//         if (data) {
+//             res.json({ exists: true, data, type });
+//         } else {
+//             res.json({ exists: false });
+//         }
+//     } catch (error) {
+//         console.error("Error reading data:", error);
+//         res.status(500).json({ error: "Internal server error" });
+//     }
+// });
+
 
 server.use(express.json());
 server.use(express.static(path.join(__dirname, 'public')));
