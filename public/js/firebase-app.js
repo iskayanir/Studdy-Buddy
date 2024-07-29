@@ -412,3 +412,34 @@ function searchEmail(email) {
             return null;
         });
 }
+
+
+function getStutent() {
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student.json')
+      .then(response => response.json())
+      .then(data => {
+        return data;
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+            return null;
+        });
+}
+
+// פונקציה שממלאת את הטופס עם נתוני המשתמש
+function fillUserProfile(userData) {
+    if (userData) {
+        document.getElementById('name').value = userData.name || '';
+        document.getElementById('degree').value = userData.degree || '';
+        document.getElementById('year').value = userData.year || 'א';
+        document.getElementById('number').value = userData.number || '';
+        document.getElementById('email').value = userData.email || '';
+    }
+}
+
+window.onload = function() {
+    const userId = 'user123'; // הכנס כאן את ה-ID של המשתמש
+    getUserData(userId).then(userData => {
+        fillUserProfile(userData);
+    });
+};
