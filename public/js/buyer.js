@@ -1,28 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var tabs = document.querySelectorAll('#tabs .tab-link');
-    tabs.forEach(function(tab) {
-        tab.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevents the default action of the link
-
-            // Get the target section ID
-            var targetId = tab.getAttribute('href').substring(1);
-            showSection(targetId);
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    var form = document.getElementById('tabs');
-    if (form) {
-        form.addEventListener('selected', function(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-            // Handle form submission
-        });
-    } else {
-        console.error('Form not found!');
-    }
-});
-
 function savefirebase(topic, type, idstudent, idcourse,status, date = null){
     alert(topic)
     alert(type)
