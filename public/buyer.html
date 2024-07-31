@@ -40,11 +40,48 @@
                     <img src="images/targilwhite.svg" alt="עזרה בתרגיל בית">
                 </button>
             </div> -->
-            <div class="buttons">
+
+
+            <!-- <div class="buttons">
                 <button id="sicom" onclick="toggleSearchField('sicom',123,1)">סיכום</button>
                 <button id="hashlama" onclick="toggleSearchField('hashlama',123,1)">השלמת נושא</button>
                 <button id="ezra" onclick="toggleSearchField('ezra',123,1)">עזרה בתרגיל בית</button>
+            </div> -->
+
+            <div id="newsTiccket">
+                <div id="tabs">
+                    <ul>
+                        <li class="selected">
+                            <a href="#sicom" onclick="showSection('sicom')">סיכום</a>
+                        </li>
+                        <li class="selected">
+                            <a href="#hashlama" onclick="showSection('hashlama')">השלמת נושא</a>
+                        </li>
+                        <li class="selected">
+                            <a href="#ezra" onclick="showSection('ezra')">עזרה בתרגיל בית</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
+
+            <div class="maintabs" id="sicom">
+                <input type="text" class="search-input" id="toggleSearchField" placeholder="נושא סיכום..">
+                <input type="text" class="search-input" id="toggleSearchField1" placeholder="הכנס תאריך סיכום..">
+                <button onclick="saveInput('sicom',123,1)">שמור</button>
+            </div>
+
+            <div class="maintabs" id="hashlama">
+                <input type="text" class="search-input" id="toggleSearchField2" placeholder="נושא ..">
+                <button onclick="saveInput('hashlama',123,1)">שמור</button>
+            </div>
+
+            <div class="maintabs" id="ezra">
+                <input type="text" class="search-input" id="toggleSearchField3" placeholder="באיזה תרגיל תרצה לעזור...">
+                <button onclick="saveInput('ezra',123,1)">שמור</button>
+            </div>
+
+
             <!-- אלמנט זה יתמלא בעת הוספת שדה חיפוש -->
             <div id="additionalFields"></div>
             <div id="additionalFields1"></div>
