@@ -24,22 +24,22 @@ const course2 = [
     {
       id: 1,
       type: "hashlama",
-      topic: "אלגברה",
-      description: "עזרה בפתרון משוואות",
+      subject: "אלגברה",
+      title: "עזרה בפתרון משוואות",
       studentId: 101 // מזהה הסטודנט שביקש את העזרה
     },
     {
       id: 2,
       type: "homework",
-      topic: "פיזיקה",
-      description: "תרגיל 2 - הבנת חוקי ניוטון",
+      subject: "פיזיקה",
+      title: "תרגיל 2 - הבנת חוקי ניוטון",
       studentId: 102
     },
     {
       id: 3,
       type: "sicom",
-      topic: "כימיה",
-      description: "סיכום בכימיה אורגנית",
+      subject: "כימיה",
+      title: "סיכום בכימיה אורגנית",
       studentId: 103
     }
 ];
@@ -49,7 +49,7 @@ const course3 = [
       id: 1,
       type: "sicom",
       subject: "ביולוגיה",
-      assignment: "סיכום דפוסי שינה בקרב בעלי חיים",
+      title: "סיכום דפוסי שינה בקרב בעלי חיים",
       dueDate: "2024-07-30",
       studentId: 106
     },
@@ -57,13 +57,11 @@ const course3 = [
       id: 2,
       type: "hashlama",
       subject: "אנגלית",
-      assignment: "השלמת חומר - חשיבות השפה האנגלית גלובלית",
+      title: "השלמת חומר - חשיבות השפה האנגלית גלובלית",
       dueDate: "2024-08-05",
       studentId: 107
     }
 ];
-
-const archive =[]
 
 function displayData(dataArray) {
 
@@ -79,7 +77,6 @@ function displayData(dataArray) {
     dataArray.forEach(item => {
         let element = document.createElement('div');
         element.className = "additional-item";
-        
         let iconClass, tooltipText;
         switch(item.type) {
             case "sicom":
@@ -94,21 +91,17 @@ function displayData(dataArray) {
                 iconClass = "bi bi-journal-check";
                 tooltipText = "עזרה בתרגיל";
         }
-
         element.innerHTML = `
             <div class="icon-with-image">
                 <i class="bi ${iconClass}"></i>
             </div>
             <div class="text-content">${item.description || item.title || item.assignment}</div>
             <div class="status">
-                <i class="bi bi-check-square" onclick="handleClick(${item.studentId})"></i>
-            </div>
-            <span class="tooltip-text">${tooltipText}</span>`;
-        
+                <i class="bi bi-check-square"></i>
+            </div>`;
         container.appendChild(element);
     });
 }
-
 
 
 function toggleDisplayData(type, button) {
@@ -170,7 +163,7 @@ function toggleDisplayData(type, button) {
 
         element.innerHTML = `
             <div class="icon-with-image">
-                <i class="bi ${iconClass}"></i>
+                <i class="bi bi-journal-check"></i>
                 <span class="tooltip-text">${tooltipText}</span>
             </div>
             <div class="text-content">${item.description || item.title || item.assignment}</div>
@@ -214,3 +207,4 @@ function handleClick(studentId) {
 
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
+

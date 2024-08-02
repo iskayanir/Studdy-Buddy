@@ -79,10 +79,10 @@ function displayData(dataArray) {
         let element = document.createElement('div');
         element.className = "additional-item";
         element.innerHTML = `
-            <div class="icon">👤</div>
+
             <div class="text-content">${item.title}</div>
             <div class="status">
-                <div class="status-icon">✔</div>
+                <i class="bi bi-check-square"></i>
             </div>`;
         container.appendChild(element);
     });
@@ -140,35 +140,32 @@ function toggleDisplayData(type, button) {
         if (typehelp === "sicom") {
             element.innerHTML = `
             <div class="icon-with-image">
-            <div class="icon">👤</div>
-            <img src="images/iconsicom.svg" alt="icon" class="icon-image"/>
-            <span class="tooltip-text">סיכום</span>
+                <i class="bi bi-sticky"></i>
+                <span class="tooltip-text">סיכום</span>
             </div>
             <div class="text-content">${item.title}</div>
             <div class="status">
-                <div class="status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'>✔</div>
+                <i class="bi bi-check-square status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'></i>
             </div>`;
         } else if (typehelp === "hashlama") {
             element.innerHTML = `
             <div class="icon-with-image">
-            <div class="icon">👤</div>
-            <img src="images/iconhashlama.svg" alt="icon" class="icon-image"/>
-            <span class="tooltip-text">השלמת חומר</span>
+                <i class="bi bi-journal-text"></i>
+                <span class="tooltip-text">השלמת חומר</span>
             </div>
             <div class="text-content">${item.title}</div>
             <div class="status">
-                <div class="status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'>✔</div>
+                <i class="bi bi-check-square status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'></i>
             </div>`;
         } else {
             element.innerHTML = `
             <div class="icon-with-image">
-            <div class="icon">👤</div>
-            <img src="images/iconhomework.svg" alt="icon" class="icon-image"/>
-            <span class="tooltip-text">עזרה בתרגיל</span>
+                <i class="bi bi-journal-check"></i>
+                <span class="tooltip-text">עזרה בתרגיל</span>
             </div>
             <div class="text-content">${item.title}</div>
             <div class="status">
-                <div class="status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'>✔</div>
+                <i class="bi bi-check-square status-icon" onclick='handleClick(${JSON.stringify(item)}, "${element.id}", "${type}")'></i>
             </div>`;
         }
     
