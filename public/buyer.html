@@ -77,21 +77,21 @@
                 <div class="search-container">
                     <input type="text" class="search-input" id="toggleSearchField" placeholder="נושא סיכום..">
                     <input type="text" class="search-input" id="toggleSearchField1" placeholder="הכנס תאריך סיכום..">
-                    <button onclick="saveInput('sicom',123,1)">שמור</button>
+                    <button onclick="saveInput('sicom',123)">שמור</button>
                 </div>
             </div>
 
             <div class="maintabs" id="hashlama">
                 <div class="search-container">
                     <input type="text" class="search-input" id="toggleSearchField2" placeholder="נושא ..">
-                    <button onclick="saveInput('hashlama',123,1)">שמור</button>
+                    <button onclick="saveInput('hashlama',123)">שמור</button>
                 </div>
             </div>
 
             <div class="maintabs" id="ezra">
                 <div class="search-container">
                     <input type="text" class="search-input" id="toggleSearchField3" placeholder="באיזה תרגיל תרצה עזרה...">
-                    <button onclick="saveInput('ezra',123,1)">שמור</button>
+                    <button onclick="saveInput('ezra',123)">שמור</button>
                 </div>
             </div>
 
@@ -133,6 +133,29 @@
             </ul>
         </div>
     </div>
+
+    <script>
+        window.onload = function(){
+            // שליפת נתוני המשתמש מ-Local Storage
+            var userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData) {
+                var email = userData.email || '';
+            console.log(email)
+            var courseid = 123
+            searchRequests(email, courseid).then(matchingRequests => {
+                if (matchingRequests) {
+                    console.log('Matching requests:', matchingRequests);
+                } else {
+                    console.log('No requests matched the criteria.');
+               }
+            });
+
+                // document.getElementById('profilePicture').src = userData.imageUrl || 'images/prof.jpeg';
+            }
+    
+
+        };
+    </script>
 
     <script src="js/buyer.js"></script>
 </body>

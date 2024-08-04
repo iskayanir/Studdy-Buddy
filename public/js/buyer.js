@@ -1,3 +1,37 @@
+function searchRequests(studentEmail, courseID) {
+    console.log('Searching for requests with studentEmail: ${studentEmail} and courseID: ${courseID}');
+    return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
+        .then(response => response.json())
+        .then(data => {
+            let matchingRequests = [];
+
+            // בדיקה בתוך בקשות
+            if (data) {
+                for (let key in data) {
+                    const request = data[key];
+                    if (request.id_student === studentEmail && request.id_course === courseID) {
+                        matchingRequests.push({
+                            requestId: key,
+                            ...request
+                        });
+                        console.log('Matching request found: ${JSON.stringify(request)}');
+                    }
+                }
+            }
+
+            if (matchingRequests.length === 0) {
+                console.log('No matching requests found');
+                return null;
+            }
+            return matchingRequests;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                return null;
+            });
+}
+
+
 function savefirebase(topic, type, idstudent, idcourse,status, date = null){
     alert(topic)
     alert(type)
@@ -84,7 +118,11 @@ function showSection(sectionId) {
 }
 
 
-function saveInput(typehelp, idcourse, idstudent){
+function saveInput(typehelp, idcourse){
+    var userData = JSON.parse(localStorage.getItem('userData'));
+            if (userData) {
+                var idstudent = userData.email || '';}
+    
     var status = "waiting"
     if (typehelp === "sicom") {
         // Get the input value
@@ -93,7 +131,7 @@ function saveInput(typehelp, idcourse, idstudent){
         if (searchField || searchField1) {
             var topic = searchField; // Declare topic
             var date = searchField1; // Declare date
-            // savefirebase(topic, typehelp, idstudent, idcourse, status);
+            savefirebase(topic, typehelp, idstudent, idcourse, status);
         } else {
             alert("Search field not found");
             return;
@@ -102,7 +140,7 @@ function saveInput(typehelp, idcourse, idstudent){
         var searchField = document.getElementById('toggleSearchField2').value;
         if (searchField) {
             var topic = searchField;
-            // savefirebase(topic, typehelp, idstudent, idcourse, status);
+            savefirebase(topic, typehelp, idstudent, idcourse, status);
         } else {
             alert("Search field not found");
             return;
@@ -111,7 +149,7 @@ function saveInput(typehelp, idcourse, idstudent){
         var searchField = document.getElementById('toggleSearchField3').value;
         if (searchField) {
             var topic = searchField;
-            // savefirebase(topic, typehelp, idstudent, idcourse, status);
+            savefirebase(topic, typehelp, idstudent, idcourse, status);
         } else {
             alert("Search fields not found");
             return;
