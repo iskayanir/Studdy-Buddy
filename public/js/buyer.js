@@ -15,6 +15,13 @@ function searchRequests(studentEmail, courseID) {
                             ...request
                         });
                         console.log('Matching request found: ${JSON.stringify(request)}');
+                        var typehelp = request.type
+                        var topic = request.topic
+                        if(request.date){
+                            var date = request.date
+                        } 
+                        createAndAppendNewItem(typehelp, topic, date)
+                        
                     }
                 }
             }
@@ -32,20 +39,27 @@ function searchRequests(studentEmail, courseID) {
 }
 
 
-function savefirebase(topic, type, idstudent, idcourse,status, date = null){
-    alert(topic)
-    alert(type)
-    alert(idstudent)
-    alert(status)
-    alert(idcourse)
-   
-    const newrequest = {
-        id_course: idcourse,
-        id_student: idstudent,
-        status_request: status,
-        topic: topic,
-        type: type
-    };
+function savefirebase(topic, type, idstudent, idcourse, status, date = null) {
+    let newrequest; // Declare newrequest outside of the if-else block
+
+    if (type === "sicom") {
+        newrequest = {
+            id_course: idcourse,
+            id_student: idstudent,
+            status_request: status,
+            topic: topic,
+            date: date,
+            type: type
+        };
+    } else {
+        newrequest = {
+            id_course: idcourse,
+            id_student: idstudent,
+            status_request: status,
+            topic: topic,
+            type: type
+        };
+    }
 
     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json', {
         method: 'POST',
@@ -57,13 +71,13 @@ function savefirebase(topic, type, idstudent, idcourse,status, date = null){
     .then(response => response.json())
     .then(data => {
         console.log('Request saved successfully:', data);
-        //fetchData(); // Optionally refresh the data
+        // fetchData(); // Optionally refresh the data
     })
     .catch(error => {
         console.error('Error saving request:', error);
     });
-
 }
+
 
 
 function showSection(sectionId) {
@@ -118,28 +132,32 @@ function showSection(sectionId) {
 }
 
 
-function saveInput(typehelp, idcourse){
+function saveInput(typehelp, idcourse) {
     var userData = JSON.parse(localStorage.getItem('userData'));
-            if (userData) {
-                var idstudent = userData.email || '';}
-    
-    var status = "waiting"
+    if (userData) {
+        var idstudent = userData.email || '';
+    }
+
+    var status = "waiting";
+    var topic;
+    var date;
+
     if (typehelp === "sicom") {
         // Get the input value
         var searchField = document.getElementById('toggleSearchField').value;
         var searchField1 = document.getElementById('toggleSearchField1').value;
         if (searchField || searchField1) {
-            var topic = searchField; // Declare topic
-            var date = searchField1; // Declare date
-            savefirebase(topic, typehelp, idstudent, idcourse, status);
+            topic = searchField;
+            date = searchField1;
+            savefirebase(topic, typehelp, idstudent, idcourse, status, date);
         } else {
             alert("Search field not found");
             return;
         }
-    }else if (typehelp === "hashlama") {
+    } else if (typehelp === "hashlama") {
         var searchField = document.getElementById('toggleSearchField2').value;
         if (searchField) {
-            var topic = searchField;
+            topic = searchField;
             savefirebase(topic, typehelp, idstudent, idcourse, status);
         } else {
             alert("Search field not found");
@@ -148,39 +166,53 @@ function saveInput(typehelp, idcourse){
     } else if (typehelp === "ezra") {
         var searchField = document.getElementById('toggleSearchField3').value;
         if (searchField) {
-            var topic = searchField;
+            topic = searchField;
             savefirebase(topic, typehelp, idstudent, idcourse, status);
         } else {
-            alert("Search fields not found");
+            alert("Search field not found");
             return;
         }
     }
+    
+    createAndAppendNewItem(typehelp, topic, date);
+
+    // Hide all elements with the 'maintabs' class
+    var tabs = document.querySelectorAll('.maintabs');
+    tabs.forEach(function(tab) {
+        tab.style.display = 'none';
+    });
+}
+
+
+
+function createAndAppendNewItem(typehelp, topic, date = null) {
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'item';
-    
+
     var summarySpan = document.createElement('span');
-    if( typehelp === "sicom"){
+    if (typehelp === "sicom") {
         summarySpan.textContent = 'סיכום - ';
-    }else if(typehelp === "hashlama"){
+    } else if (typehelp === "hashlama") {
         summarySpan.textContent = 'השלמת חומר - ';
-    }else{
+    } else {
         summarySpan.textContent = 'עזרה בתרגיל בית - ';
     }
 
-    if( typehelp === "sicom"){
+    if (typehelp === "sicom" && date) {
         var dateSpan = document.createElement('span');
-        dateSpan.textContent = date;}
+        dateSpan.textContent = date;
+    }
 
     var fractionSpan = document.createElement('span');
     fractionSpan.textContent = topic;
 
     var statusDiv = document.createElement('div');
     statusDiv.className = 'status';
-    
+
     var statusIconDiv = document.createElement('div');
     statusIconDiv.className = 'status-icon';
-    
+
     // Create the checkbox and custom styles
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -200,7 +232,7 @@ function saveInput(typehelp, idcourse){
     deleteIcon.className = 'delete-icon';
 
     // Attach click event listener to delete the item
-    deleteIcon.addEventListener('click', function() {
+    deleteIcon.addEventListener('click', function () {
         courseContent.removeChild(newItem);
     });
 
@@ -209,12 +241,13 @@ function saveInput(typehelp, idcourse){
 
     // Append the status icon to the status div
     statusDiv.appendChild(statusIconDiv);
-    
+
     // Append spans and status div to the new item
     newItem.appendChild(summarySpan);
     newItem.appendChild(fractionSpan);
-    if( typehelp === "sicom"){
-        newItem.appendChild(dateSpan);}
+    if (typehelp === "sicom" && date) {
+        newItem.appendChild(dateSpan);
+    }
     newItem.appendChild(statusDiv);
     newItem.appendChild(deleteIcon);
 
@@ -226,7 +259,6 @@ function saveInput(typehelp, idcourse){
     } else {
         courseContent.appendChild(newItem); // If no children, just append newItem
     }
-
 }
 
 
