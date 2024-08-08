@@ -20,7 +20,7 @@
     </header>
 
     <article class="welcome">
-        <h1>היי, טל!</h1> <!-- הודעה מותאמת לשם המשתמש -->
+        <h1 id="userNameDisplay">היי!</h1>
     </article>
 
     <div class="container">
@@ -88,6 +88,21 @@
     </div>
 
     <script type="module" src="js/seller.js"></script>
+    <script>
+        window.onload = function(){
+            // שליפת נתוני המשתמש מ-Local Storage
+            var userData = JSON.parse(localStorage.getItem('userData'));   
+            if (userData) {
+                var name = userData.name || '';
+                if (name) {
+                    // הצגת שם המשתמש ב-HTML
+                    document.getElementById('userNameDisplay').textContent = " היי" + " " + name + " " ;
+                } else {
+                    console.log('No user name found in LocalStorage.');
+                }
+            }
+        };
+    </script>
     
 </body>
 </html>
