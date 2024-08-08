@@ -190,6 +190,11 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
     var newItem = document.createElement('div');
     newItem.className = 'item';
 
+    // Create title for the summary type
+    var summaryTitleSpan = document.createElement('span');
+    summaryTitleSpan.className = 'title-text';
+    summaryTitleSpan.textContent = 'סוג בקשה: ';
+
     var summarySpan = document.createElement('span');
     summarySpan.className = 'summary-text';
     if (typehelp === "sicom") {
@@ -203,15 +208,30 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
         summarySpan.classList.add('summary-ezra');
     }
 
-    if (typehelp === "sicom" && date) {
-        var dateSpan = document.createElement('span');
-        dateSpan.textContent = date;
-        dateSpan.className = 'date-text';}
+    // Create title for the topic
+    var topicTitleSpan = document.createElement('span');
+    topicTitleSpan.className = 'title-text';
+    topicTitleSpan.textContent = 'נושא: ';
 
-
+    // Create topic span
     var fractionSpan = document.createElement('span');
     fractionSpan.textContent = topic;
     fractionSpan.className = 'topic-text';
+
+    if (typehelp === "sicom" && date) {
+        var dateTitleSpan = document.createElement('span');
+        dateTitleSpan.className = 'title-text';
+        dateTitleSpan.textContent = 'תאריך סיכום: ';
+
+        var dateSpan = document.createElement('span');
+        dateSpan.textContent = date;
+        dateSpan.className = 'date-text';
+    }
+
+    // Create title for the status
+    var statusTitleDiv = document.createElement('div');
+    statusTitleDiv.className = 'title-text';
+    statusTitleDiv.textContent = 'סטטוס בקשה ';
 
     var statusDiv = document.createElement('div');
     statusDiv.className = 'status';
@@ -232,10 +252,9 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
     customCheckbox.className = 'custom-checkbox';
     customCheckbox.htmlFor = uniqueId;
 
-    // var deleteIcon = document.createElement('img');
-    //deleteIcon.src = 'images/garbage.svg';
-    //deleteIcon.alt = 'Delete';
-    //deleteIcon.className = 'delete-icon';
+    var deleteIconTitleSpan = document.createElement('span');
+    deleteIconTitleSpan.className = 'title-text';
+    deleteIconTitleSpan.textContent = 'מחיקה ';
 
     var deleteIcon = document.createElement('i');
     deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
@@ -250,15 +269,20 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
     statusIconDiv.appendChild(customCheckbox);
 
     // Append the status icon to the status div
+    statusDiv.appendChild(statusTitleDiv);
     statusDiv.appendChild(statusIconDiv);
 
     // Append spans and status div to the new item
+    newItem.appendChild(summaryTitleSpan);
     newItem.appendChild(summarySpan);
+    newItem.appendChild(topicTitleSpan);
     newItem.appendChild(fractionSpan);
     if (typehelp === "sicom" && date) {
+        newItem.appendChild(dateTitleSpan);
         newItem.appendChild(dateSpan);
     }
     newItem.appendChild(statusDiv);
+    newItem.appendChild(deleteIconTitleSpan);
     newItem.appendChild(deleteIcon);
 
     // Append the new item to course-content

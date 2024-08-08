@@ -143,7 +143,7 @@ header .logo {
     padding: 5px 20px;
     color: #334999;
     border: 1px solid #334999;
-    border-radius: 20px;
+    border-radius: 10px;
     margin-left: 10px;
     cursor: pointer;
     background-color: #ffffff;
@@ -155,6 +155,8 @@ header .logo {
 .buttons button:hover {
     background-color: #334999;
     color: white;
+    transition: 0.3s;
+    transform: scale(1.1); /* Slightly reduce the size when clicked */
 }
 
 .buttons button:active {
@@ -201,7 +203,7 @@ header .logo {
     padding: 5px 20px;
     color: #334999;
     border: 1px solid;
-    border-radius: 20px;
+    border-radius: 10px;
     margin-left: 10px;
     cursor: pointer;
     background-color: #ffffff;
@@ -213,6 +215,8 @@ header .logo {
     background-color: #334999;
     color: white;
     box-shadow: 0px 2px 4px -2px gray;
+    transition: 0.3s;
+    transform: scale(1.1); /* Slightly reduce the size when clicked */
 }
 
 /* Grid container styling */
@@ -292,7 +296,8 @@ ul {
 }
 
 .add:hover {
-    box-shadow: 0 0px 20px rgb(214, 214, 214);
+    transition: 0.3s;
+    transform: scale(1.1); /* Slightly reduce the size when clicked */
 
 }
 

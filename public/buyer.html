@@ -6,6 +6,7 @@
     <title>Buyer</title>
     <link rel="stylesheet" href="../css/buyer.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body>
     <header>
@@ -20,7 +21,8 @@
     </header>
 
     <article class="welcome">
-        <h1>היי, טל!</h1> <!-- הודעה מותאמת לשם המשתמש -->
+        <h1>היי, <span id="name-placeholder"></span></h1>
+         <!-- הודעה מותאמת לשם המשתמש -->
     </article>
 
     <div class="container">
@@ -152,8 +154,22 @@
 
                 // document.getElementById('profilePicture').src = userData.imageUrl || 'images/prof.jpeg';
             }
-    
+        };
 
+        window.onload = function() {
+            // Retrieve user data from Local Storage
+            var userData = JSON.parse(localStorage.getItem('userData'));
+
+            if (userData) {
+                // Get the user's name
+                var userName = userData.name || '';
+
+                // Update the HTML content with the user's name
+                var nameElement = document.getElementById('name-placeholder');
+                if (nameElement) {
+                nameElement.textContent = `היי, ${userName}!`;
+                }
+            }
         };
     </script>
 
