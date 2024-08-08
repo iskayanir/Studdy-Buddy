@@ -59,8 +59,8 @@
   }
   
 
-
   function saveProfileData() {
+
     const name = document.getElementById('name').value;
     const degree = document.getElementById('degree').value;
     const year = document.getElementById('year').value;

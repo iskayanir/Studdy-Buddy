@@ -12,6 +12,10 @@ if "git checkout" isn't working, maybe u need to do "git fetch" and then "git ch
 6. git reset origin/main
 
 
+## git reset --hard origin/main
+## git push --force
+
+
 
 changes...
 

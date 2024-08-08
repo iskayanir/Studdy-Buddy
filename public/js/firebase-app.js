@@ -390,9 +390,10 @@ function searchEmail(email) {
             if (data.studentsReceivingHelp) {
                 for (let key in data.studentsReceivingHelp) {
                     const student = data.studentsReceivingHelp[key];
-                    if (student.contact && student.contact.email === email) {
+                    // if (student.contact && student.contact.email === email) {
+                    if (student.mail === email) {
                         result = { studentId: key, type: 'receivingHelp' };
-                        console.log(`Email found in students receiving help: ${student.name}, ${student.contact.email}`);
+                        console.log(`Email found in students receiving help: ${student.name}, ${student.mail}`);
                         return result; // החזרה מיידית כשנמצא
                     }
                 }
@@ -402,9 +403,9 @@ function searchEmail(email) {
             if (!result && data.studentsProvidingHelp) {
                 for (let key in data.studentsProvidingHelp) {
                     const student = data.studentsProvidingHelp[key];
-                    if (student.contact && student.contact.email === email) {
+                    if (student.mail === email) {
                         result = { studentId: key, type: 'providingHelp' };
-                        console.log(`Email found in students providing help: ${student.name}, ${student.contact.email}`);
+                        console.log(`Email found in students providing help: ${student.name}, ${student.mail}`);
                         return result; // החזרה מיידית כשנמצא
                     }
                 }
@@ -451,3 +452,121 @@ window.onload = function() {
         fillUserProfile(userData);
     });
 };
+
+function saveProfileDataToFirebase(type) {
+    const name = document.getElementById('name').value;
+    const degree = document.getElementById('degree').value;
+    const year = document.getElementById('year').value;
+    const mail = document.getElementById('email').value;
+    const tel = document.getElementById('number').value;
+
+    let newStudent = {
+        name: name,
+        degree: degree,
+        mail: mail,
+        tel: tel,
+        year: year
+    };
+
+    // First, check if the email already exists
+    searchEmail(mail).then(existingUser => {
+        console.log("enter");
+        if (existingUser) {
+            alert('משתמש עם מייל זה כבר רשום.');
+            console.log('User already exists:', existingUser);
+        } else {
+            // If the email does not exist, proceed with saving the data
+            fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newStudent)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Student saved successfully:', data);
+                // fetchData(); // Optionally refresh the data
+            })
+            .catch(error => {
+                console.error('Error saving student:', error);
+            });
+        }
+    }).catch(error => {
+        console.error('Error checking email:', error);
+    });
+}
+
+
+
+function loadProfileData(type) {
+    // שליפת האובייקט שנשמר ב-Local Storage
+    var storedUserData = localStorage.getItem('userData');
+
+    // בדיקה אם הנתון קיים
+    if (storedUserData) {
+        // המרת האובייקט משיטת JSON לאובייקט רגיל
+        var userData = JSON.parse(storedUserData);
+
+        // שליפת המייל מתוך האובייקט
+        var email = userData.email;
+        console.log('The email stored in LocalStorage is:', email);
+
+        // חיפוש הסטודנט לפי המייל
+        getStudentIdByEmail(email, type).then(result => {
+            if (result) {
+                console.log('User ID found:', result);
+                var studentId = result;
+
+                // ביצוע פניה ל-Firebase לאחר קבלת ה-ID
+                fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data) {
+                            // הצגת המידע בטפסים השונים
+                            document.getElementById('displayName').textContent = data.name || '';
+                            document.getElementById('displayDegree').textContent = data.degree || '';
+                            document.getElementById('displayYear').textContent = data.year || '';
+                            document.getElementById('displayPhoneNumber').textContent = data.tel || '';
+                            document.getElementById('displayEmail').textContent = data.mail || '';
+
+                            // עדכון תמונת הפרופיל במידה וקיימת
+                            if (data.imageUrl) {
+                                document.getElementById('profilePicture').src = data.imageUrl;
+                            }
+                        } else {
+                            console.error('User data not found');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching user data:', error);
+                    });
+            } else {
+                console.log('User not found with the given email.');
+            }
+        }).catch(error => {
+            console.error('Error fetching student ID:', error);
+        });
+    } else {
+        console.log('No user data found in LocalStorage.');
+    }
+}
+
+
+function getStudentIdByEmail(email, type) {
+    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`)
+        .then(response => response.json())
+        .then(data => {
+            for (let key in data) {
+                let student = data[key];
+                if (student.mail === email) {
+                    return key; // מחזיר את ה-ID של הסטודנט
+                }
+            }
+            return null; // מחזיר null אם המייל לא נמצא
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            return null;
+        });
+}
