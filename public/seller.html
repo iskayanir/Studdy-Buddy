@@ -20,7 +20,7 @@
     </header>
 
     <article class="welcome">
-        <h1 id="userNameDisplay">היי!</h1>
+        <h1><span id="name-placeholder"></span></h1>
     </article>
 
     <div class="container">
@@ -93,15 +93,15 @@
             // שליפת נתוני המשתמש מ-Local Storage
             var userData = JSON.parse(localStorage.getItem('userData'));   
             if (userData) {
-                var name = userData.name || '';
-                if (name) {
-                    // הצגת שם המשתמש ב-HTML
-                    document.getElementById('userNameDisplay').textContent = " היי" + " " + name + " " ;
-                } else {
-                    console.log('No user name found in LocalStorage.');
-                }
+                // Get the user's name
+                var userName = userData.name || '';
+                // Update the HTML content with the user's name
+                var nameElement = document.getElementById('name-placeholder');
+                if (nameElement) {
+                    nameElement.textContent = `היי, ${userName}!`;
             }
         };
+    }
     </script>
     
 </body>

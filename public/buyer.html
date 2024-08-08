@@ -21,7 +21,7 @@
     </header>
 
     <article class="welcome">
-        <h1>היי, <span id="name-placeholder"></span></h1>
+        <h1><span id="name-placeholder"></span></h1>
          <!-- הודעה מותאמת לשם המשתמש -->
     </article>
 
@@ -141,6 +141,13 @@
             // שליפת נתוני המשתמש מ-Local Storage
             var userData = JSON.parse(localStorage.getItem('userData'));
             if (userData) {
+                // Get the user's name
+                var userName = userData.name || '';
+                // Update the HTML content with the user's name
+                var nameElement = document.getElementById('name-placeholder');
+                if (nameElement) {
+                    nameElement.textContent = `היי, ${userName}!`;
+                }
                 var email = userData.email || '';
             console.log(email)
             var courseid = 123
@@ -156,21 +163,6 @@
             }
         };
 
-        window.onload = function() {
-            // Retrieve user data from Local Storage
-            var userData = JSON.parse(localStorage.getItem('userData'));
-
-            if (userData) {
-                // Get the user's name
-                var userName = userData.name || '';
-
-                // Update the HTML content with the user's name
-                var nameElement = document.getElementById('name-placeholder');
-                if (nameElement) {
-                nameElement.textContent = `היי, ${userName}!`;
-                }
-            }
-        };
     </script>
 
     <script src="js/buyer.js"></script>
