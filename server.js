@@ -50,6 +50,21 @@ onValue(starCountRef, (snapshot) => {
 });
 });
 
+// server.get('addStudent', async (req, res) => {
+//     const starCountRef = ref(db, 'student/studentsReceivingHelp');
+//   onValue(starCountRef, (snapshot) => {
+//     const data = snapshot.val();
+//     console.log(data)
+//     res.json(data);
+  
+//   });
+//   });
+
+
+
+
+
+
 server.use((req, res, next) => {
     console.log(`Request URL: ${req.url}`);
     next();
