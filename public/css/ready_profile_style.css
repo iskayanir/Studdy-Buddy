@@ -17,7 +17,7 @@
   }
   
   .container {
-    background-color: #F0F4F7;
+    background-color: #eef9ff;
     width: 45%;
     display: grid;
     grid-template-rows: repeat(4, auto);
@@ -72,6 +72,7 @@
     top: 30%;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
     right: 30%;
+    color: #334999;
   }
     
   .top-of-form {
@@ -95,20 +96,33 @@
 
 .edit button {
   padding: 5px 20px;
-  color: #000000;
+  color: #334999;
   border: 0.5px solid;
-  border-radius: 20px;
+  border-radius: 10px;
   margin-left: 10px;
   cursor: pointer;
-  background-color: #F0F4F7;
+  background-color: #ffffff;
   font-size: 16px;
   text-decoration: none;
+  border: 1px solid #ccc;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 3px 3px rgb(214, 214, 214);
+  width: 130px;  /* Fixed width */
+  height: 50px; /* Fixed height */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  justify-content: flex-start;
 }
 
 .edit:hover button {
+  transition: 0.3s;
+  transform: scale(1.1); /* Slightly reduce the size when clicked */
   background-color: #334999;
   color: #fff;
   box-shadow: 0px 2px 4px -2px gray;
+  
 }
 
 ul.courses {
