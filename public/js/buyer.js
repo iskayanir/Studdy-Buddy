@@ -191,21 +191,27 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
     newItem.className = 'item';
 
     var summarySpan = document.createElement('span');
+    summarySpan.className = 'summary-text';
     if (typehelp === "sicom") {
-        summarySpan.textContent = 'סיכום - ';
+        summarySpan.textContent = 'סיכום  ';
+        summarySpan.classList.add('summary-sicom'); 
     } else if (typehelp === "hashlama") {
-        summarySpan.textContent = 'השלמת חומר - ';
+        summarySpan.textContent = 'השלמת נושא  ';
+        summarySpan.classList.add('summary-hashlama');
     } else {
-        summarySpan.textContent = 'עזרה בתרגיל בית - ';
+        summarySpan.textContent = 'עזרה בתרגיל בית  ';
+        summarySpan.classList.add('summary-ezra');
     }
 
     if (typehelp === "sicom" && date) {
         var dateSpan = document.createElement('span');
         dateSpan.textContent = date;
-    }
+        dateSpan.className = 'date-text';}
+
 
     var fractionSpan = document.createElement('span');
     fractionSpan.textContent = topic;
+    fractionSpan.className = 'topic-text';
 
     var statusDiv = document.createElement('div');
     statusDiv.className = 'status';
@@ -226,10 +232,14 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
     customCheckbox.className = 'custom-checkbox';
     customCheckbox.htmlFor = uniqueId;
 
-    var deleteIcon = document.createElement('img');
-    deleteIcon.src = 'images/garbage.svg';
-    deleteIcon.alt = 'Delete';
-    deleteIcon.className = 'delete-icon';
+    // var deleteIcon = document.createElement('img');
+    //deleteIcon.src = 'images/garbage.svg';
+    //deleteIcon.alt = 'Delete';
+    //deleteIcon.className = 'delete-icon';
+
+    var deleteIcon = document.createElement('i');
+    deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
+
 
     // Attach click event listener to delete the item
     deleteIcon.addEventListener('click', function () {
