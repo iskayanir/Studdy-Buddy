@@ -9,8 +9,12 @@ A university project that aims to help reservists in their studies
 4. git pull
 5. In the first time: git checkout -b "branch_name", other times: git checkout "branch_name"
 if "git checkout" isn't working, maybe u need to do "git fetch" and then "git checkout"
-6. git reset --hard origin/main
-7. git push --force
+6. git reset origin/main
+
+
+## git reset --hard origin/main
+## git push --force
+
 
 changes...
 
@@ -22,8 +26,11 @@ changes...
 4. git commit -m "here some notes about the changes"
 5. git push (which save only in the branch)
 6. to save in main: 
+  option 1:
   - git checkout main
   - git merge "branch_name"
   - git push
-7. then return to branch:
+  then return to branch:
   - git checkout "branch_name"
+  option 2: 
+  - go to github and create pull request
