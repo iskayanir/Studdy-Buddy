@@ -293,6 +293,8 @@ function handleCredentialResponse(response) {
     searchEmail(data.email).then(result => {
         if (result) {
             console.log(`Student ID: ${result.studentId}, Type: ${result.type}`);
+            localStorage.setItem('GlobalStudentID', result.studentId);
+            console.log("ה-ID הוא ", result.studentId)
             if (result.type=="providingHelp"){
                 window.location.href = 'seller_profile.html'
             }
@@ -500,9 +502,9 @@ export function saveProfileDataToFirebase(type) {
             .then(data => {
                 console.log(data.name + "גלובלי");
                 GlobStudentID = data.name;
-                localStorage.setItem('GlobalStudentID', data.name);
-                console.log('Student ID saved to localStorage:', localStorage.getItem('GlobalStudentID'));
-                console.log('Student saved successfully:', data);
+                // localStorage.setItem('GlobalStudentID', data.name);
+                // console.log('Student ID saved to localStorage:', localStorage.getItem('GlobalStudentID'));
+                // console.log('Student saved successfully:', data);
                 // fetchData(); // Optionally refresh the data
             })
             .catch(error => {
