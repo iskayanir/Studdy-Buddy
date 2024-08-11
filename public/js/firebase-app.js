@@ -320,6 +320,10 @@ function handleCredentialResponse(response) {
       );
   }
 
+// הפיכת הפונקציה לזמינה בגלובלי
+if (typeof window !== 'undefined') {
+    window.initGoogleSignIn = initGoogleSignIn;
+}
 
 //   function checkStudentExists(studentId) {
 //     const studentRef = firebase.database().ref(`student/studentsReceivingHelp/${studentId}`);
@@ -483,6 +487,7 @@ export function saveProfileDataToFirebase(type) {
             alert('משתמש עם מייל זה כבר רשום.');
             console.log('User already exists:', existingUser);
         } else {
+            console.log("המשתמש לא רשום")
             // If the email does not exist, proceed with saving the data
             fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`, {
                 method: 'POST',
@@ -512,7 +517,7 @@ export function saveProfileDataToFirebase(type) {
 window.saveProfileDataToFirebase = saveProfileDataToFirebase;
 
 
-function loadProfileData(type) {
+export function loadProfileData(type) {
     // שליפת האובייקט שנשמר ב-Local Storage
     var storedUserData = localStorage.getItem('userData');
 
@@ -564,6 +569,8 @@ function loadProfileData(type) {
         console.log('No user data found in LocalStorage.');
     }
 }
+
+window.loadProfileData = loadProfileData;
 
 
 export function getStudentIdByEmail(email, type) {
