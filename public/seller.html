@@ -41,7 +41,7 @@
                 <button id="approvedrequests" class="black" onclick="toggleDisplayData('approvedrequests', this)">
                     <span>
                         <i class="bi bi-bookmark-check"></i>
-                        בקשות שהתקבלו
+                        בקשות מאושרות
                     </span>
                 </button>
             </div>
@@ -98,7 +98,7 @@
                 // Update the HTML content with the user's name
                 var nameElement = document.getElementById('name-placeholder');
                 if (nameElement) {
-                    nameElement.textContent = `היי, ${userName}!`;
+                    nameElement.textContent = `היי ${userName}!`;
             }
         };
     }

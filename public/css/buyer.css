@@ -243,6 +243,8 @@ h1 {
 .buttons button:hover {
     background-color: #334999;
     color: white;
+    transition: transform 0.2s, color 0.2s; /* Add smooth transitions */
+    transform: scale(1.05);
 }
 
 .buttons button:hover ul {
@@ -278,6 +280,8 @@ h1 {
 #section6 ul button:hover {
     background-color: #334999;
     color: white;
+    transition: transform 0.2s, color 0.2s; /* Add smooth transitions */
+    transform: scale(1.05);
 }
 
 #section6 {
@@ -607,7 +611,7 @@ h1 {
 .maintabs button:hover {
     color: #7788c3;
     transition: transform 0.2s, color 0.2s; /* Add smooth transitions */
-    transform: scale(1.1); /* Slightly reduce the size when clicked */
+    transform: scale(1.05); 
 }
 
 .section5 {
@@ -665,7 +669,7 @@ h1 {
 }
 
 #tabs a:hover {
-    transform: scale(1.1); /* Slightly reduce the size when clicked */
+    transform: scale(1.05); /* Slightly reduce the size when clicked */
     transition: transform 0.2s, color 0.2s; /* Add smooth transitions */
     background-color: #334999;
     color: white;

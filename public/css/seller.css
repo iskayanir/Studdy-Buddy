@@ -264,6 +264,8 @@ h1 {
 .buttons-container button:hover {
     background-color: #334999;
     color: white;
+    transition: transform 0.2s, color 0.2s; /* Add smooth transitions */
+    transform: scale(1.05);
 }
 
 .buttons-container button:hover ul {
@@ -300,6 +302,8 @@ h1 {
 #section6 ul button:hover {
     background-color: #334999;
     color: white;
+    transition: transform 0.2s, color 0.2s; /* Add smooth transitions */
+    transform: scale(1.05);
 }
 
 #section6 {

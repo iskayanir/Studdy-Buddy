@@ -74,7 +74,14 @@
 <script type="module" src="js/firebase-app.js"></script>
 <script >
     // קריאה לפונקציה לאחר טעינת הדף
-window.onload = function() {
-    loadProfileData('studentsReceivingHelp');
-};
+    window.onload = function() {
+        loadProfileData('studentsReceivingHelp');
+    };
+    window.onload = function() {
+        // שליפת נתוני המשתמש מ-Local Storage
+        var userData = JSON.parse(localStorage.getItem('userData'));
+        if (userData) {
+            document.getElementById('profilePicture').src = userData.imageUrl || 'images/prof.jpeg';
+        }
+    };
 </script>
