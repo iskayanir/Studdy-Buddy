@@ -5,11 +5,12 @@
     <title>Login Page Study Buddy</title>
     <link rel="stylesheet" href="/css/login_style.css">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="js/firebase-app.js"></script>
-    <script>
-    
-        window.onload = initGoogleSignIn;
-    </script>
+    <script type="module" src="js/firebase-app.js"></script>
+
+    <script type="module">
+      import { initGoogleSignIn } from './js/firebase-app.js';
+      window.onload = initGoogleSignIn;
+  </script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
   </head>
   <body>
@@ -28,6 +29,5 @@
     <footer>
       <p>לכל שאלה או בקשה ליצירת קשר, שלחו לנו מייל ל: <a href="mailto:info@studybuddy.com">info@studybuddy.com</a></p>
     </footer>
-  
   </body>
 </html>
