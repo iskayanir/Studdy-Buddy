@@ -107,6 +107,12 @@
 //       .catch(error => console.error('Error fetching data:', error));
 // }
 
+
+
+
+window.GlobStudentID = ''; // משתנה גלובלי
+window.GlobalStudentMail= ''; // משתנה גלובלי
+
 function fetchData() {
     console.log("hello before");
     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student.json')
@@ -280,6 +286,8 @@ function handleCredentialResponse(response) {
     };
     console.log(userData);
     localStorage.setItem('userData', JSON.stringify(userData));
+    GlobalStudentMail = userData.email;
+    console.log(GlobalStudentMail + "מייל גלובלי")
 
 
     searchEmail(data.email).then(result => {
@@ -301,7 +309,7 @@ function handleCredentialResponse(response) {
 }
 
 
-  function initGoogleSignIn() {
+  export function initGoogleSignIn() {
       google.accounts.id.initialize({
           client_id: '254149753908-es200ngb1pk62tf2pikbufl0kkckeaeb.apps.googleusercontent.com',
           callback: handleCredentialResponse
@@ -423,7 +431,7 @@ function searchEmail(email) {
 }
 
 
-function getStutent() {
+export function getStudent() {
     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student.json')
       .then(response => response.json())
       .then(data => {
@@ -446,14 +454,14 @@ function fillUserProfile(userData) {
     }
 }
 
-window.onload = function() {
-    const userId = 'user123'; // הכנס כאן את ה-ID של המשתמש
-    getUserData(userId).then(userData => {
-        fillUserProfile(userData);
-    });
-};
+// window.onload = function() {
+//     const userId = 'user123'; // הכנס כאן את ה-ID של המשתמש
+//     getStudent(userId).then(userData => {
+//         fillUserProfile(userData);
+//     });
+// };
 
-function saveProfileDataToFirebase(type) {
+export function saveProfileDataToFirebase(type) {
     const name = document.getElementById('name').value;
     const degree = document.getElementById('degree').value;
     const year = document.getElementById('year').value;
@@ -485,6 +493,10 @@ function saveProfileDataToFirebase(type) {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data.name + "גלובלי");
+                GlobStudentID = data.name;
+                localStorage.setItem('GlobalStudentID', data.name);
+                console.log('Student ID saved to localStorage:', localStorage.getItem('GlobalStudentID'));
                 console.log('Student saved successfully:', data);
                 // fetchData(); // Optionally refresh the data
             })
@@ -497,6 +509,7 @@ function saveProfileDataToFirebase(type) {
     });
 }
 
+window.saveProfileDataToFirebase = saveProfileDataToFirebase;
 
 
 function loadProfileData(type) {
@@ -553,7 +566,7 @@ function loadProfileData(type) {
 }
 
 
-function getStudentIdByEmail(email, type) {
+export function getStudentIdByEmail(email, type) {
     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`)
         .then(response => response.json())
         .then(data => {

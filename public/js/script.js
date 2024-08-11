@@ -11,7 +11,7 @@
 //       .catch(error => console.error("Error fetching data:", error));
 //   });
 
-  
+
   function displayStudents(receivingHelp, providingHelp) {
     const receivingContainer = document.getElementById('receiving-help');
     const providingContainer = document.getElementById('providing-help');
