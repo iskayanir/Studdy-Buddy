@@ -478,7 +478,8 @@ export function saveProfileDataToFirebase() {
     
     // שימוש במשתנה type שמבוסס על הבחירה של המשתמש או הדיפולט
     const type = localStorage.getItem('userType') || def_Ty;
-    
+    localStorage.setItem('userType', type);
+    localStorage.setItem('GlobalStudentID', '');
     console.log(type + " סוג בחירה");
     
     localStorage.setItem('GlobalStudentID', '');
@@ -604,8 +605,10 @@ export function saveProfileDataToFirebase() {
 window.saveProfileDataToFirebase = saveProfileDataToFirebase;
 
 
-export function loadProfileData(type) {
+export function loadProfileData() {
     // שליפת האובייקט שנשמר ב-Local Storage
+    var type = localStorage.getItem('userType');
+    console.log(type)
     var storedUserData = localStorage.getItem('userData');
 
     // בדיקה אם הנתון קיים
