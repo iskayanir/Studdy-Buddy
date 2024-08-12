@@ -306,7 +306,7 @@ function handleCredentialResponse(response) {
             
         } else {
             console.log('Email not found.');
-            window.location.href = 'buyer_setup_profile.html'
+            window.location.href = 'setup_profile.html'
         }
     });
     // window.location.href = 'buyer_setup_profile.html';
@@ -469,16 +469,28 @@ function fillUserProfile(userData) {
 //     });
 // };
 
-export function saveProfileDataToFirebase(type) {
+
+export function saveProfileDataToFirebase() {
+    // הגדרת המשתנה def_Ty כערך של ה-defaultType מה-localStorage
+    const def_Ty = localStorage.getItem('defaultType') || 'studentsReceivingHelp';
+    
+    console.log(def_Ty + " דיפולט");
+    
+    // שימוש במשתנה type שמבוסס על הבחירה של המשתמש או הדיפולט
+    const type = localStorage.getItem('userType') || def_Ty;
+    
+    console.log(type + " סוג בחירה");
+    
     localStorage.setItem('GlobalStudentID', '');
     console.log("once");
+    
     const name = document.getElementById('name').value;
     const degree = document.getElementById('degree').value;
     const year = document.getElementById('year').value;
     const mail = document.getElementById('email').value;
     const tel = document.getElementById('number').value;
-    
-    // First, check if the email already exists
+
+    // בדיקת קיום המשתמש לפי האימייל
     searchEmail(mail).then(existingUser => {
         console.log("enter");
         if (existingUser) {
@@ -500,7 +512,8 @@ export function saveProfileDataToFirebase(type) {
                 tel: tel,
                 year: year
             };
-            // If the email does not exist, proceed with saving the data
+
+            // שמירת נתונים ב-Firebase
             fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`, {
                 method: 'POST',
                 headers: {
@@ -510,10 +523,10 @@ export function saveProfileDataToFirebase(type) {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data.name + "גלובלי");
+                console.log(data.name + " גלובלי");
                 localStorage.setItem('GlobalStudentID', data.name);
-                // לאחר השמירה בהצלחה, בצע את המעבר לדף
-                window.location.href = 'buyer_setup_search.html';
+                // מעבר לעמוד הבא
+                window.location.href = 'search_setup.html';
             })
             .catch(error => {
                 console.error('Error saving student:', error);
@@ -523,6 +536,69 @@ export function saveProfileDataToFirebase(type) {
         console.error('Error checking email:', error);
     });
 }
+
+
+
+// export function saveProfileDataToFirebase() {
+//     localStorage.setItem('defaultType', 'studentsReceivingHelp');
+//     def_Ty = localStorage.getItem('defaultType')
+//     console.log( def_Ty + "sדיפולט");
+//     const type = localStorage.getItem('userType') || def_Ty;
+//     console.log(type +"סוג בחירהדד");
+//     localStorage.setItem('GlobalStudentID', '');
+//     console.log("once");
+//     const name = document.getElementById('name').value;
+//     const degree = document.getElementById('degree').value;
+//     const year = document.getElementById('year').value;
+//     const mail = document.getElementById('email').value;
+//     const tel = document.getElementById('number').value;
+    
+//     // First, check if the email already exists
+//     // צריך לחשוב האם אפשר לפתוח חשבון גם וגם
+//     searchEmail(mail).then(existingUser => {
+//         console.log("enter");
+//         if (existingUser) {
+//             alert('משתמש עם מייל זה כבר רשום.');
+//             console.log('User already exists:', existingUser);
+//             console.log('User type:', existingUser.type);
+        
+//             if (existingUser.type == "studentsReceivingHelp") {
+//                 window.location.href = 'buyer.html';
+//             } else {
+//                 window.location.href = 'seller.html';
+//             }
+//         } else {
+//             console.log("המשתמש לא רשום");
+//             let newStudent = {
+//                 name: name,
+//                 degree: degree,
+//                 mail: mail,
+//                 tel: tel,
+//                 year: year
+//             };
+//             // If the email does not exist, proceed with saving the data
+//             fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`, {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify(newStudent)
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log(data.name + "גלובלי");
+//                 localStorage.setItem('GlobalStudentID', data.name);
+//                 // לאחר השמירה בהצלחה, בצע את המעבר לדף
+//                 window.location.href = 'buyer_setup_search.html';
+//             })
+//             .catch(error => {
+//                 console.error('Error saving student:', error);
+//             });
+//         }
+//     }).catch(error => {
+//         console.error('Error checking email:', error);
+//     });
+// }
 
 
 window.saveProfileDataToFirebase = saveProfileDataToFirebase;
@@ -602,7 +678,7 @@ export function getStudentIdByEmail(email, type) {
         });
 }
 
-function addCourse(courseId, type) {
+export function addCourse(courseId, type) {
     const StudentID = localStorage.getItem('GlobalStudentID');
     console.log(courseId);
     console.log(StudentID);
@@ -641,3 +717,9 @@ function addCourse(courseId, type) {
             console.error('Error fetching student:', error);
         });
 }
+window.addCourse = addCourse;
+export function saveUserType(userType) {
+    console.log("enter function")
+    localStorage.setItem('userType', userType);
+  }
+  window.saveUserType = saveUserType;

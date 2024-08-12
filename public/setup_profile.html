@@ -67,6 +67,7 @@
   <script>
     localStorage.setItem('defaultType', '');
     window.onload = function() {
+            localStorage.removeItem('userType');
             // שליפת נתוני המשתמש מ-Local Storage
             var userData = JSON.parse(localStorage.getItem('userData'));
             if (userData) {

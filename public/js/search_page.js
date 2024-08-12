@@ -83,43 +83,43 @@ function fetchData() {
 }
 
 
-function addCourse(courseId, type) {
-    const StudentID = localStorage.getItem('GlobalStudentID');
-    console.log(courseId);
-    console.log(StudentID);
-    console.log(type);
-    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`)
-        .then(response => response.json())
-        .then(student => {
-            console.log('Fetched student data:', student);
-            if (!student) {
-                console.error('Student not found');
-                return;
-            }
+// function addCourse(courseId, type) {
+//     const StudentID = localStorage.getItem('GlobalStudentID');
+//     console.log(courseId);
+//     console.log(StudentID);
+//     console.log(type);
+//     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`)
+//         .then(response => response.json())
+//         .then(student => {
+//             console.log('Fetched student data:', student);
+//             if (!student) {
+//                 console.error('Student not found');
+//                 return;
+//             }
 
-            student.courses = student.courses || [];
-            if (!student.courses.includes(courseId)) {
-                student.courses.push(courseId);
-            }           
+//             student.courses = student.courses || [];
+//             if (!student.courses.includes(courseId)) {
+//                 student.courses.push(courseId);
+//             }           
 
-            // Update the student data in Firebase
-            fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(student)
-            })
-            .then(response => response.json())
-            .then(updatedStudent => {
-                console.log('Success:', updatedStudent);
-            })
-            .catch(error => {
-                console.error('Error updating student:', error);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching student:', error);
-        });
-}
+//             // Update the student data in Firebase
+//             fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`, {
+//                 method: 'PUT',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify(student)
+//             })
+//             .then(response => response.json())
+//             .then(updatedStudent => {
+//                 console.log('Success:', updatedStudent);
+//             })
+//             .catch(error => {
+//                 console.error('Error updating student:', error);
+//             });
+//         })
+//         .catch(error => {
+//             console.error('Error fetching student:', error);
+//         });
+// }
 
