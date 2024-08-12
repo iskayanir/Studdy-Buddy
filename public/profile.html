@@ -10,9 +10,9 @@
         <img src="images/logo3.png" class="logo" alt="Logo">
         <nav class="navbar">
             <ul>
-                <li><a href="buyer_profile.html">הפרופיל שלי</a></li>
-                <li><a href="buyer.html">הקורסים שלי</a></li>
-                <li><a href="buyer_search_page.html">חיפוש</a></li>
+                <li><a href="profile.html">הפרופיל שלי</a></li>
+                <li><a href="#" onclick="navigateToCourses()">הקורסים שלי</a></li>
+                <li><a href="search_page.html">חיפוש</a></li>
             </ul>
         </nav>
     </header>
@@ -71,13 +71,14 @@
     </section>
 </body>
 <script src="js/script.js"></script>
-<script type="module" src="js/firebase-app.js"></script>
+<script type="module">
+    import { navigateToCourses } from './js/firebase-app.js';
+  
+  </script>
 <script >
     // קריאה לפונקציה לאחר טעינת הדף
     window.onload = function() {
-        loadProfileData('studentsReceivingHelp');
-    };
-    window.onload = function() {
+        loadProfileData();
         // שליפת נתוני המשתמש מ-Local Storage
         var userData = JSON.parse(localStorage.getItem('userData'));
         if (userData) {

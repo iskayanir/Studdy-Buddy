@@ -18,9 +18,11 @@
   <article class="top-of-form">
     <h1 title="title">יצירת משתמש חדש</h1><br>
     <div class="user-type">
-      <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="window.location.href = 'buyer_setup_profile.html'";> אני רוצה עזרה
-      <input id="user-seller" name="user" type="radio" value="Seller" onclick="window.location.href = 'seller_setup_profile.html'";> אני רוצה לעזור <br>
-    </div><br>
+        <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="saveUserType('studentsReceivingHelp');"> אני רוצה עזרה
+        <input id="user-seller" name="user" type="radio" value="Seller" onclick="saveUserType('studentsProvidingHelp');"> אני רוצה לעזור <br>
+        
+      <!-- <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="saveUserType('studentsReceivingHelp'); window.location.href = 'setup_profile.html';"> אני רוצה עזרה
+      <input id="user-seller" name="user" type="radio" value="Seller" onclick="saveUserType('studentsProvidingHelp'); window.location.href = 'setup_profile.html';"> אני רוצה לעזור <br> -->
   </article>
 
   <section class="form-content">  
@@ -52,21 +54,23 @@
     </form>
     <article class="finish">
       <!-- <a href="buyer_setup_search.html"> -->
-        <button class="finish" onclick="saveProfileDataToFirebase('studentsReceivingHelp')"> לבחירת קורסים </button>
+        <button class="finish" onclick="saveProfileDataToFirebase()"> לבחירת קורסים </button>
       <!-- </a> -->
     </article>
   </section>
   
   <!-- <script src="js/script.js"></script> -->
   <script type="module">
-    import { saveProfileDataToFirebase } from './js/firebase-app.js';
+    import { saveProfileDataToFirebase, saveUserType } from './js/firebase-app.js';
   
     // document.querySelector('.finish button').addEventListener('click', function() {
     //     saveProfileDataToFirebase('studentsReceivingHelp');
     // });
   </script>
   <script>
+    localStorage.setItem('defaultType', '');
     window.onload = function() {
+            localStorage.removeItem('userType');
             // שליפת נתוני המשתמש מ-Local Storage
             var userData = JSON.parse(localStorage.getItem('userData'));
             if (userData) {
@@ -77,3 +81,5 @@
         };
   </script>
 </body>
+
+
