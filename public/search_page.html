@@ -3,7 +3,7 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Seller Search Page</title>
+      <title>Buyer Search Page</title>
       <link rel="stylesheet" href="css/search_page.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   </head>
@@ -13,9 +13,9 @@
       <img src="images/logo3.png" class="logo" alt="Logo">
       <nav class="navbar">
           <ul>
-              <li><a href="seller_profile.html">הפרופיל שלי</a></li>
-              <li><a href="seller.html">הקורסים שלי</a></li>
-              <li><a href="seller_search_page.html">חיפוש</a></li>
+              <li><a href="profile.html">הפרופיל שלי</a></li>
+              <li><a href="#" onclick="navigateToCourses()">הקורסים שלי</a></li>
+              <li><a href="search_page.html">חיפוש</a></li>
           </ul>
       </nav>
     </header>
@@ -57,7 +57,10 @@
     </div>
       
 <script src="js/search_page.js"> </script>
-
+<script type="module">
+    import { addCourse } from './js/firebase-app.js';
+  
+  </script>
 <script>
   function fetchData() {
     console.log("hello before");
@@ -81,7 +84,7 @@
             <li class ="department"> חוג: ${course.Department}</li>
             <li class="teacher">מרצה: ${course['Lacture Name']}</li>
           </ul>
-          <button class="add" onclick="addCourse(${key}, 'studentsProvidingHelp')">הוסף קורס</button>
+          <button class="add" onclick="addCourse(${key})">הוסף קורס</button>
         `;
             
         gridContainer.appendChild(gridItem);

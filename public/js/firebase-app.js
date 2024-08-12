@@ -681,11 +681,12 @@ export function getStudentIdByEmail(email, type) {
         });
 }
 
-export function addCourse(courseId, type) {
+export function addCourse(courseId) {
+    var type = localStorage.getItem('userType');
+    console.log(type);
     const StudentID = localStorage.getItem('GlobalStudentID');
     console.log(courseId);
     console.log(StudentID);
-    console.log(type);
     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`)
         .then(response => response.json())
         .then(student => {
@@ -726,3 +727,20 @@ export function saveUserType(userType) {
     localStorage.setItem('userType', userType);
   }
   window.saveUserType = saveUserType;
+
+
+ export function navigateToCourses() {
+    // נשלוף את סוג הסטודנט מתוך localStorage
+    const studentType = localStorage.getItem('userType');
+
+    // בדיקה לאן להפנות את המשתמש בהתאם לסוגו
+    if (studentType === 'studentsReceivingHelp') {
+        window.location.href = 'buyer.html';
+    } else if (studentType === 'studentsProvidingHelp') {
+        window.location.href = 'seller.html'; 
+    } else {
+        alert('סוג המשתמש אינו מוגדר. אנא נסה שוב.');
+    }
+}
+
+window.navigateToCourses = navigateToCourses;

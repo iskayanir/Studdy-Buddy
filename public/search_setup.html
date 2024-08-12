@@ -11,13 +11,13 @@
     
     <header>
       <img src="images/logo3.png" class="logo" alt="Logo">
-      <nav class="navbar">
+      <!-- <nav class="navbar">
           <ul>
-              <li><a href="buyer_profile.html">הפרופיל שלי</a></li>
-              <li><a href="buyer.html">הקורסים שלי</a></li>
-              <li><a href="buyer_search_page.html">חיפוש</a></li>
+              <li><a href="profile.html">הפרופיל שלי</a></li>
+              <li><a href="#" onclick="navigateToCourses()">הקורסים שלי</a></li>
+              <li><a href="search_page.html">חיפוש</a></li>
           </ul>
-      </nav>
+      </nav> -->
     </header>
   
     <main class="content">
@@ -53,13 +53,9 @@
       </div>
 
       <div class="finish-button">
-        <button onclick="finish()">סיים</button>
+        <button onclick="navigateToCourses()">סיים</button>
       </div>
-      <script>
-        function finish() {
-          window.location.href = 'buyer.html';
-        }
-      </script>
+      
       <div class=grid-container id="gridContainer"></div>
       
 <script src="js/search_page.js"></script>
@@ -94,7 +90,7 @@
             <li class ="department"> חוג: ${course.Department}</li>
             <li class="teacher">מרצה: ${course['Lacture Name']}</li>
             </ul>
-            <button class="add" onclick="addCourse(${key}, 'studentsReceivingHelp')">הוסף קורס</button>
+            <button class="add" onclick="addCourse(${key})">הוסף קורס</button>
             
         `;
         gridContainer.appendChild(gridItem);
