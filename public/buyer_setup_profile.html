@@ -51,19 +51,19 @@
       </div>
     </form>
     <article class="finish">
-      <a href="buyer_setup_search.html">
+      <!-- <a href="buyer_setup_search.html"> -->
         <button class="finish" onclick="saveProfileDataToFirebase('studentsReceivingHelp')"> לבחירת קורסים </button>
-      </a>
+      <!-- </a> -->
     </article>
   </section>
   
-  <script src="js/script.js"></script>
+  <!-- <script src="js/script.js"></script> -->
   <script type="module">
     import { saveProfileDataToFirebase } from './js/firebase-app.js';
   
-    document.querySelector('.finish button').addEventListener('click', function() {
-        saveProfileDataToFirebase('studentsReceivingHelp');
-    });
+    // document.querySelector('.finish button').addEventListener('click', function() {
+    //     saveProfileDataToFirebase('studentsReceivingHelp');
+    // });
   </script>
   <script>
     window.onload = function() {

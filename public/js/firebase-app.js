@@ -110,8 +110,8 @@
 
 
 
-window.GlobStudentID = ''; // משתנה גלובלי
-window.GlobalStudentMail= ''; // משתנה גלובלי
+// window.GlobStudentID = ''; // משתנה גלובלי
+// window.GlobalStudentMail= ''; // משתנה גלובלי
 
 function fetchData() {
     console.log("hello before");
@@ -286,20 +286,22 @@ function handleCredentialResponse(response) {
     };
     console.log(userData);
     localStorage.setItem('userData', JSON.stringify(userData));
-    GlobalStudentMail = userData.email;
-    console.log(GlobalStudentMail + "מייל גלובלי")
+    // GlobalStudentMail = userData.email;
+    // console.log(GlobalStudentMail + "מייל גלובלי")
 
 
     searchEmail(data.email).then(result => {
         if (result) {
             console.log(`Student ID: ${result.studentId}, Type: ${result.type}`);
             localStorage.setItem('GlobalStudentID', result.studentId);
+            localStorage.setItem('Type', result.type);
             console.log("ה-ID הוא ", result.studentId)
+            console.log("סוג סטודנט", result.type)
             if (result.type=="providingHelp"){
-                window.location.href = 'seller_profile.html'
+                window.location.href = 'seller.html'
             }
             else {
-                window.location.href = 'buyer_profile.html'
+                window.location.href = 'buyer.html'
             }
             
         } else {
@@ -468,28 +470,36 @@ function fillUserProfile(userData) {
 // };
 
 export function saveProfileDataToFirebase(type) {
+    localStorage.setItem('GlobalStudentID', '');
+    console.log("once");
     const name = document.getElementById('name').value;
     const degree = document.getElementById('degree').value;
     const year = document.getElementById('year').value;
     const mail = document.getElementById('email').value;
     const tel = document.getElementById('number').value;
-
-    let newStudent = {
-        name: name,
-        degree: degree,
-        mail: mail,
-        tel: tel,
-        year: year
-    };
-
+    
     // First, check if the email already exists
     searchEmail(mail).then(existingUser => {
         console.log("enter");
         if (existingUser) {
             alert('משתמש עם מייל זה כבר רשום.');
             console.log('User already exists:', existingUser);
+            console.log('User type:', existingUser.type);
+        
+            if (existingUser.type == "studentsReceivingHelp") {
+                window.location.href = 'buyer.html';
+            } else {
+                window.location.href = 'seller.html';
+            }
         } else {
-            console.log("המשתמש לא רשום")
+            console.log("המשתמש לא רשום");
+            let newStudent = {
+                name: name,
+                degree: degree,
+                mail: mail,
+                tel: tel,
+                year: year
+            };
             // If the email does not exist, proceed with saving the data
             fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`, {
                 method: 'POST',
@@ -501,11 +511,9 @@ export function saveProfileDataToFirebase(type) {
             .then(response => response.json())
             .then(data => {
                 console.log(data.name + "גלובלי");
-                GlobStudentID = data.name;
-                // localStorage.setItem('GlobalStudentID', data.name);
-                // console.log('Student ID saved to localStorage:', localStorage.getItem('GlobalStudentID'));
-                // console.log('Student saved successfully:', data);
-                // fetchData(); // Optionally refresh the data
+                localStorage.setItem('GlobalStudentID', data.name);
+                // לאחר השמירה בהצלחה, בצע את המעבר לדף
+                window.location.href = 'buyer_setup_search.html';
             })
             .catch(error => {
                 console.error('Error saving student:', error);
@@ -515,6 +523,7 @@ export function saveProfileDataToFirebase(type) {
         console.error('Error checking email:', error);
     });
 }
+
 
 window.saveProfileDataToFirebase = saveProfileDataToFirebase;
 
@@ -590,5 +599,45 @@ export function getStudentIdByEmail(email, type) {
         .catch(error => {
             console.error('Error fetching data:', error);
             return null;
+        });
+}
+
+function addCourse(courseId, type) {
+    const StudentID = localStorage.getItem('GlobalStudentID');
+    console.log(courseId);
+    console.log(StudentID);
+    console.log(type);
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`)
+        .then(response => response.json())
+        .then(student => {
+            console.log('Fetched student data:', student);
+            if (!student) {
+                console.error('Student not found');
+                return;
+            }
+
+            student.courses = student.courses || [];
+            if (!student.courses.includes(courseId)) {
+                student.courses.push(courseId);
+            }           
+
+            // Update the student data in Firebase
+            fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(student)
+            })
+            .then(response => response.json())
+            .then(updatedStudent => {
+                console.log('Success:', updatedStudent);
+            })
+            .catch(error => {
+                console.error('Error updating student:', error);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching student:', error);
         });
 }
