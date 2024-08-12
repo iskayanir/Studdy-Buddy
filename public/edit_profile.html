@@ -2,7 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Seller Profile</title>
+    <title>Edit Buyer Profile</title>
     <link rel="stylesheet" href="css/profile_style.css">
   </head>
 <body>
@@ -17,8 +17,8 @@
   <article class="top-of-form">
     <h1 title="title">עדכון פרטי משתמש</h1><br>
     <div class="user-type">
-      <input id="user-buyer" name="user" type="radio" value="Buyer" onclick="window.location.href = 'edit_buyer_profile.html'";> אני מחפש עזרה
-      <input id="user-seller" name="user" type="radio" value="Seller" checked onclick="window.location.href = 'edit_seller_profile.html'";> אני רוצה לעזור <br>
+      <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="window.location.href = 'edit_buyer_profile.html'";> אני מחפש עזרה
+      <input id="user-seller" name="user" type="radio" value="Seller" onclick="window.location.href = 'edit_seller_profile.html'";> אני רוצה לעזור <br>
     </div><br>
   </article>
 
@@ -55,11 +55,27 @@
       </div>
     </form>
     <article class="finish">
-      <a href="seller_setup_search.html">
-        <button class="finish" onclick="saveProfileData()">לבחירת קורסים</button>
-      </a>
+      <!-- <a href="setup_search.html"> -->
+        <button class="finish" onclick="editProfileData()">עדכון</button>
+      <!-- </a> -->
     </article>
   </section>
+  <!-- <script type="module">
+    import { loadProfileData } from './js/firebase-app.js';
   
+  </script> -->
   <script src="js/script.js"></script>
+  <script>
+    window.onload = function() {
+        loadProfileDatafromFB();
+        // localStorage.removeItem('userType');
+        // שליפת נתוני המשתמש מ-Local Storage
+        // var userData = JSON.parse(localStorage.getItem('userData'));
+        // if (userData) {
+        //     document.getElementById('name').value = userData.name || '';
+        //     document.getElementById('email').value = userData.email || '';
+        //     document.getElementById('profilePicture').src = userData.imageUrl || 'images/prof.jpeg';
+        // }
+    };
+  </script>
 </body>

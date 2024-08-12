@@ -154,3 +154,92 @@ function setupProfilePictureUpload() {
 }
 
 document.addEventListener('DOMContentLoaded', setupProfilePictureUpload);
+
+
+
+
+
+function editProfileData() {
+  const type = localStorage.getItem('userType');
+  const id = localStorage.getItem('GlobalStudentID'); // או כל משתנה אחר ששומר את ה-ID
+
+  console.log(type + " סוג סטודנט ה");
+  console.log(id + " ID סטודנט ה");
+
+  const name = document.getElementById('name').value;
+  const degree = document.getElementById('degree').value;
+  const year = document.getElementById('year').value;
+  const mail = document.getElementById('email').value;
+  const tel = document.getElementById('number').value;
+  const aboutme = document.getElementById('aboutme').value;
+  const hobbies = document.getElementById('hobbies').value;
+
+  // יצירת אובייקט עם הנתונים החדשים
+  let updatedStudent = {
+      name: name,
+      degree: degree,
+      mail: mail,
+      tel: tel,
+      year: year,
+      aboutme: aboutme,
+      hobbies: hobbies
+  };
+
+  // עדכון הנתונים בפיירבייס
+  fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
+      method: 'PUT', // השתמש ב-PUT כדי לעדכן את הרשומה הקיימת
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedStudent)
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log('Profile updated successfully:', data);
+      // מעבר לעמוד הבא לאחר עדכון הפרטים
+      window.location.href = 'profile.html';
+  })
+  .catch(error => {
+      console.error('Error updating profile:', error);
+  });
+}
+
+
+
+
+function loadProfileDatafromFB() {
+  var type = localStorage.getItem('userType');
+  console.log(type);
+
+  var studentId = localStorage.getItem('GlobalStudentID');
+  console.log(studentId);
+
+  if (studentId && type) {
+      fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
+          .then(response => response.json())
+          .then(data => {
+              if (data) {
+                  // הצגת המידע בטפסים השונים
+                  document.getElementById('name').value = data.name || '';
+                  document.getElementById('degree').value = data.degree || '';
+                  document.getElementById('year').value = data.year || '';
+                  document.getElementById('number').value = data.tel || '';
+                  document.getElementById('email').value = data.mail || '';
+                  document.getElementById('aboutme').value = data.aboutme || '';
+                  document.getElementById('hobbies').value = data.hobbies || '';
+
+                  // עדכון תמונת הפרופיל במידה וקיימת
+                  if (data.imageUrl) {
+                      document.getElementById('profilePicture').src = data.imageUrl;
+                  }
+              } else {
+                  console.error('User data not found');
+              }
+          })
+          .catch(error => {
+              console.error('Error fetching user data:', error);
+          });
+  } else {
+      console.log('No user ID found in LocalStorage or userType is missing.');
+  }
+}
