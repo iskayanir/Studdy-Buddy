@@ -296,6 +296,42 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
 }
 
 
+function loadCoursesDatafromFB() {
+    var type = localStorage.getItem('userType');
+    console.log(type);
+  
+    var studentId = localStorage.getItem('GlobalStudentID');
+    console.log(studentId);
+  
+    if (studentId && type) {
+        fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // Check if courses exist
+                    if (data.courses) {
+                        // Extract and log course numbers
+                        var courses = data.courses;
+                        courses.forEach(course => {
+                            console.log(`Course number: ${course}`);
+                        });
+                    } else {
+                        console.log('No courses found for this student.');
+                    }
+                } else {
+                    console.log('No data found for this student.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    } else {
+        console.log('No student ID or user type found.');
+    }
+}
+
+
+
 // function toggleSearchField(typehelp, idcourse, idstudent) {
 //     var status = "waiting"
 //     var buttons = ['sicom', 'hashlama', 'ezra'];
