@@ -310,10 +310,17 @@ function loadCoursesDatafromFB() {
                 if (data) {
                     // Check if courses exist
                     if (data.courses) {
-                        // Extract and log course numbers
+                        // Clear existing buttons
+                        var coursebutton = document.getElementById("courses_buttons");
+                        coursebutton.innerHTML = '';
+                        
+                        // Extract and add course buttons
                         var courses = data.courses;
                         courses.forEach(course => {
                             console.log(`Course number: ${course}`);
+                            coursebutton.innerHTML += 
+                                `<button id="course${course}" class="blue" onclick="toggleDisplayData('course${course}', this)">
+                                <i class="bi bi-book"></i>${course}</button>`;
                         });
                     } else {
                         console.log('No courses found for this student.');
