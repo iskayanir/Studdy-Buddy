@@ -297,11 +297,13 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
 
 
 function loadCoursesDatafromFB() {
+    
     var type = localStorage.getItem('userType');
     console.log(type);
-  
+    
     var studentId = localStorage.getItem('GlobalStudentID');
     console.log(studentId);
+    
   
     if (studentId && type) {
         fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
@@ -310,17 +312,11 @@ function loadCoursesDatafromFB() {
                 if (data) {
                     // Check if courses exist
                     if (data.courses) {
-                        // Clear existing buttons
-                        var coursebutton = document.getElementById("courses_buttons");
-                        coursebutton.innerHTML = '';
-                        
                         // Extract and add course buttons
                         var courses = data.courses;
                         courses.forEach(course => {
                             console.log(`Course number: ${course}`);
-                            coursebutton.innerHTML += 
-                                `<button id="course${course}" class="blue" onclick="toggleDisplayData('course${course}', this)">
-                                <i class="bi bi-book"></i>${course}</button>`;
+                            loadDataCoursesDatafromFB(course);
                         });
                     } else {
                         console.log('No courses found for this student.');
@@ -336,6 +332,60 @@ function loadCoursesDatafromFB() {
         console.log('No student ID or user type found.');
     }
 }
+
+function loadDataCoursesDatafromFB(idcourse) {
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/courses/${idcourse}.json`)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                const courseName = data["Course Name"];
+                const lectureName = data["Lacture Name"];
+                const department = data["Department"];
+                console.log(`Course Name: ${courseName}`);
+                console.log(`Lecture Name: ${lectureName}`);
+                console.log(`Department: ${department}`);
+                coursesinhtml(idcourse,courseName,lectureName,department )
+            } else {
+                console.log('No data found for this course.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching course data:', error);
+        });
+}
+ 
+function coursesinhtml(idcourse, courseName, lectureName, department) {
+    var coursebutton = document.getElementById("courses_buttons");
+
+    // Create a new button element
+    var button = document.createElement("button");
+    button.id = idcourse;
+    button.className = "bluck";
+    button.innerHTML = `<i class="bi bi-book"></i>${idcourse} - ${courseName}`;
+
+    // Attach the onclick event dynamically
+    button.setAttribute('onclick', `coursebuttondo(${JSON.stringify(idcourse)}, 
+                            ${JSON.stringify(courseName)}, 
+                            ${JSON.stringify(lectureName)}, 
+                            ${JSON.stringify(department)})`);
+
+    // Append the button to the courses_buttons container
+    coursebutton.appendChild(button);
+}
+
+function coursebuttondo(idcourse, courseName, lectureName, department) {
+    // צור את המידע שאתה רוצה להכניס
+    var coursetitle = document.getElementById("coursedata");
+    coursetitle.innerHTML =  department + " - " +
+                             courseName + '/ ' +
+                             lectureName;
+                             
+                             
+}
+
+
+
+
 
 
 
