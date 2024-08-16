@@ -125,11 +125,12 @@ window.onload = function() {
 };
 
 function setupProfilePictureUpload() {
+  const profilePictureContainer = document.querySelector('.profile_picture_container');
   const profilePicture = document.getElementById('profilePicture');
   const profilePictureInput = document.getElementById('profilePictureInput');
-  const defaultImageSrc = 'path/to/default-profile-picture.png'; // Set this to your default image path
+  const defaultImageSrc = 'images/prof.jpeg'; // Set this to your default image path
 
-  profilePicture.addEventListener('click', function() {
+  profilePictureContainer.addEventListener('click', function() {
     profilePictureInput.click();
   });
 

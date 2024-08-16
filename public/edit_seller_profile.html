@@ -1,0 +1,65 @@
+<html lang="he" dir="rtl"> 
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Seller Profile</title>
+    <link rel="stylesheet" href="css/profile_style.css">
+  </head>
+<body>
+  
+  <article class="container">
+    <figure class="banner"></figure>
+    <figure class="profile_picture_container">
+      <img id="profilePicture" src="images/prof.jpeg" alt="profile picture" class="profile_picture">
+      <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
+    </figure>
+  
+  <article class="top-of-form">
+    <h1 title="title">עדכון פרטי משתמש</h1><br>
+    <div class="user-type">
+      <input id="user-buyer" name="user" type="radio" value="Buyer" onclick="window.location.href = 'edit_buyer_profile.html'";> אני מחפש עזרה
+      <input id="user-seller" name="user" type="radio" value="Seller" checked onclick="window.location.href = 'edit_seller_profile.html'";> אני רוצה לעזור <br>
+    </div><br>
+  </article>
+
+  <section class="form-content">  
+    <form></form>
+      <h3>פרטים אישיים</h3>
+      <div class="input-group">
+        <label for="name">שם מלא</label>
+        <input type="text" id="name" name="name" placeholder="שם מלא"><br>
+        <label for="degree">תואר</label>
+        <input type="text" id="degree" name="degree" placeholder="תואר"><br>
+
+        <label for="year">שנה בתואר</label>
+        <select id="year" name="year">
+          <option value="א">א</option>
+          <option value="ב">ב</option>
+          <option value="ג">ג</option>
+          <option value="ד">ד</option>
+        </select><br>
+
+        <label for="aboutme">קצת עליי..</label>
+        <input type="text" id="aboutme" name="aboutme" placeholder="קצת עליי.."><br>
+        <label for="hobbies">תחביבים שלי</label>
+        <input type="text" id="hobbies" name="hobbies" placeholder="תחביבים שלי"><br>
+
+        <div class="contact">
+          <br><h3>פרטי התקשרות</h3>
+            <label for="number">מספר טלפון</label>
+            <input type="text" id="number" name="number" placeholder="מספר טלפון"><br>
+
+            <label for="email">מייל</label>
+            <input type="email" id="email" name="email" placeholder="מייל"><br>
+        </div>
+      </div>
+    </form>
+    <article class="finish">
+      <a href="seller_setup_search.html">
+        <button class="finish" onclick="saveProfileData()">לבחירת קורסים</button>
+      </a>
+    </article>
+  </section>
+  
+  <script src="js/script.js"></script>
+</body>

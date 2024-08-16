@@ -361,7 +361,7 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
     var button = document.createElement("button");
     button.id = idcourse;
     button.className = "bluck";
-    button.innerHTML = `<i class="bi bi-book"></i>${idcourse} - ${courseName}`;
+    button.innerHTML = `<i class="bi bi-book"></i> ${idcourse} - ${courseName}`;
 
     // Attach the onclick event dynamically
     button.setAttribute('onclick', `coursebuttondo(${JSON.stringify(idcourse)}, 

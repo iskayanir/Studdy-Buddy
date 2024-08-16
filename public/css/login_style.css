@@ -3,90 +3,67 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* Background styles */
+/* General styles */
 html, body {
-    background: linear-gradient(to bottom right, #d0eaff, #f0f4f7);
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
+    background-color: #eef6ff;
+}
+
+.hero-section {
+    display: flex;
     align-items: center;
-    justify-items: center;
-    margin: 0;
-    padding: 0;
+    justify-content: space-between;
+    padding: 0px;
+    height: 100vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Header styles */
-header {
-    background-color: #ffffff; /* Example background color for the navbar */
-    padding: 0.5% 38.2%; /* Adjust padding as needed */
-    align-self: flex-start;
-    margin-top: 0%; /* Adjust top margin */
-    margin-right: 0.05%; /* Adjust right margin */
-    box-shadow: 0px 4px 2px -2px gray; /* Shadow for header */
-    z-index: 1000; /* Ensure header is above other content */
-    height: 40px; /* Fixed height for header */
-    top: 0;
-    position: fixed;
-    align-items: center;
+.text-container {
+    padding: 20px;
+    max-width: 50%;
 }
 
-.navbar {
-    display:flex;
-    text-align: right; /* Right-aligns the menu items */
+.text-container h1 {
+    font-size: 3.5rem;
+    color: #334999;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-family: 'Maname', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.navbar ul {
-    list-style-type: none; /* Remove default list styles */
-    display:flex;
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */    
+.text-container p {
+    font-size: 20px;
+    color: #5f75c2;
+    margin-bottom: 20px;
 }
 
-.navbar ul li {
-    display: inline-block; /* Display menu items horizontally */
-    margin-left: 20px; /* Adjust margin between menu items */
+.image-container {
+    width: 50%;
+    height: 100vh; /* Full viewport height */
+    background-image: url('/images/pexels-ivan-samkov-5676744.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center bottom; /* Shows the bottom part of the image */
 }
 
-.navbar ul li:first-child {
-    margin-left: 20px; /* No margin for the first menu item */
-}
-
-.navbar ul li a {
-    text-decoration: none;
-    color: black; /* Link text color */
-    padding: 8px 15px; /* Adjust padding for link text */
-    border-radius: 5px; /* Rounded corners for links */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-    margin-left: 20px;
-}
-
-.navbar ul li a:hover {
-    background-color: #5bafe2; /* Background color on hover */
-}
-
-/* Login container styles */
 .login-container {
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 0px solid #ccc;
-    border-radius: 30px;
-    display: flex; /* Use flexbox for layout */
-    justify-content: center; /* Center the button */
-    align-items: center; /* Center items vertically */
-    margin-top: 50px; /* Adjust top margin as needed */
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: right;
+    margin-top: 20px; /* Adjust top margin as needed */
 }
 
 #g_id_signin {
     display: flex;
     justify-content: center;
-    width: 100%; /* Make the button take full width */
-    max-width: 300px; /* Limit the max width */
+    width: 100%;
+    max-width: 300px;
 }
 
 .google-button {
@@ -97,62 +74,33 @@ header {
 }
 
 .login-container button:hover {
-    background-color: #562ec3; /* Example hover background color */
+    background-color: #334999; /* Example hover background color */
     color: #ffffff; /* Example hover text color */
-}
-
-/* Main content styles */
-main {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: center; /* Center content horizontally */
-    padding: 80px 20px;
-    margin-top: 0;
-}
-
-/* Adjusting h1 margin to move it up */
-h1 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    white-space: nowrap; /* Prevent line breaks */
-    text-align: center; /* Center text */
-    max-width: 100%; /* Ensure it doesn't overflow */
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 /* Footer styles */
 footer {
-    background-color: #0c0053; /* Background color for the footer */
-    color: white; /* Text color */
+    background-color: #334999;
+    color: white;
     text-align: center;
-    padding: 10px 0; /* Padding for footer */
-    width: 100%; /* Ensure footer spans full width */
-    position: relative;
-    bottom: 0;
+    padding: 10px 0;
+    width: 100%;
     position: fixed;
+    bottom: 0;
+    left: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 footer p {
-    color: white; /* Text color for footer */
     font-size: 14px;
 }
 
 footer a {
-    color: white; /* Link color for footer */
+    color: white;
     text-decoration: none;
     font-weight: bold;
 }
 
 footer a:hover {
-    text-decoration: underline; /* Underline on hover for link */
+    text-decoration: underline;
 }
-
-.logo {
-    width: 200px; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Space between logo and heading */
-}
-
-/* Adjust other styles like .google-button, .continue, etc. as needed */

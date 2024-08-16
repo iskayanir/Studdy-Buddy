@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Seller Search Page</title>
+      <link rel="stylesheet" href="css/search_page.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  </head>
+  <body>
+    
+    <header>
+      <img src="images/logo3.png" class="logo" alt="Logo">
+      <nav class="navbar">
+          <ul>
+              <li><a href="seller_profile.html">הפרופיל שלי</a></li>
+              <li><a href="seller.html">הקורסים שלי</a></li>
+              <li><a href="seller_search_page.html">חיפוש</a></li>
+          </ul>
+      </nav>
+    </header>
+  
+    <main class="content">
+      <h1>חיפוש</h1>
+      
+      <div class="search-container">    
+          <input type="text" placeholder="חפש שם קורס..." class="search-input" id="searchInput">
+      </div>  
+    </main>
+
+    <div class="search-proffesor"> 
+      <p> חפש לפי מרצה: </p>
+      <div class="search-container">    
+        <input type="text" placeholder="חפש שם מרצה..." class="search-input" id="teacherInput">
+      </div>     
+    </div><br>
+    
+    <div class="search-proffesor"> 
+      <p> חפש לפי חוג: </p>
+      <div class="search-container">    
+        <input type="text" placeholder="חפש שם חוג..." class="search-input" id="departmentInput">
+      </div>     
+    </div><br>
+
+    <div class="buttons">  
+      <p> חפש לפי פקולטה: </p>
+      <button onclick="filterAll()">הכל</button>
+      <button onclick="filterFaculty('למדעי החברה')">מדעי החברה</button>
+      <button onclick="filterFaculty('מנהל עסקים')">מנהל עסקים</button>
+      <button onclick="filterFaculty('רפואה')">רפואה</button>
+      <button onclick="filterFaculty('מדעי המחשב')">מדעי המחשב</button>
+      <button onclick="filterFaculty('משפטים')">משפטים</button>
+      </div>
+
+    <div class=grid-container id="gridContainer">
+      
+    </div>
+      
+<script src="js/search_page.js"> </script>
+
+<script>
+  function fetchData() {
+    console.log("hello before");
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+    .then(response => response.json())
+    .then(data => {
+      const gridContainer = document.getElementById('gridContainer');
+      gridContainer.innerHTML = ''
+                        
+      Object.keys(data.courses).forEach(key => {
+        const course = data.courses[key];
+
+        const gridItem = document.createElement('div');
+        gridItem.classList.add('grid-item');
+
+        gridItem.innerHTML = `
+          <h2 class="course-name">${course['Course Name']}</h2>
+          <i class="bi bi-mortarboard icon"></i>
+          <ul>
+            <li class="faculty">פקולטה: ${course.Faculty}</li>
+            <li class ="department"> חוג: ${course.Department}</li>
+            <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+          </ul>
+          <button class="add" onclick="addCourse(${key}, 'studentsProvidingHelp')">הוסף קורס</button>
+        `;
+            
+        gridContainer.appendChild(gridItem);
+      });
+    })
+    .catch(error => console.error('Error fetching data:', error));
+}
+    window.onload = fetchData;
+    document.getElementById('searchInput').addEventListener('input', filterItems);
+    document.getElementById('teacherInput').addEventListener('input', filterItems)
+    document.getElementById('departmentInput').addEventListener('input', filterItems)
+    
+</script>
+
+
+    
+  </body>
