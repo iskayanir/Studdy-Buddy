@@ -29,6 +29,7 @@
         <div class="section" id="section5">
             <div class="banner-container">
                 <figure class="banner">
+                    <div id = idcurrentcourse></div>
                     <h3 id = "coursedata"> </h3><br> <!-- הודעה מותאמת לשם הקורס -->
                     <h3>במה תרצה עזרה? </h3>
                 </figure>
@@ -79,21 +80,21 @@
                 <div class="search-container">
                     <input type="text" class="search-input" id="toggleSearchField" placeholder="נושא סיכום..">
                     <input type="text" class="search-input" id="toggleSearchField1" placeholder="הכנס תאריך סיכום..">
-                    <button onclick="saveInput('sicom',123)">שמור</button>
+                    <button onclick="saveInput('sicom')">שמור</button>
                 </div>
             </div>
 
             <div class="maintabs" id="hashlama">
                 <div class="search-container">
                     <input type="text" class="search-input" id="toggleSearchField2" placeholder="נושא ..">
-                    <button onclick="saveInput('hashlama',123)">שמור</button>
+                    <button onclick="saveInput('hashlama')">שמור</button>
                 </div>
             </div>
 
             <div class="maintabs" id="ezra">
                 <div class="search-container">
                     <input type="text" class="search-input" id="toggleSearchField3" placeholder="באיזה תרגיל תרצה עזרה...">
-                    <button onclick="saveInput('ezra',123)">שמור</button>
+                    <button onclick="saveInput('ezra')">שמור</button>
                 </div>
             </div>
 
@@ -121,7 +122,7 @@
     </div>
 
     <script>
-        window.onload = function(){
+        window.onload = async function(){
             // שליפת נתוני המשתמש מ-Local Storage
             var userData = JSON.parse(localStorage.getItem('userData'));
             if (userData) {
@@ -133,15 +134,17 @@
                     nameElement.textContent = `היי ${userName}!`;
                 }
                 var email = userData.email || '';
-            console.log(email)
-            var courseid = 123
-            searchRequests(email, courseid).then(matchingRequests => {
+            console.log(email) 
+            // עזרה כאן!!
+            var firstcourseid = await loadCoursesDatafromFB(email)
+            console.log("first cours: " ,firstcourseid)
+            searchRequests(email, firstcourseid).then(matchingRequests => {
                 if (matchingRequests) {
                     console.log('Matching requests:', matchingRequests);
                 } else {
                     console.log('No requests matched the criteria.');
                }
-            loadCoursesDatafromFB()
+            
             });
 
                 // document.getElementById('profilePicture').src = userData.imageUrl || 'images/prof.jpeg';

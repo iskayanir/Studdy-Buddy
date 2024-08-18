@@ -872,7 +872,14 @@ h1 {
     color: rgb(255, 251, 251);
 }
 
+
+#idcurrentcourse {
+    visibility: hidden;
+    
+}
+
 /*.course-content .status {
     display: flex;
     align-items: center;
-} 
+}
+    

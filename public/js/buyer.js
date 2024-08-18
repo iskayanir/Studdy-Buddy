@@ -1,4 +1,6 @@
 function searchRequests(studentEmail, courseID) {
+    courseID = String(courseID)
+    console.log(studentEmail,courseID)
     console.log('Searching for requests with studentEmail: ${studentEmail} and courseID: ${courseID}');
     return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
         .then(response => response.json())
@@ -132,7 +134,9 @@ function showSection(sectionId) {
 }
 
 
-function saveInput(typehelp, idcourse) {
+function saveInput(typehelp) {
+    var idcourse = document.getElementById("idcurrentcourse").textContent
+    console.log("saveinputidcours", idcourse)
     var userData = JSON.parse(localStorage.getItem('userData'));
     if (userData) {
         var idstudent = userData.email || '';
@@ -296,17 +300,15 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
 }
 
 
-function loadCoursesDatafromFB() {
+async function loadCoursesDatafromFB(email) {
+    var type = "studentsReceivingHelp";
+    var studentId = await getStudentIdByEmail(email, type);
     
-    var type = localStorage.getItem('userType');
-    console.log(type);
-    
-    var studentId = localStorage.getItem('GlobalStudentID');
     console.log(studentId);
-    
-  
+
+
     if (studentId && type) {
-        fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
+        return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
             .then(response => response.json())
             .then(data => {
                 if (data) {
@@ -315,8 +317,11 @@ function loadCoursesDatafromFB() {
                         // Extract and add course buttons
                         var courses = data.courses;
                         courses.forEach(course => {
+                            var firstCourse = data.courses[0];
                             console.log(`Course number: ${course}`);
                             loadDataCoursesDatafromFB(course);
+                            console.log('First course ID:', firstCourse);
+                            return firstCourse
                         });
                     } else {
                         console.log('No courses found for this student.');
@@ -330,6 +335,24 @@ function loadCoursesDatafromFB() {
             });
     } else {
         console.log('No student ID or user type found.');
+    }
+}
+
+
+async function getStudentIdByEmail(email, type) {
+    try {
+        const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`);
+        const data = await response.json();
+        for (let key in data) {
+            let student = data[key];
+            if (student.mail === email) {
+                return key; // Return the student ID
+            }
+        }
+        return null; // Return null if the email is not found
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
     }
 }
 
@@ -353,6 +376,8 @@ function loadDataCoursesDatafromFB(idcourse) {
             console.error('Error fetching course data:', error);
         });
 }
+
+
  
 function coursesinhtml(idcourse, courseName, lectureName, department) {
     var coursebutton = document.getElementById("courses_buttons");
@@ -374,18 +399,43 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
 }
 
 function coursebuttondo(idcourse, courseName, lectureName, department) {
+    // let button = document.getElementById(idcourse);
+    // button.style.backgroundColor =  '#334999'; // צבע רקע כחול
+    // button.style.color = 'white'; // צבע טקסט לבן
+
+    // Select the parent element
+    const parentElement = document.querySelector('.course-content');
+
+    // Check if the element exists
+    if (parentElement) {
+    // Remove all child elements
+    while (parentElement.firstChild) {
+        parentElement.removeChild(parentElement.firstChild);
+    }
+    }
+
     // צור את המידע שאתה רוצה להכניס
     var coursetitle = document.getElementById("coursedata");
     coursetitle.innerHTML =  department + " - " +
                              courseName + '/ ' +
                              lectureName;
-                             
-                             
+    var currentcourse = document.getElementById("idcurrentcourse")
+    currentcourse.innerHTML = idcourse
+    console.log(currentcourse.textContent)
+
+    var userData = JSON.parse(localStorage.getItem('userData'));
+    var email = userData.email || '';
+    console.log(email)
+    searchRequests(email, idcourse).then(matchingRequests => {
+        if (matchingRequests) {
+            console.log('Matching requests:', matchingRequests);
+        } else {
+            console.log('No requests matched the criteria.');
+       }
+    
+    });
+                                
 }
-
-
-
-
 
 
 
