@@ -369,6 +369,12 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
 }
 
 function coursebuttondo(idcourse, courseName, lectureName, department) {
+    var courseContent = document.getElementById('course-content');
+    if (courseContent){
+        // Remove all child elements
+        while (courseContent.firstChild) {
+            courseContent.removeChild(courseContent.firstChild);
+    }
     // let button = document.getElementById(idcourse);
     // button.style.backgroundColor =  '#334999'; // צבע רקע כחול
     // button.style.color = 'white'; // צבע טקסט לבן
@@ -396,13 +402,174 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
     var userData = JSON.parse(localStorage.getItem('userData'));
     var email = userData.email || '';
     console.log(email)
-    searchRequests(email, idcourse).then(matchingRequests => {
-        if (matchingRequests) {
-            console.log('Matching requests:', matchingRequests);
-        } else {
-            console.log('No requests matched the criteria.');
-       }
+    showrequests(idcourse)
+//     searchRequests(email, idcourse).then(matchingRequests => {
+//         if (matchingRequests) {
+//             console.log('Matching requests:', matchingRequests);
+//         } else {
+//             console.log('No requests matched the criteria.');
+//        }
     
-    });
+//     });
                                 
 }
+
+function showrequests(idcourse){
+    console.log('Searching for requests with IDcourse: ${idcourse}');
+    return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
+        .then(response => response.json())
+        .then(data => {
+            let matchingRequests = [];
+
+            // בדיקה בתוך בקשות
+            if (data) {
+                for (let key in data) {
+                    const request = data[key];
+                    console.log(request)
+                    console.log(request.id_course)
+                    console.log(idcourse)
+                    if (request.id_course === String(idcourse)) {
+                        matchingRequests.push({
+                            requestId: key,
+                            ...request
+                        });
+                        console.log('Matching request found: ${JSON.stringify(request)}');
+                        var typehelp = request.type
+                        var topic = request.topic
+                        var status = request.status_request
+                        console.log(typehelp, topic, status)
+                        if(request.date){
+                            var date = request.date
+                            createAndAppendNewItem(typehelp, topic, status, date)
+                        } 
+                        createAndAppendNewItem(typehelp, topic, status)
+                        
+                    }
+                }
+            }
+
+            if (matchingRequests.length === 0) {
+                console.log('No matching requests found');
+                return null;
+            }
+            return matchingRequests;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                return null;
+            });
+
+
+}
+
+
+
+function createAndAppendNewItem(typehelp, topic, status, date = null) {
+    // Create new item element
+    var newItem = document.createElement('div');
+    newItem.className = 'item';
+
+    // Create title for the summary type
+    var summaryTitleSpan = document.createElement('span');
+    summaryTitleSpan.className = 'title-text';
+    summaryTitleSpan.textContent = 'סוג בקשה: ';
+
+    var summarySpan = document.createElement('span');
+    summarySpan.className = 'summary-text';
+    if (typehelp === "sicom") {
+        summarySpan.textContent = 'סיכום  ';
+        summarySpan.classList.add('summary-sicom'); 
+    } else if (typehelp === "hashlama") {
+        summarySpan.textContent = 'השלמת נושא  ';
+        summarySpan.classList.add('summary-hashlama');
+    } else {
+        summarySpan.textContent = 'עזרה בתרגיל בית  ';
+        summarySpan.classList.add('summary-ezra');
+    }
+
+    // Create title for the topic
+    var topicTitleSpan = document.createElement('span');
+    topicTitleSpan.className = 'title-text';
+    topicTitleSpan.textContent = 'נושא: ';
+
+    // Create topic span
+    var fractionSpan = document.createElement('span');
+    fractionSpan.textContent = topic;
+    fractionSpan.className = 'topic-text';
+
+    if (typehelp === "sicom" && date) {
+        var dateTitleSpan = document.createElement('span');
+        dateTitleSpan.className = 'title-text';
+        dateTitleSpan.textContent = 'תאריך סיכום: ';
+
+        var dateSpan = document.createElement('span');
+        dateSpan.textContent = date;
+        dateSpan.className = 'date-text';
+    }
+
+    // Create title for the status
+    var statusTitleDiv = document.createElement('div');
+    statusTitleDiv.className = 'title-text';
+    statusTitleDiv.textContent = 'סטטוס בקשה ';
+
+    var statusDiv = document.createElement('div');
+    statusDiv.className = 'status';
+
+    var statusIconDiv = document.createElement('div');
+    statusIconDiv.className = 'status-icon';
+
+    // Create the checkbox and custom styles
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'status-checkbox';
+
+    // Ensure each checkbox has a unique ID
+    var uniqueId = 'statusCheckbox_' + Date.now();
+    checkbox.id = uniqueId;
+
+    var customCheckbox = document.createElement('label');
+    customCheckbox.className = 'custom-checkbox';
+    customCheckbox.htmlFor = uniqueId;
+
+    // var deleteIconTitleSpan = document.createElement('span');
+    // deleteIconTitleSpan.className = 'title-text';
+    // deleteIconTitleSpan.textContent = 'מחיקה ';
+
+    // var deleteIcon = document.createElement('i');
+    // deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
+
+
+    // // Attach click event listener to delete the item
+    // deleteIcon.addEventListener('click', function () {
+    //     courseContent.removeChild(newItem);
+    // });
+
+    statusIconDiv.appendChild(checkbox);
+    statusIconDiv.appendChild(customCheckbox);
+
+    // Append the status icon to the status div
+    statusDiv.appendChild(statusTitleDiv);
+    statusDiv.appendChild(statusIconDiv);
+
+    // Append spans and status div to the new item
+    newItem.appendChild(summaryTitleSpan);
+    newItem.appendChild(summarySpan);
+    newItem.appendChild(topicTitleSpan);
+    newItem.appendChild(fractionSpan);
+    if (typehelp === "sicom" && date) {
+        newItem.appendChild(dateTitleSpan);
+        newItem.appendChild(dateSpan);
+    }
+    newItem.appendChild(statusDiv);
+    
+
+    // Append the new item to course-content
+    var courseContent = document.getElementById('course-content');
+    courseContent.appendChild(newItem)}
+}
+    // var firstChild = courseContent.firstChild; // Get the first child element
+    // if (firstChild) {
+    //     courseContent.insertBefore(newItem, firstChild); // Insert newItem before the firstChild
+    // } else {
+    //     courseContent.appendChild(newItem); // If no children, just append newItem
+    // }
