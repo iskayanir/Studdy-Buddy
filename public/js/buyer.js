@@ -235,7 +235,7 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
     // Create title for the status
     var statusTitleDiv = document.createElement('div');
     statusTitleDiv.className = 'title-text';
-    statusTitleDiv.textContent = 'סטטוס בקשה ';
+    statusTitleDiv.textContent = 'סטטוס ';
 
     var statusDiv = document.createElement('div');
     statusDiv.className = 'status';
@@ -258,7 +258,7 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
 
     var deleteIconTitleSpan = document.createElement('span');
     deleteIconTitleSpan.className = 'title-text';
-    deleteIconTitleSpan.textContent = 'מחיקה ';
+    deleteIconTitleSpan.textContent = '';
 
     var deleteIcon = document.createElement('i');
     deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
@@ -387,6 +387,8 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
     button.id = idcourse;
     button.className = "bluck";
     button.innerHTML = `<i class="bi bi-book"></i> ${idcourse} - ${courseName}`;
+    button.style.fontSize = '16px'
+    
 
     // Attach the onclick event dynamically
     button.setAttribute('onclick', `coursebuttondo(${JSON.stringify(idcourse)}, 
