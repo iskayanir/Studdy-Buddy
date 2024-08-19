@@ -367,3 +367,42 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
     // Append the button to the courses_buttons container
     coursebutton.appendChild(button);
 }
+
+function coursebuttondo(idcourse, courseName, lectureName, department) {
+    // let button = document.getElementById(idcourse);
+    // button.style.backgroundColor =  '#334999'; // צבע רקע כחול
+    // button.style.color = 'white'; // צבע טקסט לבן
+
+    // Select the parent element
+    const parentElement = document.querySelector('.course-content');
+
+    // Check if the element exists
+    if (parentElement) {
+    // Remove all child elements
+    while (parentElement.firstChild) {
+        parentElement.removeChild(parentElement.firstChild);
+    }
+    }
+
+    // צור את המידע שאתה רוצה להכניס
+    var coursetitle = document.getElementById("coursedata");
+    coursetitle.innerHTML =  department + " - " +
+                             courseName + '/ ' +
+                             lectureName;
+    var currentcourse = document.getElementById("idcurrentcourse")
+    currentcourse.innerHTML = idcourse
+    console.log(currentcourse.textContent)
+
+    var userData = JSON.parse(localStorage.getItem('userData'));
+    var email = userData.email || '';
+    console.log(email)
+    searchRequests(email, idcourse).then(matchingRequests => {
+        if (matchingRequests) {
+            console.log('Matching requests:', matchingRequests);
+        } else {
+            console.log('No requests matched the criteria.');
+       }
+    
+    });
+                                
+}
