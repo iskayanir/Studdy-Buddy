@@ -73,6 +73,8 @@ function savefirebase(topic, type, idstudent, idcourse, status, date = null) {
     .then(response => response.json())
     .then(data => {
         console.log('Request saved successfully:', data);
+        const requestId = data.name;
+        createAndAppendNewItem(type, topic, requestId, date);
         // fetchData(); // Optionally refresh the data
     })
     .catch(error => {
@@ -178,7 +180,7 @@ function saveInput(typehelp) {
         }
     }
     
-    createAndAppendNewItem(typehelp, topic, date);
+    // createAndAppendNewItem(typehelp, topic, date);
 
     // Hide all elements with the 'maintabs' class
     var tabs = document.querySelectorAll('.maintabs');
@@ -188,8 +190,27 @@ function saveInput(typehelp) {
 }
 
 
+function deleteRecordById(recordId) {
+    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests/${recordId}.json`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to delete record');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(`Record with ID ${recordId} deleted successfully:`, data);
+    })
+    .catch(error => {
+        console.error('Error deleting record:', error);
+    });
+}
 
-function createAndAppendNewItem(typehelp, topic, date = null) {
+
+function createAndAppendNewItem(typehelp, topic, requestId, date = null) {
+    console.log(requestId);
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'item';
@@ -267,6 +288,16 @@ function createAndAppendNewItem(typehelp, topic, date = null) {
     // Attach click event listener to delete the item
     deleteIcon.addEventListener('click', function () {
         courseContent.removeChild(newItem);
+
+        // מחיקת הרשומה מהפיירבייס
+        // const recordId = newItem.getAttribute(requestId);  // תוסיף ID של הרשומה כאטריבוט של האלמנט
+        deleteRecordById(requestId)
+            .then(() => {
+                console.log("Record deleted from Firebase successfully");
+            })
+            .catch((error) => {
+                console.error("Error deleting record from Firebase: ", error);
+            });
     });
 
     statusIconDiv.appendChild(checkbox);
