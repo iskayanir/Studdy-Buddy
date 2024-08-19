@@ -63,11 +63,12 @@
         </div>
 
         <div class="section" id="section6">
-            <figure class="small-banner">
+            <ul>
+            <figure class="small-banner" id = "courses_buttons">
                 <h2>הקורסים שלך</h2>
             </figure>
-            <ul>
-                <button id="course1" class="blue" onclick="toggleDisplayData('course1', this)">
+            
+                <!-- <button id="course1" class="blue" onclick="toggleDisplayData('course1', this)">
                     <i class="bi bi-book"></i>
                     קורס 1
                 </button>
@@ -82,12 +83,12 @@
                 <button id="course4" class="black"  onclick="toggleDisplayData('course4', this)">
                     <i class="bi bi-book"></i>
                     קורס 4
-                </button>
+                </button> -->
             </ul>
         </div>
     </div>
 
-    <script type="module" src="js/seller.js"></script>
+    <script src="js/seller.js"></script>
     <script>
         window.onload = function(){
             // שליפת נתוני המשתמש מ-Local Storage
@@ -100,6 +101,10 @@
                 if (nameElement) {
                     nameElement.textContent = `היי ${userName}!`;
             }
+            var email = userData.email || '';
+            console.log(email) 
+            // עזרה כאן!!
+            loadCoursesDatafromFB(email)
         };
     }
     </script>

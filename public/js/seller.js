@@ -1,67 +1,67 @@
 
-// import buyers_students from './seller-profile.js';
-import { buyers_students, seller_students } from './seller-profile.js';
-const course1 = [
-    {
-      id: 1,
-      type: "sicom",
-      subject: "מתמטיקה",
-      title: "סיכום יחידה 1",
-      content: "סיכום של נושאים כולל משוואות ופונקציות.",
-      studentId: 104
-    },
-    {
-      id: 2,
-      type: "homework",
-      subject: "היסטוריה",
-      title: "תרגיל 5 תקופת הרנסאנס",
-      content: "סקירה כללית על התקופה והשפעותיה.",
-      studentId: 105
-    }
-];
+// // import buyers_students from './seller-profile.js';
+// import { buyers_students, seller_students } from './seller-profile.js';
+// const course1 = [
+//     {
+//       id: 1,
+//       type: "sicom",
+//       subject: "מתמטיקה",
+//       title: "סיכום יחידה 1",
+//       content: "סיכום של נושאים כולל משוואות ופונקציות.",
+//       studentId: 104
+//     },
+//     {
+//       id: 2,
+//       type: "homework",
+//       subject: "היסטוריה",
+//       title: "תרגיל 5 תקופת הרנסאנס",
+//       content: "סקירה כללית על התקופה והשפעותיה.",
+//       studentId: 105
+//     }
+// ];
 
-const course2 = [
-    {
-      id: 1,
-      type: "hashlama",
-      subject: "אלגברה",
-      title: "עזרה בפתרון משוואות",
-      studentId: 101 // מזהה הסטודנט שביקש את העזרה
-    },
-    {
-      id: 2,
-      type: "homework",
-      subject: "פיזיקה",
-      title: "תרגיל 2 - הבנת חוקי ניוטון",
-      studentId: 102
-    },
-    {
-      id: 3,
-      type: "sicom",
-      subject: "כימיה",
-      title: "סיכום בכימיה אורגנית",
-      studentId: 103
-    }
-];
+// const course2 = [
+//     {
+//       id: 1,
+//       type: "hashlama",
+//       subject: "אלגברה",
+//       title: "עזרה בפתרון משוואות",
+//       studentId: 101 // מזהה הסטודנט שביקש את העזרה
+//     },
+//     {
+//       id: 2,
+//       type: "homework",
+//       subject: "פיזיקה",
+//       title: "תרגיל 2 - הבנת חוקי ניוטון",
+//       studentId: 102
+//     },
+//     {
+//       id: 3,
+//       type: "sicom",
+//       subject: "כימיה",
+//       title: "סיכום בכימיה אורגנית",
+//       studentId: 103
+//     }
+// ];
 
-const course3 = [
-    {
-      id: 1,
-      type: "sicom",
-      subject: "ביולוגיה",
-      title: "סיכום דפוסי שינה בקרב בעלי חיים",
-      dueDate: "2024-07-30",
-      studentId: 106
-    },
-    {
-      id: 2,
-      type: "hashlama",
-      subject: "אנגלית",
-      title: "השלמת חומר - חשיבות השפה האנגלית גלובלית",
-      dueDate: "2024-08-05",
-      studentId: 107
-    }
-];
+// const course3 = [
+//     {
+//       id: 1,
+//       type: "sicom",
+//       subject: "ביולוגיה",
+//       title: "סיכום דפוסי שינה בקרב בעלי חיים",
+//       dueDate: "2024-07-30",
+//       studentId: 106
+//     },
+//     {
+//       id: 2,
+//       type: "hashlama",
+//       subject: "אנגלית",
+//       title: "השלמת חומר - חשיבות השפה האנגלית גלובלית",
+//       dueDate: "2024-08-05",
+//       studentId: 107
+//     }
+// ];
 
 
 function displayData(dataArray) {
@@ -271,3 +271,99 @@ function handleClick(helpitem, elementid, type) {
 
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
+
+async function loadCoursesDatafromFB(email) {
+    var type = "studentsProvidingHelp";
+    var studentId = await getStudentIdByEmail(email, type);
+    
+    console.log(studentId);
+
+
+    if (studentId && type) {
+        return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // Check if courses exist
+                    if (data.courses) {
+                        // Extract and add course buttons
+                        var courses = data.courses;
+                        courses.forEach(course => {
+                            var firstCourse = data.courses[0];
+                            console.log(`Course number: ${course}`);
+                            loadDataCoursesDatafromFB(course);
+                            // console.log('First course ID:', firstCourse);
+                            return firstCourse
+                        });
+                    } else {
+                        console.log('No courses found for this student.');
+                    }
+                } else {
+                    console.log('No data found for this student.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    } else {
+        console.log('No student ID or user type found.');
+    }
+}
+
+async function getStudentIdByEmail(email, type) {
+    try {
+        const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`);
+        const data = await response.json();
+        for (let key in data) {
+            let student = data[key];
+            if (student.mail === email) {
+                return key; // Return the student ID
+            }
+        }
+        return null; // Return null if the email is not found
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+    }
+}
+
+
+function loadDataCoursesDatafromFB(idcourse) {
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/courses/${idcourse}.json`)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                const courseName = data["Course Name"];
+                const lectureName = data["Lacture Name"];
+                const department = data["Department"];
+                console.log(`Course Name: ${courseName}`);
+                console.log(`Lecture Name: ${lectureName}`);
+                console.log(`Department: ${department}`);
+                coursesinhtml(idcourse,courseName,lectureName,department )
+            } else {
+                console.log('No data found for this course.');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching course data:', error);
+        });
+}
+
+function coursesinhtml(idcourse, courseName, lectureName, department) {
+    var coursebutton = document.getElementById("courses_buttons");
+
+    // Create a new button element
+    var button = document.createElement("button");
+    button.id = idcourse;
+    button.className = "bluck";
+    button.innerHTML = `<i class="bi bi-book"></i> ${idcourse} - ${courseName}`;
+
+    // Attach the onclick event dynamically
+    button.setAttribute('onclick', `coursebuttondo(${JSON.stringify(idcourse)}, 
+                            ${JSON.stringify(courseName)}, 
+                            ${JSON.stringify(lectureName)}, 
+                            ${JSON.stringify(department)})`);
+
+    // Append the button to the courses_buttons container
+    coursebutton.appendChild(button);
+}
