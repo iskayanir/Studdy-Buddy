@@ -294,7 +294,7 @@ function handleCredentialResponse(response) {
         if (result) {
             console.log(`Student ID: ${result.studentId}, Type: ${result.type}`);
             localStorage.setItem('GlobalStudentID', result.studentId);
-            localStorage.setItem('Type', result.type);
+            localStorage.setItem('userType', result.type);
             console.log("ה-ID הוא ", result.studentId)
             console.log("סוג סטודנט", result.type)
             if (result.type=="providingHelp"){
@@ -408,8 +408,8 @@ function searchEmail(email) {
                     const student = data.studentsReceivingHelp[key];
                     // if (student.contact && student.contact.email === email) {
                     if (student.mail === email) {
-                        result = { studentId: key, type: 'receivingHelp' };
-                        console.log(`Email found in students receiving help: ${student.name}, ${student.mail}`);
+                        result = { studentId: key, type: 'studentsReceivingHelp' };
+                        console.log(`Email found in students receiving help: ${student.name}, ${student.mail}`, result.type);
                         return result; // החזרה מיידית כשנמצא
                     }
                 }
@@ -420,8 +420,8 @@ function searchEmail(email) {
                 for (let key in data.studentsProvidingHelp) {
                     const student = data.studentsProvidingHelp[key];
                     if (student.mail === email) {
-                        result = { studentId: key, type: 'providingHelp' };
-                        console.log(`Email found in students providing help: ${student.name}, ${student.mail}`);
+                        result = { studentId: key, type: 'studentsProvidingHelp' };
+                        console.log(`Email found in students providing help: ${student.name}, ${student.mail}`, result.type);
                         return result; // החזרה מיידית כשנמצא
                     }
                 }

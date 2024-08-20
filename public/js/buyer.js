@@ -336,7 +336,7 @@ async function loadCoursesDatafromFB(email) {
     var studentId = await getStudentIdByEmail(email, type);
     
     console.log(studentId);
-
+    console.log(type);
 
     if (studentId && type) {
         return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
