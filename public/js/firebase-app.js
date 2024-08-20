@@ -642,6 +642,8 @@ export function loadProfileData() {
                             if (data.imageUrl) {
                                 document.getElementById('profilePicture').src = data.imageUrl;
                             }
+                             // קריאה לפונקציה לטעינת הקורסים
+                             loadCourses(studentId, type);
                         } else {
                             console.error('User data not found');
                         }
@@ -662,6 +664,31 @@ export function loadProfileData() {
 
 window.loadProfileData = loadProfileData;
 
+function loadCourses(studentId, type) {
+    const courseList = document.getElementById('courseList');
+
+    // נוודא שה-courseList ריק לפני שמכניסים את הקורסים
+    courseList.innerHTML = '';
+
+    // נשלוף את הקורסים מ-Firebase
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`)
+        .then(response => response.json())
+        .then(courses => {
+            if (courses) {
+                courses.forEach(course => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = course;
+                    courseList.appendChild(listItem);
+                });
+            } else {
+                courseList.innerHTML = '<li>לא נמצאו קורסים</li>';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching courses:', error);
+            courseList.innerHTML = '<li>שגיאה בטעינת הקורסים</li>';
+        });
+}
 
 export function getStudentIdByEmail(email, type) {
     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`)
