@@ -878,8 +878,84 @@ h1 {
     
 }
 
+.course-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px; /* Space between grid items */
+    padding: 10px;
+    margin-left: auto; /* Align the grid to the right */
+    max-width: calc(100% - 350px);
+}
+
 /*.course-content .status {
     display: flex;
     align-items: center;
-}
+}*/
     
+.grid-item {
+    display: grid;
+    grid-template-areas:
+        "${iconClass} icon"
+        "type-help"
+        "topic"
+        "date"
+        "status-section"
+        "delete-section";
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+    background: #ffffff;
+    box-shadow: 0 3px 3px rgb(214, 214, 214);
+    align-items: center;
+    position: relative;
+    width: 230px;
+    height: auto;
+    color: #334999;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+.grid-item:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s, color 0.2s; /* Add smooth transitions */
+}
+
+.grid-item h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.grid-item ul {
+    list-style-type: none;
+    padding: 0; /* Removes default padding */
+    margin: 0;
+}
+
+.grid-item .icon {
+    font-size: 28px;
+    color: #334999;
+}
+
+.grid-item .delete-icon {
+    font-size: 24px;
+}
+
+.grid-item:hover .delete-icon:hover {
+    transform: scale(1.02);
+}
+
+.status-section {
+    display: flex;
+    margin-right: 55px;
+    padding: 5px;
+  }
+  
+  .status-container {
+    display: flex;
+    
+  }
+  
+  .status-title {
+    margin-right: 10px;
+  }
+

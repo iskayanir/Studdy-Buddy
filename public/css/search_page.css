@@ -301,9 +301,39 @@ ul {
 
 }
 
-.add:active {
-   background-color: #334999; 
-}
+.grid-item.default {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  .grid-item.default:hover {
+    transition: 0.3s;
+    transform: scale(1.05);
+    background-color: #334999;
+    color: white;
+  }
+  
+  .grid-item.default .icon:hover {
+    color: white;
+  }
+  
+  .grid-item.enrolled {
+    background-color: #c2e0f0;
+    color: #000000;
+  }
+  
+  .grid-item.enrolled:hover {
+    transition: 0.3s;
+    transform: scale(1.05);
+    background-color: #c2e0f0;
+    color: #334999;
+  }
+  
+  .grid-item.enrolled .icon:hover {
+    color: #334999;
+  }
+
+
 .show {
     display: block;
 }

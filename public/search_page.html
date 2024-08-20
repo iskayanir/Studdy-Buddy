@@ -108,7 +108,9 @@
                         </ul>
                         <button class="add" id="addd" onclick="removeCourse('${key}')">מחק קורס</button>
                     `;
-                    gridItem.style.backgroundColor = '#f8d7da'; // Change to a different color
+                    gridItem.classList.remove('default');
+                    gridItem.classList.add('enrolled');
+                    gridItem.style.backgroundColor = '#c2e0f0'; 
                 } else {
                     // Student is not enrolled in this course
                     gridItem.innerHTML = `
@@ -121,6 +123,8 @@
                         </ul>
                         <button class="add" id="addd" onclick="addCourse('${key}')">הוסף קורס</button>
                     `;
+                    gridItem.classList.add('default');
+                    gridItem.classList.remove('enrolled');
                 }
 
                 gridContainer.appendChild(gridItem);
