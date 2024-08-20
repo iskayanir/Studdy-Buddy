@@ -606,6 +606,7 @@ window.saveProfileDataToFirebase = saveProfileDataToFirebase;
 
 
 export function loadProfileData() {
+    console.log("נכנס")
     // שליפת האובייקט שנשמר ב-Local Storage
     var type = localStorage.getItem('userType');
     console.log(type)
@@ -637,6 +638,8 @@ export function loadProfileData() {
                             document.getElementById('displayYear').textContent = data.year || '';
                             document.getElementById('displayPhoneNumber').textContent = data.tel || '';
                             document.getElementById('displayEmail').textContent = data.mail || '';
+                            document.getElementById('displayHobbies').textContent = data.hobbies || '';
+                            document.getElementById('displayAboutMe').textContent = data.aboutme || '';
 
                             // עדכון תמונת הפרופיל במידה וקיימת
                             if (data.imageUrl) {
