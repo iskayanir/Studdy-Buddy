@@ -175,24 +175,33 @@ function editProfileData() {
   const aboutme = document.getElementById('aboutme').value;
   const hobbies = document.getElementById('hobbies').value;
 
-  // יצירת אובייקט עם הנתונים החדשים
-  let updatedStudent = {
-      name: name,
-      degree: degree,
-      mail: mail,
-      tel: tel,
-      year: year,
-      aboutme: aboutme,
-      hobbies: hobbies
-  };
+  // תחילה, נקרא את הנתונים הקיימים ב-Firebase כדי לשמור על הקורסים
+  fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`)
+  .then(response => response.json())
+  .then(existingData => {
+      // אם קיימים קורסים, נוסיף אותם לאובייקט החדש
+      const existingCourses = existingData.courses || [];
 
-  // עדכון הנתונים בפיירבייס
-  fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
-      method: 'PUT', // השתמש ב-PUT כדי לעדכן את הרשומה הקיימת
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(updatedStudent)
+      // יצירת אובייקט עם הנתונים החדשים
+      let updatedStudent = {
+          name: name,
+          degree: degree,
+          mail: mail,
+          tel: tel,
+          year: year,
+          aboutme: aboutme, // ווידוא שמירה של השדה "קצת עלי"
+          hobbies: hobbies, // ווידוא שמירה של השדה "תחביבים"
+          courses: existingCourses // שמירת הקורסים הקיימים
+      };
+
+      // עדכון הנתונים בפיירבייס
+      return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
+          method: 'PUT', // השתמש ב-PUT כדי לעדכן את הרשומה הקיימת
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedStudent)
+      });
   })
   .then(response => response.json())
   .then(data => {
@@ -204,6 +213,7 @@ function editProfileData() {
       console.error('Error updating profile:', error);
   });
 }
+
 
 
 
