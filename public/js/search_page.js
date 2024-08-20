@@ -50,37 +50,37 @@ function filterAll(){
     });
 }
        
-function fetchData() {
-    console.log("hello before");
-    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
-    .then(response => response.json())
-    .then(data => {
-        const gridContainer = document.getElementById('gridContainer');
-        gridContainer.innerHTML = ''
+// function fetchData() {
+//     console.log("hello before");
+//     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
+//     .then(response => response.json())
+//     .then(data => {
+//         const gridContainer = document.getElementById('gridContainer');
+//         gridContainer.innerHTML = ''
                         
-        Object.keys(data.courses).forEach(key => {
-        const course = data.courses[key];
-        course.id = key;
+//         Object.keys(data.courses).forEach(key => {
+//         const course = data.courses[key];
+//         course.id = key;
 
-        const gridItem = document.createElement('div');
-        gridItem.classList.add('grid-item');
+//         const gridItem = document.createElement('div');
+//         gridItem.classList.add('grid-item');
 
-        gridItem.innerHTML = `
-            <h2 class="course-name">${course['Course Name']}</h2>
-            <i class="bi bi-mortarboard icon"></i>
-            <ul>
-            <li class="faculty">פקולטה: ${course.Faculty}</li>
-            <li class ="department"> חוג: ${course.Department}</li>
-            <li class="teacher">מרצה: ${course['Lacture Name']}</li>
-            </ul>
-            <button class="add" id="addd" onclick="addCourse()">הוסף קורס</button>
-        `;
+//         gridItem.innerHTML = `
+//             <h2 class="course-name">${course['Course Name']}</h2>
+//             <i class="bi bi-mortarboard icon"></i>
+//             <ul>
+//             <li class="faculty">פקולטה: ${course.Faculty}</li>
+//             <li class ="department"> חוג: ${course.Department}</li>
+//             <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+//             </ul>
+//             <button class="add" id="addd" onclick="addCourse()">הוסף קורס</button>
+//         `;
 
-        gridContainer.appendChild(gridItem);
-        });
-    })
-    .catch(error => console.error('Error fetching data:', error));
-}
+//         gridContainer.appendChild(gridItem);
+//         });
+//     })
+//     .catch(error => console.error('Error fetching data:', error));
+// }
 
 
 // function addCourse(courseId, type) {
