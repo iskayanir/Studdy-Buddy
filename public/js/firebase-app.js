@@ -711,6 +711,7 @@ export function addCourse(courseId) {
             })
             .then(response => response.json())
             .then(updatedStudent => {
+                updateStyleCoursetoSelected(courseId);
                 console.log('Success:', updatedStudent);
             })
             .catch(error => {
@@ -722,6 +723,9 @@ export function addCourse(courseId) {
         });
 }
 window.addCourse = addCourse;
+
+
+
 export function saveUserType(userType) {
     console.log("enter function")
     localStorage.setItem('userType', userType);
@@ -744,3 +748,117 @@ export function saveUserType(userType) {
 }
 
 window.navigateToCourses = navigateToCourses;
+
+function updateStyleCoursetoSelected(courseId) {
+    // Fetch the course details from Firebase
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/courses/${courseId}.json`)
+        .then(response => response.json())
+        .then(course => {
+            // Find the grid item element corresponding to the courseId
+            const gridItem = document.querySelector(`[data-course-id='${courseId}']`);
+
+            if (!gridItem) {
+                console.error('Grid item not found for courseId:', courseId);
+                return;
+            }
+
+            // Update the inner HTML of the grid item
+            gridItem.innerHTML = `
+                <h2 class="course-name">${course['Course Name']}</h2>
+                <i class="bi bi-mortarboard icon"></i>
+                <ul>
+                    <li class="faculty">פקולטה: ${course.Faculty}</li>
+                    <li class ="department"> חוג: ${course.Department}</li>
+                    <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+                </ul>
+                <button class="add" id="addd" onclick="removeCourse('${courseId}')">מחק קורס</button>
+            `;
+
+            // Change the background color of the grid item
+            gridItem.style.backgroundColor = '#f8d7da';
+        })
+        .catch(error => {
+            console.error('Error fetching course data:', error);
+        });
+}
+
+
+export function removeCourse(courseId) {
+    const studentId = localStorage.getItem("GlobalStudentID");
+    const type = localStorage.getItem("userType");
+
+    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`)
+        .then(response => response.json())
+        .then(courses => {
+            if (!courses) {
+                throw new Error('Courses not found');
+            }
+
+            // Find the index of the courseId in the courses array
+            const courseIndex = courses.findIndex(course => course == courseId);
+            if (courseIndex === -1) {
+                throw new Error('Course not found in student\'s courses');
+            }
+
+            // Remove the course from the array
+            courses.splice(courseIndex, 1);
+
+            // Update the student's courses in Firebase
+            return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(courses)
+            });
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update courses');
+            }
+            return response.json();
+        })
+        .then(data => {
+            updateStyleCoursetoZamin(courseId)
+            console.log(`Course with ID ${courseId} removed successfully:`, data);
+        })
+        .catch(error => {
+            console.error('Error removing course:', error);
+        });
+}
+
+window.removeCourse = removeCourse;
+
+
+function updateStyleCoursetoZamin(courseId) {
+    // Fetch the course details from Firebase
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/courses/${courseId}.json`)
+        .then(response => response.json())
+        .then(course => {
+            // Find the grid item element corresponding to the courseId
+            const gridItem = document.querySelector(`[data-course-id='${courseId}']`);
+
+            if (!gridItem) {
+                console.error('Grid item not found for courseId:', courseId);
+                return;
+            }
+
+            // Update the inner HTML of the grid item
+            gridItem.innerHTML = `
+                <h2 class="course-name">${course['Course Name']}</h2>
+                <i class="bi bi-mortarboard icon"></i>
+                <ul>
+                    <li class="faculty">פקולטה: ${course.Faculty}</li>
+                    <li class ="department"> חוג: ${course.Department}</li>
+                    <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+                </ul>
+                <button class="add" id="addd" onclick="addCourse('${courseId}')">הוסף קורס</button>
+            `;
+
+            // Change the background color of the grid item
+            gridItem.style.backgroundColor = '#ffffff'; // Change to a different color
+        })
+        .catch(error => {
+            console.error('Error fetching course data:', error);
+        });
+}
