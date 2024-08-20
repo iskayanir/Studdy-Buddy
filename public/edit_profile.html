@@ -18,8 +18,8 @@
   <article class="top-of-form">
     <h1 title="title">עדכון פרטי משתמש</h1><br>
     <div class="user-type">
-      <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="window.location.href = 'edit_profile.html'";> אני מחפש עזרה
-      <input id="user-seller" name="user" type="radio" value="Seller" onclick="window.location.href = 'edit_profile.html'";> אני רוצה לעזור <br>
+      <!-- <input id="user-buyer" name="user" type="radio" value="Buyer" checked> אני מחפש עזרה
+      <input id="user-seller" name="user" type="radio" value="Seller"> אני רוצה לעזור <br> -->
     </div><br>
   </article>
 
@@ -67,8 +67,9 @@
   </script> -->
   <script src="js/script.js"></script>
   <script>
+    loadProfileDatafromFB()
     window.onload = function() {
-        loadProfileDatafromFB();
+        // loadProfileDatafromFB();
         // localStorage.removeItem('userType');
         // שליפת נתוני המשתמש מ-Local Storage
         // var userData = JSON.parse(localStorage.getItem('userData'));
