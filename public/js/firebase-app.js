@@ -1005,3 +1005,5 @@ function updateStyleCoursetoZamin(courseId) {
             console.error('Error fetching course data:', error);
         });
 }
+
+
