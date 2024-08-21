@@ -211,43 +211,7 @@ function handleClick(helpitem, elementid, type) {
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
 
-// async function loadCoursesDatafromFB(email) {
-//     var type = "studentsProvidingHelp";
-//     var studentId = await getStudentIdByEmail(email, type);
-    
-//     console.log(studentId);
 
-
-//     if (studentId && type) {
-//         return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data) {
-//                     // Check if courses exist
-//                     if (data.courses) {
-//                         // Extract and add course buttons
-//                         var courses = data.courses;
-//                         courses.forEach(course => {
-//                             var firstCourse = data.courses[0];
-//                             console.log(`Course number: ${course}`);
-//                             loadDataCoursesDatafromFB(course);
-//                             // console.log('First course ID:', firstCourse);
-//                             return firstCourse
-//                         });
-//                     } else {
-//                         console.log('No courses found for this student.');
-//                     }
-//                 } else {
-//                     console.log('No data found for this student.');
-//                 }
-//             })
-//             .catch(error => {
-//                 console.error('Error fetching data:', error);
-//             });
-//     } else {
-//         console.log('No student ID or user type found.');
-//     }
-// }
 
 async function loadCoursesDatafromFB(email) {
     var type = "studentsProvidingHelp";
@@ -437,6 +401,109 @@ function showrequests(idcourse){
 
 
 
+// function createAndAppendNewItem(typehelp, topic, status, date = null) {
+//     // Create new item element
+//     var newItem = document.createElement('div');
+//     newItem.className = 'item';
+
+//     // Create title for the summary type
+//     var summaryTitleSpan = document.createElement('span');
+//     summaryTitleSpan.className = 'title-text';
+//     summaryTitleSpan.textContent = 'סוג בקשה: ';
+
+//     var summarySpan = document.createElement('span');
+//     summarySpan.className = 'summary-text';
+//     if (typehelp === "sicom") {
+//         summarySpan.textContent = 'סיכום  ';
+//         summarySpan.classList.add('summary-sicom'); 
+//     } else if (typehelp === "hashlama") {
+//         summarySpan.textContent = 'השלמת נושא  ';
+//         summarySpan.classList.add('summary-hashlama');
+//     } else {
+//         summarySpan.textContent = 'עזרה בתרגיל בית  ';
+//         summarySpan.classList.add('summary-ezra');
+//     }
+
+//     // Create title for the topic
+//     var topicTitleSpan = document.createElement('span');
+//     topicTitleSpan.className = 'title-text';
+//     topicTitleSpan.textContent = 'נושא: ';
+
+//     // Create topic span
+//     var fractionSpan = document.createElement('span');
+//     fractionSpan.textContent = topic;
+//     fractionSpan.className = 'topic-text';
+
+//     if (typehelp === "sicom" && date) {
+//         var dateTitleSpan = document.createElement('span');
+//         dateTitleSpan.className = 'title-text';
+//         dateTitleSpan.textContent = 'תאריך סיכום: ';
+
+//         var dateSpan = document.createElement('span');
+//         dateSpan.textContent = date;
+//         dateSpan.className = 'date-text';
+//     }
+
+//     // Create title for the status
+//     var statusTitleDiv = document.createElement('div');
+//     statusTitleDiv.className = 'title-text';
+//     statusTitleDiv.textContent = 'סטטוס בקשה ';
+
+//     var statusDiv = document.createElement('div');
+//     statusDiv.className = 'status';
+
+//     var statusIconDiv = document.createElement('div');
+//     statusIconDiv.className = 'status-icon';
+
+//     // Create the checkbox and custom styles
+//     var checkbox = document.createElement('input');
+//     checkbox.type = 'checkbox';
+//     checkbox.className = 'status-checkbox';
+
+//     // Ensure each checkbox has a unique ID
+//     var uniqueId = 'statusCheckbox_' + Date.now();
+//     checkbox.id = uniqueId;
+
+//     var customCheckbox = document.createElement('label');
+//     customCheckbox.className = 'custom-checkbox';
+//     customCheckbox.htmlFor = uniqueId;
+
+//     // var deleteIconTitleSpan = document.createElement('span');
+//     // deleteIconTitleSpan.className = 'title-text';
+//     // deleteIconTitleSpan.textContent = 'מחיקה ';
+
+//     // var deleteIcon = document.createElement('i');
+//     // deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
+
+
+//     // // Attach click event listener to delete the item
+//     // deleteIcon.addEventListener('click', function () {
+//     //     courseContent.removeChild(newItem);
+//     // });
+
+//     statusIconDiv.appendChild(checkbox);
+//     statusIconDiv.appendChild(customCheckbox);
+
+//     // Append the status icon to the status div
+//     statusDiv.appendChild(statusTitleDiv);
+//     statusDiv.appendChild(statusIconDiv);
+
+//     // Append spans and status div to the new item
+//     newItem.appendChild(summaryTitleSpan);
+//     newItem.appendChild(summarySpan);
+//     newItem.appendChild(topicTitleSpan);
+//     newItem.appendChild(fractionSpan);
+//     if (typehelp === "sicom" && date) {
+//         newItem.appendChild(dateTitleSpan);
+//         newItem.appendChild(dateSpan);
+//     }
+//     newItem.appendChild(statusDiv);
+    
+
+//     // Append the new item to course-content
+//     var courseContent = document.getElementById('course-content');
+//     courseContent.appendChild(newItem)}
+
 function createAndAppendNewItem(typehelp, topic, status, date = null) {
     // Create new item element
     var newItem = document.createElement('div');
@@ -480,51 +547,19 @@ function createAndAppendNewItem(typehelp, topic, status, date = null) {
         dateSpan.className = 'date-text';
     }
 
-    // Create title for the status
-    var statusTitleDiv = document.createElement('div');
-    statusTitleDiv.className = 'title-text';
-    statusTitleDiv.textContent = 'סטטוס בקשה ';
+    // Create the "אני יכול לעזור" button
+    var helpButton = document.createElement('button');
+    helpButton.className = 'help-button';
+    helpButton.textContent = 'אני יכול לעזור';
+    
+    // Attach click event to the button
+    helpButton.addEventListener('click', function () {
+        alert('תודה רבה על הרצון לעזור!');
+        helpButton.style.backgroundColor = 'green'; // Change button color to green
+        helpButton.style.color = 'white'; // Change text color to white
+    });
 
-    var statusDiv = document.createElement('div');
-    statusDiv.className = 'status';
-
-    var statusIconDiv = document.createElement('div');
-    statusIconDiv.className = 'status-icon';
-
-    // Create the checkbox and custom styles
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.className = 'status-checkbox';
-
-    // Ensure each checkbox has a unique ID
-    var uniqueId = 'statusCheckbox_' + Date.now();
-    checkbox.id = uniqueId;
-
-    var customCheckbox = document.createElement('label');
-    customCheckbox.className = 'custom-checkbox';
-    customCheckbox.htmlFor = uniqueId;
-
-    // var deleteIconTitleSpan = document.createElement('span');
-    // deleteIconTitleSpan.className = 'title-text';
-    // deleteIconTitleSpan.textContent = 'מחיקה ';
-
-    // var deleteIcon = document.createElement('i');
-    // deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
-
-
-    // // Attach click event listener to delete the item
-    // deleteIcon.addEventListener('click', function () {
-    //     courseContent.removeChild(newItem);
-    // });
-
-    statusIconDiv.appendChild(checkbox);
-    statusIconDiv.appendChild(customCheckbox);
-
-    // Append the status icon to the status div
-    statusDiv.appendChild(statusTitleDiv);
-    statusDiv.appendChild(statusIconDiv);
-
-    // Append spans and status div to the new item
+    // Append spans and button to the new item
     newItem.appendChild(summaryTitleSpan);
     newItem.appendChild(summarySpan);
     newItem.appendChild(topicTitleSpan);
@@ -533,12 +568,15 @@ function createAndAppendNewItem(typehelp, topic, status, date = null) {
         newItem.appendChild(dateTitleSpan);
         newItem.appendChild(dateSpan);
     }
-    newItem.appendChild(statusDiv);
-    
+    newItem.appendChild(helpButton); // Append the button
 
     // Append the new item to course-content
     var courseContent = document.getElementById('course-content');
-    courseContent.appendChild(newItem)}
+    courseContent.appendChild(newItem);
+}
+
+
+
 }
     // var firstChild = courseContent.firstChild; // Get the first child element
     // if (firstChild) {
