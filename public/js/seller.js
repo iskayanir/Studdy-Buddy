@@ -351,8 +351,56 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
                                 
 }
 
+// function showrequests(idcourse){
+//     console.log('Searching for requests with IDcourse: ${idcourse}');
+//     return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
+//         .then(response => response.json())
+//         .then(data => {
+//             let matchingRequests = [];
+
+//             // בדיקה בתוך בקשות
+//             if (data) {
+//                 for (let key in data) {
+//                     const request = data[key];
+//                     console.log(request)
+//                     console.log(request.id_course)
+//                     console.log(idcourse)
+//                     if (request.id_course === String(idcourse)) {
+//                         matchingRequests.push({
+//                             requestId: key,
+//                             ...request
+//                         });
+//                         console.log('Matching request found: ${JSON.stringify(request)}');
+//                         var typehelp = request.type
+//                         var topic = request.topic
+//                         var status = request.status_request
+//                         console.log(typehelp, topic, status)
+//                         if(request.date){
+//                             var date = request.date
+//                             createAndAppendNewItem(typehelp, topic, status, date)
+//                         } 
+//                         createAndAppendNewItem(typehelp, topic, status)
+                        
+//                     }
+//                 }
+//             }
+
+//             if (matchingRequests.length === 0) {
+//                 console.log('No matching requests found');
+//                 return null;
+//             }
+//             return matchingRequests;
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching data:', error);
+//                 return null;
+//             });
+
+
+// }
+
 function showrequests(idcourse){
-    console.log('Searching for requests with IDcourse: ${idcourse}');
+    console.log(`Searching for requests with IDcourse: ${idcourse}`);
     return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
         .then(response => response.json())
         .then(data => {
@@ -362,25 +410,24 @@ function showrequests(idcourse){
             if (data) {
                 for (let key in data) {
                     const request = data[key];
-                    console.log(request)
-                    console.log(request.id_course)
-                    console.log(idcourse)
+                    console.log(request);
                     if (request.id_course === String(idcourse)) {
                         matchingRequests.push({
                             requestId: key,
                             ...request
                         });
-                        console.log('Matching request found: ${JSON.stringify(request)}');
-                        var typehelp = request.type
-                        var topic = request.topic
-                        var status = request.status_request
-                        console.log(typehelp, topic, status)
+                        console.log(`Matching request found: ${JSON.stringify(request)}`);
+                        var typehelp = request.type;
+                        var topic = request.topic;
+                        var status = request.status_request;
+                        var requestId = key; // Use the request ID for the next steps
+                        console.log(typehelp, topic, status, requestId);
                         if(request.date){
-                            var date = request.date
-                            createAndAppendNewItem(typehelp, topic, status, date)
-                        } 
-                        createAndAppendNewItem(typehelp, topic, status)
-                        
+                            var date = request.date;
+                            createAndAppendNewItem(typehelp, topic, status, date, requestId);
+                        } else {
+                            createAndAppendNewItem(typehelp, topic, status, null, requestId);
+                        }
                     }
                 }
             }
@@ -390,15 +437,12 @@ function showrequests(idcourse){
                 return null;
             }
             return matchingRequests;
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                return null;
-            });
-
-
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            return null;
+        });
 }
-
 
 
 // function createAndAppendNewItem(typehelp, topic, status, date = null) {
@@ -504,7 +548,7 @@ function showrequests(idcourse){
 //     var courseContent = document.getElementById('course-content');
 //     courseContent.appendChild(newItem)}
 
-function createAndAppendNewItem(typehelp, topic, status, date = null) {
+function createAndAppendNewItem(typehelp, topic, status, date = null, requestId) {
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'item';
@@ -554,9 +598,16 @@ function createAndAppendNewItem(typehelp, topic, status, date = null) {
     
     // Attach click event to the button
     helpButton.addEventListener('click', function () {
-        alert('תודה רבה על הרצון לעזור!');
-        helpButton.style.backgroundColor = 'green'; // Change button color to green
-        helpButton.style.color = 'white'; // Change text color to white
+        getBuyerOfRequest(requestId)
+            .then(studentDetails => {
+                alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
+                helpButton.style.backgroundColor = 'green'; // Change button color to green
+                helpButton.style.color = 'white'; // Change text color to white
+            })
+            .catch(error => {
+                console.error('Error fetching student details:', error);
+                alert('לא ניתן להציג את פרטי הסטודנט.');
+            });
     });
 
     // Append spans and button to the new item
@@ -577,6 +628,7 @@ function createAndAppendNewItem(typehelp, topic, status, date = null) {
 
 
 
+
 }
     // var firstChild = courseContent.firstChild; // Get the first child element
     // if (firstChild) {
@@ -584,3 +636,41 @@ function createAndAppendNewItem(typehelp, topic, status, date = null) {
     // } else {
     //     courseContent.appendChild(newItem); // If no children, just append newItem
     // }
+
+
+
+
+    
+
+    async function getBuyerOfRequest(requestId) {
+        try {
+            console.log(requestId+ "בקשה")
+            // שלב 1: שליפת הבקשה על בסיס ה-ID שלה
+            const requestResponse = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests/${requestId}.json`);
+            const requestData = await requestResponse.json();
+    
+            if (!requestData || !requestData.id_student) {
+                throw new Error('Student ID not found in request');
+            }
+    
+            const studentMail = requestData.id_student;
+            const buyerId = await getStudentIdByEmail(studentMail, 'studentsReceivingHelp');
+
+            console.log(studentMail)
+            console.log(buyerId)
+            // שלב 2: שליפת פרטי הסטודנט על בסיס הסטודנט ID שהתקבל מהבקשה
+            const studentResponse = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsReceivingHelp/${buyerId}.json`);
+            const studentData = await studentResponse.json();
+    
+            return {
+                name: studentData.name || 'לא ידוע',
+                bio: studentData.aboutme || 'אין ביוגרפיה זמינה',
+                phone: studentData.tel || 'לא זמין',
+                email: studentData.mail || 'לא זמין'
+            };
+        } catch (error) {
+            console.error('Error fetching student details:', error);
+            throw error;
+        }
+    }
+    
