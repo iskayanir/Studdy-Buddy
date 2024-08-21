@@ -64,12 +64,11 @@
 <script>
   function fetchDataCourses() {
     console.log("hello before");
-    // getStudentIdByEmail(email, type).then(response)
     const mail = localStorage.getItem('userData');
     const studentId = localStorage.getItem('GlobalStudentID');
     const type = localStorage.getItem('userType');
     
-    console.log(studentId+"גשכשדג")
+    console.log(studentId+"גשכשדג");
 
     // Fetch all courses
     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
@@ -82,90 +81,133 @@
         fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`)
             .then(studentResponse => studentResponse.json())
             .then(studentCourses => {
-          console.log(studentCourses)
-            // Iterate over all courses
-            Object.keys(data.courses).forEach(key => {
-                const course = data.courses[key];
-                // console.log(key)
-                course.id = key;
-                // console.log(course.id+"קורס ID" )
-                const gridItem = document.createElement('div');
-                gridItem.classList.add('grid-item');
+                console.log(studentCourses);
 
-                // Set the data-course-id attribute for future reference
-                gridItem.setAttribute('data-course-id', key);
+                // Iterate over all courses
+                Object.keys(data.courses).forEach(key => {
+                    const course = data.courses[key];
+                    course.id = key;
+                    
+                    const gridItem = document.createElement('div');
+                    gridItem.classList.add('grid-item');
 
-                if (studentCourses && studentCourses.includes(key)) {
-                  console.log("מחק קורס")
-                    // Student is enrolled in this course
-                    gridItem.innerHTML = `
-                        <h2 class="course-name">${course['Course Name']}</h2>
-                        <i class="bi bi-mortarboard icon"></i>
-                        <ul>
-                            <li class="faculty">פקולטה: ${course.Faculty}</li>
-                            <li class ="department"> חוג: ${course.Department}</li>
-                            <li class="teacher">מרצה: ${course['Lacture Name']}</li>
-                        </ul>
-                        <button class="add" id="addd" onclick="removeCourse('${key}')">מחק קורס</button>
-                    `;
-                    gridItem.classList.remove('default');
-                    gridItem.classList.add('enrolled');
-                    gridItem.style.backgroundColor = '#c2e0f0'; 
-                } else {
-                    // Student is not enrolled in this course
-                    gridItem.innerHTML = `
-                        <h2 class="course-name">${course['Course Name']}</h2>
-                        <i class="bi bi-mortarboard icon"></i>
-                        <ul>
-                            <li class="faculty">פקולטה: ${course.Faculty}</li>
-                            <li class ="department"> חוג: ${course.Department}</li>
-                            <li class="teacher">מרצה: ${course['Lacture Name']}</li>
-                        </ul>
-                        <button class="add" id="addd" onclick="addCourse('${key}')">הוסף קורס</button>
-                    `;
-                    gridItem.classList.add('default');
-                    gridItem.classList.remove('enrolled');
-                }
+                    // Set the data-course-id attribute for future reference
+                    gridItem.setAttribute('data-course-id', key);
 
-                gridContainer.appendChild(gridItem);
-            });
-        })
-        .catch(error => console.error('Error fetching student courses:', error));
+                    if (studentCourses && studentCourses[key]) {
+                        // Student is enrolled in this course
+                        console.log("מחק קורס");
+                        gridItem.innerHTML = `
+                            <h2 class="course-name">${course['Course Name']}</h2>
+                            <i class="bi bi-mortarboard icon"></i>
+                            <ul>
+                                <li class="faculty">פקולטה: ${course.Faculty}</li>
+                                <li class ="department"> חוג: ${course.Department}</li>
+                                <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+                            </ul>
+                            <button class="add" id="addd" onclick="removeCourse('${key}')">מחק קורס</button>
+                        `;
+                        gridItem.classList.remove('default');
+                        gridItem.classList.add('enrolled');
+                        gridItem.style.backgroundColor = '#c2e0f0'; 
+                    } else {
+                        // Student is not enrolled in this course
+                        gridItem.innerHTML = `
+                            <h2 class="course-name">${course['Course Name']}</h2>
+                            <i class="bi bi-mortarboard icon"></i>
+                            <ul>
+                                <li class="faculty">פקולטה: ${course.Faculty}</li>
+                                <li class ="department"> חוג: ${course.Department}</li>
+                                <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+                            </ul>
+                            <button class="add" id="addd" onclick="addCourse('${key}')">הוסף קורס</button>
+                        `;
+                        gridItem.classList.add('default');
+                        gridItem.classList.remove('enrolled');
+                    }
+
+                    gridContainer.appendChild(gridItem);
+                });
+            })
+            .catch(error => console.error('Error fetching student courses:', error));
     })
     .catch(error => console.error('Error fetching data:', error));
 }
 
 //   function fetchDataCourses() {
-    
 //     console.log("hello before");
+//     // getStudentIdByEmail(email, type).then(response)
+//     const mail = localStorage.getItem('userData');
+//     const studentId = localStorage.getItem('GlobalStudentID');
+//     const type = localStorage.getItem('userType');
+    
+//     console.log(studentId+"גשכשדג")
+
+//     // Fetch all courses
 //     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/.json')
 //     .then(response => response.json())
 //     .then(data => {
-//       const gridContainer = document.getElementById('gridContainer');
-//       gridContainer.innerHTML = ''
-                        
-//       Object.keys(data.courses).forEach(key => {
-//         const course = data.courses[key];
+//         const gridContainer = document.getElementById('gridContainer');
+//         gridContainer.innerHTML = '';
 
-//         const gridItem = document.createElement('div');
-//         gridItem.classList.add('grid-item');
+//         // Fetch the student's courses
+//         fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`)
+//             .then(studentResponse => studentResponse.json())
+//             .then(studentCourses => {
+//           console.log(studentCourses)
+//             // Iterate over all courses
+//             Object.keys(data.courses).forEach(key => {
+//                 const course = data.courses[key];
+//                 // console.log(key)
+//                 course.id = key;
+//                 // console.log(course.id+"קורס ID" )
+//                 const gridItem = document.createElement('div');
+//                 gridItem.classList.add('grid-item');
 
-//         gridItem.innerHTML = `
-//           <h2 class="course-name">${course['Course Name']}</h2>
-//           <i class="bi bi-mortarboard icon"></i>
-//           <ul>
-//             <li class="faculty">פקולטה: ${course.Faculty}</li>
-//             <li class ="department"> חוג: ${course.Department}</li>
-//             <li class="teacher">מרצה: ${course['Lacture Name']}</li>
-//           </ul>
-//           <button class="add" onclick="addCourse(${key})">הוסף קורס</button>
-//         `;
-            
-//         gridContainer.appendChild(gridItem);
-//       });
+//                 // Set the data-course-id attribute for future reference
+//                 gridItem.setAttribute('data-course-id', key);
+
+//                 if (studentCourses && studentCourses.includes(key)) {
+//                   console.log("מחק קורס")
+//                     // Student is enrolled in this course
+//                     gridItem.innerHTML = `
+//                         <h2 class="course-name">${course['Course Name']}</h2>
+//                         <i class="bi bi-mortarboard icon"></i>
+//                         <ul>
+//                             <li class="faculty">פקולטה: ${course.Faculty}</li>
+//                             <li class ="department"> חוג: ${course.Department}</li>
+//                             <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+//                         </ul>
+//                         <button class="add" id="addd" onclick="removeCourse('${key}')">מחק קורס</button>
+//                     `;
+//                     gridItem.classList.remove('default');
+//                     gridItem.classList.add('enrolled');
+//                     gridItem.style.backgroundColor = '#c2e0f0'; 
+//                 } else {
+//                     // Student is not enrolled in this course
+//                     gridItem.innerHTML = `
+//                         <h2 class="course-name">${course['Course Name']}</h2>
+//                         <i class="bi bi-mortarboard icon"></i>
+//                         <ul>
+//                             <li class="faculty">פקולטה: ${course.Faculty}</li>
+//                             <li class ="department"> חוג: ${course.Department}</li>
+//                             <li class="teacher">מרצה: ${course['Lacture Name']}</li>
+//                         </ul>
+//                         <button class="add" id="addd" onclick="addCourse('${key}')">הוסף קורס</button>
+//                     `;
+//                     gridItem.classList.add('default');
+//                     gridItem.classList.remove('enrolled');
+//                 }
+
+//                 gridContainer.appendChild(gridItem);
+//             });
+//         })
+//         .catch(error => console.error('Error fetching student courses:', error));
 //     })
 //     .catch(error => console.error('Error fetching data:', error));
 // }
+
+
     window.onload = fetchDataCourses;
     document.getElementById('searchInput').addEventListener('input', filterItems);
     document.getElementById('teacherInput').addEventListener('input', filterItems)

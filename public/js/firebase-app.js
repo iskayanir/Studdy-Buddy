@@ -667,6 +667,32 @@ export function loadProfileData() {
 
 window.loadProfileData = loadProfileData;
 
+// function loadCourses(studentId, type) {
+//     const courseList = document.getElementById('courseList');
+
+//     // נוודא שה-courseList ריק לפני שמכניסים את הקורסים
+//     courseList.innerHTML = '';
+
+//     // נשלוף את הקורסים מ-Firebase
+//     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`)
+//         .then(response => response.json())
+//         .then(courses => {
+//             if (courses) {
+//                 courses.forEach(course => {
+//                     const listItem = document.createElement('li');
+//                     listItem.textContent = course;
+//                     courseList.appendChild(listItem);
+//                 });
+//             } else {
+//                 courseList.innerHTML = '<li>לא נמצאו קורסים</li>';
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error fetching courses:', error);
+//             courseList.innerHTML = '<li>שגיאה בטעינת הקורסים</li>';
+//         });
+// }
+
 function loadCourses(studentId, type) {
     const courseList = document.getElementById('courseList');
 
@@ -678,9 +704,10 @@ function loadCourses(studentId, type) {
         .then(response => response.json())
         .then(courses => {
             if (courses) {
-                courses.forEach(course => {
+                // נעבור על מפתחות הקורסים ונוסיף כל אחד לרשימה
+                Object.keys(courses).forEach(courseId => {
                     const listItem = document.createElement('li');
-                    listItem.textContent = course;
+                    listItem.textContent = courseId;
                     courseList.appendChild(listItem);
                 });
             } else {
@@ -692,6 +719,8 @@ function loadCourses(studentId, type) {
             courseList.innerHTML = '<li>שגיאה בטעינת הקורסים</li>';
         });
 }
+
+
 
 export function getStudentIdByEmail(email, type) {
     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`)
@@ -711,12 +740,55 @@ export function getStudentIdByEmail(email, type) {
         });
 }
 
+// export function addCourse(courseId) {
+//     var type = localStorage.getItem('userType');
+//     console.log(type);
+//     const StudentID = localStorage.getItem('GlobalStudentID');
+//     console.log(courseId);
+//     console.log(StudentID);
+//     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`)
+//         .then(response => response.json())
+//         .then(student => {
+//             console.log('Fetched student data:', student);
+//             if (!student) {
+//                 console.error('Student not found');
+//                 return;
+//             }
+
+//             student.courses = student.courses || [];
+//             if (!student.courses.includes(courseId)) {
+//                 student.courses.push(courseId);
+//             }           
+
+//             // Update the student data in Firebase
+//             fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`, {
+//                 method: 'PUT',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify(student)
+//             })
+//             .then(response => response.json())
+//             .then(updatedStudent => {
+//                 updateStyleCoursetoSelected(courseId);
+//                 console.log('Success:', updatedStudent);
+//             })
+//             .catch(error => {
+//                 console.error('Error updating student:', error);
+//             });
+//         })
+//         .catch(error => {
+//             console.error('Error fetching student:', error);
+//         });
+// }
+
 export function addCourse(courseId) {
     var type = localStorage.getItem('userType');
     console.log(type);
     const StudentID = localStorage.getItem('GlobalStudentID');
     console.log(courseId);
     console.log(StudentID);
+
     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`)
         .then(response => response.json())
         .then(student => {
@@ -726,31 +798,30 @@ export function addCourse(courseId) {
                 return;
             }
 
-            student.courses = student.courses || [];
-            if (!student.courses.includes(courseId)) {
-                student.courses.push(courseId);
+            // ודא שהקורסים הם אובייקט או מערך והוסף את הקורס אם הוא לא קיים
+            student.courses = student.courses || {};
+            if (!student.courses.hasOwnProperty(courseId)) {
+                student.courses[courseId] = true;  // שמור את הקורס לפי מה שנדרש
             }           
 
-            // Update the student data in Firebase
-            fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`, {
+            // עדכון נתוני הסטודנט ב-Firebase
+            return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${StudentID}.json`,
+                 {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(student)
-            })
-            .then(response => response.json())
-            .then(updatedStudent => {
-                updateStyleCoursetoSelected(courseId);
-                console.log('Success:', updatedStudent);
-            })
-            .catch(error => {
-                console.error('Error updating student:', error);
             });
         })
+        .then(response => response.json())
+        .then(updatedStudent => {
+            updateStyleCoursetoSelected(courseId);
+            console.log('Success:', updatedStudent);
+        })
         .catch(error => {
-            console.error('Error fetching student:', error);
-        });
+            console.error('Error fetching or updating student:', error);
+        });
 }
 window.addCourse = addCourse;
 
@@ -805,7 +876,7 @@ function updateStyleCoursetoSelected(courseId) {
             `;
 
             // Change the background color of the grid item
-            gridItem.style.backgroundColor = '#f8d7da';
+            gridItem.style.backgroundColor = '#c2e0f0';
         })
         .catch(error => {
             console.error('Error fetching course data:', error);
@@ -813,6 +884,49 @@ function updateStyleCoursetoSelected(courseId) {
 }
 
 
+// export function removeCourse(courseId) {
+//     const studentId = localStorage.getItem("GlobalStudentID");
+//     const type = localStorage.getItem("userType");
+
+//     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`)
+//         .then(response => response.json())
+//         .then(courses => {
+//             if (!courses) {
+//                 throw new Error('Courses not found');
+//             }
+
+//             // Find the index of the courseId in the courses array
+//             const courseIndex = courses.findIndex(course => course == courseId);
+//             if (courseIndex === -1) {
+//                 throw new Error('Course not found in student\'s courses');
+//             }
+
+//             // Remove the course from the array
+//             courses.splice(courseIndex, 1);
+
+//             // Update the student's courses in Firebase
+//             return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`, {
+//                 method: 'PUT',
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify(courses)
+//             });
+//         })
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Failed to update courses');
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             updateStyleCoursetoZamin(courseId)
+//             console.log(`Course with ID ${courseId} removed successfully:`, data);
+//         })
+//         .catch(error => {
+//             console.error('Error removing course:', error);
+//         });
+// }
 export function removeCourse(courseId) {
     const studentId = localStorage.getItem("GlobalStudentID");
     const type = localStorage.getItem("userType");
@@ -824,14 +938,13 @@ export function removeCourse(courseId) {
                 throw new Error('Courses not found');
             }
 
-            // Find the index of the courseId in the courses array
-            const courseIndex = courses.findIndex(course => course == courseId);
-            if (courseIndex === -1) {
+            // Check if the courseId exists in the courses object
+            if (!courses[courseId]) {
                 throw new Error('Course not found in student\'s courses');
             }
 
-            // Remove the course from the array
-            courses.splice(courseIndex, 1);
+            // Remove the course by deleting the courseId key from the courses object
+            delete courses[courseId];
 
             // Update the student's courses in Firebase
             return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}/courses.json`, {
@@ -849,7 +962,7 @@ export function removeCourse(courseId) {
             return response.json();
         })
         .then(data => {
-            updateStyleCoursetoZamin(courseId)
+            updateStyleCoursetoZamin(courseId);
             console.log(`Course with ID ${courseId} removed successfully:`, data);
         })
         .catch(error => {

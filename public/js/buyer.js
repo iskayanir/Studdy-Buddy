@@ -271,6 +271,45 @@ function createAndAppendNewItem(typehelp, topic, requestId, date = null) {
 
 
 
+// async function loadCoursesDatafromFB(email) {
+//     var type = "studentsReceivingHelp";
+//     var studentId = await getStudentIdByEmail(email, type);
+    
+//     console.log(studentId);
+//     console.log(type);
+
+//     if (studentId && type) {
+//         return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 if (data) {
+//                     // Check if courses exist
+//                     if (data.courses) {
+//                         // Extract and add course buttons
+//                         var courses = data.courses;
+//                         courses.forEach(course => {
+//                             var firstCourse = data.courses[0];
+//                             console.log(`Course number: ${course}`);
+//                             loadDataCoursesDatafromFB(course);
+//                             console.log('First course ID:', firstCourse);
+//                             return firstCourse
+//                         });
+//                     } else {
+//                         console.log('No courses found for this student.');
+//                     }
+//                 } else {
+//                     console.log('No data found for this student.');
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching data:', error);
+//             });
+//     } else {
+//         console.log('No student ID or user type found.');
+//     }
+// }
+
+
 async function loadCoursesDatafromFB(email) {
     var type = "studentsReceivingHelp";
     var studentId = await getStudentIdByEmail(email, type);
@@ -285,15 +324,17 @@ async function loadCoursesDatafromFB(email) {
                 if (data) {
                     // Check if courses exist
                     if (data.courses) {
-                        // Extract and add course buttons
+                        // Iterate over the keys of the courses object
                         var courses = data.courses;
-                        courses.forEach(course => {
-                            var firstCourse = data.courses[0];
-                            console.log(`Course number: ${course}`);
-                            loadDataCoursesDatafromFB(course);
-                            console.log('First course ID:', firstCourse);
-                            return firstCourse
+                        Object.keys(courses).forEach(courseId => {
+                            console.log(`Course number: ${courseId}`);
+                            loadDataCoursesDatafromFB(courseId);
                         });
+
+                        // Return the first course ID if needed
+                        var firstCourse = Object.keys(courses)[0];
+                        console.log('First course ID:', firstCourse);
+                        return firstCourse;
                     } else {
                         console.log('No courses found for this student.');
                     }
@@ -308,6 +349,7 @@ async function loadCoursesDatafromFB(email) {
         console.log('No student ID or user type found.');
     }
 }
+
 
 
 async function getStudentIdByEmail(email, type) {

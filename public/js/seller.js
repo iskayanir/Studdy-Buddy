@@ -1,67 +1,6 @@
 
 // // import buyers_students from './seller-profile.js';
 // import { buyers_students, seller_students } from './seller-profile.js';
-// const course1 = [
-//     {
-//       id: 1,
-//       type: "sicom",
-//       subject: "מתמטיקה",
-//       title: "סיכום יחידה 1",
-//       content: "סיכום של נושאים כולל משוואות ופונקציות.",
-//       studentId: 104
-//     },
-//     {
-//       id: 2,
-//       type: "homework",
-//       subject: "היסטוריה",
-//       title: "תרגיל 5 תקופת הרנסאנס",
-//       content: "סקירה כללית על התקופה והשפעותיה.",
-//       studentId: 105
-//     }
-// ];
-
-// const course2 = [
-//     {
-//       id: 1,
-//       type: "hashlama",
-//       subject: "אלגברה",
-//       title: "עזרה בפתרון משוואות",
-//       studentId: 101 // מזהה הסטודנט שביקש את העזרה
-//     },
-//     {
-//       id: 2,
-//       type: "homework",
-//       subject: "פיזיקה",
-//       title: "תרגיל 2 - הבנת חוקי ניוטון",
-//       studentId: 102
-//     },
-//     {
-//       id: 3,
-//       type: "sicom",
-//       subject: "כימיה",
-//       title: "סיכום בכימיה אורגנית",
-//       studentId: 103
-//     }
-// ];
-
-// const course3 = [
-//     {
-//       id: 1,
-//       type: "sicom",
-//       subject: "ביולוגיה",
-//       title: "סיכום דפוסי שינה בקרב בעלי חיים",
-//       dueDate: "2024-07-30",
-//       studentId: 106
-//     },
-//     {
-//       id: 2,
-//       type: "hashlama",
-//       subject: "אנגלית",
-//       title: "השלמת חומר - חשיבות השפה האנגלית גלובלית",
-//       dueDate: "2024-08-05",
-//       studentId: 107
-//     }
-// ];
 
 
 function displayData(dataArray) {
@@ -272,12 +211,49 @@ function handleClick(helpitem, elementid, type) {
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
 
+// async function loadCoursesDatafromFB(email) {
+//     var type = "studentsProvidingHelp";
+//     var studentId = await getStudentIdByEmail(email, type);
+    
+//     console.log(studentId);
+
+
+//     if (studentId && type) {
+//         return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 if (data) {
+//                     // Check if courses exist
+//                     if (data.courses) {
+//                         // Extract and add course buttons
+//                         var courses = data.courses;
+//                         courses.forEach(course => {
+//                             var firstCourse = data.courses[0];
+//                             console.log(`Course number: ${course}`);
+//                             loadDataCoursesDatafromFB(course);
+//                             // console.log('First course ID:', firstCourse);
+//                             return firstCourse
+//                         });
+//                     } else {
+//                         console.log('No courses found for this student.');
+//                     }
+//                 } else {
+//                     console.log('No data found for this student.');
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching data:', error);
+//             });
+//     } else {
+//         console.log('No student ID or user type found.');
+//     }
+// }
+
 async function loadCoursesDatafromFB(email) {
     var type = "studentsProvidingHelp";
     var studentId = await getStudentIdByEmail(email, type);
     
     console.log(studentId);
-
 
     if (studentId && type) {
         return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
@@ -286,14 +262,10 @@ async function loadCoursesDatafromFB(email) {
                 if (data) {
                     // Check if courses exist
                     if (data.courses) {
-                        // Extract and add course buttons
-                        var courses = data.courses;
-                        courses.forEach(course => {
-                            var firstCourse = data.courses[0];
-                            console.log(`Course number: ${course}`);
-                            loadDataCoursesDatafromFB(course);
-                            // console.log('First course ID:', firstCourse);
-                            return firstCourse
+                        // Iterate over the courses object keys
+                        Object.keys(data.courses).forEach(courseId => {
+                            console.log(`Course number: ${courseId}`);
+                            loadDataCoursesDatafromFB(courseId);
                         });
                     } else {
                         console.log('No courses found for this student.');
@@ -309,6 +281,7 @@ async function loadCoursesDatafromFB(email) {
         console.log('No student ID or user type found.');
     }
 }
+
 
 async function getStudentIdByEmail(email, type) {
     try {
