@@ -399,6 +399,7 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
 
 // }
 
+}
 function showrequests(idcourse){
     console.log(`Searching for requests with IDcourse: ${idcourse}`);
     return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
@@ -548,7 +549,7 @@ function showrequests(idcourse){
 //     var courseContent = document.getElementById('course-content');
 //     courseContent.appendChild(newItem)}
 
-function createAndAppendNewItem(typehelp, topic, status, date = null, requestId) {
+async function createAndAppendNewItem(typehelp, topic, status, date = null, requestId) {
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'item';
@@ -597,17 +598,26 @@ function createAndAppendNewItem(typehelp, topic, status, date = null, requestId)
     helpButton.textContent = 'אני יכול לעזור';
     
     // Attach click event to the button
-    helpButton.addEventListener('click', function () {
-        getBuyerOfRequest(requestId)
-            .then(studentDetails => {
-                alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
-                helpButton.style.backgroundColor = 'green'; // Change button color to green
-                helpButton.style.color = 'white'; // Change text color to white
-            })
-            .catch(error => {
-                console.error('Error fetching student details:', error);
-                alert('לא ניתן להציג את פרטי הסטודנט.');
-            });
+    helpButton.addEventListener('click', async function () {
+        console.log('Click event triggered');  // בדוק שהפונקציה מופעלת
+        try {
+            const studentDetails = await getBuyerOfRequest(requestId);
+            alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
+            helpButton.style.backgroundColor = 'green'; // Change button color to green
+            helpButton.style.color = 'white'; // Change text color to white
+    
+            const IdSeller = localStorage.getItem('GlobalStudentID');
+            const fromName = await getNameSeller(IdSeller);
+            const sellerData = JSON.parse(localStorage.getItem('userData'));
+            const mailSeller = sellerData.email;
+            const message = `I can help you! This is my mail: ${mailSeller}`;
+            
+            console.log(`${studentDetails.email} מייל`)
+            sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
+        } catch (error) {
+            console.error('Error fetching student details:', error);
+            alert('לא ניתן להציג את פרטי הסטודנט.');
+        }
     });
 
     // Append spans and button to the new item
@@ -626,10 +636,24 @@ function createAndAppendNewItem(typehelp, topic, status, date = null, requestId)
     courseContent.appendChild(newItem);
 }
 
-
-
-
+async function getNameSeller(IdSeller) {
+    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                return data.name; // מחזיר את השם של הסטודנט
+            } else {
+                console.log("No student found for this ID");
+                return null;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching student data:', error);
+            return null;
+        });
 }
+
+
     // var firstChild = courseContent.firstChild; // Get the first child element
     // if (firstChild) {
     //     courseContent.insertBefore(newItem, firstChild); // Insert newItem before the firstChild
@@ -674,3 +698,27 @@ function createAndAppendNewItem(typehelp, topic, status, date = null, requestId)
         }
     }
     
+
+  // import emailjs from '@emailjs/browser';
+
+emailjs.init("WRYy33VFN5zOKGdCN");
+
+
+function sendEmail(toEmail, toName, fromName, message, mailSeller) {
+    console.log("מייל נשלח");
+    console.log(toEmail, toName, fromName, message)
+    console.log(mailSeller)
+    emailjs.send("service_ue0x8eq", "template_66nzfeq", {
+        email_buyer: toEmail,  // זהו השם שמופיע בטמפלייט שלך
+        to_name: toName,
+        from_name: fromName,
+        message: message,
+        email_seller: mailSeller 
+    })
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.error('FAILED...', error);
+    });
+}
+
