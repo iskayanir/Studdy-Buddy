@@ -279,7 +279,7 @@ h1 {
 }
 
 #section6 ul li {
-    font-size: 25px;
+    font-size: 14px;
     flex: 1;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -295,8 +295,9 @@ h1 {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: 5px;
+    color: #334999;
 }
 
 #section6 ul button:hover {
@@ -310,9 +311,10 @@ h1 {
     border: none;
     flex: none;
     background: #d8edff;
+    position: relative;
     border-radius: 5px;
     overflow: hidden;
-    width: 280px; /* Adjust width as needed */
+    width: 300px; /* Adjust width as needed */
     height: 100%;
     position: fixed;
     top: 60px; /* Start below the header */
@@ -727,4 +729,67 @@ h1 {
 
 .dropdown-menu input[type="checkbox"] {
     margin-right: 10px;
+}
+
+.course-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px; /* Space between grid items */
+    padding: 10px;
+    margin-left: auto; /* Align the grid to the right */
+    max-width: calc(100% - 350px);
+}
+
+.item {
+    display: grid;
+    grid-template-areas:
+        "${iconClass} icon"
+        "type-help"
+        "topic"
+        "date"
+        "help-button";
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+    background: #ffffff;
+    box-shadow: 0 3px 3px rgb(214, 214, 214);
+    align-items: center;
+    position: relative;
+    width: 230px;
+    height: auto;
+    color: #334999;
+    font-size: 18px;
+    border-radius: 8px;
+}
+
+.item:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s, color 0.2s; /* Add smooth transitions */
+}
+
+.item h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.item ul {
+    list-style-type: none;
+    padding: 0; /* Removes default padding */
+    margin: 0;
+}
+
+.item .icon {
+    font-size: 28px;
+    color: #334999;
+}
+
+.item .help-button {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    color: #334999;
+    background-color: white;
+}
+
+.grid-item:hover .help-button:hover {
+    transform: scale(1.02);
 }

@@ -554,56 +554,34 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
     var newItem = document.createElement('div');
     newItem.className = 'item';
 
-    // Create title for the summary type
-    var summaryTitleSpan = document.createElement('span');
-    summaryTitleSpan.className = 'title-text';
-    summaryTitleSpan.textContent = 'סוג בקשה: ';
-
-    var summarySpan = document.createElement('span');
-    summarySpan.className = 'summary-text';
+    // Determine icon based on the type of help
+    var iconClass = '';
     if (typehelp === "sicom") {
-        summarySpan.textContent = 'סיכום  ';
-        summarySpan.classList.add('summary-sicom'); 
+        iconClass = 'bi bi-sticky'; // Example icon for 'sicom'
     } else if (typehelp === "hashlama") {
-        summarySpan.textContent = 'השלמת נושא  ';
-        summarySpan.classList.add('summary-hashlama');
+        iconClass = 'bi bi-journal-text'; // Example icon for 'hashlama'
     } else {
-        summarySpan.textContent = 'עזרה בתרגיל בית  ';
-        summarySpan.classList.add('summary-ezra');
+        iconClass = 'bi bi-journal-check'; // Example icon for 'ezra'
     }
 
-    // Create title for the topic
-    var topicTitleSpan = document.createElement('span');
-    topicTitleSpan.className = 'title-text';
-    topicTitleSpan.textContent = 'נושא: ';
+    // Set the content of the new item
+    newItem.innerHTML = `
+        <i class="${iconClass} icon"></i>
+        <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
+        <ul>
+            <li class="topic">${topic}</li>
+            ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
+        </ul>
+        <button class="help-button">אני רוצה לעזור!</button>
+    `;
 
-    // Create topic span
-    var fractionSpan = document.createElement('span');
-    fractionSpan.textContent = topic;
-    fractionSpan.className = 'topic-text';
 
-    if (typehelp === "sicom" && date) {
-        var dateTitleSpan = document.createElement('span');
-        dateTitleSpan.className = 'title-text';
-        dateTitleSpan.textContent = 'תאריך סיכום: ';
-
-        var dateSpan = document.createElement('span');
-        dateSpan.textContent = date;
-        dateSpan.className = 'date-text';
-    }
-
-    // Create the "אני יכול לעזור" button
-    var helpButton = document.createElement('button');
-    helpButton.className = 'help-button';
-    helpButton.textContent = 'אני יכול לעזור';
-    
-    // Attach click event to the button
-    helpButton.addEventListener('click', async function () {
+    newItem.querySelector('.help-button').addEventListener('click', async function () {
         console.log('Click event triggered');  // בדוק שהפונקציה מופעלת
         try {
             const studentDetails = await getBuyerOfRequest(requestId);
             alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
-            helpButton.style.backgroundColor = 'green'; // Change button color to green
+            helpButton.style.backgroundColor = '#334999'; // Change button color to green
             helpButton.style.color = 'white'; // Change text color to white
     
             const IdSeller = localStorage.getItem('GlobalStudentID');
@@ -619,17 +597,6 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
             alert('לא ניתן להציג את פרטי הסטודנט.');
         }
     });
-
-    // Append spans and button to the new item
-    newItem.appendChild(summaryTitleSpan);
-    newItem.appendChild(summarySpan);
-    newItem.appendChild(topicTitleSpan);
-    newItem.appendChild(fractionSpan);
-    if (typehelp === "sicom" && date) {
-        newItem.appendChild(dateTitleSpan);
-        newItem.appendChild(dateSpan);
-    }
-    newItem.appendChild(helpButton); // Append the button
 
     // Append the new item to course-content
     var courseContent = document.getElementById('course-content');
