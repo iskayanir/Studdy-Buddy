@@ -211,43 +211,7 @@ function handleClick(helpitem, elementid, type) {
 window.toggleDisplayData = toggleDisplayData;
 window.handleClick = handleClick;
 
-// async function loadCoursesDatafromFB(email) {
-//     var type = "studentsProvidingHelp";
-//     var studentId = await getStudentIdByEmail(email, type);
-    
-//     console.log(studentId);
 
-
-//     if (studentId && type) {
-//         return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
-//             .then(response => response.json())
-//             .then(data => {
-//                 if (data) {
-//                     // Check if courses exist
-//                     if (data.courses) {
-//                         // Extract and add course buttons
-//                         var courses = data.courses;
-//                         courses.forEach(course => {
-//                             var firstCourse = data.courses[0];
-//                             console.log(`Course number: ${course}`);
-//                             loadDataCoursesDatafromFB(course);
-//                             // console.log('First course ID:', firstCourse);
-//                             return firstCourse
-//                         });
-//                     } else {
-//                         console.log('No courses found for this student.');
-//                     }
-//                 } else {
-//                     console.log('No data found for this student.');
-//                 }
-//             })
-//             .catch(error => {
-//                 console.error('Error fetching data:', error);
-//             });
-//     } else {
-//         console.log('No student ID or user type found.');
-//     }
-// }
 
 async function loadCoursesDatafromFB(email) {
     var type = "studentsProvidingHelp";
@@ -387,8 +351,56 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
                                 
 }
 
+// function showrequests(idcourse){
+//     console.log('Searching for requests with IDcourse: ${idcourse}');
+//     return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
+//         .then(response => response.json())
+//         .then(data => {
+//             let matchingRequests = [];
+
+//             // בדיקה בתוך בקשות
+//             if (data) {
+//                 for (let key in data) {
+//                     const request = data[key];
+//                     console.log(request)
+//                     console.log(request.id_course)
+//                     console.log(idcourse)
+//                     if (request.id_course === String(idcourse)) {
+//                         matchingRequests.push({
+//                             requestId: key,
+//                             ...request
+//                         });
+//                         console.log('Matching request found: ${JSON.stringify(request)}');
+//                         var typehelp = request.type
+//                         var topic = request.topic
+//                         var status = request.status_request
+//                         console.log(typehelp, topic, status)
+//                         if(request.date){
+//                             var date = request.date
+//                             createAndAppendNewItem(typehelp, topic, status, date)
+//                         } 
+//                         createAndAppendNewItem(typehelp, topic, status)
+                        
+//                     }
+//                 }
+//             }
+
+//             if (matchingRequests.length === 0) {
+//                 console.log('No matching requests found');
+//                 return null;
+//             }
+//             return matchingRequests;
+//             })
+//             .catch(error => {
+//                 console.error('Error fetching data:', error);
+//                 return null;
+//             });
+
+
+// }
+
 function showrequests(idcourse){
-    console.log('Searching for requests with IDcourse: ${idcourse}');
+    console.log(`Searching for requests with IDcourse: ${idcourse}`);
     return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
         .then(response => response.json())
         .then(data => {
@@ -398,25 +410,24 @@ function showrequests(idcourse){
             if (data) {
                 for (let key in data) {
                     const request = data[key];
-                    console.log(request)
-                    console.log(request.id_course)
-                    console.log(idcourse)
+                    console.log(request);
                     if (request.id_course === String(idcourse)) {
                         matchingRequests.push({
                             requestId: key,
                             ...request
                         });
-                        console.log('Matching request found: ${JSON.stringify(request)}');
-                        var typehelp = request.type
-                        var topic = request.topic
-                        var status = request.status_request
-                        console.log(typehelp, topic, status)
+                        console.log(`Matching request found: ${JSON.stringify(request)}`);
+                        var typehelp = request.type;
+                        var topic = request.topic;
+                        var status = request.status_request;
+                        var requestId = key; // Use the request ID for the next steps
+                        console.log(typehelp, topic, status, requestId);
                         if(request.date){
-                            var date = request.date
-                            createAndAppendNewItem(typehelp, topic, status, date)
-                        } 
-                        createAndAppendNewItem(typehelp, topic, status)
-                        
+                            var date = request.date;
+                            createAndAppendNewItem(typehelp, topic, status, date, requestId);
+                        } else {
+                            createAndAppendNewItem(typehelp, topic, status, null, requestId);
+                        }
                     }
                 }
             }
@@ -426,18 +437,118 @@ function showrequests(idcourse){
                 return null;
             }
             return matchingRequests;
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-                return null;
-            });
-
-
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            return null;
+        });
 }
 
 
+// function createAndAppendNewItem(typehelp, topic, status, date = null) {
+//     // Create new item element
+//     var newItem = document.createElement('div');
+//     newItem.className = 'item';
 
-function createAndAppendNewItem(typehelp, topic, status, date = null) {
+//     // Create title for the summary type
+//     var summaryTitleSpan = document.createElement('span');
+//     summaryTitleSpan.className = 'title-text';
+//     summaryTitleSpan.textContent = 'סוג בקשה: ';
+
+//     var summarySpan = document.createElement('span');
+//     summarySpan.className = 'summary-text';
+//     if (typehelp === "sicom") {
+//         summarySpan.textContent = 'סיכום  ';
+//         summarySpan.classList.add('summary-sicom'); 
+//     } else if (typehelp === "hashlama") {
+//         summarySpan.textContent = 'השלמת נושא  ';
+//         summarySpan.classList.add('summary-hashlama');
+//     } else {
+//         summarySpan.textContent = 'עזרה בתרגיל בית  ';
+//         summarySpan.classList.add('summary-ezra');
+//     }
+
+//     // Create title for the topic
+//     var topicTitleSpan = document.createElement('span');
+//     topicTitleSpan.className = 'title-text';
+//     topicTitleSpan.textContent = 'נושא: ';
+
+//     // Create topic span
+//     var fractionSpan = document.createElement('span');
+//     fractionSpan.textContent = topic;
+//     fractionSpan.className = 'topic-text';
+
+//     if (typehelp === "sicom" && date) {
+//         var dateTitleSpan = document.createElement('span');
+//         dateTitleSpan.className = 'title-text';
+//         dateTitleSpan.textContent = 'תאריך סיכום: ';
+
+//         var dateSpan = document.createElement('span');
+//         dateSpan.textContent = date;
+//         dateSpan.className = 'date-text';
+//     }
+
+//     // Create title for the status
+//     var statusTitleDiv = document.createElement('div');
+//     statusTitleDiv.className = 'title-text';
+//     statusTitleDiv.textContent = 'סטטוס בקשה ';
+
+//     var statusDiv = document.createElement('div');
+//     statusDiv.className = 'status';
+
+//     var statusIconDiv = document.createElement('div');
+//     statusIconDiv.className = 'status-icon';
+
+//     // Create the checkbox and custom styles
+//     var checkbox = document.createElement('input');
+//     checkbox.type = 'checkbox';
+//     checkbox.className = 'status-checkbox';
+
+//     // Ensure each checkbox has a unique ID
+//     var uniqueId = 'statusCheckbox_' + Date.now();
+//     checkbox.id = uniqueId;
+
+//     var customCheckbox = document.createElement('label');
+//     customCheckbox.className = 'custom-checkbox';
+//     customCheckbox.htmlFor = uniqueId;
+
+//     // var deleteIconTitleSpan = document.createElement('span');
+//     // deleteIconTitleSpan.className = 'title-text';
+//     // deleteIconTitleSpan.textContent = 'מחיקה ';
+
+//     // var deleteIcon = document.createElement('i');
+//     // deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
+
+
+//     // // Attach click event listener to delete the item
+//     // deleteIcon.addEventListener('click', function () {
+//     //     courseContent.removeChild(newItem);
+//     // });
+
+//     statusIconDiv.appendChild(checkbox);
+//     statusIconDiv.appendChild(customCheckbox);
+
+//     // Append the status icon to the status div
+//     statusDiv.appendChild(statusTitleDiv);
+//     statusDiv.appendChild(statusIconDiv);
+
+//     // Append spans and status div to the new item
+//     newItem.appendChild(summaryTitleSpan);
+//     newItem.appendChild(summarySpan);
+//     newItem.appendChild(topicTitleSpan);
+//     newItem.appendChild(fractionSpan);
+//     if (typehelp === "sicom" && date) {
+//         newItem.appendChild(dateTitleSpan);
+//         newItem.appendChild(dateSpan);
+//     }
+//     newItem.appendChild(statusDiv);
+    
+
+//     // Append the new item to course-content
+//     var courseContent = document.getElementById('course-content');
+//     courseContent.appendChild(newItem)}
+
+function createAndAppendNewItem(typehelp, topic, status, date = null, requestId) {
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'item';
@@ -480,51 +591,26 @@ function createAndAppendNewItem(typehelp, topic, status, date = null) {
         dateSpan.className = 'date-text';
     }
 
-    // Create title for the status
-    var statusTitleDiv = document.createElement('div');
-    statusTitleDiv.className = 'title-text';
-    statusTitleDiv.textContent = 'סטטוס בקשה ';
+    // Create the "אני יכול לעזור" button
+    var helpButton = document.createElement('button');
+    helpButton.className = 'help-button';
+    helpButton.textContent = 'אני יכול לעזור';
+    
+    // Attach click event to the button
+    helpButton.addEventListener('click', function () {
+        getBuyerOfRequest(requestId)
+            .then(studentDetails => {
+                alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
+                helpButton.style.backgroundColor = 'green'; // Change button color to green
+                helpButton.style.color = 'white'; // Change text color to white
+            })
+            .catch(error => {
+                console.error('Error fetching student details:', error);
+                alert('לא ניתן להציג את פרטי הסטודנט.');
+            });
+    });
 
-    var statusDiv = document.createElement('div');
-    statusDiv.className = 'status';
-
-    var statusIconDiv = document.createElement('div');
-    statusIconDiv.className = 'status-icon';
-
-    // Create the checkbox and custom styles
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.className = 'status-checkbox';
-
-    // Ensure each checkbox has a unique ID
-    var uniqueId = 'statusCheckbox_' + Date.now();
-    checkbox.id = uniqueId;
-
-    var customCheckbox = document.createElement('label');
-    customCheckbox.className = 'custom-checkbox';
-    customCheckbox.htmlFor = uniqueId;
-
-    // var deleteIconTitleSpan = document.createElement('span');
-    // deleteIconTitleSpan.className = 'title-text';
-    // deleteIconTitleSpan.textContent = 'מחיקה ';
-
-    // var deleteIcon = document.createElement('i');
-    // deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
-
-
-    // // Attach click event listener to delete the item
-    // deleteIcon.addEventListener('click', function () {
-    //     courseContent.removeChild(newItem);
-    // });
-
-    statusIconDiv.appendChild(checkbox);
-    statusIconDiv.appendChild(customCheckbox);
-
-    // Append the status icon to the status div
-    statusDiv.appendChild(statusTitleDiv);
-    statusDiv.appendChild(statusIconDiv);
-
-    // Append spans and status div to the new item
+    // Append spans and button to the new item
     newItem.appendChild(summaryTitleSpan);
     newItem.appendChild(summarySpan);
     newItem.appendChild(topicTitleSpan);
@@ -533,12 +619,16 @@ function createAndAppendNewItem(typehelp, topic, status, date = null) {
         newItem.appendChild(dateTitleSpan);
         newItem.appendChild(dateSpan);
     }
-    newItem.appendChild(statusDiv);
-    
+    newItem.appendChild(helpButton); // Append the button
 
     // Append the new item to course-content
     var courseContent = document.getElementById('course-content');
-    courseContent.appendChild(newItem)}
+    courseContent.appendChild(newItem);
+}
+
+
+
+
 }
     // var firstChild = courseContent.firstChild; // Get the first child element
     // if (firstChild) {
@@ -546,3 +636,41 @@ function createAndAppendNewItem(typehelp, topic, status, date = null) {
     // } else {
     //     courseContent.appendChild(newItem); // If no children, just append newItem
     // }
+
+
+
+
+    
+
+    async function getBuyerOfRequest(requestId) {
+        try {
+            console.log(requestId+ "בקשה")
+            // שלב 1: שליפת הבקשה על בסיס ה-ID שלה
+            const requestResponse = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests/${requestId}.json`);
+            const requestData = await requestResponse.json();
+    
+            if (!requestData || !requestData.id_student) {
+                throw new Error('Student ID not found in request');
+            }
+    
+            const studentMail = requestData.id_student;
+            const buyerId = await getStudentIdByEmail(studentMail, 'studentsReceivingHelp');
+
+            console.log(studentMail)
+            console.log(buyerId)
+            // שלב 2: שליפת פרטי הסטודנט על בסיס הסטודנט ID שהתקבל מהבקשה
+            const studentResponse = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsReceivingHelp/${buyerId}.json`);
+            const studentData = await studentResponse.json();
+    
+            return {
+                name: studentData.name || 'לא ידוע',
+                bio: studentData.aboutme || 'אין ביוגרפיה זמינה',
+                phone: studentData.tel || 'לא זמין',
+                email: studentData.mail || 'לא זמין'
+            };
+        } catch (error) {
+            console.error('Error fetching student details:', error);
+            throw error;
+        }
+    }
+    
