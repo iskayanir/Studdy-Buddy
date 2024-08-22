@@ -297,7 +297,7 @@ function handleCredentialResponse(response) {
             localStorage.setItem('userType', result.type);
             console.log("ה-ID הוא ", result.studentId)
             console.log("סוג סטודנט", result.type)
-            if (result.type=="providingHelp"){
+            if (result.type=="studentsProvidingHelp"){
                 window.location.href = 'seller.html'
             }
             else {

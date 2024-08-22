@@ -649,15 +649,17 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
                 const fromName = await getNameSeller(IdSeller);
                 const sellerData = JSON.parse(localStorage.getItem('userData'));
                 const mailSeller = sellerData.email;
-                const message = `I can help you! This is my mail: ${mailSeller}`;
+                const telSeller = await getTelSeller(IdSeller);
+                const message = `I can help you! This is my mail: ${mailSeller} and my phone: ${telSeller}`;
                 
                 console.log(`${studentDetails.email} מייל`);
-                sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
+                // sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
 
                 // Update the status and add id_seller_approved in Firebase
                 const updateData = {
                     status_request: "approved",
-                    id_seller_approved: mailSeller
+                    mail_seller_approved: mailSeller,
+                    id_seller_approved: IdSeller
                 };
 
                 fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests/${requestId}.json`, {
@@ -696,6 +698,23 @@ async function getNameSeller(IdSeller) {
         .then(data => {
             if (data) {
                 return data.name; // מחזיר את השם של הסטודנט
+            } else {
+                console.log("No student found for this ID");
+                return null;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching student data:', error);
+            return null;
+        });
+}
+
+async function getTelSeller(IdSeller) {
+    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                return data.tel; // מחזיר את השם של הסטודנט
             } else {
                 console.log("No student found for this ID");
                 return null;
