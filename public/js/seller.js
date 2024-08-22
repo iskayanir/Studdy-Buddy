@@ -28,7 +28,6 @@ function displayData(dataArray) {
 }
 
 function toggleDisplayData(type, button) {
-
     // Reset all button colors and set the clicked button to blue
     resetButtonColors();
     button.classList.remove('black');
@@ -423,12 +422,13 @@ function showrequests(idcourse){
                         var status = request.status_request;
                         var requestId = key; // Use the request ID for the next steps
                         console.log(typehelp, topic, status, requestId);
-                        if(request.date){
-                            var date = request.date;
-                            createAndAppendNewItem(typehelp, topic, status, date, requestId);
-                        } else {
-                            createAndAppendNewItem(typehelp, topic, status, null, requestId);
-                        }
+                        if (status !== "approved") {
+                            if(request.date){
+                                var date = request.date;
+                                createAndAppendNewItem(typehelp, topic, status, date, requestId, idcourse);
+                            } else {
+                                createAndAppendNewItem(typehelp, topic, status, null, requestId, idcourse);
+                            }}
                     }
                 }
             }
@@ -444,6 +444,53 @@ function showrequests(idcourse){
             return null;
         });
 }
+
+function showapprovedrequest() {
+    var courseContent = document.getElementById('course-content');
+    if (courseContent){
+        // Remove all child elements
+        while (courseContent.firstChild) {
+            courseContent.removeChild(courseContent.firstChild);
+    }}
+    
+    // השגת המייל של המשתמש הנוכחי
+    var userData = JSON.parse(localStorage.getItem('userData')); 
+    var email = userData.email || '';
+
+    // בקשת כל ה-requests מ-Firebase
+    fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
+        .then(response => response.json())
+        .then(data => {
+            // מעבר על כל הבקשות
+            for (var requestId in data) {
+                if (data.hasOwnProperty(requestId)) {
+                    var request = data[requestId];
+                    
+                    // בדיקה אם יש מפתח בשם "id_seller_approved" ואם התוכן שלו זהה למייל של המשתמש
+                    if (request.id_seller_approved && request.id_seller_approved === email) {
+                        var typehelp = request.type;
+                        var topic = request.topic;
+                        var status = request.status_request;
+                        var idcourse = request.id_course
+                        var requestId = request; // Use the request ID for the next steps
+                        console.log(typehelp, topic, status, requestId);
+                        console.log("התנאים מתקיימים עבור הבקשה עם ה-ID:", requestId);
+                        if (typehelp === "sicom"){
+                            var date = request.date;
+                            createAndAppendNewItem(typehelp, topic, status, date, requestId, idcourse);
+                        } else {
+                            createAndAppendNewItem(typehelp, topic, status, null, requestId, idcourse);
+
+                        }
+                    }
+                }
+            }
+        })
+        .catch(error => {
+            console.error("שגיאה בקבלת הבקשות מ-Firebase:", error);
+        });
+}
+
 
 
 // function createAndAppendNewItem(typehelp, topic, status, date = null) {
@@ -549,7 +596,7 @@ function showrequests(idcourse){
 //     var courseContent = document.getElementById('course-content');
 //     courseContent.appendChild(newItem)}
 
-async function createAndAppendNewItem(typehelp, topic, status, date = null, requestId) {
+async function createAndAppendNewItem(typehelp, topic, status, date = null, requestId, idcourse) {
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'item';
@@ -564,44 +611,84 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
         iconClass = 'bi bi-journal-check'; // Example icon for 'ezra'
     }
 
-    // Set the content of the new item
-    newItem.innerHTML = `
-        <i class="${iconClass} icon"></i>
-        <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
-        <ul>
-            <li class="topic">${topic}</li>
-            ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
-        </ul>
-        <button class="help-button">אני רוצה לעזור!</button>
-    `;
+    // Set the content of the new item based on the status
+    if (status === "approved") {
+        newItem.innerHTML = `
+            <i class="${iconClass} icon"></i>
+            <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
+            <ul>
+                <li class="topic"> - ${topic}${idcourse}</li>
+                ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
+            </ul>
+            <button class="help-approve-button">פרטים על הסטודנט!</button>
+        `;
 
-
-    newItem.querySelector('.help-button').addEventListener('click', async function () {
-        console.log('Click event triggered');  // בדוק שהפונקציה מופעלת
-        try {
+        newItem.querySelector('.help-approve-button').addEventListener('click', async function () {
+            console.log('Click event triggered');
             const studentDetails = await getBuyerOfRequest(requestId);
             alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
-            helpButton.style.backgroundColor = '#334999'; // Change button color to green
-            helpButton.style.color = 'white'; // Change text color to white
-    
-            const IdSeller = localStorage.getItem('GlobalStudentID');
-            const fromName = await getNameSeller(IdSeller);
-            const sellerData = JSON.parse(localStorage.getItem('userData'));
-            const mailSeller = sellerData.email;
-            const message = `I can help you! This is my mail: ${mailSeller}`;
-            
-            console.log(`${studentDetails.email} מייל`)
-            sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
-        } catch (error) {
-            console.error('Error fetching student details:', error);
-            alert('לא ניתן להציג את פרטי הסטודנט.');
-        }
-    });
+        });
+    } else {
+        newItem.innerHTML = `
+            <i class="${iconClass} icon"></i>
+            <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
+            <ul>
+                <li class="topic">${topic}</li>
+                ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
+            </ul>
+            <button class="help-button">אני רוצה לעזור!</button>
+        `;
 
+        newItem.querySelector('.help-button').addEventListener('click', async function () {
+            console.log('Click event triggered');
+            try {
+                const studentDetails = await getBuyerOfRequest(requestId);
+                alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
+
+                const IdSeller = localStorage.getItem('GlobalStudentID');
+                const fromName = await getNameSeller(IdSeller);
+                const sellerData = JSON.parse(localStorage.getItem('userData'));
+                const mailSeller = sellerData.email;
+                const message = `I can help you! This is my mail: ${mailSeller}`;
+                
+                console.log(`${studentDetails.email} מייל`);
+                sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
+
+                // Update the status and add id_seller_approved in Firebase
+                const updateData = {
+                    status_request: "approved",
+                    id_seller_approved: mailSeller
+                };
+
+                fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests/${requestId}.json`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Status updated and seller approved in Firebase:', data);
+                    alert("הבקשה עברה לתקיה 'בקשות מאושרות'");
+                    newItem.remove();  // Remove the item from the DOM
+                })
+                .catch(error => {
+                    console.error('Error updating Firebase:', error);
+                });
+
+            } catch (error) {
+                console.error('Error fetching student details:', error);
+                alert('לא ניתן להציג את פרטי הסטודנט.');
+            }
+        });
+    }
+    
     // Append the new item to course-content
     var courseContent = document.getElementById('course-content');
     courseContent.appendChild(newItem);
 }
+
 
 async function getNameSeller(IdSeller) {
     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
