@@ -755,14 +755,14 @@ async function getNameSeller(IdSeller) {
 
   // import emailjs from '@emailjs/browser';
 
-emailjs.init("WRYy33VFN5zOKGdCN");
+emailjs.init("3tDwFwbFt57-geFOx");
 
 
 function sendEmail(toEmail, toName, fromName, message, mailSeller) {
     console.log("מייל נשלח");
     console.log(toEmail, toName, fromName, message)
     console.log(mailSeller)
-    emailjs.send("service_ue0x8eq", "template_66nzfeq", {
+    emailjs.send("service_7sqzy6r", "template_hpt1elf", {
         email_buyer: toEmail,  // זהו השם שמופיע בטמפלייט שלך
         to_name: toName,
         from_name: fromName,
