@@ -1,4 +1,4 @@
-const { stat } = require("fs");
+// const { stat } = require("fs");
 
 function searchRequests(studentEmail, courseID) {
     courseID = String(courseID)

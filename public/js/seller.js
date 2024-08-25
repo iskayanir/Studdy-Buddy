@@ -1,4 +1,4 @@
-window.handleClick = handleClick;
+// window.handleClick = handleClick;
 
 async function loadCoursesDatafromFB(email) {
     var type = "studentsProvidingHelp";
@@ -307,11 +307,14 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
 
 
                 const IdSeller = localStorage.getItem('GlobalStudentID');
+                console.log(IdSeller + "סלר")
                 const fromName = await getNameSeller(IdSeller);
                 const sellerData = JSON.parse(localStorage.getItem('userData'));
                 const mailSeller = sellerData.email;
                 const telSeller = await getTelSeller(IdSeller);
-                const message = `I can help you! This is my mail: ${mailSeller} and my phone: ${telSeller}.\n\nA little about me: ${studentDetails.aboutme}\n\nMy hobbies: ${studentDetails.hobbies}`;
+                const aboutme = studentDetails.aboutme || "";
+                const hobbies = studentDetails.hobbies || "";
+                const message = `I can help you! This is my mail: ${mailSeller} and my phone: ${telSeller}.\n\nA little about me: ${aboutme}\n\nMy hobbies: ${hobbies}`;
 
                 console.log(`${studentDetails.email} מייל`);
                 sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
