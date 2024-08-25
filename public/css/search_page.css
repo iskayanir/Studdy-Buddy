@@ -1,6 +1,6 @@
 
 html, body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Assistant';
     direction: rtl; 
     text-align: right; 
     display: flex; 
@@ -63,6 +63,7 @@ header .logo {
 .navbar ul li {
     display: inline-block; /* Display menu items horizontally */
     margin-left: 20px; /* Adjust margin between menu items */
+    font-size: 18px;
 }
 
 .navbar ul li:first-child {
@@ -93,7 +94,7 @@ header .logo {
 .nav-links a {
     text-decoration: none;
     color: #333;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .content {

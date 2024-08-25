@@ -481,7 +481,7 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
     button.id = idcourse;
     button.className = "bluck";
     button.innerHTML = `<i class="bi bi-book"></i> ${idcourse} - ${courseName}`;
-    button.style.fontSize = '16px'
+    button.style.fontSize = '18px'
     
 
     // Attach the onclick event dynamically
@@ -495,9 +495,6 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
 }
 
 function coursebuttondo(idcourse, courseName, lectureName, department) {
-    // let button = document.getElementById(idcourse);
-    // button.style.backgroundColor =  '#334999'; // צבע רקע כחול
-    // button.style.color = 'white'; // צבע טקסט לבן
 
     // Select the parent element
     const parentElement = document.querySelector('.course-content');
@@ -512,8 +509,7 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
 
     // צור את המידע שאתה רוצה להכניס
     var coursetitle = document.getElementById("coursedata");
-    coursetitle.innerHTML =  department + " - " +
-                             courseName + '/ ' +
+    coursetitle.innerHTML =  courseName + ' / ' +
                              lectureName;
     var currentcourse = document.getElementById("idcurrentcourse")
     currentcourse.innerHTML = idcourse

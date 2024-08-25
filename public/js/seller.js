@@ -99,9 +99,6 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
         while (courseContent.firstChild) {
             courseContent.removeChild(courseContent.firstChild);
     }
-    // let button = document.getElementById(idcourse);
-    // button.style.backgroundColor =  '#334999'; // צבע רקע כחול
-    // button.style.color = 'white'; // צבע טקסט לבן
 
     // Select the parent element
     const parentElement = document.querySelector('.course-content');
@@ -116,8 +113,7 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
 
     // צור את המידע שאתה רוצה להכניס
     var coursetitle = document.getElementById("coursedata");
-    coursetitle.innerHTML =  department + " - " +
-                             courseName + '/ ' +
+    coursetitle.innerHTML =  courseName + ' / ' +
                              lectureName;
     var currentcourse = document.getElementById("idcurrentcourse")
     currentcourse.innerHTML = idcourse
@@ -188,7 +184,7 @@ function showrequests(idcourse){
 
 function showapprovedrequest() {
     var coursetitle = document.getElementById("coursedata");
-    coursetitle.innerText =  "כל הבקשות שאישרתי";
+    coursetitle.innerText =  "בקשות מאושרות";
 
     var courseContent = document.getElementById('course-content');
     if (courseContent){
@@ -279,12 +275,11 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
             <i class="${iconClass} icon"></i>
             <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
             <ul>
-                <li class="topic"> קורס - ${idcourse} </li>
-                <li class="topic">${courseName}</li>
+                <li class="topic"> ${idcourse} - ${courseName} </li>
                 <li class="topic">${topic}</li>
-                ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
+                ${typehelp === 'sicom' && date ? `<li class="date">סיכום מתאריך: ${date}</li>` : ''}
             </ul>
-            <button class="help-approve-button">פרטים של הסטודנט!</button>
+            <button class="help-approve-button">פרטים של הסטודנט</button>
         `;
 
         newItem.querySelector('.help-approve-button').addEventListener('click', async function () {
@@ -298,7 +293,7 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
             <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
             <ul>
                 <li class="topic">${topic}</li>
-                ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
+                ${typehelp === 'sicom' && date ? `<li class="date">סיכום מתאריך: ${date}</li>` : ''}
             </ul>
             <button class="help-button">אני רוצה לעזור!</button>
         `;
@@ -338,7 +333,7 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
                 .then(response => response.json())
                 .then(data => {
                     console.log('Status updated and seller approved in Firebase:', data);
-                    alert("הבקשה עברה לתקיה 'בקשות מאושרות'");
+                    alert("הבקשה עברה לתיקיית 'בקשות מאושרות'");
                     newItem.remove();  // Remove the item from the DOM
                 })
                 .catch(error => {
