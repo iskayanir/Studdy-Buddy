@@ -526,7 +526,7 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
         newItem.querySelector('.help-approve-button').addEventListener('click', async function () {
             console.log('Click event triggered');
             const studentDetails = await getBuyerOfRequest(requestId);
-            alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
+            alert(`פרטי הקשר של ${studentDetails.name}:\n\nקצת עליי: ${studentDetails.bio}\nתחביבים שלי: ${studentDetails.hobbies}\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
         });
     } else {
         newItem.innerHTML = `
@@ -543,7 +543,9 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
             console.log('Click event triggered');
             try {
                 const studentDetails = await getBuyerOfRequest(requestId);
-                alert(`פרטי הקשר של ${studentDetails.name}:\n\nביוגרפיה: ${studentDetails.bio}\n\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
+                // alert(`פרטי הקשר של ${studentDetails.name}:\n\nקצת עליי: ${studentDetails.bio}\n\nתחביבים שלי: ${studentDetails.hobbies}\n\nטלפון: ${studentDetails.phone}\n\nאימייל: ${studentDetails.email}`);
+                openModal(studentDetails);
+
 
                 const IdSeller = localStorage.getItem('GlobalStudentID');
                 const fromName = await getNameSeller(IdSeller);
@@ -590,6 +592,37 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
     var courseContent = document.getElementById('course-content');
     courseContent.appendChild(newItem);
 }
+
+
+// // פונקציה לפתיחת המודאל ולהצגת הנתונים
+// function openModal(studentDetails) {
+//     document.getElementById('modal-title').textContent = `פרטי הקשר של ${studentDetails.name}`;
+//     document.getElementById('student-bio').textContent = studentDetails.bio;
+//     document.getElementById('student-hobbies').textContent = studentDetails.hobbies;
+//     document.getElementById('student-phone').textContent = studentDetails.phone;
+//     document.getElementById('student-email').textContent = studentDetails.email;
+    
+//     var modal = document.getElementById("studentDetailsModal");
+//     modal.style.display = "block";
+// }
+
+// // סגירת המודאל כאשר לוחצים על כפתור הסגירה
+// document.querySelector('.close-button').onclick = function() {
+//     document.getElementById("studentDetailsModal").style.display = "none";
+// }
+
+// // סגירת המודאל כאשר לוחצים מחוץ לחלונית
+// window.onclick = function(event) {
+//     var modal = document.getElementById("studentDetailsModal");
+//     if (event.target == modal) {
+//         modal.style.display = "none";
+//     }
+// }
+
+
+
+
+
 
 
 async function getNameSeller(IdSeller) {
@@ -663,7 +696,8 @@ async function getTelSeller(IdSeller) {
                 name: studentData.name || 'לא ידוע',
                 bio: studentData.aboutme || 'אין ביוגרפיה זמינה',
                 phone: studentData.tel || 'לא זמין',
-                email: studentData.mail || 'לא זמין'
+                email: studentData.mail || 'לא זמין',
+                hobbies: studentData.hobbies || 'לא זמין'
             };
         } catch (error) {
             console.error('Error fetching student details:', error);
