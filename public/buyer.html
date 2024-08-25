@@ -125,35 +125,75 @@
 
     <script>
         window.onload = async function(){
-            // שליפת נתוני המשתמש מ-Local Storage
+            // Fetch user data from Local Storage
             var userData = JSON.parse(localStorage.getItem('userData'));
             if (userData) {
-                // Get the user's name
                 var userName = userData.name || '';
-                // Update the HTML content with the user's name
                 var nameElement = document.getElementById('name-placeholder');
                 if (nameElement) {
                     nameElement.textContent = `היי ${userName}!`;
                 }
+                
                 var email = userData.email || '';
-            console.log(email) 
-            // עזרה כאן!!
-            var firstcourseid = await loadCoursesDatafromFB(email)
-            console.log("first cours: " ,firstcourseid)
-            searchRequests(email, firstcourseid).then(matchingRequests => {
-                if (matchingRequests) {
-                    console.log('Matching requests:', matchingRequests);
-                } else {
-                    console.log('No requests matched the criteria.');
-               }
-            
-            });
-
-                // document.getElementById('profilePicture').src = userData.imageUrl || 'images/prof.jpeg';
+                console.log("User email:", email); 
+    
+                // Ensure email is present
+                if (!email) {
+                    console.error("Email not found in userData.");
+                    return;
+                }
+    
+                // Fetch course data
+                try {
+                    var firstcourseid = await loadCoursesDatafromFB(email);
+                    console.log("First course ID fetched:", firstcourseid);
+    
+                    if (!firstcourseid) {
+                        console.error("No course ID found.");
+                        return;
+                    }
+    
+                    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/courses/${firstcourseid}.json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data) {
+                            const courseName = data["Course Name"];
+                            const lectureName = data["Lacture Name"];
+                            const department = data["Department"];
+                            // console.log(`First Course Name: ${courseName}`);
+                            // console.log(`First Lecture Name: ${lectureName}`);
+                            // console.log(`First Department: ${department}`);
+                            // coursesinhtml(firstcourseid, courseName, lectureName, department);
+                            // צור את המידע שאתה רוצה להכניס
+                            var coursetitle = document.getElementById("coursedata");
+                            coursetitle.innerHTML =  department + " - " +
+                                                    courseName + '/ ' +
+                                                    lectureName;
+                            var currentcourse = document.getElementById("idcurrentcourse")
+                            currentcourse.innerHTML = firstcourseid
+                            console.log(currentcourse.textContent)
+                        } else {
+                            console.log('No data found for this course.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching course data:', error);
+                    });
+                } catch (error) {
+                    console.error("Error in loadCoursesDatafromFB:", error);
+                }
+    
+                searchRequests(email, firstcourseid).then(matchingRequests => {
+                    if (matchingRequests) {
+                        console.log('Matching requests:', matchingRequests);
+                    } else {
+                        console.log('No requests matched the criteria.');
+                    }
+                });
             }
         };
-
     </script>
+    
 
     <script src="js/buyer.js"></script>
 </body>
