@@ -481,8 +481,8 @@ export function saveProfileDataToFirebase() {
     const year = document.getElementById('year').value;
     const mail = document.getElementById('email').value;
     const tel = document.getElementById('number').value;
-    const aboutme = document.getElementById('aboutme').value || '';
-    const bio = document.getElementById('bio').value || '';
+    // const aboutme = document.getElementById('aboutme').value || '';
+    // const bio = document.getElementById('bio').value || '';
     const image = picture;
 
     // בדיקת קיום המשתמש לפי האימייל
