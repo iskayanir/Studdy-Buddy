@@ -57,7 +57,6 @@
 // // Call the function to display data on load
 // document.addEventListener('DOMContentLoaded', displayData);
 
-
 // function fetchData() {
 //   console.log("hello before")
 //   fetch('http://localhost:3000/getStudents')
@@ -106,7 +105,6 @@
 //       })
 //       .catch(error => console.error('Error fetching data:', error));
 // }
-
 
 
 
@@ -186,7 +184,6 @@ function addStudent() {
     });
 }
 
-
 function addNewStudent() {
     const name = document.getElementById('studentName').value;
     const year = document.getElementById('studentYear').value;
@@ -214,7 +211,6 @@ function addNewStudent() {
 }
 
 
-
 async function loadUserData(studentId) {
     const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsReceivingHelp/${studentId}.json`);
     //https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/studentsReceivingHelp/${studentId}.json
@@ -238,7 +234,6 @@ async function loadUserData(studentId) {
 //         loadUserData(userId);
 //     }
 // }
-
 
 // async function handleCredentialResponse(response) {
 //     const data = jwt_decode(response.credential);
@@ -289,7 +284,6 @@ function handleCredentialResponse(response) {
     // GlobalStudentMail = userData.email;
     // console.log(GlobalStudentMail + "מייל גלובלי")
 
-
     searchEmail(data.email).then(result => {
         if (result) {
             console.log(`Student ID: ${result.studentId}, Type: ${result.type}`);
@@ -311,7 +305,6 @@ function handleCredentialResponse(response) {
     });
     // window.location.href = 'buyer_setup_profile.html';
 }
-
 
   export function initGoogleSignIn() {
       google.accounts.id.initialize({
@@ -355,7 +348,6 @@ if (typeof window !== 'undefined') {
     }
   
 
-
 // async function searchEmail(email) {
 //     console.log(email);
 //     const response = await fetch(`/searchEmail/${email}`);
@@ -371,7 +363,6 @@ if (typeof window !== 'undefined') {
 //         alert(`Email ${email} does not exist.`);
 //     }
 // }
-
 
 // function searchEmail(email) {
 //     console.log(email);
@@ -438,7 +429,6 @@ function searchEmail(email) {
         });
 }
 
-
 export function getStudent() {
     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student.json')
       .then(response => response.json())
@@ -468,7 +458,6 @@ function fillUserProfile(userData) {
 //         fillUserProfile(userData);
 //     });
 // };
-
 
 export function saveProfileDataToFirebase() {
     // הגדרת המשתנה def_Ty כערך של ה-defaultType מה-localStorage
@@ -539,7 +528,6 @@ export function saveProfileDataToFirebase() {
 }
 
 
-
 // export function saveProfileDataToFirebase() {
 //     localStorage.setItem('defaultType', 'studentsReceivingHelp');
 //     def_Ty = localStorage.getItem('defaultType')
@@ -601,9 +589,7 @@ export function saveProfileDataToFirebase() {
 //     });
 // }
 
-
 window.saveProfileDataToFirebase = saveProfileDataToFirebase;
-
 
 export function loadProfileData() {
     console.log("נכנס")
@@ -721,7 +707,6 @@ function loadCourses(studentId, type) {
 }
 
 
-
 export function getStudentIdByEmail(email, type) {
     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}.json`)
         .then(response => response.json())
@@ -821,10 +806,9 @@ export function addCourse(courseId) {
         })
         .catch(error => {
             console.error('Error fetching or updating student:', error);
-        });
+        });
 }
 window.addCourse = addCourse;
-
 
 
 export function saveUserType(userType) {
@@ -832,7 +816,6 @@ export function saveUserType(userType) {
     localStorage.setItem('userType', userType);
   }
   window.saveUserType = saveUserType;
-
 
  export function navigateToCourses() {
     // נשלוף את סוג הסטודנט מתוך localStorage
@@ -868,7 +851,7 @@ function updateStyleCoursetoSelected(courseId) {
                 <h2 class="course-name">${course['Course Name']}</h2>
                 <i class="bi bi-mortarboard icon"></i>
                 <ul>
-                    <li class="faculty">פקולטה: ${course.Faculty}</li>
+                    <li class="course-id">מספר קורס: ${courseId}</li>
                     <li class ="department"> חוג: ${course.Department}</li>
                     <li class="teacher">מרצה: ${course['Lacture Name']}</li>
                 </ul>
@@ -882,7 +865,6 @@ function updateStyleCoursetoSelected(courseId) {
             console.error('Error fetching course data:', error);
         });
 }
-
 
 // export function removeCourse(courseId) {
 //     const studentId = localStorage.getItem("GlobalStudentID");
@@ -972,7 +954,6 @@ export function removeCourse(courseId) {
 
 window.removeCourse = removeCourse;
 
-
 function updateStyleCoursetoZamin(courseId) {
     // Fetch the course details from Firebase
     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/courses/${courseId}.json`)
@@ -991,7 +972,7 @@ function updateStyleCoursetoZamin(courseId) {
                 <h2 class="course-name">${course['Course Name']}</h2>
                 <i class="bi bi-mortarboard icon"></i>
                 <ul>
-                    <li class="faculty">פקולטה: ${course.Faculty}</li>
+                    <li class="course-id">מספר קורס: ${courseId}</li>
                     <li class ="department"> חוג: ${course.Department}</li>
                     <li class="teacher">מרצה: ${course['Lacture Name']}</li>
                 </ul>
@@ -1005,5 +986,6 @@ function updateStyleCoursetoZamin(courseId) {
             console.error('Error fetching course data:', error);
         });
 }
+
 
 

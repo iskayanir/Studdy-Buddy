@@ -1,30 +1,32 @@
 
-
 function filterItems() {
 
     const gridItems = document.querySelectorAll('.grid-item');
     const courseInput = document.getElementById('searchInput').value.toLowerCase();
     const teacherInput = document.getElementById('teacherInput').value.toLowerCase();
     const departmentInput = document.getElementById('departmentInput').value.toLowerCase();
-    
+    const coursenumberinput = document.getElementById('coursenumberinput').value;    
     
     gridItems.forEach(item => {
         const courseName = item.querySelector('h2').textContent.toLowerCase();
         const teacherName = item.querySelector('.teacher').textContent.toLowerCase();
         const departmentName = item.querySelector('.department').textContent.toLowerCase();
+        const coursenumber = item.querySelector('.course-id').textContent;
 
+        
         const courseMatch = courseName.includes(courseInput);
         const teacherMatch = teacherName.includes(teacherInput);
         const departmentMatch = departmentName.includes(departmentInput);
+        const numberMatch = coursenumber.includes(coursenumberinput);
+
         
-            if (courseMatch && teacherMatch && departmentMatch) {
+            if (courseMatch && teacherMatch && departmentMatch && numberMatch) {
                 item.style.display = 'block';
             } else {
                 item.style.display = 'none';
             }
     });
         }
-
 
 
 function filterFaculty(faculty) {
@@ -40,7 +42,6 @@ function filterFaculty(faculty) {
         }
     });
 }
-
 
 function filterAll(){
     const gridItems = document.querySelectorAll('.grid-item');
@@ -82,7 +83,6 @@ function filterAll(){
 //     .catch(error => console.error('Error fetching data:', error));
 // }
 
-
 // function addCourse(courseId, type) {
 //     const StudentID = localStorage.getItem('GlobalStudentID');
 //     console.log(courseId);
@@ -122,4 +122,5 @@ function filterAll(){
 //             console.error('Error fetching student:', error);
 //         });
 // }
+
 
