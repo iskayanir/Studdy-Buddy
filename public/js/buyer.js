@@ -1,3 +1,5 @@
+const { stat } = require("fs");
+
 function searchRequests(studentEmail, courseID) {
     courseID = String(courseID)
     console.log(studentEmail,courseID)
@@ -19,10 +21,12 @@ function searchRequests(studentEmail, courseID) {
                         console.log('Matching request found: ${JSON.stringify(request)}');
                         var typehelp = request.type
                         var topic = request.topic
+                        var status = request.status_request
                         if(request.date){
                             var date = request.date
                         } 
-                        createAndAppendNewItem(typehelp, topic, date)
+                        
+                        createAndAppendNewItem(status,typehelp, topic, key, date)
                         
                     }
                 }
@@ -74,7 +78,7 @@ function savefirebase(topic, type, idstudent, idcourse, status, date = null) {
     .then(data => {
         console.log('Request saved successfully:', data);
         const requestId = data.name;
-        createAndAppendNewItem(type, topic, requestId, date);
+        createAndAppendNewItem(status, type, topic, requestId, date);
         // fetchData(); // Optionally refresh the data
     })
     .catch(error => {
@@ -208,7 +212,7 @@ function deleteRecordById(recordId) {
     });
 }
 
-function createAndAppendNewItem(typehelp, topic, requestId, date = null) {
+function createAndAppendNewItem(status, typehelp, topic, requestId, date = null) {
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'grid-item';
@@ -223,8 +227,9 @@ function createAndAppendNewItem(typehelp, topic, requestId, date = null) {
         iconClass = 'bi bi-journal-check'; // Example icon for 'ezra'
     }
 
-    // Set the content of the new item
-    newItem.innerHTML = `
+    if (status === "waiting"){
+            // Set the content of the new item
+        newItem.innerHTML = `
         <i class="${iconClass} icon"></i>
         <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
         <ul>
@@ -233,10 +238,9 @@ function createAndAppendNewItem(typehelp, topic, requestId, date = null) {
         </ul>
         <div class="status-section">
             <div class="status-container">
-                <div class="status-title">סטטוס:</div>
+                <div class="status-title"></div>
                 <div class="status-icon">
-                    <input type="checkbox" id="statusCheckbox_${requestId}" class="status-checkbox">
-                    <label for="statusCheckbox_${requestId}" class="custom-checkbox"></label>
+                    <button id="status-button_${requestId}">מחכה לאישור</button>
                 </div>
             </div>
         </div>
@@ -244,7 +248,39 @@ function createAndAppendNewItem(typehelp, topic, requestId, date = null) {
             <i class="bi bi-trash3 delete-icon"></i>
         </div>
     `;
+
+
+    }else{
+        // Set the content of the new item
+        newItem.innerHTML = `
+        <i class="${iconClass} icon"></i>
+        <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
+        <ul>
+            <li class="topic">${topic}</li>
+            ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
+        </ul>
+        <div class="status-section">
+            <div class="status-container">
+                <div class="status-title"></div>
+                <div class="status-icon">
+                    <button id="status-button_${requestId}">אושר</button>
+                </div>
+            </div>
+        </div>
+        <div class="delete-section">
+            <i class="bi bi-trash3 delete-icon"></i>
+        </div>
+    `;
+
+    }
     
+    // Attach the click event listener for the status button
+    var statusButton = newItem.querySelector(`#status-button_${requestId}`);
+    statusButton.addEventListener('click', function() {
+        ShowSellerDetails(requestId, status); // Call statuschange function with requestId
+    });
+
+    // Delete item event listener
     var deleteIcon = newItem.querySelector('.delete-icon');
     deleteIcon.addEventListener('click', function() {
         var courseContent = document.querySelector('.course-content');
@@ -266,6 +302,61 @@ function createAndAppendNewItem(typehelp, topic, requestId, date = null) {
     } else {
         courseContent.appendChild(newItem); // If no children, just append newItem
     }
+}
+
+function ShowSellerDetails(requestId, status) {
+    console.log(requestId)
+    if (status === "waiting") {
+        alert("הבקשה עוד לא אושרה");
+    } else {
+        // Step 1: Fetch data from requests.json
+        fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests/${requestId}.json`)
+            .then(response => response.json()) // Parse the JSON data
+            .then(data => {
+                console.log(data)
+                if (data && data.id_seller_approved) {
+                    // Get the "id_seller_approved"
+                    const idSellerApproved = data.id_seller_approved;
+                    console.log("id_seller_approved:", idSellerApproved);
+                    
+                    // Step 2: Fetch data from students.json using idSellerApproved
+                    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${idSellerApproved}.json`); // Corrected fetch URL and added return
+                } else {
+                    throw new Error("id_seller_approved not found in requests data.");
+                }
+            })
+            .then(response => response.json()) // Parse the JSON data for students
+            .then(studentData => {
+                if (studentData) {
+                    // Log all student information
+                    console.log("Student Information:", studentData);
+                    var name = studentData["name"]
+                    var mail = studentData["mail"]
+                    var phone = studentData["tel"]
+                    var degree = studentData["degree"]
+                    var year = studentData["year"]
+
+                    var alertMessage = `הבקשה שלך אושרה על ידי ${name}!
+                    \nאימייל: ${mail}
+                    \nטלפון: ${phone}
+                    \nתואר: ${degree}
+                    \nשנה: ${year}`;
+
+                    // Show the alert
+                    alert(alertMessage); 
+                } else {
+                    console.log("No student data found for the given id_seller_approved.");
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data from Firebase:", error);
+            });
+
+            
+    }
+
+    // Implement status change logic here, using the requestId if needed
+    console.log(`Status changed for requestId: ${requestId}`);
 }
 
 
