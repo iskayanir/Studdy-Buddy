@@ -61,9 +61,9 @@ header .logo {
 
 .navbar ul li a {
     text-decoration: none;
-    color: black; /* Link text color */
+    color: #243983; /* Link text color */
     padding: 5px 20px;
-    border-radius: 20px; /* Rounded corners for links */
+    border-radius: 10px; /* Rounded corners for links */
     transition: background-color 0.3s; /* Smooth transition for hover effect */
     margin-left: 20px;
 }
@@ -72,7 +72,7 @@ header .logo {
     color: white;
     background-color:#334999; /* Background color on hover */
     padding: 5px 20px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .nav-links {
@@ -171,27 +171,6 @@ h1 {
      width: 100%;
 }
 
-.course-content .item {
-    display: flex;
-    justify-content: space-between;
-    /* margin: 1px 0; */
-    padding: 80px;
-    font-size: 22px;
-}
-
-.course-content .completion {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #e0e0e0;
-    padding: 5px;
-    border-radius: 4px;
-    /* margin-top: 10px; */
-}
-
-.course-content .completion .completed {
-    color: green;
-}
 
 .media {
     /* margin: 10px 0; */
@@ -205,7 +184,7 @@ h1 {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: -5px;
+    margin-top: 0;
     padding-bottom: 15px;
     width: 70%;
     }
@@ -223,12 +202,12 @@ h1 {
     padding: 10px;
     text-align: center;
     box-shadow: 0 3px 3px rgb(214, 214, 214);
-    width: 150px;  /* Fixed width */
-    height: 60px; /* Fixed height */
+    width: 200px;  /* Fixed width */
+    height: 50px; /* Fixed height */
     display: flex;
     overflow: hidden;
     justify-content: flex-start;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -483,51 +462,6 @@ h1 {
     display: block;
 }
 
-/* Custom styles for the checkbox */
-.status-checkbox {
-    display: none;
-}
-
-.custom-checkbox {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-color: #ccc;
-    border: 1px solid grey;
-    cursor: pointer;
-    position: relative;
-    border-radius: 3px;
-}
-
-.status-checkbox:checked + .custom-checkbox::after {
-    content: '✔';
-    position: absolute;
-    top: -2px; /* Adjust as necessary to position the checkmark correctly */
-    left: 1px; /* Adjust as necessary to position the checkmark correctly */
-    font-size: 18px; /* Adjust as necessary to fit the checkbox */
-    color: rgb(255, 251, 251);
-}
-
-.item .delete-icon {
-    cursor: pointer;
-    margin-left: 10px;
-    width: 20px; /* Adjust the size as needed */
-    height: auto;
-}
-
-.course-content .item {
-    display: flex;
-    justify-content: space-between;
-    /* margin: 1px 0; */
-    padding: 80px;
-    font-size: 22px;
-}
-
-.course-content .status {
-    display: flex;
-    align-items: center;
-}
-
 #section5 {
     position: relative; /* Ensure section5 is positioned relative */
 }
@@ -581,10 +515,6 @@ h1 {
 
 .additional-item:hover .status-icon {
     color: white;
-}
-
-.status-icon.bi-check-square-fill {
-    color: green;
 }
 
 .tooltip-text {
@@ -731,12 +661,12 @@ h1 {
     margin-right: 10px;
 }
 
-.course-content {
+.course-content-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 20px; /* Space between grid items */
     padding: 10px;
-
+    margin-left: auto; /* Align the grid to the right */
     max-width: calc(100% - 350px);
 }
 
@@ -774,7 +704,7 @@ h1 {
 
 .item ul {
     list-style-type: none;
-    padding: 0; /* Removes default padding */
+    padding: 0; 
     margin: 0;
 }
 
@@ -783,15 +713,21 @@ h1 {
     color: #334999;
 }
 
-.item .help-button {
+.help-button {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     color: #334999;
     background-color: white;
-    border: 1px solid #ddd;
+    border: none;
     border-radius: 8%;
+    width: 70%;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #d8edff;
 }
 
-.grid-item .help-button:hover {
-    background-color: #d8edff;
+.help-button:hover {
+    background-color: #bddffd;
+    cursor: pointer;
 }
