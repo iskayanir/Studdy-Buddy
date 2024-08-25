@@ -389,8 +389,8 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
             console.log('Click event triggered');
             try {
                 const studentDetails = await getBuyerOfRequest(requestId);
-                // alert(`פרטי הקשר של ${studentDetails.name}:\n\nקצת עליי: ${studentDetails.bio}\n\nתחביבים שלי: ${studentDetails.hobbies}\n\nטלפון: ${studentDetails.phone}\n\nאימייל: ${studentDetails.email}`);
-                openModal(studentDetails);
+                 alert(`פרטי הקשר של ${studentDetails.name}:\n\nקצת עליי: ${studentDetails.bio}\n\nתחביבים שלי: ${studentDetails.hobbies}\n\nטלפון: ${studentDetails.phone}\n\nאימייל: ${studentDetails.email}`);
+                // openModal(studentDetails);
 
 
                 const IdSeller = localStorage.getItem('GlobalStudentID');
@@ -398,8 +398,8 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
                 const sellerData = JSON.parse(localStorage.getItem('userData'));
                 const mailSeller = sellerData.email;
                 const telSeller = await getTelSeller(IdSeller);
-                const message = `I can help you! This is my mail: ${mailSeller} and my phone: ${telSeller}`;
-                
+                const message = `I can help you! This is my mail: ${mailSeller} and my phone: ${telSeller}.\n\nA little about me: ${studentDetails.aboutme}\n\nMy hobbies: ${studentDetails.hobbies}`;
+
                 console.log(`${studentDetails.email} מייל`);
                 // sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
 
@@ -543,7 +543,8 @@ async function getTelSeller(IdSeller) {
                 bio: studentData.aboutme || 'אין ביוגרפיה זמינה',
                 phone: studentData.tel || 'לא זמין',
                 email: studentData.mail || 'לא זמין',
-                hobbies: studentData.hobbies || 'לא זמין'
+                hobbies: studentData.hobbies || 'לא זמין',
+                bio: studentData.bio || 'לא זמין'
             };
         } catch (error) {
             console.error('Error fetching student details:', error);
