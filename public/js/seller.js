@@ -92,49 +92,85 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
     coursebutton.appendChild(button);
 }
 
+// function coursebuttondo(idcourse, courseName, lectureName, department) {
+//     var courseContent = document.getElementById('course-content');
+//     if (courseContent){
+//         // Remove all child elements
+//         while (courseContent.firstChild) {
+//             courseContent.removeChild(courseContent.firstChild);
+//     }
+
+//     // Select the parent element
+//     const parentElement = document.querySelector('.course-content');
+
+//     // Check if the element exists
+//     if (parentElement) {
+//     // Remove all child elements
+//     while (parentElement.firstChild) {
+//         parentElement.removeChild(parentElement.firstChild);
+//     }
+//     }
+
+//     // צור את המידע שאתה רוצה להכניס
+//     var coursetitle = document.getElementById("coursedata");
+//     coursetitle.innerHTML =  courseName + ' / ' +
+//                              lectureName;
+//     var currentcourse = document.getElementById("idcurrentcourse")
+//     currentcourse.innerHTML = idcourse
+//     console.log(currentcourse.textContent)
+
+//     var userData = JSON.parse(localStorage.getItem('userData'));
+//     var email = userData.email || '';
+//     console.log(email)
+//     showrequests(idcourse)
+// //     searchRequests(email, idcourse).then(matchingRequests => {
+// //         if (matchingRequests) {
+// //             console.log('Matching requests:', matchingRequests);
+// //         } else {
+// //             console.log('No requests matched the criteria.');
+// //        }
+    
+// //     });
+                                
+// }
+
+// }
+
+
 function coursebuttondo(idcourse, courseName, lectureName, department) {
     var courseContent = document.getElementById('course-content');
-    if (courseContent){
+    if (courseContent) {
         // Remove all child elements
         while (courseContent.firstChild) {
             courseContent.removeChild(courseContent.firstChild);
+        }
     }
 
-    // Select the parent element
-    const parentElement = document.querySelector('.course-content');
+    // הסרת מחלקה 'selected-course' מכל הכפתורים
+    var allButtons = document.querySelectorAll("#courses_buttons button");
+    allButtons.forEach(button => {
+        button.classList.remove('selected-course');
+    });
 
-    // Check if the element exists
-    if (parentElement) {
-    // Remove all child elements
-    while (parentElement.firstChild) {
-        parentElement.removeChild(parentElement.firstChild);
-    }
-    }
+    // בחירת הכפתור שנלחץ והוספת מחלקה 'selected-course'
+    var clickedButton = document.getElementById(idcourse);
+    clickedButton.classList.add('selected-course');
+    console.log(`Added 'selected-course' class to button with ID: ${idcourse}`); // בדיקה שהמחלקה מתווספת
 
-    // צור את המידע שאתה רוצה להכניס
+    // המשך הטיפול בנתוני הקורס כפי שהייתה
     var coursetitle = document.getElementById("coursedata");
-    coursetitle.innerHTML =  courseName + ' / ' +
-                             lectureName;
-    var currentcourse = document.getElementById("idcurrentcourse")
-    currentcourse.innerHTML = idcourse
-    console.log(currentcourse.textContent)
+    coursetitle.innerHTML = courseName + ' / ' + lectureName;
+    var currentcourse = document.getElementById("idcurrentcourse");
+    currentcourse.innerHTML = idcourse;
 
     var userData = JSON.parse(localStorage.getItem('userData'));
     var email = userData.email || '';
-    console.log(email)
-    showrequests(idcourse)
-//     searchRequests(email, idcourse).then(matchingRequests => {
-//         if (matchingRequests) {
-//             console.log('Matching requests:', matchingRequests);
-//         } else {
-//             console.log('No requests matched the criteria.');
-//        }
-    
-//     });
-                                
+    showrequests(idcourse);
 }
 
-}
+
+
+
 
 function showrequests(idcourse){
     console.log(`Searching for requests with IDcourse: ${idcourse}`);
