@@ -878,3 +878,7 @@ h1 {
     background-color: #75a652;
 }
 
+.selected-courses {
+    background-color: #007bff !important;
+    color: white !important;
+}
