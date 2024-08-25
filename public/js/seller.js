@@ -520,7 +520,7 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
                 <li class="topic"> ${topic}</li>
                 ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
             </ul>
-            <button class="help-approve-button">פרטים על הסטודנט!</button>
+            <button class="help-approve-button">פרטים של הסטודנט</button>
         `;
 
         newItem.querySelector('.help-approve-button').addEventListener('click', async function () {
