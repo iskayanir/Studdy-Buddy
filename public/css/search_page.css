@@ -71,9 +71,9 @@ header .logo {
 
 .navbar ul li a {
     text-decoration: none;
-    color: black; /* Link text color */
+    color: #243983; /* Link text color */
     padding: 5px 20px;
-    border-radius: 20px; /* Rounded corners for links */
+    border-radius: 10px; /* Rounded corners for links */
     transition: background-color 0.3s; /* Smooth transition for hover effect */
     margin-left: 20px;
 }
@@ -82,7 +82,7 @@ header .logo {
     color: white;
     background-color:#334999; /* Background color on hover */
     padding: 5px 20px;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .nav-links {
@@ -243,6 +243,7 @@ header .logo {
     background: #ffffff;
     box-shadow: 0 3px 3px rgb(214, 214, 214);
     align-items: center;
+    color: #334999;
 }
 
 .grid-item:hover {
@@ -252,6 +253,8 @@ header .logo {
 
 .h2 {
     grid-area: h2;
+    margin-bottom: 0;
+    font-size: 20px;
 }
 
 .icon {
@@ -260,6 +263,7 @@ header .logo {
     grid-area: icon;
     font-size: 42px; /* Adjust size as needed */
     color: #334999; /* Adjust color as needed */
+    margin-bottom: 0;
 }
 
 .grid-item:hover .icon {
@@ -272,12 +276,14 @@ header .logo {
 }
 
 /* Unordered list styling */
-ul {
+.grid-item ul {
     list-style-type: none;
     padding: 0;
-    text-align: center;
+    text-align: right;
     direction: rtl;
     grid-area: ul;
+    margin-top: 0;
+    font-size: 16px;
 }
 
 
@@ -303,7 +309,7 @@ ul {
 
 .grid-item.default {
     background-color: #ffffff;
-    color: #000000;
+    color: #334999;
   }
   
   .grid-item.default:hover {
@@ -319,7 +325,7 @@ ul {
   
   .grid-item.enrolled {
     background-color: #c2e0f0;
-    color: #000000;
+    color: #334999;
   }
   
   .grid-item.enrolled:hover {
@@ -329,7 +335,7 @@ ul {
     color: #334999;
   }
   
-  .grid-item.enrolled .icon:hover {
+  .grid-item.enrolled .icon {
     color: #334999;
   }
 

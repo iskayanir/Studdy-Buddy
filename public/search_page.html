@@ -15,7 +15,7 @@
           <ul>
               <li><a href="profile.html">הפרופיל שלי</a></li>
               <li><a href="#" onclick="navigateToCourses()">הקורסים שלי</a></li>
-              <li><a href="search_page.html">חיפוש</a></li>
+              <li><a href="search_page.html">חיפוש קורסים</a></li>
           </ul>
       </nav>
     </header>
@@ -98,8 +98,8 @@
                         // Student is enrolled in this course
                         console.log("מחק קורס");
                         gridItem.innerHTML = `
-                            <h2 class="course-name">${course['Course Name']}</h2>
                             <i class="bi bi-mortarboard icon"></i>
+                            <h2 class="course-name">${course['Course Name']}</h2>
                             <ul>
                                 <li class="id course"> מספר קורס: ${course.id}</li>
                                 <li class ="department"> חוג: ${course.Department}</li>
@@ -113,8 +113,8 @@
                     } else {
                         // Student is not enrolled in this course
                         gridItem.innerHTML = `
-                            <h2 class="course-name">${course['Course Name']}</h2>
                             <i class="bi bi-mortarboard icon"></i>
+                            <h2 class="course-name">${course['Course Name']}</h2>
                             <ul>
                                 <li class="faculty">פקולטה: ${course.Faculty}</li>
                                 <li class ="department"> חוג: ${course.Department}</li>

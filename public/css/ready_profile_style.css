@@ -121,7 +121,7 @@ h1 {
   color: #334999;
   border: 0.5px solid;
   border-radius: 10px;
-  margin-left: 10px;
+  margin-left: 0;
   cursor: pointer;
   background-color: #ffffff;
   font-size: 16px;
@@ -131,7 +131,7 @@ h1 {
   text-align: center;
   box-shadow: 0 3px 3px rgb(214, 214, 214);
   width: 130px;  /* Fixed width */
-  height: 50px; /* Fixed height */
+  height: 30px; /* Fixed height */
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -198,9 +198,9 @@ header .logo {
 
 .navbar ul li a {
   text-decoration: none;
-  color: black; /* Link text color */
+  color: #243983; /* Link text color */
   padding: 5px 20px;
-  border-radius: 20px; /* Rounded corners for links */
+  border-radius: 10px; /* Rounded corners for links */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
   margin-left: 20px;
 }
@@ -209,7 +209,7 @@ header .logo {
   color: white;
   background-color:#334999; /* Background color on hover */
   padding: 5px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .nav-links {
