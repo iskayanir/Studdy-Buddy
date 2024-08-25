@@ -193,13 +193,14 @@ const id = localStorage.getItem('GlobalStudentID'); // או כל משתנה אח
 console.log(type + " סוג סטודנט ה");
 console.log(id + " ID סטודנט ה");
 
-const name = document.getElementById('name').value;
-const degree = document.getElementById('degree').value;
-const year = document.getElementById('year').value;
-const mail = document.getElementById('email').value;
-const tel = document.getElementById('number').value;
-const aboutme = document.getElementById('aboutme').value;
-const hobbies = document.getElementById('hobbies').value;
+const name = document.getElementById('name').value || 'לא זמין';
+const degree = document.getElementById('degree').value || 'לא זמין';
+const year = document.getElementById('year').value || 'לא זמין';
+const mail = document.getElementById('email').value || 'לא זמין';
+const tel = document.getElementById('number').value || 'לא זמין';
+const aboutme = document.getElementById('aboutme').value || 'לא זמין';
+const hobbies = document.getElementById('hobbies').value || 'לא זמין';
+
 
 
 // תחילה, נקרא את הנתונים הקיימים ב-Firebase כדי לשמור על הקורסים

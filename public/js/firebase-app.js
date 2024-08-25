@@ -442,15 +442,15 @@ export function getStudent() {
 }
 
 // פונקציה שממלאת את הטופס עם נתוני המשתמש
-function fillUserProfile(userData) {
-    if (userData) {
-        document.getElementById('name').value = userData.name || '';
-        document.getElementById('degree').value = userData.degree || '';
-        document.getElementById('year').value = userData.year || 'א';
-        document.getElementById('number').value = userData.number || '';
-        document.getElementById('email').value = userData.email || '';
-    }
-}
+// function fillUserProfile(userData) {
+//     if (userData) {
+//         document.getElementById('name').value = userData.name || '';
+//         document.getElementById('degree').value = userData.degree || '';
+//         document.getElementById('year').value = userData.year || 'א';
+//         document.getElementById('number').value = userData.number || '';
+//         document.getElementById('email').value = userData.email || '';
+//     }
+// }
 
 // window.onload = function() {
 //     const userId = 'user123'; // הכנס כאן את ה-ID של המשתמש
@@ -473,12 +473,17 @@ export function saveProfileDataToFirebase() {
     
     localStorage.setItem('GlobalStudentID', '');
     console.log("once");
-    
+    const userdata = localStorage.getItem('userData');
+    const picture = userdata.picture;
+
     const name = document.getElementById('name').value;
     const degree = document.getElementById('degree').value;
     const year = document.getElementById('year').value;
     const mail = document.getElementById('email').value;
     const tel = document.getElementById('number').value;
+    const aboutme = document.getElementById('aboutme').value || '';
+    const bio = document.getElementById('bio').value || '';
+    const image = picture;
 
     // בדיקת קיום המשתמש לפי האימייל
     searchEmail(mail).then(existingUser => {
@@ -501,6 +506,7 @@ export function saveProfileDataToFirebase() {
                 mail: mail,
                 tel: tel,
                 year: year
+                
             };
 
             // שמירת נתונים ב-Firebase
@@ -605,6 +611,7 @@ export function loadProfileData() {
 
         // שליפת המייל מתוך האובייקט
         var email = userData.email;
+        var image = userData.picture;
         console.log('The email stored in LocalStorage is:', email);
 
         // חיפוש הסטודנט לפי המייל
@@ -626,7 +633,8 @@ export function loadProfileData() {
                             document.getElementById('displayEmail').textContent = data.mail || '';
                             document.getElementById('displayHobbies').textContent = data.hobbies || '';
                             document.getElementById('displayAboutMe').textContent = data.aboutme || '';
-                            document.getElementById('profilePicture').textContent = data.aboutme || '';
+
+                            document.getElementById('profilePicture').textContent = image || '';
 
                             const profilePictureElement = document.getElementById('profilePicture');
                             const defaultImageSrc = 'images/prof.jpeg';
