@@ -395,8 +395,8 @@ async function loadCoursesDatafromFB(email) {
     var type = "studentsReceivingHelp";
     var studentId = await getStudentIdByEmail(email, type);
     
-    console.log(studentId);
-    console.log(type);
+    // console.log(studentId);
+    // console.log(type);
 
     if (studentId && type) {
         return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
@@ -408,7 +408,7 @@ async function loadCoursesDatafromFB(email) {
                         // Iterate over the keys of the courses object
                         var courses = data.courses;
                         Object.keys(courses).forEach(courseId => {
-                            console.log(`Course number: ${courseId}`);
+                            // console.log(`Course number: ${courseId}`);
                             loadDataCoursesDatafromFB(courseId);
                         });
 
@@ -458,9 +458,9 @@ function loadDataCoursesDatafromFB(idcourse) {
                 const courseName = data["Course Name"];
                 const lectureName = data["Lacture Name"];
                 const department = data["Department"];
-                console.log(`Course Name: ${courseName}`);
-                console.log(`Lecture Name: ${lectureName}`);
-                console.log(`Department: ${department}`);
+                // console.log(`Course Name: ${courseName}`);
+                // console.log(`Lecture Name: ${lectureName}`);
+                // console.log(`Department: ${department}`);
                 coursesinhtml(idcourse,courseName,lectureName,department )
             } else {
                 console.log('No data found for this course.');
