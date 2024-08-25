@@ -626,11 +626,16 @@ export function loadProfileData() {
                             document.getElementById('displayEmail').textContent = data.mail || '';
                             document.getElementById('displayHobbies').textContent = data.hobbies || '';
                             document.getElementById('displayAboutMe').textContent = data.aboutme || '';
+                            document.getElementById('profilePicture').textContent = data.aboutme || '';
+
+                            const profilePictureElement = document.getElementById('profilePicture');
+                            const defaultImageSrc = 'images/prof.jpeg';
 
                             // עדכון תמונת הפרופיל במידה וקיימת
-                            if (data.imageUrl) {
-                                document.getElementById('profilePicture').src = data.imageUrl;
-                            }
+                            if (data.photo) {
+                                document.getElementById('profilePicture').src = data.photo;
+                            }else {
+                                profilePictureElement.src = defaultImageSrc}
                              // קריאה לפונקציה לטעינת הקורסים
                              loadCourses(studentId, type);
                         } else {
