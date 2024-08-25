@@ -122,7 +122,8 @@
     </div>
 
     <script>
-        window.onload = async function(){
+
+        window.onload = async function() {
             // Fetch user data from Local Storage
             var userData = JSON.parse(localStorage.getItem('userData'));
             if (userData) {
@@ -134,23 +135,24 @@
                 
                 var email = userData.email || '';
                 console.log("User email:", email); 
-    
+
                 // Ensure email is present
                 if (!email) {
                     console.error("Email not found in userData.");
                     return;
                 }
-    
+
                 // Fetch course data
                 try {
                     var firstcourseid = await loadCoursesDatafromFB(email);
                     console.log("First course ID fetched:", firstcourseid);
-    
+
                     if (!firstcourseid) {
                         console.error("No course ID found.");
                         return;
                     }
-    
+
+                    // Fetch and display the first course
                     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/courses/${firstcourseid}.json`)
                     .then(response => response.json())
                     .then(data => {
@@ -158,18 +160,8 @@
                             const courseName = data["Course Name"];
                             const lectureName = data["Lacture Name"];
                             const department = data["Department"];
-                            // console.log(`First Course Name: ${courseName}`);
-                            // console.log(`First Lecture Name: ${lectureName}`);
-                            // console.log(`First Department: ${department}`);
-                            // coursesinhtml(firstcourseid, courseName, lectureName, department);
-                            // צור את המידע שאתה רוצה להכניס
-                            var coursetitle = document.getElementById("coursedata");
-                            coursetitle.innerHTML =  department + " - " +
-                                                    courseName + '/ ' +
-                                                    lectureName;
-                            var currentcourse = document.getElementById("idcurrentcourse")
-                            currentcourse.innerHTML = firstcourseid
-                            console.log(currentcourse.textContent)
+                            // עדכון הקורס הראשון להראות לחוץ
+                            coursebuttondo(firstcourseid, courseName, lectureName, department);
                         } else {
                             console.log('No data found for this course.');
                         }
@@ -180,16 +172,10 @@
                 } catch (error) {
                     console.error("Error in loadCoursesDatafromFB:", error);
                 }
-    
-                searchRequests(email, firstcourseid).then(matchingRequests => {
-                    if (matchingRequests) {
-                        console.log('Matching requests:', matchingRequests);
-                    } else {
-                        console.log('No requests matched the criteria.');
-                    }
-                });
             }
         };
+
+
     </script>
     
 
