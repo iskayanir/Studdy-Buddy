@@ -319,7 +319,7 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
                 const message = `I can help you! This is my mail: ${mailSeller} and my phone: ${telSeller}.\n\nA little about me: ${studentDetails.aboutme}\n\nMy hobbies: ${studentDetails.hobbies}`;
 
                 console.log(`${studentDetails.email} מייל`);
-                // sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
+                sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
 
                 // Update the status and add id_seller_approved in Firebase
                 const updateData = {
