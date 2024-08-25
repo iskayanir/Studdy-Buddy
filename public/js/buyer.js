@@ -234,15 +234,10 @@ function createAndAppendNewItem(status, typehelp, topic, requestId, date = null)
         <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
         <ul>
             <li class="topic">${topic}</li>
-            ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
+            ${typehelp === 'sicom' && date ? `<li class="date">סיכום מתאריך: ${date}</li>` : ''}
         </ul>
         <div class="status-section">
-            <div class="status-container">
-                <div class="status-title"></div>
-                <div class="status-icon">
-                    <button id="status-button_${requestId}">מחכה לאישור</button>
-                </div>
-            </div>
+            <button id="status-button_${requestId}" class="status-button-waiting">מחכה לאישור</button>
         </div>
         <div class="delete-section">
             <i class="bi bi-trash3 delete-icon"></i>
@@ -257,15 +252,10 @@ function createAndAppendNewItem(status, typehelp, topic, requestId, date = null)
         <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
         <ul>
             <li class="topic">${topic}</li>
-            ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
+            ${typehelp === 'sicom' && date ? `<li class="date">סיכום מתאריך: ${date}</li>` : ''}
         </ul>
         <div class="status-section">
-            <div class="status-container">
-                <div class="status-title"></div>
-                <div class="status-icon">
-                    <button id="status-button_${requestId}">אושר</button>
-                </div>
-            </div>
+            <button id="status-button_${requestId}" class="status-button-approved">הבקשה אושרה!</button>
         </div>
         <div class="delete-section">
             <i class="bi bi-trash3 delete-icon"></i>
