@@ -139,6 +139,7 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
 }
 
 }
+
 function showrequests(idcourse){
     console.log(`Searching for requests with IDcourse: ${idcourse}`);
     return fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
@@ -235,113 +236,9 @@ function showapprovedrequest() {
         });
 }
 
-
-
-// function createAndAppendNewItem(typehelp, topic, status, date = null) {
-//     // Create new item element
-//     var newItem = document.createElement('div');
-//     newItem.className = 'item';
-
-//     // Create title for the summary type
-//     var summaryTitleSpan = document.createElement('span');
-//     summaryTitleSpan.className = 'title-text';
-//     summaryTitleSpan.textContent = 'סוג בקשה: ';
-
-//     var summarySpan = document.createElement('span');
-//     summarySpan.className = 'summary-text';
-//     if (typehelp === "sicom") {
-//         summarySpan.textContent = 'סיכום  ';
-//         summarySpan.classList.add('summary-sicom'); 
-//     } else if (typehelp === "hashlama") {
-//         summarySpan.textContent = 'השלמת נושא  ';
-//         summarySpan.classList.add('summary-hashlama');
-//     } else {
-//         summarySpan.textContent = 'עזרה בתרגיל בית  ';
-//         summarySpan.classList.add('summary-ezra');
-//     }
-
-//     // Create title for the topic
-//     var topicTitleSpan = document.createElement('span');
-//     topicTitleSpan.className = 'title-text';
-//     topicTitleSpan.textContent = 'נושא: ';
-
-//     // Create topic span
-//     var fractionSpan = document.createElement('span');
-//     fractionSpan.textContent = topic;
-//     fractionSpan.className = 'topic-text';
-
-//     if (typehelp === "sicom" && date) {
-//         var dateTitleSpan = document.createElement('span');
-//         dateTitleSpan.className = 'title-text';
-//         dateTitleSpan.textContent = 'תאריך סיכום: ';
-
-//         var dateSpan = document.createElement('span');
-//         dateSpan.textContent = date;
-//         dateSpan.className = 'date-text';
-//     }
-
-//     // Create title for the status
-//     var statusTitleDiv = document.createElement('div');
-//     statusTitleDiv.className = 'title-text';
-//     statusTitleDiv.textContent = 'סטטוס בקשה ';
-
-//     var statusDiv = document.createElement('div');
-//     statusDiv.className = 'status';
-
-//     var statusIconDiv = document.createElement('div');
-//     statusIconDiv.className = 'status-icon';
-
-//     // Create the checkbox and custom styles
-//     var checkbox = document.createElement('input');
-//     checkbox.type = 'checkbox';
-//     checkbox.className = 'status-checkbox';
-
-//     // Ensure each checkbox has a unique ID
-//     var uniqueId = 'statusCheckbox_' + Date.now();
-//     checkbox.id = uniqueId;
-
-//     var customCheckbox = document.createElement('label');
-//     customCheckbox.className = 'custom-checkbox';
-//     customCheckbox.htmlFor = uniqueId;
-
-//     // var deleteIconTitleSpan = document.createElement('span');
-//     // deleteIconTitleSpan.className = 'title-text';
-//     // deleteIconTitleSpan.textContent = 'מחיקה ';
-
-//     // var deleteIcon = document.createElement('i');
-//     // deleteIcon.className = 'bi bi-trash3 delete-icon'; // Add Bootstrap icon classes and your custom class
-
-
-//     // // Attach click event listener to delete the item
-//     // deleteIcon.addEventListener('click', function () {
-//     //     courseContent.removeChild(newItem);
-//     // });
-
-//     statusIconDiv.appendChild(checkbox);
-//     statusIconDiv.appendChild(customCheckbox);
-
-//     // Append the status icon to the status div
-//     statusDiv.appendChild(statusTitleDiv);
-//     statusDiv.appendChild(statusIconDiv);
-
-//     // Append spans and status div to the new item
-//     newItem.appendChild(summaryTitleSpan);
-//     newItem.appendChild(summarySpan);
-//     newItem.appendChild(topicTitleSpan);
-//     newItem.appendChild(fractionSpan);
-//     if (typehelp === "sicom" && date) {
-//         newItem.appendChild(dateTitleSpan);
-//         newItem.appendChild(dateSpan);
-//     }
-//     newItem.appendChild(statusDiv);
-    
-
-//     // Append the new item to course-content
-//     var courseContent = document.getElementById('course-content');
-//     courseContent.appendChild(newItem)}
-
 async function createAndAppendNewItem(typehelp, topic, status, date = null, requestId, idcourse) {
-    console.log(requestId)
+    console.log(requestId);
+
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'item';
@@ -356,6 +253,26 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
         iconClass = 'bi bi-journal-check'; // Example icon for 'ezra'
     }
 
+    // Fetch course name from Firebase
+    async function fetchCourseName() {
+        try {
+            const response = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/courses/${idcourse}.json`);
+            const data = await response.json();
+            if (data) {
+                return data["Course Name"];
+            } else {
+                console.log('No data found for this course.');
+                return 'Unknown Course'; // Fallback in case of no data
+            }
+        } catch (error) {
+            console.error('Error fetching course data:', error);
+            return 'Unknown Course'; // Fallback in case of an error
+        }
+    }
+
+    // Get course name and update the newItem
+    const courseName = await fetchCourseName();
+
     // Set the content of the new item based on the status
     if (status === "approved") {
         newItem.innerHTML = `
@@ -363,10 +280,11 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
             <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
             <ul>
                 <li class="topic"> קורס - ${idcourse} </li>
-                <li class="topic"> ${topic}</li>
+                <li class="topic">${courseName}</li>
+                <li class="topic">${topic}</li>
                 ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
             </ul>
-            <button class="help-approve-button">פרטים על הסטודנט!</button>
+            <button class="help-approve-button">פרטים של הסטודנט!</button>
         `;
 
         newItem.querySelector('.help-approve-button').addEventListener('click', async function () {
@@ -433,41 +351,11 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
             }
         });
     }
-    
+
     // Append the new item to course-content
     var courseContent = document.getElementById('course-content');
     courseContent.appendChild(newItem);
 }
-
-
-// // פונקציה לפתיחת המודאל ולהצגת הנתונים
-// function openModal(studentDetails) {
-//     document.getElementById('modal-title').textContent = `פרטי הקשר של ${studentDetails.name}`;
-//     document.getElementById('student-bio').textContent = studentDetails.bio;
-//     document.getElementById('student-hobbies').textContent = studentDetails.hobbies;
-//     document.getElementById('student-phone').textContent = studentDetails.phone;
-//     document.getElementById('student-email').textContent = studentDetails.email;
-    
-//     var modal = document.getElementById("studentDetailsModal");
-//     modal.style.display = "block";
-// }
-
-// // סגירת המודאל כאשר לוחצים על כפתור הסגירה
-// document.querySelector('.close-button').onclick = function() {
-//     document.getElementById("studentDetailsModal").style.display = "none";
-// }
-
-// // סגירת המודאל כאשר לוחצים מחוץ לחלונית
-// window.onclick = function(event) {
-//     var modal = document.getElementById("studentDetailsModal");
-//     if (event.target == modal) {
-//         modal.style.display = "none";
-//     }
-// }
-
-
-
-
 
 
 
