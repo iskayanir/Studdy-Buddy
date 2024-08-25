@@ -446,6 +446,7 @@ function showrequests(idcourse){
 }
 
 function showapprovedrequest() {
+    console.log("in")
     var courseContent = document.getElementById('course-content');
     if (courseContent){
         // Remove all child elements
@@ -456,6 +457,7 @@ function showapprovedrequest() {
     // השגת המייל של המשתמש הנוכחי
     var userData = JSON.parse(localStorage.getItem('userData')); 
     var email = userData.email || '';
+    console.log(email)
 
     // בקשת כל ה-requests מ-Firebase
     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
@@ -465,14 +467,14 @@ function showapprovedrequest() {
             for (var requestId in data) {
                 if (data.hasOwnProperty(requestId)) {
                     var request = data[requestId];
-                    
+                    console.log(requestId)
                     // בדיקה אם יש מפתח בשם "id_seller_approved" ואם התוכן שלו זהה למייל של המשתמש
-                    if (request.id_seller_approved && request.id_seller_approved === email) {
+                    if (request.mail_seller_approved && request.mail_seller_approved === email) {
                         var typehelp = request.type;
                         var topic = request.topic;
                         var status = request.status_request;
                         var idcourse = request.id_course
-                        var requestId = request; // Use the request ID for the next steps
+                        // var requestId = request; // Use the request ID for the next steps
                         console.log(typehelp, topic, status, requestId);
                         console.log("התנאים מתקיימים עבור הבקשה עם ה-ID:", requestId);
                         if (typehelp === "sicom"){
@@ -597,6 +599,7 @@ function showapprovedrequest() {
 //     courseContent.appendChild(newItem)}
 
 async function createAndAppendNewItem(typehelp, topic, status, date = null, requestId, idcourse) {
+    console.log(requestId)
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'item';
@@ -617,7 +620,8 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
             <i class="${iconClass} icon"></i>
             <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
             <ul>
-                <li class="topic"> - ${topic}${idcourse}</li>
+                <li class="topic"> קורס - ${idcourse} </li>
+                <li class="topic"> ${topic}</li>
                 ${typehelp === 'sicom' && date ? `<li class="date">תאריך סיכום: ${date}</li>` : ''}
             </ul>
             <button class="help-approve-button">פרטים על הסטודנט!</button>
