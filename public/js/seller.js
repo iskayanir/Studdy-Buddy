@@ -387,7 +387,7 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
 
                 console.log(detailsArray, "detailsArray");
                 
-                // sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller, detailsArray);
+                sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller, detailsArray);
 
                 // Update the status and add id_seller_approved in Firebase
                 const updateData = {
