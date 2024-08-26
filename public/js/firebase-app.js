@@ -489,27 +489,25 @@ export function saveProfileDataToFirebase() {
 window.saveProfileDataToFirebase = saveProfileDataToFirebase;
 
 export function loadProfileData() {
-    console.log("נכנס")
+    console.log("נכנס");
     // שליפת האובייקט שנשמר ב-Local Storage
-    var type = localStorage.getItem('userType');
-    console.log(type)
-    var storedUserData = localStorage.getItem('userData');
+    const type = localStorage.getItem('userType');
+    console.log(type);
+    const storedUserData = localStorage.getItem('userData');
 
     // בדיקה אם הנתון קיים
     if (storedUserData) {
-        // המרת האובייקט משיטת JSON לאובייקט רגיל
-        var userData = JSON.parse(storedUserData);
+        const userData = JSON.parse(storedUserData);
 
         // שליפת המייל מתוך האובייקט
-        var email = userData.email;
-        var image = userData.imageUrl;
+        const email = userData.email;
         console.log('The email stored in LocalStorage is:', email);
 
         // חיפוש הסטודנט לפי המייל
         getStudentIdByEmail(email, type).then(result => {
             if (result) {
                 console.log('User ID found:', result);
-                var studentId = result;
+                const studentId = result;
 
                 // ביצוע פניה ל-Firebase לאחר קבלת ה-ID
                 fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
@@ -525,18 +523,17 @@ export function loadProfileData() {
                             document.getElementById('displayHobbies').textContent = data.hobbies || '';
                             document.getElementById('displayAboutMe').textContent = data.aboutme || '';
 
-                            document.getElementById('profilePicture').textContent = data.image || '';
-
+                            // עדכון ה-src של תמונת הפרופיל
                             const profilePictureElement = document.getElementById('profilePicture');
-                            const defaultImageSrc = 'images/prof.jpeg';
+                            if (data.image) {
+                                console.log('Firebase image URL:', data.image); // בדיקת ה-URL של התמונה
+                                profilePictureElement.src = data.image; // עדכון src עם התמונה מ-Firebase
+                            } else {
+                                profilePictureElement.src = 'images/prof.jpeg'; // שימוש בתמונת ברירת מחדל
+                            }
 
-                            // // עדכון תמונת הפרופיל במידה וקיימת
-                            // if (data.image) {
-                            //     document.getElementById('profilePicture').src = data.photo;
-                            // }else {
-                            //     profilePictureElement.src = defaultImageSrc}
-                             // קריאה לפונקציה לטעינת הקורסים
-                             loadCourses(studentId, type);
+                            // קריאה לפונקציה לטעינת הקורסים
+                            loadCourses(studentId, type);
                         } else {
                             console.error('User data not found');
                         }
@@ -554,6 +551,76 @@ export function loadProfileData() {
         console.log('No user data found in LocalStorage.');
     }
 }
+
+
+
+
+// export function loadProfileData() {
+//     console.log("נכנס")
+//     // שליפת האובייקט שנשמר ב-Local Storage
+//     var type = localStorage.getItem('userType');
+//     console.log(type)
+//     var storedUserData = localStorage.getItem('userData');
+
+//     // בדיקה אם הנתון קיים
+//     if (storedUserData) {
+//         // המרת האובייקט משיטת JSON לאובייקט רגיל
+//         var userData = JSON.parse(storedUserData);
+
+//         // שליפת המייל מתוך האובייקט
+//         var email = userData.email;
+//         // var image = userData.imageUrl;
+//         console.log('The email stored in LocalStorage is:', email);
+
+//         // חיפוש הסטודנט לפי המייל
+//         getStudentIdByEmail(email, type).then(result => {
+//             if (result) {
+//                 console.log('User ID found:', result);
+//                 var studentId = result;
+
+//                 // ביצוע פניה ל-Firebase לאחר קבלת ה-ID
+//                 fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`)
+//                     .then(response => response.json())
+//                     .then(data => {
+//                         if (data) {
+//                             // הצגת המידע בטפסים השונים
+//                             document.getElementById('displayName').textContent = data.name || '';
+//                             document.getElementById('displayDegree').textContent = data.degree || '';
+//                             document.getElementById('displayYear').textContent = data.year || '';
+//                             document.getElementById('displayPhoneNumber').textContent = data.tel || '';
+//                             document.getElementById('displayEmail').textContent = data.mail || '';
+//                             document.getElementById('displayHobbies').textContent = data.hobbies || '';
+//                             document.getElementById('displayAboutMe').textContent = data.aboutme || '';
+
+//                             document.getElementById('profilePicture').src = data.image || '';
+
+//                             // const profilePictureElement = document.getElementById('profilePicture');
+//                             // const defaultImageSrc = 'images/prof.jpeg';
+
+//                             // // עדכון תמונת הפרופיל במידה וקיימת
+//                             // if (data.image) {
+//                             //     document.getElementById('profilePicture').src = data.photo;
+//                             // }else {
+//                             //     profilePictureElement.src = defaultImageSrc}
+//                              // קריאה לפונקציה לטעינת הקורסים
+//                              loadCourses(studentId, type);
+//                         } else {
+//                             console.error('User data not found');
+//                         }
+//                     })
+//                     .catch(error => {
+//                         console.error('Error fetching user data:', error);
+//                     });
+//             } else {
+//                 console.log('User not found with the given email.');
+//             }
+//         }).catch(error => {
+//             console.error('Error fetching student ID:', error);
+//         });
+//     } else {
+//         console.log('No user data found in LocalStorage.');
+//     }
+// }
 
 window.loadProfileData = loadProfileData;
 
@@ -893,3 +960,56 @@ function updateStyleCoursetoZamin(courseId) {
 
 
 
+export function editProfileData() {
+    const type = localStorage.getItem('userType');
+    console.log(type)
+    const id = localStorage.getItem('GlobalStudentID');
+    console.log(id)
+    const userdata = JSON.parse(localStorage.getItem('userData'));
+    const currentImageSrc = document.getElementById('profilePicture').src;
+    
+    // שימוש בתמונה המוצגת כרגע, אלא אם כן מדובר בתמונת ברירת מחדל
+    const picture = currentImageSrc !== 'images/prof.jpeg' ? currentImageSrc : userdata.imageUrl;
+  
+    const name = document.getElementById('name').value || '';
+    const degree = document.getElementById('degree').value || '';
+    const year = document.getElementById('year').value || '';
+    const mail = document.getElementById('email').value || '';
+    const tel = document.getElementById('number').value || '';
+    const aboutme = document.getElementById('aboutme').value || '';
+    const hobbies = document.getElementById('hobbies').value || '';
+  
+    // יצירת אובייקט עם הנתונים המעודכנים
+    let updatedStudent = {
+        name: name,
+        degree: degree,
+        mail: mail,
+        tel: tel,
+        year: year,
+        aboutme: aboutme,
+        hobbies: hobbies,
+        image: picture // וודא שהתמונה הנוכחית נשמרת
+    };
+  
+    // עדכון הנתונים בפיירבייס
+    fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedStudent)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Profile updated successfully:', data);
+        // עדכון הנתונים ב-Local Storage
+        // localStorage.setItem('userData', JSON.stringify(updatedStudent));
+        // מעבר לעמוד הפרופיל לאחר עדכון הפרטים
+        window.location.href = 'profile.html';
+    })
+    .catch(error => {
+        console.error('Error updating profile:', error);
+    });
+  }
+
+  window.editProfileData =  editProfileData;

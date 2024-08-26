@@ -124,124 +124,231 @@ if (document.getElementById('displayEmail')) {
 }
 };
 
-function setupProfilePictureUpload() {
-const profilePictureContainer = document.querySelector('.profile_picture_container');
-const profilePicture = document.getElementById('profilePicture');
-const profilePictureInput = document.getElementById('profilePictureInput');
-const defaultImageSrc = 'images/prof.jpeg'; // Set this to your default image path
+// function setupProfilePictureUpload() {
+// const profilePictureContainer = document.querySelector('.profile_picture_container');
+// const profilePicture = document.getElementById('profilePicture');
+// const profilePictureInput = document.getElementById('profilePictureInput');
+// const defaultImageSrc = 'images/prof.jpeg'; // Set this to your default image path
 
-profilePictureContainer.addEventListener('click', function() {
-  profilePictureInput.click();
-});
+// profilePictureContainer.addEventListener('click', function() {
+//   profilePictureInput.click();
+// });
 
-profilePictureInput.addEventListener('change', function(event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      profilePicture.src = e.target.result;
-    };  
+// profilePictureInput.addEventListener('change', function(event) {
+//   const file = event.target.files[0];
+//   if (file) {
+//     const reader = new FileReader();
+//     reader.onload = function(e) {
+//       profilePicture.src = e.target.result;
+//     };  
     
-    const type = localStorage.getItem('userType');
-    const studentId = localStorage.getItem('GlobalStudentID');
+//     const type = localStorage.getItem('userType');
+//     const studentId = localStorage.getItem('GlobalStudentID');
 
-    if (type && studentId) {
-      const updateUrl = `https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`;
-      fetch(updateUrl, {
-        method: 'PATCH', // Use PATCH to update only the 'photo' field
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ photo: photoUrl }), // Add the 'photo' field with the base64 image URL
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log('Photo uploaded and saved to Firebase successfully.');
-        } else {
-          console.error('Failed to update Firebase with the photo.');
-        }
-      })
-      .catch(error => {
-        console.error('Error updating Firebase:', error);
-      });
-    } else {
-      console.error('User type or student ID not found in localStorage.');
-    };
-    reader.readAsDataURL(file);
-    } else {
-      // If no file is selected (user cancels the upload), revert to default image
+//     if (type && studentId) {
+//       const updateUrl = `https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`;
+//       fetch(updateUrl, {
+//         method: 'PATCH', // Use PATCH to update only the 'photo' field
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ photo: e.target.result }), // Add the 'photo' field with the base64 image URL
+
+//       })
+//       .then(response => {
+//         if (response.ok) {
+//           console.log('Photo uploaded and saved to Firebase successfully.');
+//         } else {
+//           console.error('Failed to update Firebase with the photo.');
+//         }
+//       })
+//       .catch(error => {
+//         console.error('Error updating Firebase:', error);
+//       });
+//     } else {
+//       console.error('User type or student ID not found in localStorage.');
+//     };
+//     reader.readAsDataURL(file);
+//     } else {
+//       // If no file is selected (user cancels the upload), revert to default image
+//       profilePicture.src = defaultImageSrc;
+//   }
+// });
+
+// // Function to reset to default image
+// window.resetProfilePicture = function() {
+//   profilePicture.src = defaultImageSrc;
+// }
+// }
+
+function setupProfilePictureUpload() {
+  const profilePictureContainer = document.querySelector('.profile_picture_container');
+  const profilePicture = document.getElementById('profilePicture');
+  const profilePictureInput = document.getElementById('profilePictureInput');
+  const defaultImageSrc = 'images/prof.jpeg'; // Set this to your default image path
+
+  profilePictureContainer.addEventListener('click', function() {
+      profilePictureInput.click();
+  });
+
+  profilePictureInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const photoUrl = e.target.result; // Save the base64 image URL in a variable
+              profilePicture.src = photoUrl; // Update the profile picture preview
+              
+              const type = localStorage.getItem('userType');
+              const studentId = localStorage.getItem('GlobalStudentID');
+
+              if (type && studentId) {
+                  const updateUrl = `https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${studentId}.json`;
+                  fetch(updateUrl, {
+                      method: 'PATCH', // Use PATCH to update only the 'image' field
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ image: photoUrl }), // Update the 'image' field with the base64 image URL
+                  })
+                  .then(response => {
+                      if (response.ok) {
+                          console.log('Photo uploaded and saved to Firebase successfully.');
+                      } else {
+                          console.error('Failed to update Firebase with the photo.');
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error updating Firebase:', error);
+                  });
+              } else {
+                  console.error('User type or student ID not found in localStorage.');
+              }
+          };
+          reader.readAsDataURL(file);
+      } else {
+          // If no file is selected (user cancels the upload), revert to default image
+          profilePicture.src = defaultImageSrc;
+      }
+  });
+
+  // Function to reset to default image
+  window.resetProfilePicture = function() {
       profilePicture.src = defaultImageSrc;
-  }
-});
+  };
+}
 
-// Function to reset to default image
-window.resetProfilePicture = function() {
-  profilePicture.src = defaultImageSrc;
-}
-}
 
 document.addEventListener('DOMContentLoaded', setupProfilePictureUpload);
 
 
-
-
-
 function editProfileData() {
-const type = localStorage.getItem('userType');
-const id = localStorage.getItem('GlobalStudentID'); // או כל משתנה אחר ששומר את ה-ID
+  const type = localStorage.getItem('userType');
+  console.log(type)
+  const id = localStorage.getItem('GlobalStudentID');
+  console.log(id)
+  const userdata = JSON.parse(localStorage.getItem('userData'));
+  const currentImageSrc = document.getElementById('profilePicture').src;
+  
+  // שימוש בתמונה המוצגת כרגע, אלא אם כן מדובר בתמונת ברירת מחדל
+  const picture = currentImageSrc !== 'images/prof.jpeg' ? currentImageSrc : userdata.imageUrl;
 
-console.log(type + " סוג סטודנט ה");
-console.log(id + " ID סטודנט ה");
+  const name = document.getElementById('name').value || '';
+  const degree = document.getElementById('degree').value || '';
+  const year = document.getElementById('year').value || '';
+  const mail = document.getElementById('email').value || '';
+  const tel = document.getElementById('number').value || '';
+  const aboutme = document.getElementById('aboutme').value || '';
+  const hobbies = document.getElementById('hobbies').value || '';
 
-const name = document.getElementById('name').value || 'לא זמין';
-const degree = document.getElementById('degree').value || 'לא זמין';
-const year = document.getElementById('year').value || 'לא זמין';
-const mail = document.getElementById('email').value || 'לא זמין';
-const tel = document.getElementById('number').value || 'לא זמין';
-const aboutme = document.getElementById('aboutme').value || 'לא זמין';
-const hobbies = document.getElementById('hobbies').value || 'לא זמין';
+  // יצירת אובייקט עם הנתונים המעודכנים
+  let updatedStudent = {
+      name: name,
+      degree: degree,
+      mail: mail,
+      tel: tel,
+      year: year,
+      aboutme: aboutme,
+      hobbies: hobbies,
+      image: picture // וודא שהתמונה הנוכחית נשמרת
+  };
 
-
-
-// תחילה, נקרא את הנתונים הקיימים ב-Firebase כדי לשמור על הקורסים
-fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`)
-.then(response => response.json())
-.then(existingData => {
-    // אם קיימים קורסים, נוסיף אותם לאובייקט החדש
-    const existingCourses = existingData.courses || [];
-
-    // יצירת אובייקט עם הנתונים החדשים
-    let updatedStudent = {
-        name: name,
-        degree: degree,
-        mail: mail,
-        tel: tel,
-        year: year,
-        aboutme: aboutme, // ווידוא שמירה של השדה "קצת עלי"
-        hobbies: hobbies, // ווידוא שמירה של השדה "תחביבים"
-        courses: existingCourses // שמירת הקורסים הקיימים
-        
-    };
-
-    // עדכון הנתונים בפיירבייס
-    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
-        method: 'PUT', // השתמש ב-PUT כדי לעדכן את הרשומה הקיימת
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedStudent)
-    });
-})
-.then(response => response.json())
-.then(data => {
-    console.log('Profile updated successfully:', data);
-    // מעבר לעמוד הבא לאחר עדכון הפרטים
-    window.location.href = 'profile.html';
-})
-.catch(error => {
-    console.error('Error updating profile:', error);
-});
+  // עדכון הנתונים בפיירבייס
+  fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedStudent)
+  })
+  .then(response => response.json())
+  .then(data => {
+      console.log('Profile updated successfully:', data);
+      // עדכון הנתונים ב-Local Storage
+      localStorage.setItem('userData', JSON.stringify(updatedStudent));
+      // מעבר לעמוד הפרופיל לאחר עדכון הפרטים
+      window.location.href = 'profile.html';
+  })
+  .catch(error => {
+      console.error('Error updating profile:', error);
+  });
 }
+
+
+
+// function editProfileData() {
+//   const type = localStorage.getItem('userType');
+//   const id = localStorage.getItem('GlobalStudentID');
+//   const userdata = JSON.parse(localStorage.getItem('userData')); // Parse the JSON string
+//   const existingImage = userdata ? userdata.imageUrl : null; // תמונה קיימת מלוקאל סטורג'
+//   const currentImageSrc = document.getElementById('profilePicture').src;
+  
+//   // אם התמונה בעמוד לא השתנתה לתמונת ברירת מחדל, נשמור את התמונה שמוצגת כרגע
+//   const picture = currentImageSrc !== 'images/prof.jpeg' ? currentImageSrc : existingImage;
+
+//   console.log(type + " סוג סטודנט ה");
+//   console.log(id + " ID סטודנט ה");
+
+//   const name = document.getElementById('name').value || '';
+//   const degree = document.getElementById('degree').value || '';
+//   const year = document.getElementById('year').value || '';
+//   const mail = document.getElementById('email').value || '';
+//   const tel = document.getElementById('number').value || '';
+//   const aboutme = document.getElementById('aboutme').value || '';
+//   const hobbies = document.getElementById('hobbies').value || '';
+
+//   // יצירת אובייקט עם הנתונים המעודכנים (מבלי לקרוא מחדש מ-Firebase)
+//   let updatedStudent = {
+//       name: name,
+//       degree: degree,
+//       mail: mail,
+//       tel: tel,
+//       year: year,
+//       aboutme: aboutme,
+//       hobbies: hobbies,
+//       image: picture // שימוש בתמונה שמוצגת כרגע בעמוד או זו שכבר שמורה בפיירבייס
+//   };
+
+//   // עדכון הנתונים בפיירבייס
+//   fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
+//       method: 'PUT', // השתמש ב-PUT כדי לעדכן את הרשומה הקיימת
+//       headers: {
+//           'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(updatedStudent)
+//   })
+//   .then(response => response.json())
+//   .then(data => {
+//       console.log('Profile updated successfully:', data);
+//       // עדכון תמונה בלוקאל סטורג'
+//       localStorage.setItem('userData', JSON.stringify({ ...userdata, imageUrl: picture }));
+//       // מעבר לעמוד הבא לאחר עדכון הפרטים
+//       window.location.href = 'profile.html';
+//   })
+//   .catch(error => {
+//       console.error('Error updating profile:', error);
+//   });
+// }
 
 
 
