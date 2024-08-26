@@ -11,7 +11,7 @@
   <body>
     
     <header><img src="images/logo3.png" class="logo" alt="Logo"></header>
-    
+
     <div class="help-section" id="helpSection">
       <button class="help-toggle" onclick="toggleHelp()">עזרה</button>
       <div class="help-content" id="helpContent">
@@ -20,10 +20,11 @@
         <ul>
           <li>מספר או שם הקורס</li>
           <li>שם המרצה</li>
-          <li>או לפי החוג אליו הוא משוייך!</li>
+          <li>החוג אליו הוא משוייך</li>
         </ul>
-        <p>פשוט לחצו על כפתור "הוסף קורס" והוא יצורף לפרופיל שלכם! <br> תוכלו בקלות למחוק קורס בעזרת כפתור "מחק קורס".</p>
-        <p>לבסוף, לחצו על "סיים" ותועברו לעמוד הקורסים שלכם!</p>
+        <p>לחצו על כפתור "הוסף קורס" והוא יצורף לפרופיל שלכם, <br> תוכלו בקלות למחוק קורס בעזרת כפתור "מחק קורס ".</p>
+        <h4>לבסוף, לחצו על "סיים" ותועברו לעמוד הקורסים שלכם!</h4>
+        <p>לחץ על כפתור "עזרה" לסגירה</p>
       </div>
     </div>
 
@@ -148,36 +149,32 @@
     document.getElementById('coursenumberinput').addEventListener('input', filterItems)    
 
     document.addEventListener('DOMContentLoaded', function() {
-    var helpSection = document.getElementById('helpSection');
-    var content = document.getElementById("helpContent");
-    var icon = document.getElementById("helpIcon");
-    
-    // Check if this is the first visit
-    if (!localStorage.getItem('hasVisited')) {
-        // If it's the first visit, show the help content
-        content.classList.add("show");
-        icon.classList.remove("bi-info");
-        icon.classList.add("bi-x");
+        var helpSection = document.getElementById('helpSection');
+        var content = document.getElementById("helpContent");
+        var icon = document.getElementById("helpIcon");
         
-        // Set the flag in localStorage
-        localStorage.setItem('hasVisited', 'true');
-    }
-});
+        // Use the page URL or a unique identifier for each page as the key
+        var pageKey = 'hasVisited_' + window.location.pathname;
+        
+        // Check if this is the first visit to this specific page
+        if (!localStorage.getItem(pageKey)) {
+            // If it's the first visit to this page, show the help content
+            content.classList.add("show");
+            
+            // Set the flag in localStorage for this specific page
+            localStorage.setItem(pageKey, 'true');
+        } else {
+            // If it's not the first visit to this page, ensure the help content is hidden
+            content.classList.remove("show");
+        }
+    });
 
-function toggleHelp() {
-    var content = document.getElementById("helpContent");
-    var icon = document.getElementById("helpIcon");
-    
-    content.classList.toggle("show");
-    
-    if (content.classList.contains("show")) {
-        icon.classList.remove("bi-info");
-        icon.classList.add("bi-x");
-    } else {
-        icon.classList.remove("bi-x");
-        icon.classList.add("bi-info");
+    function toggleHelp() {
+        var content = document.getElementById("helpContent");
+        var icon = document.getElementById("helpIcon");
+        
+        content.classList.toggle("show");
     }
-}
 
 </script>
 
