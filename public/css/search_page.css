@@ -15,6 +15,58 @@ body{
     justify-content: space-between;
 }
 
+.help-section {
+    position: fixed;
+    top: 5px;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .help-toggle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #243983;
+    color: #d4e8ff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-family: "Assistant";
+  }
+  
+  .help-content {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: auto;
+    text-align: right;
+    background-color: #d4e8ff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    width: 400px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    color: #334999;
+  }
+  
+  .help-content.show {
+    display: block;
+  }
+  
+  /* Adjust for RTL layout */
+  html[dir="rtl"] .help-section {
+    left: 40px;
+    right: auto;
+  }
+  
+  html[dir="rtl"] .help-content {
+    left: 0;
+    right: auto;
+    text-align: right;
+  }
+
 h1 {
     color: #334999;
 }

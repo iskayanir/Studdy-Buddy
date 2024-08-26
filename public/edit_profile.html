@@ -7,6 +7,17 @@
     <style>@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');</style>
   </head>
 <body>
+
+  <div class="help-section" id="helpSection">
+    <button class="help-toggle" onclick="toggleHelp()">עזרה</button>
+    <div class="help-content" id="helpContent">
+      <h3>הגעת לעמוד עדכון הפרופיל שלך!</h3>
+      <br><p>כאן תוכלו לערוך את הפרטים שהכנסתם על עצמכם, <br>
+      לשתף עוד על עצמכם ועל התחביבים שלכם וגם להחליף תמונת פרופיל בעזרת לחיצה על התמונה! 
+      </p>
+      <br><p>לבסוף יש ללחוץ על "סיים".</p>
+    </div>
+  </div>
   
   <article class="container">
     <figure class="banner"></figure>
@@ -80,5 +91,37 @@
         //     document.getElementById('profilePicture').src = userData.imageUrl || 'images/prof.jpeg';
         // }
     };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var helpSection = document.getElementById('helpSection');
+        var content = document.getElementById("helpContent");
+        var icon = document.getElementById("helpIcon");
+        
+        // Check if this is the first visit
+        if (!localStorage.getItem('hasVisited')) {
+            // If it's the first visit, show the help content
+            content.classList.add("show");
+            icon.classList.remove("bi-info");
+            icon.classList.add("bi-x");
+            
+            // Set the flag in localStorage
+            localStorage.setItem('hasVisited', 'true');
+        }
+    });
+
+    function toggleHelp() {
+        var content = document.getElementById("helpContent");
+        var icon = document.getElementById("helpIcon");
+        
+        content.classList.toggle("show");
+        
+        if (content.classList.contains("show")) {
+            icon.classList.remove("bi-info");
+            icon.classList.add("bi-x");
+        } else {
+            icon.classList.remove("bi-x");
+            icon.classList.add("bi-info");
+        }
+    }
   </script>
 </body>

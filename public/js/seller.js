@@ -322,15 +322,15 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
     // Set the content of the new item based on the status
     if (status === "approved") {
         newItem.innerHTML = `
-            <div class="topic"> רשומה נוצרה בתאריך: ${dateCreateRequest} </div>
+            
             <i class="${iconClass} icon"></i>
             <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
             <ul>
                 <li class="topic"> ${idcourse} - ${courseName} </li>
-                <li class="topic">${topic}</li>
-                ${typehelp === 'sicom' && date ? `<li class="date">סיכום מתאריך: ${date}</li>` : ''}
+                ${typehelp === 'sicom' && date ? `<li class="topic">${topic} - ${date}</li>` : `<li class="topic">${topic}</li>`}
             </ul>
             <button class="help-approve-button">פרטים של הסטודנט</button>
+            <div class="create"> בקשה נוצרה בתאריך: ${dateCreateRequest} </div>
         `;
 
         newItem.querySelector('.help-approve-button').addEventListener('click', async function () {
@@ -340,14 +340,14 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
         });
     } else {
         newItem.innerHTML = `
-            <div class="topic"> רשומה נוצרה בתאריך: ${dateCreateRequest} </div>
             <i class="${iconClass} icon"></i>
             <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
             <ul>
-                <li class="topic">${topic}</li>
-                ${typehelp === 'sicom' && date ? `<li class="date">סיכום מתאריך: ${date}</li>` : ''}
+                <li class="topic"> ${idcourse} - ${courseName} </li>
+                ${typehelp === 'sicom' && date ? `<li class="topic">${topic} מתאריך ${date}</li>` : `<li class="topic">${topic}</li>`}
             </ul>
             <button class="help-button">אני רוצה לעזור!</button>
+            <div class="create"> בקשה נוצרה בתאריך: ${dateCreateRequest} </div>
         `;
 
         newItem.querySelector('.help-button').addEventListener('click', async function () {
