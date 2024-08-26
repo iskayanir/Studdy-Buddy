@@ -342,7 +342,7 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
             console.log('Click event triggered');
             try {
                 const studentDetails = await getBuyerOfRequest(requestId);
-                 alert(`פרטי הקשר של ${studentDetails.name}:\n\nקצת עליי: ${studentDetails.bio}\n\nתחביבים שלי: ${studentDetails.hobbies}\n\nטלפון: ${studentDetails.phone}\n\nאימייל: ${studentDetails.email}`);
+                alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${studentDetails.name}:\nקצת עליי: ${studentDetails.bio}\nתחביבים שלי: ${studentDetails.hobbies}\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
                 // openModal(studentDetails);
 
 
@@ -375,7 +375,7 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
 
                 console.log(detailsArray, "detailsArray");
                 
-                sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller, detailsArray);
+                // sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller, detailsArray);
 
                 // Update the status and add id_seller_approved in Firebase
                 const updateData = {
@@ -505,12 +505,12 @@ async function getTelSeller(IdSeller) {
             const studentData = await studentResponse.json();
     
             return {
-                name: studentData.name || 'לא ידוע',
-                bio: studentData.aboutme || 'אין ביוגרפיה זמינה',
-                phone: studentData.tel || 'לא זמין',
-                email: studentData.mail || 'לא זמין',
-                hobbies: studentData.hobbies || 'לא זמין',
-                bio: studentData.bio || 'לא זמין'
+                name: studentData.name || '',
+                bio: studentData.aboutme || '',
+                phone: studentData.tel || '',
+                email: studentData.mail || '',
+                hobbies: studentData.hobbies || '',
+                bio: studentData.bio || ''
             };
         } catch (error) {
             console.error('Error fetching student details:', error);
