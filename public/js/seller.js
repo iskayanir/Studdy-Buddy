@@ -20,6 +20,18 @@ async function loadCoursesDatafromFB(email) {
                         });
                     } else {
                         console.log('No courses found for this student.');
+                        //writing in html to chose courses
+                        var courseDataElement = document.getElementById("coursedata")
+                        courseDataElement.innerHTML = "לא נבחרו קורסים - "
+                        if (courseDataElement) {
+                            // יצירת אלמנט קישור חדש
+                            var link = document.createElement('a');
+                            link.href = 'search_page.html';  // הקישור לדף הרצוי
+                            link.textContent = 'לחצו כאן למעבר לדף החיפוש';  // הטקסט של הקישור
+
+                            // הוספת הקישור לתוך אלמנט ה-<h3>
+                            courseDataElement.appendChild(link);
+                        }
                     }
                 } else {
                     console.log('No data found for this student.');
