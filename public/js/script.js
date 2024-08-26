@@ -259,6 +259,7 @@ if (studentId && type) {
         .then(response => response.json())
         .then(data => {
             if (data) {
+              console.log(data.image)
                 // הצגת המידע בטפסים השונים
                 document.getElementById('name').value = data.name || '';
                 document.getElementById('degree').value = data.degree || '';
@@ -267,9 +268,10 @@ if (studentId && type) {
                 document.getElementById('email').value = data.mail || '';
                 document.getElementById('aboutme').value = data.aboutme || '';
                 document.getElementById('hobbies').value = data.hobbies || '';
-                document.getElementById('hobbies').value = data.hobbies || '';
 
-                // עדכון תמונת הפרופיל במידה וקיימת
+                // עדכון ה-src של תמונת הפרופיל
+                document.getElementById('profilePicture').src = data.image || 'images/prof.jpeg';
+
                
             } else {
                 console.error('User data not found');
