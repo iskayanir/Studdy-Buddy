@@ -80,6 +80,7 @@ function savefirebase(dateCreateRequest, topic, type, idstudent, idcourse, statu
     .then(response => response.json())
     .then(data => {
         console.log('Request saved successfully:', data);
+        alert("הבקשה שלך נקלטה. כשיהיה מישהו שיוכל לעזור תקבל מייל עם הפרטים שלו והם יופיעו גם כאן באתר")
         const requestId = data.name;
         createAndAppendNewItem(dateCreateRequest, status, type, topic, requestId, date);
         // fetchData(); // Optionally refresh the data

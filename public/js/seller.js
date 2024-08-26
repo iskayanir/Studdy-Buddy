@@ -170,7 +170,12 @@ function showrequests(idcourse){
                     }
                 }
             }
-
+            // var courseContent = document.getElementById('course-content');
+            // if (matchingRequests.length === 0 || courseContent.children.length === 0) {
+            //     console.log('No matching requests found');
+            //     var coursetitle = document.getElementById("coursedata");
+            //     coursetitle.innerHTML = ' איו בקשות בקורס -  ' + idcourse;
+            //     return null;}
             if (matchingRequests.length === 0) {
                 console.log('No matching requests found');
                 return null;
