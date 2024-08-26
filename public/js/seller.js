@@ -1,5 +1,3 @@
-// window.handleClick = handleClick;
-
 async function loadCoursesDatafromFB(email) {
     var type = "studentsProvidingHelp";
     var studentId = await getStudentIdByEmail(email, type);
@@ -24,7 +22,7 @@ async function loadCoursesDatafromFB(email) {
                         var courseDataElement = document.getElementById("coursedata")
                         courseDataElement.innerHTML = "לא נבחרו קורסים - "
                         if (courseDataElement) {
-                            // יצירת אלמנט קישור חדש
+                            // Creating a new link element
                             var link = document.createElement('a');
                             link.href = 'search_page.html';  // הקישור לדף הרצוי
                             link.textContent = 'לחצו כאן למעבר לדף החיפוש';  // הטקסט של הקישור
@@ -85,6 +83,7 @@ function loadDataCoursesDatafromFB(idcourse) {
         });
 }
 
+
 function coursesinhtml(idcourse, courseName, lectureName, department) {
     var coursebutton = document.getElementById("courses_buttons");
 
@@ -103,50 +102,6 @@ function coursesinhtml(idcourse, courseName, lectureName, department) {
     // Append the button to the courses_buttons container
     coursebutton.appendChild(button);
 }
-
-// function coursebuttondo(idcourse, courseName, lectureName, department) {
-//     var courseContent = document.getElementById('course-content');
-//     if (courseContent){
-//         // Remove all child elements
-//         while (courseContent.firstChild) {
-//             courseContent.removeChild(courseContent.firstChild);
-//     }
-
-//     // Select the parent element
-//     const parentElement = document.querySelector('.course-content');
-
-//     // Check if the element exists
-//     if (parentElement) {
-//     // Remove all child elements
-//     while (parentElement.firstChild) {
-//         parentElement.removeChild(parentElement.firstChild);
-//     }
-//     }
-
-//     // צור את המידע שאתה רוצה להכניס
-//     var coursetitle = document.getElementById("coursedata");
-//     coursetitle.innerHTML =  courseName + ' / ' +
-//                              lectureName;
-//     var currentcourse = document.getElementById("idcurrentcourse")
-//     currentcourse.innerHTML = idcourse
-//     console.log(currentcourse.textContent)
-
-//     var userData = JSON.parse(localStorage.getItem('userData'));
-//     var email = userData.email || '';
-//     console.log(email)
-//     showrequests(idcourse)
-// //     searchRequests(email, idcourse).then(matchingRequests => {
-// //         if (matchingRequests) {
-// //             console.log('Matching requests:', matchingRequests);
-// //         } else {
-// //             console.log('No requests matched the criteria.');
-// //        }
-    
-// //     });
-                                
-// }
-
-// }
 
 
 function coursebuttondo(idcourse, courseName, lectureName, department) {
@@ -179,43 +134,6 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
     var email = userData.email || '';
     showrequests(idcourse);
 }
-
-
-
-
-// function coursebuttondo(idcourse, courseName, lectureName, department) {
-//     var courseContent = document.getElementById('course-content');
-//     if (courseContent) {
-//         // Remove all child elements
-//         while (courseContent.firstChild) {
-//             courseContent.removeChild(courseContent.firstChild);
-//         }
-//     }
-
-//     // הסרת מחלקה 'selected-course' מכל הכפתורים
-//     var allButtons = document.querySelectorAll("#courses_buttons button");
-//     allButtons.forEach(button => {
-//         button.classList.remove('selected-course');
-//     });
-
-//     // בחירת הכפתור שנלחץ והוספת מחלקה 'selected-course'
-//     var clickedButton = document.getElementById(idcourse);
-//     clickedButton.classList.add('selected-course');
-//     console.log(`Added 'selected-course' class to button with ID: ${idcourse}`); // בדיקה שהמחלקה מתווספת
-
-//     // המשך הטיפול בנתוני הקורס כפי שהייתה
-//     var coursetitle = document.getElementById("coursedata");
-//     coursetitle.innerHTML = courseName + ' / ' + lectureName;
-//     var currentcourse = document.getElementById("idcurrentcourse");
-//     currentcourse.innerHTML = idcourse;
-
-//     var userData = JSON.parse(localStorage.getItem('userData'));
-//     var email = userData.email || '';
-//     showrequests(idcourse);
-// }
-
-
-
 
 
 function showrequests(idcourse){
@@ -326,59 +244,6 @@ function showapprovedrequest() {
         });
 }
 
-
-
-
-// function showapprovedrequest() {
-//     var coursetitle = document.getElementById("coursedata");
-//     coursetitle.innerText =  "בקשות מאושרות";
-
-//     var courseContent = document.getElementById('course-content');
-//     if (courseContent){
-//         // Remove all child elements
-//         while (courseContent.firstChild) {
-//             courseContent.removeChild(courseContent.firstChild);
-//     }}
-    
-//     // השגת המייל של המשתמש הנוכחי
-//     var userData = JSON.parse(localStorage.getItem('userData')); 
-//     var email = userData.email || '';
-//     console.log(email)
-
-//     // בקשת כל ה-requests מ-Firebase
-//     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
-//         .then(response => response.json())
-//         .then(data => {
-//             // מעבר על כל הבקשות
-//             for (var requestId in data) {
-//                 if (data.hasOwnProperty(requestId)) {
-//                     var request = data[requestId];
-//                     console.log(requestId)
-//                     // בדיקה אם יש מפתח בשם "id_seller_approved" ואם התוכן שלו זהה למייל של המשתמש
-//                     if (request.mail_seller_approved && request.mail_seller_approved === email) {
-//                         var typehelp = request.type;
-//                         var topic = request.topic;
-//                         var status = request.status_request;
-//                         var idcourse = request.id_course
-//                         var dateCreateRequest = request.date_create_request
-//                         // var requestId = request; // Use the request ID for the next steps
-//                         console.log(typehelp, topic, status, requestId);
-//                         console.log("התנאים מתקיימים עבור הבקשה עם ה-ID:", requestId);
-//                         if (typehelp === "sicom"){
-//                             var date = request.date;
-//                             createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, date, requestId, idcourse);
-//                         } else {
-//                             createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, null, requestId, idcourse);
-
-//                         }
-//                     }
-//                 }
-//             }
-//         })
-//         .catch(error => {
-//             console.error("שגיאה בקבלת הבקשות מ-Firebase:", error);
-//         });
-// }
 
 async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, date = null, requestId, idcourse) {
     console.log(requestId);
@@ -582,18 +447,6 @@ async function getTelSeller(IdSeller) {
 }
 
 
-    // var firstChild = courseContent.firstChild; // Get the first child element
-    // if (firstChild) {
-    //     courseContent.insertBefore(newItem, firstChild); // Insert newItem before the firstChild
-    // } else {
-    //     courseContent.appendChild(newItem); // If no children, just append newItem
-    // }
-
-
-
-
-    
-
     async function getBuyerOfRequest(requestId) {
         try {
             console.log(requestId+ "בקשה")
@@ -629,10 +482,8 @@ async function getTelSeller(IdSeller) {
     }
     
 
-  // import emailjs from '@emailjs/browser';
 
 emailjs.init("3tDwFwbFt57-geFOx");
-
 
 function sendEmail(toEmail, toName, fromName, message, mailSeller, requestDetails) {
     console.log("מייל נשלח");
