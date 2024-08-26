@@ -242,7 +242,7 @@ function setupProfilePictureUpload() {
 document.addEventListener('DOMContentLoaded', setupProfilePictureUpload);
 
 
-function editProfileData() {
+function editProfileData1() {
   const type = localStorage.getItem('userType');
   console.log(type)
   const id = localStorage.getItem('GlobalStudentID');
