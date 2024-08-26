@@ -354,10 +354,28 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
                 const telSeller = await getTelSeller(IdSeller);
                 const aboutme = studentDetails.aboutme || "";
                 const hobbies = studentDetails.hobbies || "";
-                const message = `I can help you! This is my mail: ${mailSeller} and my phone: ${telSeller}.\n\nA little about me: ${aboutme}\n\nMy hobbies: ${hobbies}`;
+                const message = `This is my mail: ${mailSeller} , and this is my phone: ${telSeller}.\n\nA little about me: ${aboutme}\n\nMy hobbies: ${hobbies}`;
 
-                console.log(`${studentDetails.email} מייל`);
-                sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller);
+
+                const requestDetails = await getRequestDetails(requestId);
+                console.log(requestDetails);
+                let detailsArray; // הגדרת המשתנה מחוץ לבלוקי ה-if וה-else
+
+                if (requestDetails) {
+                    detailsArray = [
+                        requestDetails.date_create_request,
+                        requestDetails.id_course,
+                        requestDetails.topic,
+                        requestDetails.type
+                    ];
+                } else {
+                    console.log("No details found for this request ID");
+                    detailsArray = []; // מערך ריק אם לא נמצאו פרטים
+                }
+
+                console.log(detailsArray, "detailsArray");
+                
+                sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller, detailsArray);
 
                 // Update the status and add id_seller_approved in Firebase
                 const updateData = {
@@ -384,8 +402,7 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
                 });
 
             } catch (error) {
-                console.error('Error fetching student details:', error);
-                alert('לא ניתן להציג את פרטי הסטודנט.');
+                console.error('Error fetching request details:', error);
             }
         });
     }
@@ -393,6 +410,29 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
     // Append the new item to course-content
     var courseContent = document.getElementById('course-content');
     courseContent.appendChild(newItem);
+}
+
+
+async function getRequestDetails(IdRequest) {
+    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests/${IdRequest}.json`)
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                return {
+                    date_create_request: data.date_create_request,
+                    id_course: data.id_course,
+                    topic: data.topic,
+                    type: data.type
+                };
+            } else {
+                console.log("No student found for this ID");
+                return null;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching student data:', error);
+            return null;
+        });
 }
 
 
@@ -484,7 +524,7 @@ async function getTelSeller(IdSeller) {
 emailjs.init("3tDwFwbFt57-geFOx");
 
 
-function sendEmail(toEmail, toName, fromName, message, mailSeller) {
+function sendEmail(toEmail, toName, fromName, message, mailSeller, requestDetails) {
     console.log("מייל נשלח");
     console.log(toEmail, toName, fromName, message)
     console.log(mailSeller)
@@ -493,7 +533,12 @@ function sendEmail(toEmail, toName, fromName, message, mailSeller) {
         to_name: toName,
         from_name: fromName,
         message: message,
-        email_seller: mailSeller 
+        email_seller: mailSeller,
+        date: requestDetails[0],
+        id_course: requestDetails[1],
+        topic: requestDetails[2],
+        type: requestDetails[3],
+
     })
     .then(function(response) {
        console.log('SUCCESS!', response.status, response.text);
