@@ -158,8 +158,8 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
         }
     }
 
-    // הסרת מחלקה 'selected-course' מכל הכפתורים
-    var allButtons = document.querySelectorAll("#courses_buttons button");
+    // הסרת המחלקה 'selected-course' מכל הכפתורים כולל כפתור 'בקשות מאושרות'
+    var allButtons = document.querySelectorAll("#courses_buttons button, #approvedrequests");
     allButtons.forEach(button => {
         button.classList.remove('selected-course');
     });
@@ -167,7 +167,7 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
     // בחירת הכפתור שנלחץ והוספת מחלקה 'selected-course'
     var clickedButton = document.getElementById(idcourse);
     clickedButton.classList.add('selected-course');
-    console.log(`Added 'selected-course' class to button with ID: ${idcourse}`); // בדיקה שהמחלקה מתווספת
+    console.log(`Added 'selected-course' class to button with ID: ${idcourse}`);
 
     // המשך הטיפול בנתוני הקורס כפי שהייתה
     var coursetitle = document.getElementById("coursedata");
@@ -179,6 +179,40 @@ function coursebuttondo(idcourse, courseName, lectureName, department) {
     var email = userData.email || '';
     showrequests(idcourse);
 }
+
+
+
+
+// function coursebuttondo(idcourse, courseName, lectureName, department) {
+//     var courseContent = document.getElementById('course-content');
+//     if (courseContent) {
+//         // Remove all child elements
+//         while (courseContent.firstChild) {
+//             courseContent.removeChild(courseContent.firstChild);
+//         }
+//     }
+
+//     // הסרת מחלקה 'selected-course' מכל הכפתורים
+//     var allButtons = document.querySelectorAll("#courses_buttons button");
+//     allButtons.forEach(button => {
+//         button.classList.remove('selected-course');
+//     });
+
+//     // בחירת הכפתור שנלחץ והוספת מחלקה 'selected-course'
+//     var clickedButton = document.getElementById(idcourse);
+//     clickedButton.classList.add('selected-course');
+//     console.log(`Added 'selected-course' class to button with ID: ${idcourse}`); // בדיקה שהמחלקה מתווספת
+
+//     // המשך הטיפול בנתוני הקורס כפי שהייתה
+//     var coursetitle = document.getElementById("coursedata");
+//     coursetitle.innerHTML = courseName + ' / ' + lectureName;
+//     var currentcourse = document.getElementById("idcurrentcourse");
+//     currentcourse.innerHTML = idcourse;
+
+//     var userData = JSON.parse(localStorage.getItem('userData'));
+//     var email = userData.email || '';
+//     showrequests(idcourse);
+// }
 
 
 
@@ -231,21 +265,33 @@ function showrequests(idcourse){
         });
 }
 
+
 function showapprovedrequest() {
     var coursetitle = document.getElementById("coursedata");
-    coursetitle.innerText =  "בקשות מאושרות";
+    coursetitle.innerText = "בקשות מאושרות";
 
     var courseContent = document.getElementById('course-content');
-    if (courseContent){
+    if (courseContent) {
         // Remove all child elements
         while (courseContent.firstChild) {
             courseContent.removeChild(courseContent.firstChild);
-    }}
-    
+        }
+    }
+
+    // הסרת המחלקה 'selected-course' מכל הכפתורים
+    var allButtons = document.querySelectorAll("#courses_buttons button, #approvedrequests");
+    allButtons.forEach(button => {
+        button.classList.remove('selected-course');
+    });
+
+    // הוספת המחלקה 'selected-course' לכפתור 'בקשות מאושרות'
+    var approvedButton = document.getElementById('approvedrequests');
+    approvedButton.classList.add('selected-course');
+
     // השגת המייל של המשתמש הנוכחי
-    var userData = JSON.parse(localStorage.getItem('userData')); 
+    var userData = JSON.parse(localStorage.getItem('userData'));
     var email = userData.email || '';
-    console.log(email)
+    console.log(email);
 
     // בקשת כל ה-requests מ-Firebase
     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
@@ -255,23 +301,21 @@ function showapprovedrequest() {
             for (var requestId in data) {
                 if (data.hasOwnProperty(requestId)) {
                     var request = data[requestId];
-                    console.log(requestId)
-                    // בדיקה אם יש מפתח בשם "id_seller_approved" ואם התוכן שלו זהה למייל של המשתמש
+                    console.log(requestId);
+                    // בדיקה אם יש מפתח בשם "mail_seller_approved" ואם התוכן שלו זהה למייל של המשתמש
                     if (request.mail_seller_approved && request.mail_seller_approved === email) {
                         var typehelp = request.type;
                         var topic = request.topic;
                         var status = request.status_request;
-                        var idcourse = request.id_course
-                        var dateCreateRequest = request.date_create_request
-                        // var requestId = request; // Use the request ID for the next steps
+                        var idcourse = request.id_course;
+                        var dateCreateRequest = request.date_create_request;
                         console.log(typehelp, topic, status, requestId);
                         console.log("התנאים מתקיימים עבור הבקשה עם ה-ID:", requestId);
-                        if (typehelp === "sicom"){
+                        if (typehelp === "sicom") {
                             var date = request.date;
                             createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, date, requestId, idcourse);
                         } else {
                             createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, null, requestId, idcourse);
-
                         }
                     }
                 }
@@ -281,6 +325,60 @@ function showapprovedrequest() {
             console.error("שגיאה בקבלת הבקשות מ-Firebase:", error);
         });
 }
+
+
+
+
+// function showapprovedrequest() {
+//     var coursetitle = document.getElementById("coursedata");
+//     coursetitle.innerText =  "בקשות מאושרות";
+
+//     var courseContent = document.getElementById('course-content');
+//     if (courseContent){
+//         // Remove all child elements
+//         while (courseContent.firstChild) {
+//             courseContent.removeChild(courseContent.firstChild);
+//     }}
+    
+//     // השגת המייל של המשתמש הנוכחי
+//     var userData = JSON.parse(localStorage.getItem('userData')); 
+//     var email = userData.email || '';
+//     console.log(email)
+
+//     // בקשת כל ה-requests מ-Firebase
+//     fetch('https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/requests.json')
+//         .then(response => response.json())
+//         .then(data => {
+//             // מעבר על כל הבקשות
+//             for (var requestId in data) {
+//                 if (data.hasOwnProperty(requestId)) {
+//                     var request = data[requestId];
+//                     console.log(requestId)
+//                     // בדיקה אם יש מפתח בשם "id_seller_approved" ואם התוכן שלו זהה למייל של המשתמש
+//                     if (request.mail_seller_approved && request.mail_seller_approved === email) {
+//                         var typehelp = request.type;
+//                         var topic = request.topic;
+//                         var status = request.status_request;
+//                         var idcourse = request.id_course
+//                         var dateCreateRequest = request.date_create_request
+//                         // var requestId = request; // Use the request ID for the next steps
+//                         console.log(typehelp, topic, status, requestId);
+//                         console.log("התנאים מתקיימים עבור הבקשה עם ה-ID:", requestId);
+//                         if (typehelp === "sicom"){
+//                             var date = request.date;
+//                             createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, date, requestId, idcourse);
+//                         } else {
+//                             createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, null, requestId, idcourse);
+
+//                         }
+//                     }
+//                 }
+//             }
+//         })
+//         .catch(error => {
+//             console.error("שגיאה בקבלת הבקשות מ-Firebase:", error);
+//         });
+// }
 
 async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, date = null, requestId, idcourse) {
     console.log(requestId);
