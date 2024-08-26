@@ -144,6 +144,13 @@ function showSection(sectionId) {
 
 
 function saveInput(typehelp) {
+    var idcourse = document.getElementById("idcurrentcourse").textContent
+    if (!idcourse) {
+        console.warn('idcourse is not defined. Exiting function.');
+        alert("לא ניתן להכניס רשומה ללא הרשמה לקורסים")
+        return; // יציאה מהפונקציה
+    }
+
     var dateCreateRequest = new Date();
     console.log(dateCreateRequest)
     // Get day, month, and year
@@ -153,7 +160,7 @@ function saveInput(typehelp) {
     dateCreateRequest = `${day}/${month}/${year}`
     console.log(dateCreateRequest)
     
-    var idcourse = document.getElementById("idcurrentcourse").textContent
+    
     console.log("saveinputidcours", idcourse)
     var userData = JSON.parse(localStorage.getItem('userData'));
     if (userData) {
