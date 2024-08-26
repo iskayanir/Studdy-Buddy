@@ -43,15 +43,13 @@
       </div>     
     </div><br>
 
-    <div class="buttons">  
-      <p> חפש לפי פקולטה: </p>
-      <button onclick="filterAll()">הכל</button>
-      <button onclick="filterFaculty('למדעי החברה')">מדעי החברה</button>
-      <button onclick="filterFaculty('מנהל עסקים')">מנהל עסקים</button>
-      <button onclick="filterFaculty('רפואה')">רפואה</button>
-      <button onclick="filterFaculty('מדעי המחשב')">מדעי המחשב</button>
-      <button onclick="filterFaculty('משפטים')">משפטים</button>
-      </div>
+    <div class="search-proffesor"> 
+      <p> חפש לפי מספר קורס: </p>
+      <div class="search-container">    
+        <input type="text" placeholder="חפש מספר קורס..." class="search-input" id="coursenumberinput">
+      </div>     
+    </div><br>
+
 
       <div class="finish-button">
         <button onclick="navigateToCourses()">סיים</button>
@@ -141,8 +139,7 @@
     document.getElementById('searchInput').addEventListener('input', filterItems);
     document.getElementById('teacherInput').addEventListener('input', filterItems)
     document.getElementById('departmentInput').addEventListener('input', filterItems)
-
-    
+    document.getElementById('coursenumberinput').addEventListener('input', filterItems)    
 
 </script>
 
