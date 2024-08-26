@@ -193,14 +193,15 @@ function showrequests(idcourse){
                         var typehelp = request.type;
                         var topic = request.topic;
                         var status = request.status_request;
+                        var dateCreateRequest = request.date_create_request
                         var requestId = key; // Use the request ID for the next steps
-                        console.log(typehelp, topic, status, requestId);
+                        console.log(dateCreateRequest, typehelp, topic, status, requestId);
                         if (status !== "approved") {
                             if(request.date){
                                 var date = request.date;
-                                createAndAppendNewItem(typehelp, topic, status, date, requestId, idcourse);
+                                createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, date, requestId, idcourse);
                             } else {
-                                createAndAppendNewItem(typehelp, topic, status, null, requestId, idcourse);
+                                createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, null, requestId, idcourse);
                             }}
                     }
                 }
@@ -249,14 +250,15 @@ function showapprovedrequest() {
                         var topic = request.topic;
                         var status = request.status_request;
                         var idcourse = request.id_course
+                        var dateCreateRequest = request.date_create_request
                         // var requestId = request; // Use the request ID for the next steps
                         console.log(typehelp, topic, status, requestId);
                         console.log("התנאים מתקיימים עבור הבקשה עם ה-ID:", requestId);
                         if (typehelp === "sicom"){
                             var date = request.date;
-                            createAndAppendNewItem(typehelp, topic, status, date, requestId, idcourse);
+                            createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, date, requestId, idcourse);
                         } else {
-                            createAndAppendNewItem(typehelp, topic, status, null, requestId, idcourse);
+                            createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, null, requestId, idcourse);
 
                         }
                     }
@@ -268,7 +270,7 @@ function showapprovedrequest() {
         });
 }
 
-async function createAndAppendNewItem(typehelp, topic, status, date = null, requestId, idcourse) {
+async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status, date = null, requestId, idcourse) {
     console.log(requestId);
 
     // Create new item element
@@ -308,6 +310,7 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
     // Set the content of the new item based on the status
     if (status === "approved") {
         newItem.innerHTML = `
+            <div class="topic"> רשומה נוצרה בתאריך: ${dateCreateRequest} </div>
             <i class="${iconClass} icon"></i>
             <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
             <ul>
@@ -325,6 +328,7 @@ async function createAndAppendNewItem(typehelp, topic, status, date = null, requ
         });
     } else {
         newItem.innerHTML = `
+            <div class="topic"> רשומה נוצרה בתאריך: ${dateCreateRequest} </div>
             <i class="${iconClass} icon"></i>
             <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
             <ul>

@@ -22,11 +22,12 @@ function searchRequests(studentEmail, courseID) {
                         var typehelp = request.type
                         var topic = request.topic
                         var status = request.status_request
+                        var dateCreateRequest = request.date_create_request
                         if(request.date){
                             var date = request.date
                         } 
                         
-                        createAndAppendNewItem(status,typehelp, topic, key, date)
+                        createAndAppendNewItem(dateCreateRequest, status,typehelp, topic, key, date)
                         
                     }
                 }
@@ -45,11 +46,12 @@ function searchRequests(studentEmail, courseID) {
 }
 
 
-function savefirebase(topic, type, idstudent, idcourse, status, date = null) {
+function savefirebase(dateCreateRequest, topic, type, idstudent, idcourse, status, date = null) {
     let newrequest; // Declare newrequest outside of the if-else block
 
     if (type === "sicom") {
         newrequest = {
+            date_create_request: dateCreateRequest,
             id_course: idcourse,
             id_student: idstudent,
             status_request: status,
@@ -59,6 +61,7 @@ function savefirebase(topic, type, idstudent, idcourse, status, date = null) {
         };
     } else {
         newrequest = {
+            date_create_request: dateCreateRequest,
             id_course: idcourse,
             id_student: idstudent,
             status_request: status,
@@ -78,7 +81,7 @@ function savefirebase(topic, type, idstudent, idcourse, status, date = null) {
     .then(data => {
         console.log('Request saved successfully:', data);
         const requestId = data.name;
-        createAndAppendNewItem(status, type, topic, requestId, date);
+        createAndAppendNewItem(dateCreateRequest, status, type, topic, requestId, date);
         // fetchData(); // Optionally refresh the data
     })
     .catch(error => {
@@ -141,6 +144,15 @@ function showSection(sectionId) {
 
 
 function saveInput(typehelp) {
+    var dateCreateRequest = new Date();
+    console.log(dateCreateRequest)
+    // Get day, month, and year
+    const day = String(dateCreateRequest.getDate()).padStart(2, '0'); // Add leading zero if needed
+    const month = String(dateCreateRequest.getMonth() + 1).padStart(2, '0'); // Add leading zero if needed, months are zero-based
+    const year = String(dateCreateRequest.getFullYear()).slice(-2); // Get last two digits of the year
+    dateCreateRequest = `${day}/${month}/${year}`
+    console.log(dateCreateRequest)
+    
     var idcourse = document.getElementById("idcurrentcourse").textContent
     console.log("saveinputidcours", idcourse)
     var userData = JSON.parse(localStorage.getItem('userData'));
@@ -159,7 +171,7 @@ function saveInput(typehelp) {
         if (searchField || searchField1) {
             topic = searchField;
             date = searchField1;
-            savefirebase(topic, typehelp, idstudent, idcourse, status, date);
+            savefirebase(dateCreateRequest, topic, typehelp, idstudent, idcourse, status, date);
         } else {
             alert("Search field not found");
             return;
@@ -168,7 +180,7 @@ function saveInput(typehelp) {
         var searchField = document.getElementById('toggleSearchField2').value;
         if (searchField) {
             topic = searchField;
-            savefirebase(topic, typehelp, idstudent, idcourse, status);
+            savefirebase(dateCreateRequest, topic, typehelp, idstudent, idcourse, status);
         } else {
             alert("Search field not found");
             return;
@@ -177,7 +189,7 @@ function saveInput(typehelp) {
         var searchField = document.getElementById('toggleSearchField3').value;
         if (searchField) {
             topic = searchField;
-            savefirebase(topic, typehelp, idstudent, idcourse, status);
+            savefirebase(dateCreateRequest, topic, typehelp, idstudent, idcourse, status);
         } else {
             alert("Search field not found");
             return;
@@ -212,7 +224,7 @@ function deleteRecordById(recordId) {
     });
 }
 
-function createAndAppendNewItem(status, typehelp, topic, requestId, date = null) {
+function createAndAppendNewItem(dateCreateRequest, status, typehelp, topic, requestId, date = null) {
     // Create new item element
     var newItem = document.createElement('div');
     newItem.className = 'grid-item';
@@ -230,6 +242,7 @@ function createAndAppendNewItem(status, typehelp, topic, requestId, date = null)
     if (status === "waiting"){
             // Set the content of the new item
         newItem.innerHTML = `
+        <div class="topic"> יצירת רשומה בתאריך: ${dateCreateRequest} </div>
         <i class="${iconClass} icon"></i>
         <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
         <ul>
@@ -248,6 +261,7 @@ function createAndAppendNewItem(status, typehelp, topic, requestId, date = null)
     }else{
         // Set the content of the new item
         newItem.innerHTML = `
+        <div class="topic"> יצירת רשומה בתאריך: ${dateCreateRequest} </div>
         <i class="${iconClass} icon"></i>
         <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
         <ul>
