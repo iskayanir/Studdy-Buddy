@@ -77,7 +77,7 @@
 </body>
 <script src="js/script.js"></script>
 <script type="module">
-    import { navigateToCourses } from './js/firebase-app.js';
+    import {loadProfileData, navigateToCourses } from './js/firebase-app.js';
   
   </script>
 <script >
@@ -86,8 +86,8 @@
         loadProfileData();
         // שליפת נתוני המשתמש מ-Local Storage
         var userData = JSON.parse(localStorage.getItem('userData'));
-        if (userData) {
-            document.getElementById('profilePicture').src = userData.imageUrl || 'images/prof.jpeg';
+        if (userData && userData.imageUrl) {
+            document.getElementById('profilePicture').src = userData.imageUrl;
         }
     };
 </script>
