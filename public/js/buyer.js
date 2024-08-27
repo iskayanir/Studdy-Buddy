@@ -253,8 +253,7 @@ function createAndAppendNewItem(dateCreateRequest, status, typehelp, topic, requ
         <i class="${iconClass} icon"></i>
         <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
         <ul>
-            <li class="topic">${topic}</li>
-            ${typehelp === 'sicom' && date ? `<li class="date">סיכום מתאריך: ${date}</li>` : ''}
+        ${typehelp === 'sicom' && date ? `<li class="topic">${topic} מתאריך ${date}</li>` : `<li class="topic">${topic}</li>`}
         </ul>
         <div class="status-section">
             <button id="status-button_${requestId}" class="status-button-waiting">מחכה לאישור</button>
