@@ -324,6 +324,7 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
                 const BuyerDetails = await getBuyerOfRequest(requestId);
                 alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${BuyerDetails.name}:\nקצת עליי: ${BuyerDetails.bio}\nתחביבים שלי: ${BuyerDetails.hobbies}\nטלפון: ${BuyerDetails.phone}\nאימייל: ${BuyerDetails.email}`);
 
+
                 const IdSeller = localStorage.getItem('GlobalStudentID');
                 console.log(IdSeller + "סלר")
                 // const fromName = await getNameSeller(IdSeller);
