@@ -960,17 +960,67 @@ function updateStyleCoursetoZamin(courseId) {
 
 
 
+// export function editProfileData() {
+//     const type = localStorage.getItem('userType');
+//     console.log(type)
+//     const id = localStorage.getItem('GlobalStudentID');
+//     console.log(id)
+//     const userdata = JSON.parse(localStorage.getItem('userData'));
+//     const currentImageSrc = document.getElementById('profilePicture').src;
+    
+//     // שימוש בתמונה המוצגת כרגע, אלא אם כן מדובר בתמונת ברירת מחדל
+//     const picture = currentImageSrc !== 'images/prof.jpeg' ? currentImageSrc : userdata.imageUrl;
+  
+//     const name = document.getElementById('name').value || '';
+//     const degree = document.getElementById('degree').value || '';
+//     const year = document.getElementById('year').value || '';
+//     const mail = document.getElementById('email').value || '';
+//     const tel = document.getElementById('number').value || '';
+//     const aboutme = document.getElementById('aboutme').value || '';
+//     const hobbies = document.getElementById('hobbies').value || '';
+  
+//     // יצירת אובייקט עם הנתונים המעודכנים
+//     let updatedStudent = {
+//         name: name,
+//         degree: degree,
+//         mail: mail,
+//         tel: tel,
+//         year: year,
+//         aboutme: aboutme,
+//         hobbies: hobbies,
+//         image: picture // וודא שהתמונה הנוכחית נשמרת
+//     };
+  
+//     // עדכון הנתונים בפיירבייס
+//     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
+//         method: 'PUT',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(updatedStudent)
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log('Profile updated successfully:', data);
+//         // עדכון הנתונים ב-Local Storage
+//         // localStorage.setItem('userData', JSON.stringify(updatedStudent));
+//         // מעבר לעמוד הפרופיל לאחר עדכון הפרטים
+//         window.location.href = 'profile.html';
+//     })
+//     .catch(error => {
+//         console.error('Error updating profile:', error);
+//     });
+//   }
+
+
 export function editProfileData() {
     const type = localStorage.getItem('userType');
-    console.log(type)
     const id = localStorage.getItem('GlobalStudentID');
-    console.log(id)
-    const userdata = JSON.parse(localStorage.getItem('userData'));
     const currentImageSrc = document.getElementById('profilePicture').src;
-    
+    const userdata = JSON.parse(localStorage.getItem('userData'));
     // שימוש בתמונה המוצגת כרגע, אלא אם כן מדובר בתמונת ברירת מחדל
     const picture = currentImageSrc !== 'images/prof.jpeg' ? currentImageSrc : userdata.imageUrl;
-  
+
     const name = document.getElementById('name').value || '';
     const degree = document.getElementById('degree').value || '';
     const year = document.getElementById('year').value || '';
@@ -978,7 +1028,7 @@ export function editProfileData() {
     const tel = document.getElementById('number').value || '';
     const aboutme = document.getElementById('aboutme').value || '';
     const hobbies = document.getElementById('hobbies').value || '';
-  
+
     // יצירת אובייקט עם הנתונים המעודכנים
     let updatedStudent = {
         name: name,
@@ -990,10 +1040,10 @@ export function editProfileData() {
         hobbies: hobbies,
         image: picture // וודא שהתמונה הנוכחית נשמרת
     };
-  
-    // עדכון הנתונים בפיירבייס
+
+    // עדכון הנתונים בפיירבייס באמצעות PATCH
     fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/${type}/${id}.json`, {
-        method: 'PUT',
+        method: 'PATCH',  // שימוש ב-PATCH במקום PUT
         headers: {
             'Content-Type': 'application/json'
         },
@@ -1003,13 +1053,17 @@ export function editProfileData() {
     .then(data => {
         console.log('Profile updated successfully:', data);
         // עדכון הנתונים ב-Local Storage
-        // localStorage.setItem('userData', JSON.stringify(updatedStudent));
+        localStorage.setItem('userData', JSON.stringify({
+            ...userdata,
+            ...updatedStudent
+        }));
         // מעבר לעמוד הפרופיל לאחר עדכון הפרטים
         window.location.href = 'profile.html';
     })
     .catch(error => {
         console.error('Error updating profile:', error);
     });
-  }
+}
+
 
   window.editProfileData =  editProfileData;
