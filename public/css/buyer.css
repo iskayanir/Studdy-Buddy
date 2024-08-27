@@ -812,7 +812,7 @@ h1 {
 .course-content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 20px; /* Space between grid items */
+    grid-gap: 2%; /* Space between grid items */
     padding: 10px;
     margin-left: auto; /* Align the grid to the right */
     max-width: calc(100% - 350px);

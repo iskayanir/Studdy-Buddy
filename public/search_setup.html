@@ -36,30 +36,32 @@
       </div>  
     </main>
 
-    <div class="search-proffesor"> 
-      <p> חפש לפי מרצה: </p>
-      <div class="search-container">    
-        <input type="text" placeholder="חפש שם מרצה..." class="search-input" id="teacherInput">
-      </div>     
-    </div><br>
+    <div class="search-row">
+      <div class="search-professor"> 
+        <p>חפש לפי מרצה:</p>
+        <div class="search-container">    
+          <input type="text" placeholder="חפש שם מרצה..." class="search-input" id="teacherInput">
+        </div>     
+      </div>
+      
+      <div class="search-professor"> 
+        <p>חפש לפי חוג:</p>
+        <div class="search-container">    
+          <input type="text" placeholder="חפש שם חוג..." class="search-input" id="departmentInput">
+        </div>     
+      </div>
     
-    <div class="search-proffesor"> 
-      <p> חפש לפי חוג: </p>
-      <div class="search-container">    
-        <input type="text" placeholder="חפש שם חוג..." class="search-input" id="departmentInput">
-      </div>     
-    </div><br>
-
-    <div class="search-proffesor"> 
-      <p> חפש לפי מספר קורס: </p>
-      <div class="search-container">    
-        <input type="text" placeholder="חפש מספר קורס..." class="search-input" id="coursenumberinput">
-      </div>     
-    </div><br>
+      <div class="search-professor"> 
+        <p>חפש לפי מספר קורס:</p>
+        <div class="search-container">    
+          <input type="text" placeholder="חפש מספר קורס..." class="search-input" id="coursenumberinput">
+        </div>     
+      </div>
+    </div>
 
 
       <div class="finish-button">
-        <button onclick="navigateToCourses()">סיים</button>
+        <button onclick="navigateToCourses()">שמור</button>
       </div>
       
       <div class=grid-container id="gridContainer"></div>
@@ -106,8 +108,8 @@
                         // Student is enrolled in this course
                         console.log("מחק קורס");
                         gridItem.innerHTML = `
-                            <h2 class="course-name">${course['Course Name']}</h2>
                             <i class="bi bi-mortarboard icon"></i>
+                            <h2 class="course-name">${course['Course Name']}</h2>
                             <ul>
                                 <li class="course-id">מספר קורס: ${course.id}</li>
                                 <li class ="department"> חוג: ${course.Department}</li>
@@ -121,8 +123,8 @@
                     } else {
                         // Student is not enrolled in this course
                         gridItem.innerHTML = `
-                            <h2 class="course-name">${course['Course Name']}</h2>
                             <i class="bi bi-mortarboard icon"></i>
+                            <h2 class="course-name">${course['Course Name']}</h2>
                             <ul>
                                 <li class="course-id">מספר קורס: ${course.id}</li>
                                 <li class ="department"> חוג: ${course.Department}</li>
