@@ -321,20 +321,19 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
         newItem.querySelector('.help-button').addEventListener('click', async function () {
             console.log('Click event triggered');
             try {
-                const studentDetails = await getBuyerOfRequest(requestId);
-                alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${studentDetails.name}:\nקצת עליי: ${studentDetails.bio}\nתחביבים שלי: ${studentDetails.hobbies}\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
-                // openModal(studentDetails);
-
+                const BuyerDetails = await getBuyerOfRequest(requestId);
+                alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${BuyerDetails.name}:\nקצת עליי: ${BuyerDetails.bio}\nתחביבים שלי: ${BuyerDetails.hobbies}\nטלפון: ${BuyerDetails.phone}\nאימייל: ${BuyerDetails.email}`);
 
                 const IdSeller = localStorage.getItem('GlobalStudentID');
                 console.log(IdSeller + "סלר")
-                const fromName = await getNameSeller(IdSeller);
-                const sellerData = JSON.parse(localStorage.getItem('userData'));
-                const mailSeller = sellerData.email;
-                const telSeller = await getTelSeller(IdSeller);
-                const aboutme = studentDetails.aboutme || "";
-                const hobbies = studentDetails.hobbies || "";
-                const message = `This is my mail: ${mailSeller} , and this is my phone: ${telSeller}.\n\nA little about me: ${aboutme}\n\nMy hobbies: ${hobbies}`;
+                // const fromName = await getNameSeller(IdSeller);
+                // const sellerData = JSON.parse(localStorage.getItem('userData'));
+                // const mailSeller = sellerData.email;
+                // const telSeller = await getTelSeller(IdSeller);
+        
+                const SellerDetails = await getSellerOfRequest(IdSeller);
+              
+                const message = `This is my mail: ${SellerDetails.email} , and this is my phone: ${SellerDetails.tel}.\n\nA little about me: ${SellerDetails.aboutme}\n\nMy hobbies: ${SellerDetails.hobbies}`;
 
 
                 const requestDetails = await getRequestDetails(requestId);
@@ -355,12 +354,12 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
 
                 console.log(detailsArray, "detailsArray");
                 
-                sendEmail(studentDetails.email, studentDetails.name, fromName, message, mailSeller, detailsArray);
+                sendEmail(BuyerDetails.email, BuyerDetails.name, SellerDetails.name, message, SellerDetails.email, detailsArray);
 
                 // Update the status and add id_seller_approved in Firebase
                 const updateData = {
                     status_request: "approved",
-                    mail_seller_approved: mailSeller,
+                    mail_seller_approved: SellerDetails.email,
                     id_seller_approved: IdSeller
                 };
 
@@ -417,39 +416,73 @@ async function getRequestDetails(IdRequest) {
 
 
 
-async function getNameSeller(IdSeller) {
-    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
-        .then(response => response.json())
-        .then(data => {
-            if (data) {
-                return data.name; // מחזיר את השם של הסטודנט
-            } else {
-                console.log("No student found for this ID");
-                return null;
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching student data:', error);
-            return null;
-        });
+// async function getNameSeller(IdSeller) {
+//     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data) {
+//                 return data.name; // מחזיר את השם של הסטודנט
+//             } else {
+//                 console.log("No student found for this ID");
+//                 return null;
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error fetching student data:', error);
+//             return null;
+//         });
+// }
+
+// async function getTelSeller(IdSeller) {
+//     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data) {
+//                 return data.tel; // מחזיר את השם של הסטודנט
+//             } else {
+//                 console.log("No student found for this ID");
+//                 return null;
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error fetching student data:', error);
+//             return null;
+//         });
+// }
+
+
+async function getSellerOfRequest(IdSeller) {
+    try {
+        console.log(IdSeller + " id seller");
+        // שלב 2: שליפת פרטי הסטודנט על בסיס הסטודנט ID שהתקבל מהבקשה
+        const studentResponse = await fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`);
+
+        // בדיקה אם הבקשה הצליחה
+        if (!studentResponse.ok) {
+            throw new Error('Failed to fetch student data');
+        }
+
+        const studentData = await studentResponse.json();
+
+        return {
+            name: studentData.name || '',
+            aboutme: studentData.aboutme || '', // שימוש במפתח אחד בלבד
+            phone: studentData.tel || '',
+            email: studentData.mail || '',
+            hobbies: studentData.hobbies || ''
+        };
+    } catch (error) {
+        console.error('Error fetching seller data:', error);
+        return {
+            name: '',
+            aboutme: '',
+            phone: '',
+            email: '',
+            hobbies: ''
+        }; // ניתן להחזיר אובייקט ריק או לטפל בצורה אחרת במקרה של שגיאה
+    }
 }
 
-async function getTelSeller(IdSeller) {
-    return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
-        .then(response => response.json())
-        .then(data => {
-            if (data) {
-                return data.tel; // מחזיר את השם של הסטודנט
-            } else {
-                console.log("No student found for this ID");
-                return null;
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching student data:', error);
-            return null;
-        });
-}
 
 
     async function getBuyerOfRequest(requestId) {
@@ -478,13 +511,13 @@ async function getTelSeller(IdSeller) {
                 phone: studentData.tel || '',
                 email: studentData.mail || '',
                 hobbies: studentData.hobbies || '',
-                bio: studentData.bio || ''
             };
         } catch (error) {
             console.error('Error fetching student details:', error);
             throw error;
         }
     }
+
     
 
 
