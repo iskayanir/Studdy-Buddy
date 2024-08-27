@@ -250,7 +250,6 @@ function createAndAppendNewItem(dateCreateRequest, status, typehelp, topic, requ
     if (status === "waiting"){
             // Set the content of the new item
         newItem.innerHTML = `
-        <div class="topic"> יצירת רשומה בתאריך: ${dateCreateRequest} </div>
         <i class="${iconClass} icon"></i>
         <h2 class="type-help">${typehelp === 'sicom' ? 'סיכום' : typehelp === 'hashlama' ? 'השלמת נושא' : 'עזרה בתרגיל בית'}</h2>
         <ul>
@@ -263,6 +262,7 @@ function createAndAppendNewItem(dateCreateRequest, status, typehelp, topic, requ
         <div class="delete-section">
             <i class="bi bi-trash3 delete-icon"></i>
         </div>
+        <div class="create"> הבקשה נוצרה בתאריך: ${dateCreateRequest} </div>
     `;
 
 
