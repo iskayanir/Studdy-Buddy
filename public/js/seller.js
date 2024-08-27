@@ -322,7 +322,7 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
             console.log('Click event triggered');
             try {
                 const studentDetails = await getBuyerOfRequest(requestId);
-                alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${studentDetails.name}:\nקצת עליי: ${studentDetails.bio}\nתחביבים שלי: ${studentDetails.hobbies}\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}`);
+                alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${studentDetails.name}:\nקצת עליי: ${studentDetails.bio}\nתחביבים שלי: ${studentDetails.hobbies}\nטלפון: ${studentDetails.phone}\nאימייל: ${studentDetails.email}\n\nפרטי הקשר שלך נשלחו ל-${studentDetails.name} במייל והוא יוכל לראות שבקשתו אושרה באתר.`);
                 // openModal(studentDetails);
 
 
