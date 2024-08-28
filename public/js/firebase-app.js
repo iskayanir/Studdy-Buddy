@@ -819,8 +819,8 @@ function updateStyleCoursetoSelected(courseId) {
 
             // Update the inner HTML of the grid item
             gridItem.innerHTML = `
+                <i class="bi bi-mortarboard icon"></i>    
                 <h2 class="course-name">${course['Course Name']}</h2>
-                <i class="bi bi-mortarboard icon"></i>
                 <ul>
                     <li class="course-id">מספר קורס: ${courseId}</li>
                     <li class ="department"> חוג: ${course.Department}</li>
@@ -940,8 +940,8 @@ function updateStyleCoursetoZamin(courseId) {
 
             // Update the inner HTML of the grid item
             gridItem.innerHTML = `
-                <h2 class="course-name">${course['Course Name']}</h2>
                 <i class="bi bi-mortarboard icon"></i>
+                <h2 class="course-name">${course['Course Name']}</h2>
                 <ul>
                     <li class="course-id">מספר קורס: ${courseId}</li>
                     <li class ="department"> חוג: ${course.Department}</li>
