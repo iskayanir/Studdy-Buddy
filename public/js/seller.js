@@ -170,12 +170,7 @@ function showrequests(idcourse){
                     }
                 }
             }
-            // var courseContent = document.getElementById('course-content');
-            // if (matchingRequests.length === 0 || courseContent.children.length === 0) {
-            //     console.log('No matching requests found');
-            //     var coursetitle = document.getElementById("coursedata");
-            //     coursetitle.innerHTML = ' איו בקשות בקורס -  ' + idcourse;
-            //     return null;}
+
             if (matchingRequests.length === 0) {
                 console.log('No matching requests found');
                 return null;
@@ -327,11 +322,7 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
 
                 const IdSeller = localStorage.getItem('GlobalStudentID');
                 console.log(IdSeller + "סלר")
-                // const fromName = await getNameSeller(IdSeller);
-                // const sellerData = JSON.parse(localStorage.getItem('userData'));
-                // const mailSeller = sellerData.email;
-                // const telSeller = await getTelSeller(IdSeller);
-        
+
                 const SellerDetails = await getSellerOfRequest(IdSeller);
               
                 const message = `This is my mail: ${SellerDetails.email} , and this is my phone: ${SellerDetails.tel}.\n\nA little about me: ${SellerDetails.aboutme}\n\nMy hobbies: ${SellerDetails.hobbies}`;
@@ -417,41 +408,6 @@ async function getRequestDetails(IdRequest) {
 
 
 
-// async function getNameSeller(IdSeller) {
-//     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data) {
-//                 return data.name; // מחזיר את השם של הסטודנט
-//             } else {
-//                 console.log("No student found for this ID");
-//                 return null;
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error fetching student data:', error);
-//             return null;
-//         });
-// }
-
-// async function getTelSeller(IdSeller) {
-//     return fetch(`https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app/student/studentsProvidingHelp/${IdSeller}.json`)
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data) {
-//                 return data.tel; // מחזיר את השם של הסטודנט
-//             } else {
-//                 console.log("No student found for this ID");
-//                 return null;
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error fetching student data:', error);
-//             return null;
-//         });
-// }
-
-
 async function getSellerOfRequest(IdSeller) {
     try {
         console.log(IdSeller + " id seller");
@@ -521,32 +477,6 @@ async function getSellerOfRequest(IdSeller) {
 
     
 
-// require('dotenv').config();
-// emailjs.init("3tDwFwbFt57-geFOx");
-
-
-// function sendEmail(toEmail, toName, fromName, message, mailSeller, requestDetails) {
-//     console.log("מייל נשלח");
-//     console.log(toEmail, toName, fromName, message)
-//     console.log(mailSeller)
-//     emailjs.send("service_7sqzy6r", "template_hpt1elf", {
-//         email_buyer: toEmail,  // זהו השם שמופיע בטמפלייט שלך
-//         to_name: toName,
-//         from_name: fromName,
-//         message: message,
-//         email_seller: mailSeller,
-//         date: requestDetails[0],
-//         id_course: requestDetails[1],
-//         topic: requestDetails[2],
-//         type: requestDetails[3],
-
-//     })
-//     .then(function(response) {
-//        console.log('SUCCESS!', response.status, response.text);
-//     }, function(error) {
-//        console.error('FAILED...', error);
-//     });
-// }
 
 require('dotenv').config();
 emailjs.init(process.env.EMAILJS_USER_ID);

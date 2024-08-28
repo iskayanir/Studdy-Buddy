@@ -1,25 +1,4 @@
 
-// const { initializeApp } = require("firebase/app");
-// const { getDatabase, ref, onValue, query, orderByChild, equalTo, get } = require("firebase/database");
-
-// const firebaseConfig = {
-//     apiKey: "AIzaSyBca6BVRgwMO3XJ_gVIn2DK3uHxj7bnHms",
-//     authDomain: "study-buddy-d457d.firebaseapp.com",
-//     databaseURL: "https://study-buddy-d457d-default-rtdb.europe-west1.firebasedatabase.app",
-//     projectId: "study-buddy-d457d",
-//     storageBucket: "study-buddy-d457d.appspot.com",
-//     messagingSenderId: "254149753908",
-//     appId: "1:254149753908:web:04ccb86462b3ee2d815e61",
-//     measurementId: "G-G9L8WVHF1X",
-//   };
-
-// const app = initializeApp(firebaseConfig);
-// const database = getDatabase(app);
-
-// module.exports = database;
-
-
-//
 require('dotenv').config();
 const { initializeApp } = require("firebase/app");
 const { getDatabase, ref, onValue } = require("firebase/database");
