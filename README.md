@@ -1,5 +1,5 @@
 # Studdy-Buddy
-A university project that aims to help reservists in their studies
+A university project that aims to help student soldiers in reserve service in their studies
 
 # to run the project you need to run these commands in the terminal:
 
