@@ -521,14 +521,41 @@ async function getSellerOfRequest(IdSeller) {
 
     
 
+// require('dotenv').config();
+// emailjs.init("3tDwFwbFt57-geFOx");
 
-emailjs.init("3tDwFwbFt57-geFOx");
+
+// function sendEmail(toEmail, toName, fromName, message, mailSeller, requestDetails) {
+//     console.log("מייל נשלח");
+//     console.log(toEmail, toName, fromName, message)
+//     console.log(mailSeller)
+//     emailjs.send("service_7sqzy6r", "template_hpt1elf", {
+//         email_buyer: toEmail,  // זהו השם שמופיע בטמפלייט שלך
+//         to_name: toName,
+//         from_name: fromName,
+//         message: message,
+//         email_seller: mailSeller,
+//         date: requestDetails[0],
+//         id_course: requestDetails[1],
+//         topic: requestDetails[2],
+//         type: requestDetails[3],
+
+//     })
+//     .then(function(response) {
+//        console.log('SUCCESS!', response.status, response.text);
+//     }, function(error) {
+//        console.error('FAILED...', error);
+//     });
+// }
+
+require('dotenv').config();
+emailjs.init(process.env.EMAILJS_USER_ID);
 
 function sendEmail(toEmail, toName, fromName, message, mailSeller, requestDetails) {
     console.log("מייל נשלח");
     console.log(toEmail, toName, fromName, message)
     console.log(mailSeller)
-    emailjs.send("service_7sqzy6r", "template_hpt1elf", {
+    emailjs.send(process.env.EMAILJS_SERVICE_ID, process.env.EMAILJS_TEMPLATE_ID, {
         email_buyer: toEmail,  // זהו השם שמופיע בטמפלייט שלך
         to_name: toName,
         from_name: fromName,
@@ -538,7 +565,6 @@ function sendEmail(toEmail, toName, fromName, message, mailSeller, requestDetail
         id_course: requestDetails[1],
         topic: requestDetails[2],
         type: requestDetails[3],
-
     })
     .then(function(response) {
        console.log('SUCCESS!', response.status, response.text);
@@ -546,4 +572,3 @@ function sendEmail(toEmail, toName, fromName, message, mailSeller, requestDetail
        console.error('FAILED...', error);
     });
 }
-
