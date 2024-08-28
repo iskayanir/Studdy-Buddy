@@ -47,45 +47,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
-    const checkboxes = dropdownMenu.querySelectorAll('input[type="checkbox"]');
-    const divs = document.querySelectorAll('.content div');
-
-    // Toggle dropdown visibility
-    dropdownToggle.addEventListener('click', function() {
-        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // Filter divs based on selected checkboxes
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            const selectedClasses = Array.from(checkboxes)
-                .filter(checkbox => checkbox.checked)
-                .map(checkbox => checkbox.value);
-
-            divs.forEach(div => {
-                const span = div.querySelector('span');
-                if (span && selectedClasses.includes(span.className)) {
-                    div.style.display = 'block';
-                } else {
-                    div.style.display = 'none';
-                }
-            });
-        });
-    });
-
-    // Close the dropdown menu if clicked outside
-    window.addEventListener('click', function(e) {
-        if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
-            dropdownMenu.style.display = 'none';
-        }
-    });
-});
-</script> -->
     <div class="container">
         <div class="section" id="section5">
             <div class="banner-container">
@@ -95,20 +56,6 @@
                     
                 </figure>
             </div>
-            <!-- <div class="dropdown">
-                <button class="dropdown-toggle">בחר סוג עזרה</button>
-                <div class="dropdown-menu">
-                    <label>
-                        <input type="checkbox" value="summary-sicom"> סיכום שיעור
-                    </label>
-                    <label>
-                        <input type="checkbox" value="summary-hashlama"> השלמת נושא
-                    </label>
-                    <label>
-                        <input type="checkbox" value="summary-ezra"> עזרה בתרגיל בית
-                    </label>
-                </div>
-            </div> -->
             <div class="course-content-grid" id="course-content">
 
             </div>
@@ -135,10 +82,6 @@
 
 
     <script src="js/seller.js"></script>
-    <!-- <script type="module">
-        import { sendEmail } from './js/firebase-app.js';
-      
-      </script> -->
     <script>
         window.onload = function(){
             // שליפת נתוני המשתמש מ-Local Storage
