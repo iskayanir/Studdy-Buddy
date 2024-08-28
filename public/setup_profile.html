@@ -33,8 +33,6 @@
         <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="saveUserType('studentsReceivingHelp');"> אני רוצה עזרה
         <input id="user-seller" name="user" type="radio" value="Seller" onclick="saveUserType('studentsProvidingHelp');"> אני רוצה לעזור <br>
         
-      <!-- <input id="user-buyer" name="user" type="radio" value="Buyer" checked onclick="saveUserType('studentsReceivingHelp'); window.location.href = 'setup_profile.html';"> אני רוצה עזרה
-      <input id="user-seller" name="user" type="radio" value="Seller" onclick="saveUserType('studentsProvidingHelp'); window.location.href = 'setup_profile.html';"> אני רוצה לעזור <br> -->
   </article>
 
   <section class="form-content">  
@@ -75,9 +73,6 @@
   <script type="module">
     import { saveProfileDataToFirebase, saveUserType } from './js/firebase-app.js';
   
-    // document.querySelector('.finish button').addEventListener('click', function() {
-    //     saveProfileDataToFirebase('studentsReceivingHelp');
-    // });
   </script>
   <script>
     localStorage.setItem('defaultType', '');
