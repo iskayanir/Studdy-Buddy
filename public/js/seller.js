@@ -322,8 +322,8 @@ async function createAndAppendNewItem(dateCreateRequest, typehelp, topic, status
             console.log('Click event triggered');
             try {
                 const BuyerDetails = await getBuyerOfRequest(requestId);
-                alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${BuyerDetails.name}:\nקצת עליי: ${BuyerDetails.bio}\nתחביבים שלי: ${BuyerDetails.hobbies}\nטלפון: ${BuyerDetails.phone}\nאימייל: ${BuyerDetails.email}`);
-
+                // alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${BuyerDetails.name}:\nקצת עליי: ${BuyerDetails.aboutme}\nתחביבים שלי: ${BuyerDetails.hobbies}\nטלפון: ${BuyerDetails.phone}\nאימייל: ${BuyerDetails.email}`);
+                alert(`אישור הבקשה עם פרטי הקשר שלך נשלח לסטודנט בהצלחה!\n\nניתן גם ליצור קשר באמצעות הפרטים הבאים:\nפרטי הקשר של ${BuyerDetails.name}:\nקצת עליי: ${BuyerDetails.aboutme}\nתחביבים שלי: ${BuyerDetails.hobbies}\nטלפון: ${BuyerDetails.phone}\nאימייל: ${BuyerDetails.email}\n\nפרטי הקשר שלך נשלחו ל-${BuyerDetails.name} במייל והוא יוכל לראות שבקשתו אושרה באתר.`);
 
                 const IdSeller = localStorage.getItem('GlobalStudentID');
                 console.log(IdSeller + "סלר")
@@ -508,7 +508,7 @@ async function getSellerOfRequest(IdSeller) {
     
             return {
                 name: studentData.name || '',
-                bio: studentData.aboutme || '',
+                aboutme: studentData.aboutme || '',
                 phone: studentData.tel || '',
                 email: studentData.mail || '',
                 hobbies: studentData.hobbies || '',
